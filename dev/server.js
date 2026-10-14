@@ -82,7 +82,7 @@ async function api(req, res, action) {
     case 'save': {
       if (!logged) return fail('auth');
       const c = b.content; if (!c || typeof c !== 'object') return fail('bad_config');
-      const keep = {}; ['site', 'types', 'facilities', 'reviews'].forEach((k) => { if (c[k] !== undefined) keep[k] = c[k]; });
+      const keep = {}; ['site', 'types', 'facilities', 'reviews', 'faqs', 'articles'].forEach((k) => { if (c[k] !== undefined) keep[k] = c[k]; });
       keep.savedAt = new Date().toISOString();
       const json = JSON.stringify(keep, null, 2).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
       fs.writeFileSync(CJSON, json + '\n'); fs.writeFileSync(CJS, 'window.SITE_CONTENT = ' + json + ';\n');

@@ -78,7 +78,12 @@ function siteConfig(string $jsonFile): array {
 /* 사진 경로는 uploads/ 아래 파일이나 img/ 기본 이미지만 허용 */
 function cleanPath($p): string {
     $p = cleanStr($p, 200);
-    return preg_match('#^(uploads/\d{6}/[a-f0-9]{16,40}\.(jpg|png|webp)|img/[a-z0-9_.-]+\.(svg|png|jpg|webp))$#', $p) ? $p : '';
+    return preg_match('#^(uploads/\d{6}/[a-f0-9]{16,40}\.(jpg|png|webp)|img/(?:(?:fac|rev|art)/)?[a-z0-9_.-]+\.(svg|png|jpg|webp))$#', $p) ? $p : '';
+}
+/* 외부 링크는 https 만 허용 */
+function cleanUrl($u): string {
+    $u = cleanStr($u, 400);
+    return preg_match('#^https://[^\s"<>]+$#', $u) ? $u : '';
 }
 function cleanItem(array $x, array $strFields, int $long = 3000): array {
     $o = [];
@@ -89,9 +94,9 @@ function sanitizeContent(array $c): array {
     $out = [];
     if (isset($c['site']) && is_array($c['site'])) {
         $s = $c['site']; $o = [];
-        foreach (['name','slogan','phone','hours','kakao','notifyEmail','bizName','ceo','bizNo','address','email','heroTitle','heroSub','finalTitle'] as $k) if (isset($s[$k])) $o[$k] = cleanStr($s[$k], 400);
+        foreach (['name','slogan','phone','hours','notifyEmail','bizName','bizDesc','ceo','bizNo','address','email','heroEyebrow','heroTitle','heroSub','finalTitle'] as $k) if (isset($s[$k])) $o[$k] = cleanStr($s[$k], 400);
         foreach (['logo','heroImage'] as $k) if (isset($s[$k])) $o[$k] = cleanPath($s[$k]);
-        if (isset($o['kakao']) && $o['kakao'] !== '' && !preg_match('#^https://#', $o['kakao'])) $o['kakao'] = '';
+        foreach (['kakao','blogUrl','supportFormUrl'] as $k) if (isset($s[$k])) $o[$k] = cleanUrl($s[$k]);
         foreach (['heroBadges','regions'] as $k) if (isset($s[$k]) && is_array($s[$k])) $o[$k] = array_values(array_filter(array_map(function ($v) { return cleanStr($v, 60); }, array_slice($s[$k], 0, 30)), 'strlen'));
         foreach (['why','steps'] as $k) if (isset($s[$k]) && is_array($s[$k])) {
             $o[$k] = [];
@@ -104,7 +109,7 @@ function sanitizeContent(array $c): array {
         foreach (['sumok','napgol','maejang','ijang'] as $key) {
             if (!isset($c['types'][$key]) || !is_array($c['types'][$key])) continue;
             $t = $c['types'][$key];
-            $o = cleanItem($t, ['short','desc','price','priceNote']);
+            $o = cleanItem($t, ['short','desc','price','priceNote','priceTag']);
             if (isset($t['image'])) $o['image'] = cleanPath($t['image']);
             foreach (['pros','cons','recommend','reasons'] as $k) if (isset($t[$k]) && is_array($t[$k])) $o[$k] = array_values(array_filter(array_map(function ($v) { return cleanStr($v, 200); }, array_slice($t[$k], 0, 20)), 'strlen'));
             if (isset($t['faqs']) && is_array($t['faqs'])) { $o['faqs'] = []; foreach (array_slice($t['faqs'], 0, 30) as $f) if (is_array($f)) $o['faqs'][] = ['q' => cleanStr($f['q'] ?? '', 200), 'a' => cleanStr($f['a'] ?? '', 1500)]; }
@@ -122,11 +127,26 @@ function sanitizeContent(array $c): array {
             if (!in_array($o['type'] ?? '', ['sumok','napgol','maejang','ijang'], true)) $o['type'] = 'sumok';
             $o['photos'] = [];
             foreach (array_slice(is_array($x['photos'] ?? null) ? $x['photos'] : [], 0, 30) as $p) { $p = cleanPath($p); if ($p !== '') $o['photos'][] = $p; }
+            if (isset($x['blogUrl'])) $o['blogUrl'] = cleanUrl($x['blogUrl']);
             if ($listKey === 'facilities') $o['tags'] = array_values(array_filter(array_map(function ($v) { return cleanStr($v, 30); }, array_slice(is_array($x['tags'] ?? null) ? $x['tags'] : [], 0, 10)), 'strlen'));
             $o['featured'] = !empty($x['featured']);
             $o['visible'] = !isset($x['visible']) || !empty($x['visible']);
             if (!empty($x['sample'])) $o['sample'] = true;
             $out[$listKey][] = $o;
+        }
+    }
+    if (isset($c['faqs']) && is_array($c['faqs'])) {
+        $out['faqs'] = [];
+        foreach (array_slice($c['faqs'], 0, 40) as $f) if (is_array($f)) $out['faqs'][] = ['q' => cleanStr($f['q'] ?? '', 200), 'a' => cleanStr($f['a'] ?? '', 1500)];
+    }
+    if (isset($c['articles']) && is_array($c['articles'])) {
+        $out['articles'] = [];
+        foreach (array_slice($c['articles'], 0, 30) as $a) {
+            if (!is_array($a)) continue;
+            $url = cleanUrl($a['url'] ?? '');
+            $title = cleanStr($a['title'] ?? '', 200);
+            if ($url === '' || $title === '') continue;
+            $out['articles'][] = ['title' => $title, 'url' => $url, 'image' => cleanPath($a['image'] ?? ''), 'date' => cleanStr($a['date'] ?? '', 10)];
         }
     }
     return $out;

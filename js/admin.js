@@ -36,14 +36,13 @@
     var c = clone(D);
     c.site = Object.assign(c.site, saved.site || {});
     TYPE_KEYS.forEach(function (k) { c.types[k] = Object.assign(c.types[k], (saved.types || {})[k] || {}); });
-    if (Array.isArray(saved.facilities)) c.facilities = saved.facilities;
-    if (Array.isArray(saved.reviews)) c.reviews = saved.reviews;
+    ['facilities', 'reviews', 'faqs', 'articles'].forEach(function (k) { if (Array.isArray(saved[k])) c[k] = saved[k]; if (!Array.isArray(c[k])) c[k] = []; });
     return c;
   }
   function payload() {
     var c = state.content, types = {};
     TYPE_KEYS.forEach(function (k) { var t = clone(c.types[k]); delete t.name; delete t.path; types[k] = t; });
-    return { site: c.site, types: types, facilities: c.facilities, reviews: c.reviews };
+    return { site: c.site, types: types, facilities: c.facilities, reviews: c.reviews, faqs: c.faqs, articles: c.articles };
   }
   function setDirty(v) {
     state.dirty = v;
@@ -206,7 +205,7 @@
       TYPE_KEYS.map(function (k) { return '<button class="chip' + (state.facFilter === k ? ' on' : '') + '" data-t="' + k + '">' + typeName(k) + ' ' + c.facilities.filter(function (f) { return f.type === k; }).length + '</button>'; }).join('') +
       '</div><span style="flex:1"></span><button class="btn pri" id="fac-add">＋ 시설 추가</button></div>' +
       '<div class="list">' + (list.length ? list.map(function (f) {
-        return '<div class="item"><div class="th" style="' + bg((f.photos && f.photos[0]) || 'img/ph-' + f.type + '.svg') + '"></div><div class="tx"><b>' + esc(f.name || '(이름 없음)') + '</b><small>' +
+        return '<div class="item"><div class="th" style="' + bg((f.photos && f.photos[0]) || (D.types[f.type] || {}).image || 'img/hero.jpg') + '"></div><div class="tx"><b>' + esc(f.name || '(이름 없음)') + '</b><small>' +
           '<span class="lb">' + typeName(f.type) + '</span>' + (f.featured ? '<span class="lb star">메인 추천</span>' : '') + (f.visible === false ? '<span class="lb hide">숨김</span>' : '') + (f.sample ? '<span class="lb sample">예시</span>' : '') +
           esc(f.area || '') + ' · 사진 ' + (f.photos || []).length + '장</small></div><button class="btn sm" data-edit="' + esc(f.id) + '">수정</button></div>';
       }).join('') : '<div class="empty">등록된 시설이 없습니다. "＋ 시설 추가"를 눌러 주세요.</div>') + '</div>';
@@ -226,7 +225,8 @@
       '<div class="row2"><div class="f"><label>지역 (필터에 쓰임)</label><input type="text" name="area" list="regions" value="' + esc(f.area) + '" placeholder="예: 경기"><datalist id="regions">' + regions + '</datalist></div>' +
       '<div class="f"><label>운영 형태</label><input type="text" name="operator" list="ops" value="' + esc(f.operator) + '" placeholder="공설 / 사설 / 종교 / 재단"><datalist id="ops"><option value="공설"><option value="사설"><option value="종교"><option value="재단"></datalist></div></div>' +
       '<div class="f"><label>주소</label><input type="text" name="address" value="' + esc(f.address) + '" placeholder="지도 연결에 쓰입니다"></div>' +
-      '<div class="f"><label>가격 안내</label><input type="text" name="price" value="' + esc(f.price) + '" placeholder="예: 1위 300만원~ / 상담 안내"></div>' +
+      '<div class="f"><label>가격 안내</label><input type="text" name="price" value="' + esc(f.price) + '" placeholder="예: 1위 300만원~ / 상담 시 안내"></div>' +
+      '<div class="f"><label>블로그 답사기 주소</label><input type="url" name="blogUrl" value="' + esc(f.blogUrl || '') + '" placeholder="https://blog.naver.com/baewoong0816/..."><small>넣으면 시설 페이지에 "블로그 답사기 전체 보기" 버튼이 생깁니다.</small></div>' +
       '<div class="f"><label>특징 태그</label><input type="text" name="tags" value="' + esc((f.tags || []).join(', ')) + '" placeholder="쉼표로 구분: 주차 편리, 가족목 가능"></div>' +
       '<div class="f"><label>답사 메모</label><textarea name="comment" placeholder="직접 가 보고 느낀 점, 진입로, 주차, 분위기 등">' + esc(f.comment) + '</textarea></div>' +
       '<label class="chk"><input type="checkbox" name="featured"' + (f.featured ? ' checked' : '') + '>첫 화면에 추천 시설로 보이기</label>' +
@@ -239,7 +239,7 @@
       ok: function (close) {
         var p = document.querySelector('.panel');
         f.type = val(p, 'type'); f.name = val(p, 'name'); f.area = val(p, 'area'); f.operator = val(p, 'operator'); f.address = val(p, 'address');
-        f.price = val(p, 'price'); f.comment = val(p, 'comment'); f.featured = val(p, 'featured'); f.visible = val(p, 'visible');
+        f.price = val(p, 'price'); f.blogUrl = val(p, 'blogUrl'); f.comment = val(p, 'comment'); f.featured = val(p, 'featured'); f.visible = val(p, 'visible');
         f.tags = val(p, 'tags').split(',').map(function (x) { return x.trim(); }).filter(Boolean);
         if (!f.name) { toast('시설 이름을 입력해 주세요.', true); return; }
         delete f.sample;
@@ -266,7 +266,7 @@
       TYPE_KEYS.map(function (k) { return '<button class="chip' + (state.revFilter === k ? ' on' : '') + '" data-t="' + k + '">' + typeName(k) + ' ' + c.reviews.filter(function (r) { return r.type === k; }).length + '</button>'; }).join('') +
       '</div><span style="flex:1"></span><button class="btn pri" id="rev-add">＋ 후기 작성</button></div>' +
       '<div class="list">' + (list.length ? list.map(function (r) {
-        return '<div class="item"><div class="th" style="' + bg((r.photos && r.photos[0]) || 'img/ph-' + r.type + '.svg') + '"></div><div class="tx"><b>' + esc(r.title || '(제목 없음)') + '</b><small>' +
+        return '<div class="item"><div class="th" style="' + bg((r.photos && r.photos[0]) || (D.types[r.type] || {}).image || 'img/hero.jpg') + '"></div><div class="tx"><b>' + esc(r.title || '(제목 없음)') + '</b><small>' +
           '<span class="lb">' + typeName(r.type) + '</span>' + (r.featured ? '<span class="lb star">메인 노출</span>' : '') + (r.visible === false ? '<span class="lb hide">숨김</span>' : '') + (r.sample ? '<span class="lb sample">예시</span>' : '') +
           esc(r.author || '') + ' · ' + esc(r.date || '') + '</small></div><button class="btn sm" data-edit="' + esc(r.id) + '">수정</button></div>';
       }).join('') : '<div class="empty">등록된 후기가 없습니다. "＋ 후기 작성"을 눌러 주세요.</div>') + '</div>';
@@ -287,6 +287,7 @@
       '<div class="row2"><div class="f"><label>고객 이름 (가려서)</label><input type="text" name="author" value="' + esc(r.author) + '" placeholder="김OO"></div>' +
       '<div class="f"><label>날짜</label><input type="date" name="date" value="' + esc(r.date) + '"></div></div>' +
       '<div class="f"><label>후기 내용 *</label><textarea name="body" style="min-height:180px" placeholder="고객이 남긴 말씀이나 진행 내용을 적어 주세요">' + esc(r.body) + '</textarea></div>' +
+      '<div class="f"><label>블로그 원문 주소 (선택)</label><input type="url" name="blogUrl" value="' + esc(r.blogUrl || '') + '" placeholder="https://blog.naver.com/baewoong0816/..."></div>' +
       '<div class="f"><label>사진</label><div id="ph-host"></div><small>사진이 없으면 진행 시설의 대표 사진이 쓰입니다.</small></div>' +
       '<label class="chk"><input type="checkbox" name="featured"' + (r.featured ? ' checked' : '') + '>첫 화면에 보이기</label>' +
       '<label class="chk"><input type="checkbox" name="visible"' + (r.visible !== false ? ' checked' : '') + '>홈페이지에 공개</label>' +
@@ -298,7 +299,7 @@
       ok: function (close) {
         var p = document.querySelector('.panel');
         r.type = val(p, 'type'); r.facilityId = val(p, 'facilityId'); r.title = val(p, 'title'); r.author = val(p, 'author');
-        r.date = val(p, 'date'); r.body = val(p, 'body'); r.featured = val(p, 'featured'); r.visible = val(p, 'visible');
+        r.date = val(p, 'date'); r.body = val(p, 'body'); r.blogUrl = val(p, 'blogUrl'); r.featured = val(p, 'featured'); r.visible = val(p, 'visible');
         if (!r.title || !r.body) { toast('제목과 내용을 입력해 주세요.', true); return; }
         delete r.sample;
         var prev = clone(c.reviews);
@@ -343,7 +344,7 @@
       '<div class="bar"><div class="chips" id="type-chips">' + TYPE_KEYS.map(function (x) { return '<button class="chip' + (x === k ? ' on' : '') + '" data-t="' + x + '">' + typeName(x) + '</button>'; }).join('') + '</div><a class="btn sm" href="' + D.types[k].path + '" target="_blank">페이지 보기</a></div>' +
       '<div class="card"><h3>' + typeName(k) + ' 기본 안내</h3>' +
         '<div class="f"><label>대표 사진</label><div id="type-img"></div><small>첫 화면 유형 카드와 페이지 상단 배경에 쓰입니다. 없으면 기본 그림이 나옵니다.</small></div>' +
-        fText('한 줄 소개', t, 'short') + fArea('설명', t, 'desc', '', '', 120) +
+        fText('한 줄 소개', t, 'short') + fArea('설명', t, 'desc', '', '', 120) + fText('가격 꼬리표', t, 'priceTag', '1인 기준 / 가족 단위', '첫 화면 가격 카드 위의 검은 꼬리표') +
         '<div class="row2">' + fText(k === 'ijang' ? '비용 안내 (크게 표시)' : '평균 가격 (크게 표시)', t, 'price', '예: 300~800만원') + fText('가격 설명', t, 'priceNote', '예: 위치·1인/가족에 따라 달라집니다') + '</div></div>' +
       (k === 'ijang' ?
         '<div class="card"><h3>이장·파묘 내용</h3>' + fArea('이런 경우 상담받으세요', t, 'reasons', '한 줄에 하나씩', 'lines') + fArea('진행 절차', t, 'steps', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 150) + '</div>' :
@@ -364,24 +365,44 @@
 
   /* ---------- 탭: 기본 정보 ---------- */
   function renderSite() {
-    var s = state.content.site;
+    var c = state.content, s = c.site;
     var hero = s.heroImage ? [s.heroImage] : [], logo = s.logo ? [s.logo] : [];
     view.innerHTML = '<h2>기본 정보</h2><p class="help">상호, 전화번호, 첫 화면 문구 등 사이트 전체에 쓰이는 정보입니다. 고친 뒤 아래 "저장하기"를 눌러야 반영됩니다.</p>' +
-      '<div class="card"><h3>연락처</h3><div class="row2">' + fText('상호 (사이트 이름)', s, 'name') + fText('대표 상담 전화', s, 'phone', '1600-0000', '모든 전화 버튼이 이 번호로 연결됩니다.') + '</div>' +
-        '<div class="row2">' + fText('상담 시간', s, 'hours', '24시간 상담 · 연중무휴') + fText('카카오톡 채널 주소', s, 'kakao', 'https://pf.kakao.com/_xxxx', '비워 두면 카톡 버튼이 숨겨집니다.') + '</div>' +
+      '<div class="card"><h3>연락처</h3><div class="row2">' + fText('상호 (사이트 이름)', s, 'name') + fText('대표 상담 전화', s, 'phone', '070-0000-0000', '모든 전화 버튼이 이 번호로 연결됩니다.') + '</div>' +
+        '<div class="row2">' + fText('한 줄 소개 (로고 옆)', s, 'slogan', '장지 안심 동행 서비스') + fText('상담 시간', s, 'hours', '연중무휴 상담') + '</div>' +
+        '<div class="row2">' + fText('카카오톡 채널 주소', s, 'kakao', 'https://pf.kakao.com/...', '비워 두면 카톡 버튼이 숨겨집니다.') + fText('블로그 주소', s, 'blogUrl', 'https://blog.naver.com/...') + '</div>' +
+        fText('장례지원금 신청서 주소', s, 'supportFormUrl', 'https://naver.me/...', '첫 화면 "장례지원금" 띠의 버튼이 이 주소로 연결됩니다. 비우면 띠가 숨겨집니다.') +
         fText('문의 알림 받을 이메일', s, 'notifyEmail', 'example@naver.com', '홈페이지 문의가 들어오면 이 주소로 알림 메일을 보냅니다 (카페24 서버에서 동작).') + '</div>' +
-      '<div class="card"><h3>로고</h3><div id="logo-host"></div><p class="help" style="margin-top:8px">가로형 로고(PNG, 배경 투명) 권장. 없으면 상호 글자로 나옵니다.</p></div>' +
-      '<div class="card"><h3>첫 화면</h3><div class="f"><label>배경 사진</label><div id="hero-host"></div><small>가로 사진 권장. 없으면 기본 그림이 나옵니다.</small></div>' +
-        fArea('큰 제목', s, 'heroTitle', '줄바꿈이 그대로 반영됩니다', '', 70) + fArea('작은 설명', s, 'heroSub', '', '', 70) +
+      '<div class="card"><h3>로고</h3><div id="logo-host"></div><p class="help" style="margin-top:8px">정사각형 또는 육각형 마크(PNG, 배경 투명) 권장. 상호 글자 옆에 작게 나옵니다.</p></div>' +
+      '<div class="card"><h3>첫 화면</h3><div class="f"><label>배경 사진</label><div id="hero-host"></div><small>가로 사진 권장.</small></div>' +
+        fArea('작은 머리글', s, 'heroEyebrow', '큰 제목 위에 작게 나오는 두 줄', '', 60) +
+        fArea('큰 제목', s, 'heroTitle', '줄바꿈이 그대로 반영됩니다', '', 70) +
         fArea('강조 배지', s, 'heroBadges', '한 줄에 하나씩 (예: 상담 무료)', 'lines', 80) +
-        fArea('약속 3가지', s, 'why', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 110) +
-        fArea('진행 절차', s, 'steps', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 120) +
+        fArea('서비스 이용 안내 (4단계)', s, 'steps', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 120) +
+        fArea('배웅의 약속', s, 'why', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 110) +
         fArea('맨 아래 상담 문구', s, 'finalTitle', '', '', 60) + '</div>' +
-      '<div class="card"><h3>상담 지역</h3>' + fArea('지역 목록', s, 'regions', '한 줄에 하나씩. 상담 신청서의 지역 선택지와 시설 지역에 쓰입니다.', 'lines', 120) + '</div>' +
-      '<div class="card"><h3>사업자 정보 (맨 아래 표시)</h3><div class="row2">' + fText('사업자명', s, 'bizName') + fText('대표자', s, 'ceo') + '</div><div class="row2">' + fText('사업자등록번호', s, 'bizNo') + fText('이메일', s, 'email') + '</div>' + fText('주소', s, 'address') + '</div>';
+      '<div class="card"><h3>첫 화면 자주 묻는 질문</h3><div class="pairs" id="gfaqs"></div><button class="btn sm" id="gfaq-add">＋ 질문 추가</button></div>' +
+      '<div class="card"><h3>장례정보 (블로그 글 링크)</h3><p class="help">첫 화면 "배웅이 알려드리는 장례정보"에 나오는 글입니다. 블로그 글 주소와 제목을 넣으세요.</p><div class="pairs" id="arts"></div><button class="btn sm" id="art-add">＋ 글 추가</button></div>' +
+      '<div class="card"><h3>상담 지역</h3>' + fArea('지역 목록', s, 'regions', '한 줄에 하나씩. 상담 신청서의 지역 선택지에 쓰입니다.', 'lines', 120) + '</div>' +
+      '<div class="card"><h3>사업자 정보 (맨 아래 표시)</h3><div class="row2">' + fText('사업자명', s, 'bizName') + fText('업종 소개', s, 'bizDesc') + '</div><div class="row2">' + fText('대표자', s, 'ceo') + fText('사업자등록번호', s, 'bizNo') + '</div><div class="row2">' + fText('주소', s, 'address') + fText('이메일', s, 'email') + '</div></div>';
     bindFields(view, s, { name: function (v) { $('top-name').textContent = v + ' 관리자'; } });
     photoEditor($('hero-host'), hero, function () { s.heroImage = hero[0] || ''; setDirty(true); }, true);
     photoEditor($('logo-host'), logo, function () { s.logo = logo[0] || ''; setDirty(true); }, 'logo');
+    function drawFaqs() {
+      var host = $('gfaqs');
+      host.innerHTML = c.faqs.map(function (f, i) { return '<div class="pair"><input data-i="' + i + '" data-f="q" value="' + esc(f.q) + '" placeholder="질문"><textarea data-i="' + i + '" data-f="a" placeholder="답변">' + esc(f.a) + '</textarea><button class="btn sm del x" data-rm="' + i + '">삭제</button></div>'; }).join('') || '<p class="help">질문이 없습니다.</p>';
+      host.querySelectorAll('[data-f]').forEach(function (el) { el.oninput = function () { c.faqs[+el.dataset.i][el.dataset.f] = el.value; setDirty(true); }; });
+      host.querySelectorAll('[data-rm]').forEach(function (b) { b.onclick = function () { c.faqs.splice(+b.dataset.rm, 1); setDirty(true); drawFaqs(); }; });
+    }
+    function drawArts() {
+      var host = $('arts');
+      host.innerHTML = c.articles.map(function (a, i) { return '<div class="pair"><input data-i="' + i + '" data-f="title" value="' + esc(a.title) + '" placeholder="글 제목"><input data-i="' + i + '" data-f="url" value="' + esc(a.url) + '" placeholder="https://blog.naver.com/..."><input data-i="' + i + '" data-f="date" type="date" value="' + esc(a.date || '') + '"><button class="btn sm del x" data-rm="' + i + '">삭제</button></div>'; }).join('') || '<p class="help">등록된 글이 없습니다.</p>';
+      host.querySelectorAll('[data-f]').forEach(function (el) { el.oninput = function () { c.articles[+el.dataset.i][el.dataset.f] = el.value; setDirty(true); }; });
+      host.querySelectorAll('[data-rm]').forEach(function (b) { b.onclick = function () { c.articles.splice(+b.dataset.rm, 1); setDirty(true); drawArts(); }; });
+    }
+    drawFaqs(); drawArts();
+    $('gfaq-add').onclick = function () { c.faqs.push({ q: '', a: '' }); setDirty(true); drawFaqs(); };
+    $('art-add').onclick = function () { c.articles.unshift({ title: '', url: '', image: '', date: '' }); setDirty(true); drawArts(); };
   }
 
   /* ---------- 탭: 설정 ---------- */
