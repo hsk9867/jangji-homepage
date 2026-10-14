@@ -1,3 +1,5 @@
+/* 글꼴: 조선궁서체(무료 웹폰트). 없으면 윈도우 궁서체 */
+@font-face { font-family: "ChosunGs"; src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGs.woff") format("woff"); font-weight: normal; font-style: normal; font-display: swap; }
 /* 배웅 홈페이지 — 흰 바탕 + 연회색 섹션 + 코랄 포인트, 모바일 우선 */
 :root {
   --ink: #111;
@@ -17,8 +19,8 @@
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body {
   margin: 0; background: #fff; color: var(--ink);
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  font-size: 16px; line-height: 1.6; word-break: keep-all; letter-spacing: -.2px;
+  font-family: "ChosunGs", "Gungsuh", "궁서", "GungSeo", "궁서체", serif;
+  font-size: 16px; line-height: 1.6; word-break: keep-all; letter-spacing: 0;
   padding-bottom: calc(var(--tabH) + env(safe-area-inset-bottom));
 }
 img { max-width: 100%; display: block; }
@@ -32,7 +34,7 @@ p { margin: 0; }
 /* ---------- 헤더 ---------- */
 .hd { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); }
 .hd .wrap { display: flex; align-items: center; height: 60px; gap: 8px; }
-.logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 21px; letter-spacing: -.5px; }
+.logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 21px; letter-spacing: 0; }
 .logo img { width: 30px; height: auto; }
 .logo small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
 .nav { display: none; gap: 2px; margin-left: 28px; }
@@ -75,10 +77,10 @@ p { margin: 0; }
 .sec-gray { background: var(--gray); }
 .sec-title { text-align: center; margin-bottom: 28px; }
 .pill { display: inline-block; font-size: 12px; font-weight: 500; color: var(--ink-2); border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 3px 12px; margin-bottom: 12px; }
-.sec-title h2 { font-size: 24px; letter-spacing: -.6px; }
+.sec-title h2 { font-size: 24px; letter-spacing: 0; }
 .sec-title p { color: var(--ink-3); font-size: 15px; margin-top: 8px; }
 .sec-left { margin-bottom: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
-.sec-left h2 { font-size: 22px; letter-spacing: -.5px; display: flex; align-items: center; gap: 8px; }
+.sec-left h2 { font-size: 22px; letter-spacing: 0; display: flex; align-items: center; gap: 8px; }
 .sec-left h2 .cnt { color: var(--ink-3); font-weight: 500; font-size: 18px; }
 .sec-left p { color: var(--ink-3); font-size: 14px; margin-top: 4px; }
 .sec-left .more { font-size: 14px; color: var(--ink-3); white-space: nowrap; }
@@ -91,7 +93,7 @@ p { margin: 0; }
 .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .15) 30%, rgba(0, 0, 0, .6) 100%); }
 .hero .wrap { position: relative; min-height: 520px; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 44px; }
 .hero .eyebrow { font-size: 14px; font-weight: 500; opacity: .92; white-space: pre-line; line-height: 1.5; }
-.hero h1 { font-size: 28px; letter-spacing: -1px; margin-top: 10px; white-space: pre-line; }
+.hero h1 { font-size: 28px; letter-spacing: 0; margin-top: 10px; white-space: pre-line; }
 .hero .btn-row { margin-top: 24px; max-width: 460px; }
 .hero .btn-line { background: rgba(255, 255, 255, .95); border-color: #fff; }
 .hero-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; font-size: 13px; }
@@ -370,3 +372,4 @@ p { margin: 0; }
 .pcard .box em { text-align: right; }
 .fac, .fac .t, .rev, .art { min-width: 0; }
 .fac .t h3 { min-width: 0; }
+input, select, textarea, button { font-family: inherit; }

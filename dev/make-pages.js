@@ -33,7 +33,6 @@ for (const [file, page, type, title, desc] of pages) {
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="img/logo-mark.png" type="image/png">
 <link rel="apple-touch-icon" href="img/logo-mark.png">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/blog-content.js"></script>
 <script src="js/defaults.js"></script>
