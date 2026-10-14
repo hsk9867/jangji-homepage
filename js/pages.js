@@ -30,7 +30,7 @@
       cards.map(function (c, i) {
         var ext = /^https?:/.test(c.href);
         return '<article class="slide">' + U.img(c.image, c.t, i === 0) + '<span class="tag">' + esc(c.tag) + '</span><h2>' + esc(c.t) + '</h2>' +
-          (c.d ? '<p>' + esc(c.d) + '</p>' : '') + '<a class="btn btn-coral" href="' + esc(c.href) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + (/^tel:/.test(c.href) ? I.phone : '') + esc(c.btn) + '</a></article>';
+          (c.d ? '<p>' + esc(c.d) + '</p>' : '') + '<a class="btn btn-main" href="' + esc(c.href) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + (/^tel:/.test(c.href) ? I.phone : '') + esc(c.btn) + '</a></article>';
       }).join('') + '</div>' +
       (cards.length > 1 ? '<div class="news-foot"><div class="dots" id="news-dots">' + cards.map(function (_, i) { return '<button type="button" aria-label="' + (i + 1) + '번째 카드"' + (i === 0 ? ' class="on"' : '') + '></button>'; }).join('') + '</div>' +
         '<span class="num" id="news-num">1 / ' + cards.length + '</span><button class="arrow" type="button" id="news-prev" aria-label="이전 카드">‹</button><button class="arrow" type="button" id="news-next" aria-label="다음 카드">›</button></div>' : '') +
@@ -84,7 +84,7 @@
 
       /* 8. 장례지원금 */
       (supportUrl ? '<section class="sec" style="padding-bottom:0"><div class="wrap"><div class="support"><div><b>장례지원금, 장례 전에 확인하세요</b><p>받을 수 있는 지원 항목을 배웅이 미리 정리해 드립니다. 지원 여부와 금액은 신청 조건과 심사 결과에 따라 달라집니다.</p></div>' +
-        '<a class="btn btn-coral btn-block" href="' + esc(supportUrl) + '" target="_blank" rel="noopener">장례지원금 신청서 작성</a></div></div></section>' : '') +
+        '<a class="btn btn-main btn-block" href="' + esc(supportUrl) + '" target="_blank" rel="noopener">장례지원금 신청서 작성</a></div></div></section>' : '') +
 
       /* 9. 장례정보 */
       ((C.articles || []).length ? '<section class="sec"><div class="wrap">' + head('배웅이 알려드리는 장례정보', '장지 선택과 계약 전에 알아두면 좋은 내용입니다.', s.blogUrl ? '<a class="more" href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">블로그 ›</a>' : '') +
@@ -137,7 +137,7 @@
       '<section class="sub-hero" style="' + U.bg(U.typeImg(key)) + '"><div class="wrap"><div class="crumb">장지 안내</div><h1>' + esc(t.name) + '</h1><p>' + esc(t.short) + '</p></div></section>' +
       '<section class="sec"><div class="wrap"><div class="intro-grid"><div><span class="pill">' + esc(U.SHORT[key]) + '란?</span><p class="lead">' + nl(t.desc) + '</p></div>' +
         '<div class="price-box"><span class="tg">' + esc(t.priceTag || '평균') + '</span><span class="lb">' + esc(U.SHORT[key]) + ' 평균 가격</span><span class="v">' + esc(t.price) + '</span><small>' + esc(t.priceNote) + '</small>' +
-        '<a class="btn btn-coral btn-block mt16" href="contact.html?type=' + key + '">' + I.form + '내 조건으로 견적 받기</a></div></div>' +
+        '<a class="btn btn-main btn-block mt16" href="contact.html?type=' + key + '">' + I.form + '내 조건으로 견적 받기</a></div></div>' +
         '<div class="pc mt24"><div><h3>좋은 점</h3><ul>' + list(t.pros) + '</ul></div><div><h3>미리 알아두실 점</h3><ul>' + list(t.cons) + '</ul></div><div><h3>이런 가족께 추천해요</h3><ul>' + list(t.recommend) + '</ul></div></div>' +
       '</div></section>' +
       '<section class="sec sec-gray" id="list"><div class="wrap">' + head('<span class="dot-ic">' + (TYPE_ICON[key] || '') + '</span>배웅이 답사한 ' + esc(U.SHORT[key]) + ' <span class="cnt">' + all.length + '곳</span>', '사진을 눌러 시설 정보와 답사 메모를 확인하세요.') +
@@ -188,7 +188,7 @@
       '<section class="sec"><div class="wrap"><div class="intro-grid"><div><span class="pill">파묘·이장이란?</span><p class="lead">' + nl(t.desc) + '</p>' +
         '<div class="pc mt24"><div><h3>이런 경우 상담받으세요</h3><ul>' + list(t.reasons) + '</ul></div></div></div>' +
         '<div class="price-box"><span class="tg">' + esc(t.priceTag || '') + '</span><span class="lb">비용 안내</span><span class="v">' + esc(t.price) + '</span><small>' + esc(t.priceNote) + '</small>' +
-        '<a class="btn btn-coral btn-block mt16" href="' + U.telHref(C.site.phone) + '">' + I.phone + '현장 확인 요청하기</a></div></div></div></section>' +
+        '<a class="btn btn-main btn-block mt16" href="' + U.telHref(C.site.phone) + '">' + I.phone + '현장 확인 요청하기</a></div></div></div></section>' +
       '<section class="sec sec-gray"><div class="wrap">' + head('개장 신고부터\n새 장지 안치까지', '', '', '진행 절차') + '<ol class="steps-v">' +
         (t.steps || []).map(function (st) { return '<li><div><strong>' + esc(st.t) + '</strong><span>' + esc(st.d) + '</span></div></li>'; }).join('') + '</ol></div></section>' +
       (revs.length ? '<section class="sec"><div class="wrap">' + head('파묘·이장 상담 이야기', '', '<a class="more" href="reviews.html?type=ijang">더 보기 ›</a>') + U.rail(revs.map(U.revCard).join(''), 'wide') + '</div></section>' : '') +
@@ -221,7 +221,7 @@
         (f.blogUrl ? '<a class="blog-link" href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener"><span><b>N 블로그</b> 배웅이 쓴 답사기 전체 보기</span><span>›</span></a>' : '') +
         (revs.length ? '<div class="sec-head" style="margin-top:36px"><div class="tx"><h2>이 시설 상담·답사 후기</h2></div></div><div class="rev-grid">' + revs.map(U.revCard).join('') + '</div>' : '') +
       '</div><div><div class="side-cta"><h3>이 시설, 상담받아 보세요</h3><p>현재 선택할 수 있는 자리와 정확한 비용, 동행 답사 일정을 안내해 드립니다. 주말 답사도 무료입니다.</p>' +
-        '<a class="btn btn-coral btn-block" href="' + U.telHref(C.site.phone) + '">' + I.phone + '전화 상담 ' + esc(C.site.phone) + '</a>' +
+        '<a class="btn btn-main btn-block" href="' + U.telHref(C.site.phone) + '">' + I.phone + '전화 상담 ' + esc(C.site.phone) + '</a>' +
         '<a class="btn btn-line btn-block" href="contact.html' + window.CONTACT_QUERY + '">' + I.form + '이 시설로 견적 문의</a>' +
         (C.site.kakao ? '<a class="btn btn-kakao btn-block" href="' + esc(C.site.kakao) + '" target="_blank" rel="noopener">' + I.kakao + '카카오톡 상담</a>' : '') + '</div></div></div></div></section>' +
       (others.length ? '<section class="sec sec-gray"><div class="wrap">' + head('다른 ' + esc(U.SHORT[f.type]) + '도 비교해 보세요', '', '<a class="more" href="' + t.path + '#list">전체 ›</a>') + U.rail(others.map(U.facCard).join('')) + '</div></section>' : '');
@@ -302,7 +302,7 @@
         '<div class="field"><label for="f-phone">휴대폰 번호 <em>*</em></label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" value="' + esc(st.phone) + '" placeholder="010-0000-0000"></div>' +
         '<div class="field"><label for="f-memo">궁금하신 점 (선택)</label><textarea id="f-memo" placeholder="모실 인원, 예산, 원하시는 조건 등을 적어 주세요">' + esc(st.memo) + '</textarea></div>' +
         '<label class="agree"><input type="checkbox" id="f-agree"><span>상담을 위한 개인정보(이름, 연락처, 문의 내용) 수집·이용에 동의합니다. 상담 완료 후 1년간 보관 후 파기합니다. <a href="privacy.html" target="_blank">자세히 보기</a></span></label>' +
-        '<button class="btn btn-coral btn-block" id="send">' + I.check + '무료 상담 신청하기</button><div class="err" id="err"></div>';
+        '<button class="btn btn-main btn-block" id="send">' + I.check + '무료 상담 신청하기</button><div class="err" id="err"></div>';
       el.innerHTML = '<div class="form-wrap"><div class="step-n">' + step + ' / ' + TOTAL + ' 단계</div><div class="progress"><i style="width:' + (step / TOTAL * 100) + '%"></i></div>' +
         picked() + body + (step > 1 ? '<div class="form-nav"><button class="btn btn-line back" id="back">이전</button></div>' : '') +
         '<div class="call-box"><small>입력이 번거로우시면</small><a class="tel" href="' + U.telHref(s.phone) + '">' + esc(s.phone) + '</a><small>' + esc(s.hours) + '</small></div></div>';
@@ -332,7 +332,7 @@
       el.innerHTML = '<div class="form-wrap done"><div class="ok">' + I.check + '</div><h1>상담 신청이 접수되었습니다</h1>' +
         (demo ? '<div class="notice-bar" style="border-radius:10px;margin-top:12px">미리보기 사이트라 실제로 접수되지는 않습니다. 정식 서버에서는 관리자 문의함에 쌓입니다.</div>' : '') +
         '<p>' + esc(rec.name) + '님, 담당자가 확인 후 <b>' + esc(rec.phone) + '</b> 으로 연락드리겠습니다.' + (st.when === 'urgent' ? '<br>급하신 경우 바로 전화 주시면 더 빠르게 안내해 드립니다.' : '') + '</p>' +
-        '<a class="btn btn-coral btn-block" href="' + U.telHref(s.phone) + '">' + I.phone + '바로 전화하기 ' + esc(s.phone) + '</a>' +
+        '<a class="btn btn-main btn-block" href="' + U.telHref(s.phone) + '">' + I.phone + '바로 전화하기 ' + esc(s.phone) + '</a>' +
         '<a class="btn btn-line btn-block mt8" href="./">처음으로</a></div>';
       window.scrollTo(0, 0);
     }

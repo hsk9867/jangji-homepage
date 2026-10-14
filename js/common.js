@@ -90,7 +90,7 @@
       '<div class="field"><label for="qf-type">상담 유형</label><select id="qf-type">' + TYPE_KEYS.map(function (k) { return '<option value="' + k + '"' + (k === presetType ? ' selected' : '') + '>' + esc(typeOf(k).name) + '</option>'; }).join('') + '<option value="unsure">아직 모르겠어요</option><option value="support">장례지원금 문의</option></select></div>' +
       '<div class="field"><label for="qf-memo">문의 내용 (선택)</label><textarea id="qf-memo" placeholder="모실 인원, 희망 지역, 예산 등을 적어 주세요"></textarea></div>' +
       '<label class="agree"><input type="checkbox" id="qf-agree"><span>상담을 위한 개인정보(이름, 연락처, 문의 내용) 수집·이용에 동의합니다. <a href="privacy.html" target="_blank">자세히</a></span></label>' +
-      '<button class="btn btn-coral btn-block" type="submit">무료 상담 신청하기</button><div class="err" id="qf-err"></div></form></div></section>';
+      '<button class="btn btn-main btn-block" type="submit">무료 상담 신청하기</button><div class="err" id="qf-err"></div></form></div></section>';
   }
   function bindApply() {
     var f = document.getElementById('quick-form'); if (!f) return;
@@ -147,7 +147,7 @@
     dr.className = 'drawer';
     dr.innerHTML = '<div class="drawer-in" role="dialog" aria-label="메뉴"><button class="drawer-close" aria-label="메뉴 닫기">×</button><a href="./">홈</a>' + nav +
       '<a href="contact.html">견적·상담 신청</a>' + (s.blogUrl ? '<a href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">배웅 블로그</a>' : '') +
-      '<a class="btn btn-coral btn-block" href="' + telHref(s.phone) + '">' + ICON.phone + esc(s.phone) + '</a>' +
+      '<a class="btn btn-main btn-block" href="' + telHref(s.phone) + '">' + ICON.phone + esc(s.phone) + '</a>' +
       (s.kakao ? '<a class="btn btn-kakao btn-block" style="margin-top:8px" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div>';
     document.body.appendChild(dr);
     hd.querySelector('.menu-btn').onclick = function () { dr.classList.add('open'); };
