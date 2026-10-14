@@ -250,14 +250,15 @@
       var rec = { type: typeName(st.type), region: st.region, when: whenName(st.when), name: st.name, phone: st.phone, memo: st.memo, facility: st.facility, page: document.referrer ? document.referrer.replace(location.origin, '') : '' };
       U.sendInquiry(rec).then(function (res) {
         if (!res || !res.ok) throw new Error((res && res.message) || '접수 실패');
-        done(rec);
+        done(rec, res.demo);
       }).catch(function (e) {
         btn.disabled = false; btn.innerHTML = I.check + '무료 상담 신청하기';
         err.innerHTML = '접수 중 문제가 생겼습니다. ' + esc(e.message && e.message !== 'Failed to fetch' ? e.message : '') + ' 번거로우시겠지만 <a href="' + U.telHref(s.phone) + '"><b>' + esc(s.phone) + '</b></a> 로 전화 주세요.';
       });
     }
-    function done(rec) {
+    function done(rec, demo) {
       el.innerHTML = '<div class="wrap form-wrap done"><div class="ok">' + I.check + '</div><h1>상담 신청이 접수되었습니다</h1>' +
+        (demo ? '<div class="notice-bar" style="border-radius:10px;margin-top:12px">미리보기 사이트라 실제로 접수되지는 않습니다. 정식 서버에서는 관리자 문의함에 쌓입니다.</div>' : '') +
         '<p>' + esc(rec.name) + '님, 담당자가 확인 후 <b>' + esc(rec.phone) + '</b> 으로 연락드리겠습니다.' + (st.when === 'urgent' ? '<br>급하신 경우 바로 전화 주시면 더 빠르게 안내해 드립니다.' : '') + '</p>' +
         '<a class="btn btn-primary btn-block" href="' + U.telHref(s.phone) + '">' + I.phone + '바로 전화하기 ' + esc(s.phone) + '</a>' +
         '<a class="btn btn-line btn-block mt8" href="./">처음으로</a></div>';

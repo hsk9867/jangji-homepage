@@ -134,6 +134,8 @@
 
   /* 문의 전송: 서버(PHP)에 저장. 실패하면 오류를 돌려줌 */
   function sendInquiry(rec) {
+    /* GitHub Pages 미리보기에는 PHP가 없어 실제 접수 대신 안내만 */
+    if (/\.github\.io$/.test(location.hostname)) return Promise.resolve({ ok: true, demo: true });
     return fetch('admin/api.php?action=inquiry', {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'JANGJI' },
       body: JSON.stringify({ inquiry: rec })
