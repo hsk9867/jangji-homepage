@@ -54,7 +54,7 @@
   }
   function revCard(r) {
     var f = facility(r.facilityId);
-    return '<a class="rev" href="review.html?id=' + encodeURIComponent(r.id) + '"><div class="ph">' + img(revPhoto(r), r.title) + '</div>' +
+    return '<a class="rev card-h" href="review.html?id=' + encodeURIComponent(r.id) + '"><div class="ph">' + img(revPhoto(r), r.title) + '</div>' +
       '<div class="bd"><span class="lab">' + esc(SHORT[r.type] || '') + ' 상담</span>' + sampleTag(r) +
       '<div class="who">' + esc(r.author || '고객') + (f ? ' · ' + esc(f.name) : '') + ' · ' + fmtDate(r.date) + '</div>' +
       '<h3>' + esc(r.title) + '</h3><p class="ex">' + esc(r.body) + '</p></div></a>';
@@ -81,10 +81,10 @@
   /* 하단 상담 신청 (간단 폼) */
   function applySection(title, presetType) {
     var s = C.site;
-    return '<section class="sec apply" id="apply"><div class="wrap apply-box"><div><span class="pill">상담 신청</span><h2>' + esc(title || s.finalTitle) + '</h2>' +
+    return '<section class="sec apply" id="apply"><div class="wrap apply-box"><div class="sec-head" style="margin:0"><div class="tx"><span class="pill">상담 신청</span><h2>' + esc(title || s.finalTitle) + '</h2>' +
       '<a class="tel" href="' + telHref(s.phone) + '">' + ICON.phone + esc(s.phone) + '</a><small>' + esc(s.hours) + '</small>' +
-      (s.kakao ? '<a class="btn btn-kakao mt16" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div>' +
-      '<form class="quick-form" id="quick-form" novalidate><div class="f-row two">' +
+      (s.kakao ? '<a class="btn btn-kakao btn-block mt16" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div></div>' +
+      '<form class="quick-form" id="quick-form" novalidate><div class="f-row">' +
       '<div class="field"><label for="qf-name">이름 <em>*</em></label><input id="qf-name" autocomplete="name" placeholder="홍길동"></div>' +
       '<div class="field"><label for="qf-phone">연락처 <em>*</em></label><input id="qf-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"></div></div>' +
       '<div class="field"><label for="qf-type">상담 유형</label><select id="qf-type">' + TYPE_KEYS.map(function (k) { return '<option value="' + k + '"' + (k === presetType ? ' selected' : '') + '>' + esc(typeOf(k).name) + '</option>'; }).join('') + '<option value="unsure">아직 모르겠어요</option><option value="support">장례지원금 문의</option></select></div>' +
@@ -124,12 +124,24 @@
     var s = C.site;
     var here = location.pathname.split('/').pop() || 'index.html';
     var nav = MENU.map(function (m) { return '<a href="' + m[0] + '"' + (here === m[0] ? ' class="on"' : '') + '>' + m[1] + '</a>'; }).join('');
+
+    /* 앱 화면 틀: 가운데 480px 안에 상단 바 + 본문 + 푸터 */
+    var shell = document.createElement('div');
+    shell.className = 'shell';
+    var app = document.getElementById('app');
+    document.body.insertBefore(shell, app);
+    if (window.PREVIEW_MODE) {
+      var nb = document.createElement('div'); nb.className = 'notice-bar'; nb.textContent = '관리자 미리보기 화면입니다. 저장 전 내용이 보입니다.';
+      shell.appendChild(nb);
+    }
+
     var hd = document.createElement('header');
     hd.className = 'hd';
-    hd.innerHTML = '<div class="wrap">' + logoHtml() + '<nav class="nav">' + nav + '</nav><div class="hd-right">' +
-      '<a class="hd-tel" href="' + telHref(s.phone) + '">' + ICON.phone + '<span>' + esc(s.phone) + '</span></a>' +
-      '<a class="hd-apply" href="contact.html">상담 신청</a><button class="menu-btn" aria-label="메뉴 열기">' + ICON.menu + '</button></div></div>';
-    document.body.insertBefore(hd, document.body.firstChild);
+    hd.innerHTML = '<div class="wrap">' + logoHtml() + '<div class="hd-right">' +
+      '<a class="hd-tel" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '" title="전화 상담 ' + esc(s.phone) + '">' + ICON.phone + '</a>' +
+      '<button class="menu-btn" aria-label="메뉴 열기">' + ICON.menu + '</button></div></div>';
+    shell.appendChild(hd);
+    shell.appendChild(app);
 
     var dr = document.createElement('div');
     dr.className = 'drawer';
@@ -148,15 +160,9 @@
       '<p>' + biz + (s.bizDesc ? '<br>' + esc(s.bizDesc) : '') + (s.address ? '<br>' + esc(s.address) : '') + (s.email ? '<br>' + esc(s.email) : '') + '<br>상담 ' + esc(s.hours) + '</p>' +
       '<div class="links"><a href="privacy.html">개인정보 처리방침</a><a href="contact.html">상담 신청</a>' + (s.blogUrl ? '<a href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">블로그</a>' : '') + '</div>' +
       '<p class="mt16">© ' + new Date().getFullYear() + ' ' + esc(s.bizName || s.name) + '</p></div>';
-    document.body.appendChild(ft);
+    shell.appendChild(ft);
 
-    var fl = document.createElement('div');
-    fl.className = 'float';
-    fl.innerHTML = (s.kakao ? '<a class="k" href="' + esc(s.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '</a>' : '') +
-      '<a class="c" href="contact.html' + (window.CONTACT_QUERY || '') + '">온라인<br>상담</a><button class="t" aria-label="맨 위로">↑</button>';
-    document.body.appendChild(fl);
-    fl.querySelector('.t').onclick = function () { window.scrollTo({ top: 0, behavior: 'smooth' }); };
-
+    /* 하단 탭바 (앱 메뉴) — 모든 화면 크기에서 표시 */
     var tb = document.createElement('nav');
     tb.className = 'tabbar';
     tb.setAttribute('aria-label', '빠른 메뉴');
@@ -166,11 +172,6 @@
       (s.kakao ? '<a class="kk" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카톡 상담</a>' : '<a href="reviews.html">' + ICON.form + '상담 후기</a>') +
       '<a href="contact.html' + (window.CONTACT_QUERY || '') + '"' + (here === 'contact.html' ? ' class="on"' : '') + '>' + ICON.form + '상담 신청</a>';
     document.body.appendChild(tb);
-
-    if (window.PREVIEW_MODE) {
-      var nb = document.createElement('div'); nb.className = 'notice-bar'; nb.textContent = '관리자 미리보기 화면입니다. 저장 전 내용이 보입니다.';
-      document.body.insertBefore(nb, document.body.firstChild);
-    }
   }
 
   /* 문의 전송: 서버(PHP)에 저장 */

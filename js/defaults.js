@@ -24,6 +24,15 @@
       heroSub: '',
       heroImage: 'img/hero.jpg',
       heroBadges: ['상담 무료', '주말 무료 동행 답사', '계약 대행'],
+      /* 첫 화면 카드 뉴스 (슬라이드). href 'tel' 은 대표 전화로 연결됩니다. 관리자에서 제목·설명을 고칠 수 있습니다. */
+      cards: [
+        { tag: '배웅 소개', t: '직접 다녀온 곳만\n정직하게 안내합니다', d: '수목장·봉안당·공원묘지 분양부터 파묘·이장까지, 한 번의 상담으로 해결하세요.', btn: '지금 전화 상담', href: 'tel', image: 'img/hero.jpg' },
+        { tag: '수목장', t: '나무 아래 모시는\n자연장, 수목장', d: '개인목 평균 300~500만원. 벌초와 봉분 관리가 필요 없고, 숲을 산책하듯 찾아뵐 수 있습니다.', btn: '수목장 알아보기', href: 'sumokjang.html', image: 'img/fac/gonggam-1.jpg' },
+        { tag: '봉안당', t: '날씨와 관계없이\n찾아뵙는 봉안당', d: '개인단 평균 200~1,500만원. 도심에서 가까운 실내 봉안시설을 답사해 두었습니다.', btn: '봉안당 알아보기', href: 'napgoldang.html', image: 'img/fac/bundanghue-1.jpg' },
+        { tag: '공원묘지', t: '가족이 함께 모이는\n공원묘지', d: '매장묘·가족 봉안묘 1,700만원부터. 벌초 등 관리는 묘원에서 대행합니다.', btn: '공원묘지 알아보기', href: 'maejang.html', image: 'img/fac/jahayeon-1.jpg' },
+        { tag: '동행 답사', t: '주말에도 무료로\n함께 답사합니다', d: '사전 예약 후 담당자가 현장에 동행합니다. 계약 조건은 서면으로 비교해 드립니다.', btn: '답사 예약 신청', href: 'contact.html', image: 'img/fac/bundanghome-1.jpg' },
+        { tag: '이장·파묘', t: '묘를 옮겨야 할 때,\n파묘·이장', d: '개장 신고부터 파묘, 화장, 새 장지 안치까지 배웅이 대행합니다.', btn: '절차 알아보기', href: 'ijang.html', image: 'img/fac/mugunghwa-3.jpg' }
+      ],
       finalTitle: '모실 인원과 희망 지역만 알려주세요.\n배웅이 맞는 곳을 함께 찾아드립니다.',
       why: [
         { t: '직접 답사한 시설만', d: '배웅 상담팀이 직접 다녀와 진입로·주차·관리 상태까지 확인한 곳만 안내합니다.' },

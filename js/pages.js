@@ -7,51 +7,71 @@
   var TYPE_ICON = { sumok: I.tree, napgol: I.house, maejang: I.hill };
 
   /* ---------- HOME ---------- */
+  function head(h2, sub, more, pill) {
+    return '<div class="sec-head"><div class="tx">' + (pill ? '<span class="pill">' + esc(pill) + '</span>' : '') + '<h2>' + h2 + '</h2>' + (sub ? '<p>' + esc(sub) + '</p>' : '') + '</div>' + (more || '') + '</div>';
+  }
   P.home = function (el) {
-    var s = C.site;
+    var s = C.site, D = (window.CONTENT_DEFAULT || {}).site || {};
     setTitle('');
     var revs = U.visibleReviews().filter(function (r) { return r.featured !== false; }).slice(0, 12);
     var supportUrl = s.supportFormUrl;
 
+    /* 카드 뉴스: 관리자가 제목·설명만 고쳐도 버튼·사진은 기본 카드 순서대로 채웁니다 */
+    var defCards = D.cards || [];
+    var cards = (Array.isArray(s.cards) && s.cards.length ? s.cards : defCards).slice(0, 6).map(function (c, i) {
+      var b = defCards[i] || {};
+      var href = c.href || b.href || 'contact.html';
+      return { tag: c.tag || b.tag || '', t: c.t || b.t || '', d: c.d || b.d || '', btn: c.btn || b.btn || '자세히 보기',
+        href: href === 'tel' ? U.telHref(s.phone) : href, image: c.image || b.image || s.heroImage || 'img/hero.svg' };
+    });
+    if (cards.length && s.heroImage) cards[0].image = s.heroImage;
+    if (!cards.length) cards = [{ tag: s.slogan || '', t: s.heroTitle || s.name, d: '', btn: '지금 전화 상담', href: U.telHref(s.phone), image: s.heroImage || 'img/hero.svg' }];
+    var newsHtml = '<section class="news" aria-label="배웅 카드 뉴스"><div class="track" id="news-track">' +
+      cards.map(function (c, i) {
+        var ext = /^https?:/.test(c.href);
+        return '<article class="slide">' + U.img(c.image, c.t, i === 0) + '<span class="tag">' + esc(c.tag) + '</span><h2>' + esc(c.t) + '</h2>' +
+          (c.d ? '<p>' + esc(c.d) + '</p>' : '') + '<a class="btn btn-coral" href="' + esc(c.href) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + (/^tel:/.test(c.href) ? I.phone : '') + esc(c.btn) + '</a></article>';
+      }).join('') + '</div>' +
+      (cards.length > 1 ? '<div class="news-foot"><div class="dots" id="news-dots">' + cards.map(function (_, i) { return '<button type="button" aria-label="' + (i + 1) + '번째 카드"' + (i === 0 ? ' class="on"' : '') + '></button>'; }).join('') + '</div>' +
+        '<span class="num" id="news-num">1 / ' + cards.length + '</span><button class="arrow" type="button" id="news-prev" aria-label="이전 카드">‹</button><button class="arrow" type="button" id="news-next" aria-label="다음 카드">›</button></div>' : '') +
+      '</section>';
+
+    var typeIcon = { sumok: I.tree, napgol: I.house, maejang: I.hill, ijang: I.map };
+
     el.innerHTML =
-      /* 1. 히어로 */
-      '<section class="hero" style="' + U.bg(s.heroImage || 'img/hero.svg') + '"><div class="wrap">' +
-        '<div class="eyebrow">' + esc(s.heroEyebrow || '') + '</div><h1>' + esc(s.heroTitle) + '</h1>' +
-        (s.heroSub ? '<p style="margin-top:10px;opacity:.92">' + nl(s.heroSub) + '</p>' : '') +
-        '<div class="btn-row"><a class="btn btn-coral" href="' + U.telHref(s.phone) + '">' + I.phone + '전화 상담</a>' +
-        '<a class="btn btn-line" href="contact.html">' + I.form + '무료 견적 받기</a></div>' +
-        '<div class="hero-badges">' + (s.heroBadges || []).map(function (b) { return '<span>' + esc(b) + '</span>'; }).join('') + '</div>' +
-      '</div></section>' +
+      /* 1. 카드 뉴스 */
+      newsHtml +
 
       /* 2. 상황 선택 */
-      '<section class="sec sec-gray"><div class="wrap"><div class="sec-title"><span class="pill">장지 상담</span><h2>지금 어떤 상황인지 알려주세요.</h2><p>배웅이 가족의 상황에 꼭 맞는 방법으로 함께 하겠습니다.</p></div>' +
+      '<section class="sec"><div class="wrap">' + head('지금 어떤 상황이신가요?', '가족의 상황에 맞는 방법으로 함께 하겠습니다.', '', '장지 상담') +
         '<div class="situ">' +
-          '<a href="' + U.telHref(s.phone) + '"><div class="top"><span class="emo">🔔</span><span><strong>지금 알아보기</strong><small>지금 바로 모실 곳을 찾아야 해요.</small></span><span class="arr">→</span></div>' +
+          '<a class="card-h" href="' + U.telHref(s.phone) + '"><div class="top"><span class="emo">🔔</span><span><strong>지금 알아보기</strong><small>지금 바로 모실 곳을 찾아야 해요.</small></span><span class="arr">›</span></div>' +
             '<div class="hash"><span>#바로 전화 연결</span><span>#가까운 위치</span><span>#빠른 안치</span><span>#당일 답사</span></div></a>' +
-          '<a href="#types"><div class="top"><span class="emo">📋</span><span><strong>미리 준비하기</strong><small>여유 있게 비교하고 답사할래요.</small></span><span class="arr">→</span></div>' +
+          '<a class="card-h" href="#types"><div class="top"><span class="emo">📋</span><span><strong>미리 준비하기</strong><small>여유 있게 비교하고 답사할래요.</small></span><span class="arr">›</span></div>' +
             '<div class="hash"><span>#시설 비교</span><span>#주말 동행 답사</span><span>#계약 조건 확인</span><span>#장례지원금</span></div></a>' +
         '</div></div></section>' +
 
       /* 3. 상담·답사 후기 */
-      (revs.length ? '<section class="sec"><div class="wrap"><div class="sec-left"><div><h2>배웅 상담·답사 후기 <span class="cnt">' + U.visibleReviews().length + '</span></h2><p>배웅 상담팀이 가족과 함께 다녀온 현장 이야기입니다.</p></div><a class="more" href="reviews.html">전체 보기 ›</a></div>' +
+      (revs.length ? '<section class="sec sec-gray"><div class="wrap">' + head('상담·답사 후기 <span class="cnt">' + U.visibleReviews().length + '건</span>', '배웅 상담팀이 가족과 함께 다녀온 현장 이야기입니다.', '<a class="more" href="reviews.html">전체 보기 ›</a>') +
         U.rail(revs.map(U.revCard).join(''), 'wide') + '</div></section>' : '') +
 
       /* 4. 서비스 이용 안내 */
-      '<section class="sec"><div class="wrap"><div class="sec-title"><h2>서비스 이용 안내</h2></div><ol class="flow">' +
-        (s.steps || []).map(function (st, i) { return '<li><div class="tx"><strong>' + esc(st.t) + '</strong><span>' + esc(st.d) + '</span></div><span class="ic">' + ['📞', '🔍', '📍', '📝', '🕊️'][i % 5] + '</span></li>'; }).join('') +
+      '<section class="sec"><div class="wrap">' + head('서비스 이용 안내', '상담 신청부터 안치까지 네 단계로 진행됩니다.') + '<ol class="flow">' +
+        (s.steps || []).map(function (st, i) { return '<li><span class="no">' + (i + 1) + '</span><div class="tx"><strong>' + esc(st.t) + '</strong><span>' + esc(st.d) + '</span></div><span class="ic">' + ['📞', '🔍', '📍', '📝', '🕊️'][i % 5] + '</span></li>'; }).join('') +
       '</ol></div></section>' +
 
       /* 5. 약속 */
-      '<section class="sec sec-gray"><div class="wrap"><div class="sec-title"><span class="pill">배웅의 약속</span><h2>후회 없는 선택을 위해,\n직접 보고 함께 걷습니다</h2></div>' +
-        '<div class="price-cards" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">' + (s.why || []).map(function (w) { return '<div class="pcard" style="padding:22px 20px"><b style="font-size:17px;display:block;margin-bottom:6px">' + esc(w.t) + '</b><span class="d">' + esc(w.d) + '</span></div>'; }).join('') + '</div>' +
+      '<section class="sec sec-gray"><div class="wrap">' + head('후회 없는 선택을 위해,\n직접 보고 함께 걷습니다', '', '', '배웅의 약속') +
+        '<div class="why">' + (s.why || []).map(function (w) { return '<div class="it"><span class="dot-ic">' + I.check + '</span><div class="tx"><b>' + esc(w.t) + '</b><span>' + esc(w.d) + '</span></div></div>'; }).join('') + '</div>' +
       '</div></section>' +
 
       /* 6. 장지 유형 안내 (가격) */
-      '<section class="sec" id="types"><div class="wrap"><div class="sec-title"><h2>장지 유형 안내</h2><p>가족들이 가장 많이 찾는 장지 유형의 평균 가격과 정보예요.</p></div><div class="price-cards">' +
+      '<section class="sec" id="types"><div class="wrap">' + head('장지 유형 안내', '가족들이 가장 많이 찾는 장지 유형의 평균 가격입니다.') + '<div class="price-cards">' +
         U.TYPE_KEYS.map(function (k, i) {
           var t = U.typeOf(k);
-          return '<a class="pcard' + (i === 0 ? ' hot' : '') + '" href="' + t.path + '"><div class="tags"><span>' + esc(t.priceTag || '') + '</span>' + (i === 0 ? '<span class="h">HOT</span>' : '') + '</div>' +
-            '<span class="d">' + esc(t.short) + '</span><div class="box"><b>' + esc(U.SHORT[k]) + '</b><em>' + esc(t.price) + '</em></div></a>';
+          return '<a class="pcard card-h' + (i === 0 ? ' hot' : '') + '" href="' + t.path + '"><span class="ic">' + typeIcon[k] + '</span>' +
+            '<div class="tx"><div class="nm">' + esc(U.SHORT[k]) + (i === 0 ? '<span class="h">인기</span>' : '') + '</div><span class="d">' + esc(t.short) + '</span></div>' +
+            '<div class="pr"><small>' + esc(t.priceTag || '') + '</small><em>' + esc(t.price) + '</em></div><span class="arr">›</span></a>';
         }).join('') + '</div><p class="price-note">블로그 답사 자료 기준 평균이며, 실제 비용은 시설·위치·관리비에 따라 달라집니다.</p></div></section>' +
 
       /* 7. 유형별 추천 시설 */
@@ -59,24 +79,48 @@
         ['sumok', 'napgol', 'maejang'].map(function (k) {
           var l = U.visibleFacilities(k).filter(function (f) { return f.featured !== false; });
           if (!l.length) return '';
-          return '<div class="type-block"><div class="sec-left"><h2><span class="dot-ic">' + TYPE_ICON[k] + '</span>' + esc(U.SHORT[k]) + ' 추천</h2><a class="more" href="' + U.typeOf(k).path + '#list">더 보기 ›</a></div>' + U.rail(l.map(U.facCard).join('')) + '</div>';
+          return '<div class="type-block">' + head('<span class="dot-ic">' + typeIcon[k] + '</span>' + esc(U.SHORT[k]) + ' 추천', '', '<a class="more" href="' + U.typeOf(k).path + '#list">더 보기 ›</a>') + U.rail(l.map(U.facCard).join('')) + '</div>';
         }).join('') + '</div></section>' +
 
       /* 8. 장례지원금 */
-      (supportUrl ? '<section class="sec" style="padding-bottom:0"><div class="wrap"><div class="support"><div><b>장례지원금, 꼭 장례 전에 확인하세요</b><p>받을 수 있는 지원 항목을 배웅이 미리 정리해 드립니다. 지원 여부와 금액은 신청 조건과 심사 결과에 따라 달라집니다.</p></div>' +
-        '<a class="btn btn-coral" href="' + esc(supportUrl) + '" target="_blank" rel="noopener">장례지원금 신청서 작성</a></div></div></section>' : '') +
+      (supportUrl ? '<section class="sec" style="padding-bottom:0"><div class="wrap"><div class="support"><div><b>장례지원금, 장례 전에 확인하세요</b><p>받을 수 있는 지원 항목을 배웅이 미리 정리해 드립니다. 지원 여부와 금액은 신청 조건과 심사 결과에 따라 달라집니다.</p></div>' +
+        '<a class="btn btn-coral btn-block" href="' + esc(supportUrl) + '" target="_blank" rel="noopener">장례지원금 신청서 작성</a></div></div></section>' : '') +
 
       /* 9. 장례정보 */
-      ((C.articles || []).length ? '<section class="sec"><div class="wrap"><div class="sec-left"><div><h2>배웅이 알려드리는 장례정보</h2><p>장지 선택과 계약 전에 알아두면 좋은 내용을 정리했어요.</p></div>' + (s.blogUrl ? '<a class="more" href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">블로그 ›</a>' : '') + '</div>' +
+      ((C.articles || []).length ? '<section class="sec"><div class="wrap">' + head('배웅이 알려드리는 장례정보', '장지 선택과 계약 전에 알아두면 좋은 내용입니다.', s.blogUrl ? '<a class="more" href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">블로그 ›</a>' : '') +
         U.rail(C.articles.map(U.artCard).join(''), 'wide') + '</div></section>' : '') +
 
       /* 10. FAQ */
-      '<section class="sec" style="padding-top:24px"><div class="wrap" style="max-width:900px"><div class="faq-head"><h2>자주 묻는 질문</h2><p>상담 때 가족들이 가장 많이 물어보시는 내용이에요.</p></div>' + U.faqHtml(C.faqs) + '</div></section>' +
+      '<section class="sec sec-gray"><div class="wrap">' + head('자주 묻는 질문', '상담 때 가족들이 가장 많이 물어보시는 내용입니다.') + U.faqHtml(C.faqs) + '</div></section>' +
 
       /* 11. 상담 신청 */
       U.applySection();
-    // 줄바꿈 표시
-    el.querySelectorAll('.sec-title h2').forEach(function (h) { h.style.whiteSpace = 'pre-line'; });
+
+    /* 카드 뉴스 넘기기: 손가락으로 밀기 + 점(dot)·화살표 + 5초 자동 넘김 */
+    var track = document.getElementById('news-track'), dots = document.getElementById('news-dots');
+    if (track && dots) {
+      var n = cards.length, cur = 0, timer = null, num = document.getElementById('news-num');
+      var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function w() { return track.clientWidth || 1; }
+      function go(i) { cur = (i + n) % n; track.scrollTo({ left: cur * w(), behavior: still ? 'auto' : 'smooth' }); }
+      function sync() {
+        cur = Math.max(0, Math.min(n - 1, Math.round(track.scrollLeft / w())));
+        [].forEach.call(dots.children, function (b, k) { b.classList.toggle('on', k === cur); });
+        num.textContent = (cur + 1) + ' / ' + n;
+      }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      function start() { stop(); if (still) return; timer = setInterval(function () { go(cur + 1); }, 5000); }
+      track.addEventListener('scroll', sync, { passive: true });
+      dots.onclick = function (e) { var b = e.target.closest('button'); if (!b) return; go([].indexOf.call(dots.children, b)); start(); };
+      document.getElementById('news-prev').onclick = function () { go(cur - 1); start(); };
+      document.getElementById('news-next').onclick = function () { go(cur + 1); start(); };
+      track.addEventListener('pointerdown', stop);
+      track.addEventListener('pointerup', start);
+      track.addEventListener('touchstart', stop, { passive: true });
+      track.addEventListener('touchend', start);
+      document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+      start();
+    }
   };
 
   /* ---------- 장지 유형 (수목장·봉안당·공원묘지) ---------- */
@@ -96,11 +140,11 @@
         '<a class="btn btn-coral btn-block mt16" href="contact.html?type=' + key + '">' + I.form + '내 조건으로 견적 받기</a></div></div>' +
         '<div class="pc mt24"><div><h3>좋은 점</h3><ul>' + list(t.pros) + '</ul></div><div><h3>미리 알아두실 점</h3><ul>' + list(t.cons) + '</ul></div><div><h3>이런 가족께 추천해요</h3><ul>' + list(t.recommend) + '</ul></div></div>' +
       '</div></section>' +
-      '<section class="sec sec-gray" id="list"><div class="wrap"><div class="sec-left"><div><h2><span class="dot-ic">' + (TYPE_ICON[key] || '') + '</span>배웅이 답사한 ' + esc(U.SHORT[key]) + ' <span class="cnt">' + all.length + '</span></h2><p>사진을 눌러 시설 정보와 답사 메모를 확인하세요.</p></div></div>' +
+      '<section class="sec sec-gray" id="list"><div class="wrap">' + head('<span class="dot-ic">' + (TYPE_ICON[key] || '') + '</span>배웅이 답사한 ' + esc(U.SHORT[key]) + ' <span class="cnt">' + all.length + '곳</span>', '사진을 눌러 시설 정보와 답사 메모를 확인하세요.') +
         (areas.length > 1 ? '<div class="chips" id="chips"><button class="chip on" data-a="">전체</button>' + areas.map(function (a) { return '<button class="chip" data-a="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div>' : '') +
         '<div class="fac-grid" id="facs"></div></div></section>' +
-      (revs.length ? '<section class="sec"><div class="wrap"><div class="sec-left"><h2>' + esc(U.SHORT[key]) + ' 상담·답사 후기</h2><a class="more" href="reviews.html?type=' + key + '">더 보기 ›</a></div>' + U.rail(revs.map(U.revCard).join(''), 'wide') + '</div></section>' : '') +
-      ((t.faqs || []).length ? '<section class="sec" style="padding-top:' + (revs.length ? '0' : '56px') + '"><div class="wrap" style="max-width:900px"><div class="faq-head"><h2>자주 묻는 질문</h2></div>' + U.faqHtml(t.faqs) + '</div></section>' : '') +
+      (revs.length ? '<section class="sec"><div class="wrap">' + head(esc(U.SHORT[key]) + ' 상담·답사 후기', '', '<a class="more" href="reviews.html?type=' + key + '">더 보기 ›</a>') + U.rail(revs.map(U.revCard).join(''), 'wide') + '</div></section>' : '') +
+      ((t.faqs || []).length ? '<section class="sec sec-gray"><div class="wrap">' + head('자주 묻는 질문') + U.faqHtml(t.faqs) + '</div></section>' : '') +
       U.applySection(U.SHORT[key] + ', 어디가 좋을지\n전화로 편하게 물어보세요.', key);
 
     function draw(area) {
@@ -142,13 +186,13 @@
     el.innerHTML =
       '<section class="sub-hero" style="' + U.bg(U.typeImg('ijang')) + '"><div class="wrap"><div class="crumb">장지 안내</div><h1>' + esc(t.name) + '</h1><p>' + esc(t.short) + '</p></div></section>' +
       '<section class="sec"><div class="wrap"><div class="intro-grid"><div><span class="pill">파묘·이장이란?</span><p class="lead">' + nl(t.desc) + '</p>' +
-        '<div class="pc mt24" style="grid-template-columns:1fr"><div><h3>이런 경우 상담받으세요</h3><ul>' + list(t.reasons) + '</ul></div></div></div>' +
+        '<div class="pc mt24"><div><h3>이런 경우 상담받으세요</h3><ul>' + list(t.reasons) + '</ul></div></div></div>' +
         '<div class="price-box"><span class="tg">' + esc(t.priceTag || '') + '</span><span class="lb">비용 안내</span><span class="v">' + esc(t.price) + '</span><small>' + esc(t.priceNote) + '</small>' +
         '<a class="btn btn-coral btn-block mt16" href="' + U.telHref(C.site.phone) + '">' + I.phone + '현장 확인 요청하기</a></div></div></div></section>' +
-      '<section class="sec sec-gray"><div class="wrap"><div class="sec-title"><span class="pill">진행 절차</span><h2>개장 신고부터 새 장지 안치까지</h2></div><ol class="steps-v">' +
+      '<section class="sec sec-gray"><div class="wrap">' + head('개장 신고부터\n새 장지 안치까지', '', '', '진행 절차') + '<ol class="steps-v">' +
         (t.steps || []).map(function (st) { return '<li><div><strong>' + esc(st.t) + '</strong><span>' + esc(st.d) + '</span></div></li>'; }).join('') + '</ol></div></section>' +
-      (revs.length ? '<section class="sec"><div class="wrap"><div class="sec-left"><h2>파묘·이장 상담 이야기</h2><a class="more" href="reviews.html?type=ijang">더 보기 ›</a></div>' + U.rail(revs.map(U.revCard).join(''), 'wide') + '</div></section>' : '') +
-      ((t.faqs || []).length ? '<section class="sec" style="padding-top:' + (revs.length ? '0' : '56px') + '"><div class="wrap" style="max-width:900px"><div class="faq-head"><h2>자주 묻는 질문</h2></div>' + U.faqHtml(t.faqs) + '</div></section>' : '') +
+      (revs.length ? '<section class="sec"><div class="wrap">' + head('파묘·이장 상담 이야기', '', '<a class="more" href="reviews.html?type=ijang">더 보기 ›</a>') + U.rail(revs.map(U.revCard).join(''), 'wide') + '</div></section>' : '') +
+      ((t.faqs || []).length ? '<section class="sec sec-gray"><div class="wrap">' + head('자주 묻는 질문') + U.faqHtml(t.faqs) + '</div></section>' : '') +
       U.applySection('묘 이전이 고민되시면\n현장 확인부터 무료로 받아보세요.', 'ijang');
   };
 
@@ -168,19 +212,19 @@
     el.innerHTML =
       '<div class="gallery"><div class="track" id="track">' + photos.map(function (p, i) { return U.img(p, f.name + ' 사진 ' + (i + 1), i < 2); }).join('') + '</div>' +
         (photos.length > 1 ? '<button class="nav-b prev" aria-label="이전 사진">‹</button><button class="nav-b next" aria-label="다음 사진">›</button><span class="num" id="num">1 / ' + photos.length + '</span>' : '') + '</div>' +
-      '<section class="sec" style="padding-top:28px"><div class="wrap"><div class="detail-grid"><div>' +
+      '<section class="sec" style="padding-top:24px"><div class="wrap"><div class="detail-grid"><div>' +
         '<div class="d-tags"><a class="ty" href="' + t.path + '">' + esc(U.SHORT[f.type]) + '</a>' + (f.tags || []).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + U.sampleTag(f) + '</div>' +
         '<h1 class="d-title">' + esc(f.name) + '</h1>' +
         '<dl class="info">' + rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') + '</dl>' +
         '<div class="map-links"><a href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도</a><a href="https://map.kakao.com/?q=' + q + '" target="_blank" rel="noopener">카카오맵</a></div>' +
         (f.comment ? '<div class="comment"><strong>배웅 답사 메모</strong>' + esc(f.comment) + '</div>' : '') +
         (f.blogUrl ? '<a class="blog-link" href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener"><span><b>N 블로그</b> 배웅이 쓴 답사기 전체 보기</span><span>›</span></a>' : '') +
-        (revs.length ? '<div class="sec-left" style="margin-top:40px"><h2 style="font-size:20px">이 시설 상담·답사 후기</h2></div><div class="rev-grid">' + revs.map(U.revCard).join('') + '</div>' : '') +
-      '</div><div class="sticky-side"><div class="side-cta"><h3>이 시설, 상담받아 보세요</h3><p>현재 선택할 수 있는 자리와 정확한 비용, 동행 답사 일정을 안내해 드립니다. 주말 답사도 무료입니다.</p>' +
+        (revs.length ? '<div class="sec-head" style="margin-top:36px"><div class="tx"><h2>이 시설 상담·답사 후기</h2></div></div><div class="rev-grid">' + revs.map(U.revCard).join('') + '</div>' : '') +
+      '</div><div><div class="side-cta"><h3>이 시설, 상담받아 보세요</h3><p>현재 선택할 수 있는 자리와 정확한 비용, 동행 답사 일정을 안내해 드립니다. 주말 답사도 무료입니다.</p>' +
         '<a class="btn btn-coral btn-block" href="' + U.telHref(C.site.phone) + '">' + I.phone + '전화 상담 ' + esc(C.site.phone) + '</a>' +
         '<a class="btn btn-line btn-block" href="contact.html' + window.CONTACT_QUERY + '">' + I.form + '이 시설로 견적 문의</a>' +
         (C.site.kakao ? '<a class="btn btn-kakao btn-block" href="' + esc(C.site.kakao) + '" target="_blank" rel="noopener">' + I.kakao + '카카오톡 상담</a>' : '') + '</div></div></div></div></section>' +
-      (others.length ? '<section class="sec sec-gray"><div class="wrap"><div class="sec-left"><h2>다른 ' + esc(U.SHORT[f.type]) + '도 비교해 보세요</h2><a class="more" href="' + t.path + '#list">전체 ›</a></div>' + U.rail(others.map(U.facCard).join('')) + '</div></section>' : '');
+      (others.length ? '<section class="sec sec-gray"><div class="wrap">' + head('다른 ' + esc(U.SHORT[f.type]) + '도 비교해 보세요', '', '<a class="more" href="' + t.path + '#list">전체 ›</a>') + U.rail(others.map(U.facCard).join('')) + '</div></section>' : '');
 
     var track = document.getElementById('track'), num = document.getElementById('num');
     if (num) {
@@ -218,7 +262,7 @@
     setTitle(r.title);
     window.CONTACT_QUERY = '?type=' + r.type;
     var f = U.facility(r.facilityId);
-    el.innerHTML = '<div class="wrap" style="padding-top:28px"><div class="article"><a class="more" href="reviews.html" style="color:#767676;font-size:14px">‹ 후기 목록</a>' +
+    el.innerHTML = '<div class="wrap" style="padding-top:24px"><div class="article"><a class="back-link" href="reviews.html">‹ 후기 목록</a>' +
       '<div class="d-tags mt16"><span class="ty">' + esc(U.SHORT[r.type]) + ' 상담</span>' + U.sampleTag(r) + '</div>' +
       '<h1>' + esc(r.title) + '</h1><div class="who">' + esc(r.author || '고객') + ' · ' + U.fmtDate(r.date) + '</div>' +
       '<div class="body">' + esc(r.body) + '</div>' +
@@ -299,7 +343,7 @@
   P.privacy = function (el) {
     setTitle('개인정보 처리방침');
     var s = C.site;
-    el.innerHTML = '<div class="wrap prose" style="max-width:760px;padding:36px 16px 56px"><h1 style="font-size:26px">개인정보 처리방침</h1>' +
+    el.innerHTML = '<div class="wrap prose" style="padding:28px 20px 48px"><h1>개인정보 처리방침</h1>' +
       '<p class="mt16">' + esc(s.bizName) + '(이하 "회사")는 상담 신청 과정에서 받는 개인정보를 아래와 같이 처리합니다.</p>' +
       '<h2>1. 수집 항목</h2><p>이름, 휴대폰 번호, 문의 내용(장지 유형, 희망 지역, 시기, 요청 사항)</p>' +
       '<h2>2. 수집·이용 목적</h2><p>장지 분양 및 이장·파묘 상담, 견적 안내, 현장 답사 일정 조율을 위한 연락</p>' +

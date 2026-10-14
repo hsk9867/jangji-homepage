@@ -374,10 +374,8 @@
         fText('장례지원금 신청서 주소', s, 'supportFormUrl', 'https://naver.me/...', '첫 화면 "장례지원금" 띠의 버튼이 이 주소로 연결됩니다. 비우면 띠가 숨겨집니다.') +
         fText('문의 알림 받을 이메일', s, 'notifyEmail', 'example@naver.com', '홈페이지 문의가 들어오면 이 주소로 알림 메일을 보냅니다 (카페24 서버에서 동작).') + '</div>' +
       '<div class="card"><h3>로고</h3><div id="logo-host"></div><p class="help" style="margin-top:8px">정사각형 또는 육각형 마크(PNG, 배경 투명) 권장. 상호 글자 옆에 작게 나옵니다.</p></div>' +
-      '<div class="card"><h3>첫 화면</h3><div class="f"><label>배경 사진</label><div id="hero-host"></div><small>가로 사진 권장.</small></div>' +
-        fArea('작은 머리글', s, 'heroEyebrow', '큰 제목 위에 작게 나오는 두 줄', '', 60) +
-        fArea('큰 제목', s, 'heroTitle', '줄바꿈이 그대로 반영됩니다', '', 70) +
-        fArea('강조 배지', s, 'heroBadges', '한 줄에 하나씩 (예: 상담 무료)', 'lines', 80) +
+      '<div class="card"><h3>첫 화면</h3><div class="f"><label>카드 뉴스 첫 장 사진</label><div id="hero-host"></div><small>세로가 긴 사진 권장. 2장째부터는 수목장·봉안당·공원묘지 대표 사진이 자동으로 쓰입니다.</small></div>' +
+        fArea('카드 뉴스 (슬라이드)', s, 'cards', '한 줄에 한 장씩, "제목 | 설명" 형식. 최대 6장. 버튼·연결 페이지·사진은 기본 카드 순서(소개 → 수목장 → 봉안당 → 공원묘지 → 동행 답사 → 이장)를 따릅니다.', 'pairs', 150) +
         fArea('서비스 이용 안내 (4단계)', s, 'steps', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 120) +
         fArea('배웅의 약속', s, 'why', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 110) +
         fArea('맨 아래 상담 문구', s, 'finalTitle', '', '', 60) + '</div>' +
