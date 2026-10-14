@@ -87,8 +87,11 @@ input, select, textarea, button { font-family: inherit; }
 .drawer .btn { margin-top: 16px; border-bottom: 0; }
 
 /* ---------- 버튼 ---------- */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 20px; border-radius: 12px; font-weight: 600; font-size: var(--fs-body); line-height: 1.2; border: 1px solid transparent; white-space: nowrap; transition: transform var(--tr), box-shadow var(--tr), background var(--tr), border-color var(--tr), color var(--tr); will-change: transform; }
-.btn svg { width: 19px; height: 19px; flex: none; }
+.btn { position: relative; overflow: hidden; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 20px; border-radius: 12px; font-weight: 600; font-size: var(--fs-body); line-height: 1.2; border: 1px solid transparent; white-space: nowrap; transition: transform var(--tr), box-shadow var(--tr), background var(--tr), border-color var(--tr), color var(--tr); will-change: transform; }
+.btn svg { width: 19px; height: 19px; flex: none; transition: transform var(--tr); }
+/* 하버 때 버튼 위를 스쳐 지나가는 빛 */
+.btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -75%; width: 50%; background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, .35) 50%, transparent 100%); transform: skewX(-20deg); pointer-events: none; z-index: 1; transition: none; }
+.btn:hover::after { left: 125%; transition: left .55s ease; }
 .btn-sm { min-height: 46px; padding: 0 16px; font-size: 15px; }
 .btn-main { background: var(--accent); color: #fff; box-shadow: 0 4px 12px rgba(27, 27, 31, .2); }
 .btn-dark { background: var(--ink); color: #fff; }
@@ -100,14 +103,28 @@ input, select, textarea, button { font-family: inherit; }
 .btn:active { transform: scale(.97); }
 .btn[disabled] { opacity: .6; pointer-events: none; }
 
-/* 하버(마우스 올렸을 때) 효과 — 마우스가 있는 기기에서만 */
-@media (hover: hover) and (pointer: fine) {
-  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-h); }
-  .btn-main:hover { background: #333; box-shadow: 0 10px 22px rgba(27, 27, 31, .28); }
-  .btn-dark:hover { background: #333; }
-  .btn-line:hover { border-color: var(--ink); background: #fafafa; }
-  .btn-kakao:hover { background: #f7dd00; }
-  .hd-tel:hover, .menu-btn:hover { background: var(--accent-bg); }
+/* 하버(마우스 올렸을 때) 효과
+   버튼: 살짝 떠오르며 그림자가 커지고 색이 뒤집힘(검정 ↔ 흰색), 아이콘이 조금 커지고 빛이 스쳐 지나감.
+   터치만 되는 기기에서는 아래 @media (hover: none) 에서 떠오름·그림자를 끕니다. */
+.btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: var(--shadow-h); }
+.btn:hover svg { transform: scale(1.15); }
+.btn-main:hover { background: #fff; color: var(--ink); border-color: var(--ink); box-shadow: 0 12px 26px rgba(27, 27, 31, .22); }
+.btn-dark:hover { background: #fff; color: var(--ink); border-color: var(--ink); }
+.btn-line:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn-kakao:hover { background: #3c1e1e; color: var(--kakao); box-shadow: 0 12px 26px rgba(60, 30, 30, .3); }
+.btn-kakao:hover svg { color: var(--kakao); }
+.btn:hover:active { transform: translateY(-1px) scale(.98); }
+.hd-tel:hover, .menu-btn:hover { background: var(--accent-bg); }
+.hd-tel:hover svg, .menu-btn:hover svg { transform: scale(1.12); }
+.hd-tel svg, .menu-btn svg { transition: transform var(--tr); }
+@media (hover: none) {
+  .btn:hover { transform: none; box-shadow: none; }
+  .btn-main:hover { background: var(--accent); color: #fff; border-color: transparent; }
+  .btn-line:hover { background: #fff; color: var(--ink); }
+  .btn-kakao:hover { background: var(--kakao); color: #191919; }
+  .btn:hover::after { transition: none; left: -75%; }
+}
+@media (hover: hover) {
   .drawer-in a:hover { color: var(--accent-d); padding-left: 10px; }
   .card-h:hover { transform: translateY(-3px); box-shadow: var(--shadow-h); border-color: var(--accent); }
   .fac:hover .ph img { transform: scale(1.06); }
