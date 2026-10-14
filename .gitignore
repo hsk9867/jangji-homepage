@@ -1,0 +1,9 @@
+deploy/cafe24.local.ps1
+dist/
+admin/auth.php
+admin/auth-dev.json
+admin/.lock.json
+admin/store/*.json
+admin/store/*.lock
+uploads/*/
+dev/test-admin-password.txt

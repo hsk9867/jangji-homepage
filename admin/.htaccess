@@ -1,0 +1,7 @@
+Options -Indexes
+<Files "auth.php">
+Require all denied
+</Files>
+<Files ".lock.json">
+Require all denied
+</Files>
