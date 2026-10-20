@@ -39,7 +39,7 @@
     var head = '<header class="header"><div class="wrap">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅 BAEWOONG"></a>' +
       '<nav class="nav" aria-label="주 메뉴">' + nav + '</nav>' +
-      '<div class="head-cta"><a class="head-tel" href="' + tel(S.phone) + '">' + ICON.phone + esc(S.phone) + '</a><a class="btn btn-gold btn-sm" href="contact.html">상담 신청</a></div>' +
+      '<div class="head-cta"><a class="btn btn-gold btn-sm" href="contact.html">상담 신청</a></div>' +
       '<button class="burger" aria-label="메뉴 열기" id="burger"><span></span><span></span><span></span></button></div></header>' +
       '<div class="drawer" id="drawer"><div class="panel"><button class="close" id="drawerClose" aria-label="닫기">×</button><img src="img/logo-h.png" alt="배웅" style="height:36px;width:auto;margin-bottom:14px">' +
       NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') +
