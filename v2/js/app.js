@@ -34,7 +34,7 @@
   ];
   function shell() {
     var h = here();
-    var top = '<div class="topbar"><div class="wrap"><span>' + esc(S.bizName) + ' · ' + esc(S.bizDesc) + '</span><span>' + esc(S.hours) + ' · <b>' + esc(S.phone) + '</b></span></div></div>';
+    var top = '<div class="topbar"><div class="wrap"><span>' + esc(S.bizName) + ' · ' + esc(S.bizDesc) + '</span><span>' + esc(S.hours) + '</span></div></div>';
     var nav = NAV.map(function (n) { var on = n[0] === h ? ' on' : ''; return '<a href="' + n[0] + '" class="' + (n[2] || '') + on + '">' + n[1] + '</a>'; }).join('');
     var head = '<header class="header"><div class="wrap">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅 BAEWOONG"></a>' +
