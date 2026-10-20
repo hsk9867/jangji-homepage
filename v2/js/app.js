@@ -60,7 +60,7 @@
     if (/introhold/.test(location.search)) document.querySelector('.intro').classList.add('hold'); else setTimeout(function () { var el = document.querySelector('.intro'); if (el) el.remove(); }, 3600);
     /* 슬라이드 */
     var SL = [
-      { img: 'img/hero.jpg', chip: '수목장 분양 안내', tx: '직접 답사한 수목장만,<br>분양 조건을 서면으로 비교해 드려요', href: 'index.html#sumok' },
+      { img: 'img/slide-sumok.jpg', chip: '수목장 분양 안내', tx: '직접 답사한 수목장만,<br>분양 조건을 서면으로 비교해 드려요', href: 'index.html#sumok' },
       { img: 'img/fac/haneulmun-2.jpg', chip: '화장장 예약 안내', tx: '화장장 예약이 처음이라면<br>희망 지역만 알려주세요', href: 'contact.html?type=cremation' },
       { img: 'img/fac/bundanghome-1.jpg', chip: '주말 무료 동행 답사', tx: '주말에도 담당자가<br>현장에 함께 갑니다', href: 'contact.html' }
     ];
