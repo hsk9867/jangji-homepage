@@ -68,7 +68,7 @@ input, select, textarea, button { font-family: inherit; }
 .hd { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, .94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .hd .wrap { display: flex; align-items: center; height: var(--hdH); gap: 4px; }
 .logo { display: flex; align-items: center; gap: 8px; min-width: 0; }
-.logo img { width: 28px; height: auto; flex: none; }
+.logo img { height: 34px; width: auto; flex: none; }
 .logo span { font-family: var(--font-title); font-weight: 800; font-size: 20px; line-height: 1; letter-spacing: -.3px; }
 .logo small { font-size: var(--fs-cap); font-weight: 500; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hd-right { margin-left: auto; display: flex; align-items: center; gap: 2px; }
@@ -418,3 +418,13 @@ input, select, textarea, button { font-family: inherit; }
 .prose p { color: var(--ink); font-size: 15px; line-height: var(--lh-body); }
 @media (max-width: 380px) { :root { --gut: 16px; --fs-display: 24px; --fs-h1: 22px; } .btn { padding: 0 12px; font-size: 15px; } .logo small { display: none; } }
 @media (max-width: 420px) { .logo small { display: none; } }
+
+/* 로고 효과: 등장 시 살짝 내려오며 나타나고, 마우스를 올리면 떠오르면서 빛이 스침 */
+.logo { position: relative; overflow: hidden; border-radius: 8px; }
+.logo img { transition: transform .35s ease, filter .35s ease; animation: logoIn .9s cubic-bezier(.2, .7, .2, 1) both; will-change: transform; }
+.logo::after { content: ''; position: absolute; top: -20%; bottom: -20%; left: -70%; width: 45%; background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .85) 50%, rgba(255, 255, 255, 0) 100%); transform: skewX(-20deg); pointer-events: none; opacity: 0; }
+.logo:hover::after { animation: logoSweep .9s ease forwards; }
+.logo:hover img { transform: translateY(-2px) scale(1.04); filter: drop-shadow(0 6px 10px rgba(43, 61, 45, .28)); }
+@keyframes logoIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes logoSweep { 0% { left: -70%; opacity: 1; } 100% { left: 130%; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .logo img { animation: none; transition: none; } .logo:hover::after { animation: none; } }

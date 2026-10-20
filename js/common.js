@@ -118,7 +118,8 @@
   var MENU = [['sumokjang.html', '수목장'], ['napgoldang.html', '봉안당'], ['maejang.html', '공원묘지'], ['ijang.html', '이장·파묘'], ['facilities.html', '답사 시설'], ['reviews.html', '상담 후기']];
   function logoHtml() {
     var s = C.site;
-    return '<a class="logo" href="./">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="">' : '') + '<span>' + esc(s.name) + '</span>' + (s.slogan ? '<small>' + esc(s.slogan) + '</small>' : '') + '</a>';
+    /* 2026-10-20 새 로고(아치+길+해 마크 + 배웅 워드마크 가로형)로 교체. 텍스트 '배웅'은 로고 안에 있어 표시하지 않음 */
+    return '<a class="logo" href="./"><img src="img/logo-h.png" alt="' + esc(s.name) + '">' + (s.slogan ? '<small>' + esc(s.slogan) + '</small>' : '') + '</a>';
   }
   function layout() {
     var s = C.site;

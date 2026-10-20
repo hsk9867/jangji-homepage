@@ -5,7 +5,7 @@
   window.CONTENT_DEFAULT = {
     site: {
       name: '배웅',
-      logo: 'img/logo-mark.png',
+      logo: 'img/logo-h.png',
       slogan: '장지 안심 동행 서비스',
       phone: '070-7621-4444',
       hours: '연중무휴 상담 · 주말 동행 답사 가능',
