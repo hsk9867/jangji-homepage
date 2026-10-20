@@ -293,12 +293,17 @@ select, input, textarea { font: inherit; color: inherit; }
   .fpage, .related { padding-left: 16px; padding-right: 16px; }
 }
 
-/* 로고 효과: 등장 시 살짝 내려오며 나타나고, 마우스를 올리면 떠오르면서 빛이 스침 */
-.logo { position: relative; overflow: hidden; border-radius: 8px; }
-.logo img { transition: transform .35s ease, filter .35s ease; animation: logoIn .9s cubic-bezier(.2, .7, .2, 1) both; will-change: transform; }
-.logo::after { content: ''; position: absolute; top: -20%; bottom: -20%; left: -70%; width: 45%; background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .85) 50%, rgba(255, 255, 255, 0) 100%); transform: skewX(-20deg); pointer-events: none; opacity: 0; }
-.logo:hover::after { animation: logoSweep .9s ease forwards; }
-.logo:hover img { transform: translateY(-2px) scale(1.04); filter: drop-shadow(0 6px 10px rgba(43, 61, 45, .28)); }
-@keyframes logoIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes logoSweep { 0% { left: -70%; opacity: 1; } 100% { left: 130%; opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .logo img { animation: none; transition: none; } .logo:hover::after { animation: none; } }
+/* 메인 화면 인트로 (자동 재생): 크림 배경 위에서 로고 마크가 아래(길)에서 위(해)로 드러나고, 금빛 해 광채 → 워드마크 → 화면 사라짐 */
+.intro { position: fixed; inset: 0; z-index: 999; background: #F5F1E8; display: flex; align-items: center; justify-content: center; pointer-events: none; animation: introOut .8s ease 2.7s forwards; }
+.intro-in { position: relative; display: flex; flex-direction: column; align-items: center; }
+.intro-glow { position: absolute; left: 50%; top: 34%; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(177, 151, 105, .55) 0%, rgba(177, 151, 105, 0) 70%); transform: translate(-50%, -50%) scale(.2); opacity: 0; animation: introGlow 1.4s ease-out .7s forwards; }
+.intro-mark { position: relative; width: 124px; clip-path: inset(100% 0 0 0); animation: introMark 1.3s cubic-bezier(.2, .7, .2, 1) .2s forwards; }
+.intro-line { width: 0; height: 1px; background: #B19769; margin: 22px 0 16px; animation: introLine .7s ease 1.3s forwards; }
+.intro-word { width: 108px; opacity: 0; transform: translateY(8px); animation: introWord .8s ease 1.5s forwards; }
+@keyframes introMark { to { clip-path: inset(0 0 0 0); } }
+@keyframes introGlow { to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+@keyframes introLine { to { width: 72px; } }
+@keyframes introWord { to { opacity: 1; transform: none; } }
+@keyframes introOut { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .intro { display: none; } }
+.intro.hold, .intro.hold * { animation-play-state: paused; }

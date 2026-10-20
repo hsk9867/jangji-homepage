@@ -116,6 +116,11 @@
 
   /* ---------- 레이아웃 ---------- */
   var MENU = [['sumokjang.html', '수목장'], ['napgoldang.html', '봉안당'], ['maejang.html', '공원묘지'], ['ijang.html', '이장·파묘'], ['facilities.html', '답사 시설'], ['reviews.html', '상담 후기']];
+  /* 메인 화면 인트로(자동 재생 CSS 효과) — 첫 화면에서만, 3.6초 뒤 제거 (스크립트가 head 에서 실행되므로 DOM 준비 후) */
+  document.addEventListener('DOMContentLoaded', function () { if (document.body.dataset.page === 'home') {
+    document.body.insertAdjacentHTML('afterbegin', '<div class="intro" aria-hidden="true"><div class="intro-in"><div class="intro-glow"></div><img class="intro-mark" src="img/logo-mark.png" alt=""><div class="intro-line"></div><img class="intro-word" src="img/logo-word.png" alt=""></div></div>');
+    if (/introhold/.test(location.search)) document.querySelector('.intro').classList.add('hold'); else setTimeout(function () { var el = document.querySelector('.intro'); if (el) el.remove(); }, 3600);
+  } });
   function logoHtml() {
     var s = C.site;
     /* 2026-10-20 새 로고(아치+길+해 마크 + 배웅 워드마크 가로형)로 교체. 텍스트 '배웅'은 로고 안에 있어 표시하지 않음 */

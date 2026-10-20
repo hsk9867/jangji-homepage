@@ -55,6 +55,9 @@
 
   /* ---------- 첫 화면 ---------- */
   function home() {
+    /* 메인 화면 인트로(자동 재생 CSS 효과) */
+    document.body.insertAdjacentHTML('afterbegin', '<div class="intro" aria-hidden="true"><div class="intro-in"><div class="intro-glow"></div><img class="intro-mark" src="img/logo-mark.png" alt=""><div class="intro-line"></div><img class="intro-word" src="img/logo-word.png" alt=""></div></div>');
+    if (/introhold/.test(location.search)) document.querySelector('.intro').classList.add('hold'); else setTimeout(function () { var el = document.querySelector('.intro'); if (el) el.remove(); }, 3600);
     /* 슬라이드 */
     var SL = [
       { img: 'img/hero.jpg', chip: '수목장 분양 안내', tx: '직접 답사한 수목장만,<br>분양 조건을 서면으로 비교해 드려요', href: 'index.html#sumok' },
