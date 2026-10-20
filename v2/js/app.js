@@ -34,7 +34,7 @@
   ];
   function shell() {
     var h = here();
-    var top = '<div class="topbar"><div class="wrap"><span>' + esc(S.bizName) + ' · ' + esc(S.bizDesc) + '</span><span>' + esc(S.hours) + '</span></div></div>';
+    var top = '';
     var nav = NAV.map(function (n) { var on = n[0] === h ? ' on' : ''; return '<a href="' + n[0] + '" class="' + (n[2] || '') + on + '">' + n[1] + '</a>'; }).join('');
     var head = '<header class="header"><div class="wrap">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅 BAEWOONG"></a>' +
@@ -103,14 +103,28 @@
   function home() {
     document.querySelectorAll('[data-grid]').forEach(function (el) { grid(el.dataset.grid, el); });
     var st = document.getElementById('stats');
+    var KI = { map: '<svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>', chat: '<svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>', won: '<svg viewBox="0 0 24 24"><path d="M3 5h2.2l1.7 7 1.8-7h2.6l1.8 7 1.7-7H17l-.6 2H21v2h-5.1l-.5 2H21v2h-6.1l-1.2 5h-2.4l-1.2-5H9.9L8.7 21H6.3l-1.2-5H3v-2h1.6l-.5-2H3V9h.6L3 5zm7.2 6-.3 1h4.2l-.3-1h-3.6z"/></svg>', cal: '<svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V9h14v11zM7 11h5v5H7z"/></svg>' };
     if (st) st.innerHTML = [
-      [facilities().length, '곳', '직접 답사한 시설'], [(C.reviews || []).length, '편', '동행 상담 후기'], ['0', '원', '상담·동행 답사 비용'], ['주말', '', '동행 답사 가능']
-    ].map(function (x) { return '<div class="item"><b>' + x[0] + (x[1] ? '<small>' + x[1] + '</small>' : '') + '</b><span>' + x[2] + '</span></div>'; }).join('');
-    var sv = document.getElementById('services');
-    if (sv) sv.innerHTML = TYPE_KEYS.map(function (k, i) {
-      var t = typeOf(k);
-      return '<a class="svc' + (i === 0 ? ' main' : '') + '" href="#' + k + '"><img src="' + img(t.image) + '" alt=""><div class="t"><small>' + esc(t.priceTag) + ' ' + esc(t.price) + '</small><h3>' + esc(t.name) + '</h3><p>' + esc(t.short) + '</p><span class="more">자세히 보기 ' + ICON.arrow + '</span></div></a>';
-    }).join('');
+      [KI.map, facilities().length, '곳', '직접 답사한 시설'], [KI.chat, (C.reviews || []).length, '편', '동행 상담 후기'], [KI.won, '0', '원', '상담·동행 답사 비용'], [KI.cal, '주말', '', '동행 답사 가능']
+    ].map(function (x) { return '<div class="panel kpi"><i>' + x[0] + '</i><div><b>' + x[1] + (x[2] ? '<small>' + x[2] + '</small>' : '') + '</b><span>' + x[3] + '</span></div></div>'; }).join('');
+    var strip = document.getElementById('strip');
+    if (strip) strip.innerHTML = TYPE_KEYS.map(function (k) { var t = typeOf(k); return '<a href="#' + k + '" data-go="' + k + '"><img src="' + img(t.image) + '" alt=""><span>' + esc(t.name) + '</span></a>'; }).join('');
+    var qt = document.getElementById('qtypes');
+    if (qt) qt.innerHTML = [['sumok', '수목장 분양'], ['napgol', '봉안당'], ['maejang', '매장묘'], ['ijang', '파묘·이장'], ['cremation', '화장장 예약'], ['unsure', '잘 모르겠어요']].map(function (x, i) { return '<label class="opt sm"><input type="radio" name="qtype" value="' + x[0] + '"' + (i === 0 ? ' checked' : '') + '><span>' + x[1] + '</span></label>'; }).join('');
+    var qtel = document.getElementById('q-tel'); if (qtel) { qtel.textContent = S.phone; qtel.parentNode.querySelector('b').outerHTML = '<a href="' + tel(S.phone) + '"><b>' + esc(S.phone) + '</b></a>'; }
+    var ft = document.getElementById('final-tel'); if (ft) { ft.textContent = S.phone; ft.href = tel(S.phone); }
+    var fk = document.getElementById('final-kakao'); if (fk) { if (S.kakao) fk.href = S.kakao; else fk.remove(); }
+    var bl = document.getElementById('blogLink'); if (bl) { if (S.blogUrl) bl.href = S.blogUrl; else bl.remove(); }
+    /* 서비스 탭 */
+    function showTab(k, scroll) {
+      if (!document.querySelector('[data-pane="' + k + '"]')) return;
+      document.querySelectorAll('[data-tab]').forEach(function (b) { b.classList.toggle('on', b.dataset.tab === k); });
+      document.querySelectorAll('[data-pane]').forEach(function (p) { p.classList.toggle('on', p.dataset.pane === k); });
+      if (scroll) document.getElementById('services').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelectorAll('[data-tab]').forEach(function (b) { b.onclick = function () { showTab(b.dataset.tab, false); history.replaceState(null, '', '#' + b.dataset.tab); }; });
+    document.addEventListener('click', function (e) { var a = e.target.closest('a[href^="#"], a[href*="index.html#"]'); if (!a) return; var k = a.getAttribute('href').split('#')[1]; if (k && document.querySelector('[data-pane="' + k + '"]')) { e.preventDefault(); showTab(k, true); history.replaceState(null, '', '#' + k); } });
+    if (location.hash && document.querySelector('[data-pane="' + location.hash.slice(1) + '"]')) showTab(location.hash.slice(1), true);
     ['sumok', 'napgol', 'maejang'].forEach(function (k) {
       var t = typeOf(k), el = document.getElementById('pros-' + k);
       if (el) el.innerHTML = (t.pros || []).map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('');
@@ -119,15 +133,15 @@
     var r = document.getElementById('ijang-reasons'); if (r) r.innerHTML = (ij.reasons || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
     var s = document.getElementById('ijang-steps'); if (s) s.innerHTML = (ij.steps || []).map(function (x, i) { return '<li><i>' + (i + 1) + '</i><div><b>' + esc(x.t) + '</b><p>' + esc(x.d) + '</p></div></li>'; }).join('');
     var sp = document.getElementById('steps'); if (sp) sp.innerHTML = (S.steps || []).map(function (x) { return '<li><b>' + esc(x.t) + '</b><p>' + esc(x.d) + '</p></li>'; }).join('');
-    var wy = document.getElementById('why'); if (wy) wy.innerHTML = (S.why || []).map(function (x) { return '<li><b>' + esc(x.t) + '</b><p>' + esc(x.d) + '</p></li>'; }).join('');
+    var wy = document.getElementById('why'); if (wy) wy.innerHTML = (S.why || []).map(function (x) { return '<li><i>' + ICON.check + '</i><div><b>' + esc(x.t) + '</b><p>' + esc(x.d) + '</p></div></li>'; }).join('');
     var rv = document.getElementById('reviews');
-    if (rv) rv.innerHTML = (C.reviews || []).filter(function (x) { return x.visible !== false; }).slice(0, 3).map(function (x) {
+    if (rv) rv.innerHTML = (C.reviews || []).filter(function (x) { return x.visible !== false; }).slice(0, 5).map(function (x) {
       var f = facility(x.facilityId); var ph = (x.photos || [])[0] || (f && (f.photos || [])[0]);
-      return '<article class="rev">' + (ph ? '<div class="ph"><img src="' + img(ph) + '" alt="" loading="lazy"></div>' : '') + '<div class="body"><div class="q">“</div><h4>' + esc(x.title) + '</h4><p>' + esc((x.body || '').replace(/\n+/g, ' ')) + '</p><div class="meta"><span>' + esc(x.author) + ' · ' + esc(x.date) + '</span>' + (x.blogUrl ? '<a href="' + esc(x.blogUrl) + '" target="_blank" rel="noopener">블로그에서 읽기</a>' : '') + '</div></div></article>';
+      return '<a class="row" href="' + esc(x.blogUrl || '../reviews.html') + '" target="_blank" rel="noopener">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span class="ph-empty"></span>') + '<div><b>' + esc(x.title) + '</b><small>' + esc(x.author) + ' · ' + esc(x.date) + (f ? ' · ' + esc(f.name) : '') + '</small></div><span class="go">읽기 ›</span></a>';
     }).join('');
     var ar = document.getElementById('articles');
-    if (ar) ar.innerHTML = (C.articles || []).slice(0, 6).map(function (a) {
-      return '<a class="art" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + (a.image ? '<img src="' + img(a.image) + '" alt="" loading="lazy">' : '<span></span>') + '<div><b>' + esc(a.title) + '</b><small>' + esc(a.date) + ' · 배웅 블로그</small></div></a>';
+    if (ar) ar.innerHTML = (C.articles || []).slice(0, 5).map(function (a) {
+      return '<a class="row" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + (a.image ? '<img src="' + img(a.image) + '" alt="" loading="lazy">' : '<span class="ph-empty"></span>') + '<div><b>' + esc(a.title) + '</b><small>' + esc(a.date) + ' · 배웅 블로그</small></div><span class="go">읽기 ›</span></a>';
     }).join('');
     var fq = document.getElementById('faq');
     if (fq) fq.innerHTML = (C.faqs || []).map(function (q, i) { return '<details' + (i === 0 ? ' open' : '') + '><summary>' + esc(q.q) + '</summary><div class="a">' + nl(q.a) + '</div></details>'; }).join('');
@@ -137,7 +151,8 @@
       var name = qf.querySelector('#q-name').value.trim(), phone = qf.querySelector('#q-phone').value.trim();
       if (!name || !phone) return alertBox('이름과 연락처를 입력해 주세요.');
       if (!qf.querySelector('#q-agree').checked) return alertBox('개인정보 수집·이용에 동의해 주세요.');
-      location.href = 'contact.html?name=' + encodeURIComponent(name) + '&phone=' + encodeURIComponent(phone) + '&type=' + encodeURIComponent(qf.querySelector('#q-type').value);
+      var qtv = qf.querySelector('input[name=qtype]:checked');
+      location.href = 'contact.html?name=' + encodeURIComponent(name) + '&phone=' + encodeURIComponent(phone) + '&type=' + encodeURIComponent(qtv ? qtv.value : '');
     };
   }
   function alertBox(msg) { var d = document.createElement('div'); d.textContent = msg; d.style.cssText = 'position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:#1C2A1F;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)'; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2200); }
@@ -214,12 +229,12 @@
   function facilityPage() {
     var el = document.getElementById('fpage'); if (!el) return;
     var f = facility(qs('id'));
-    if (!f) { el.innerHTML = '<div class="wrap sec"><p>시설을 찾을 수 없습니다. <a href="index.html" style="text-decoration:underline">첫 화면으로</a></p></div>'; return; }
+    if (!f) { el.innerHTML = '<div class="wrap page"><p>시설을 찾을 수 없습니다. <a href="index.html" style="text-decoration:underline">첫 화면으로</a></p></div>'; return; }
     var t = typeOf(f.type);
     document.title = f.name + ' | 배웅';
     var q = encodeURIComponent(f.address && f.address.length > 8 ? f.address : f.name);
     var photos = (f.photos || []).map(img);
-    el.innerHTML = '<div class="wrap sec"><div class="crumb"><a href="index.html">홈</a> › <a href="index.html#' + esc(f.type) + '">' + esc(t.name) + '</a> › ' + esc(f.name) + '</div>' +
+    el.innerHTML = '<div class="wrap page"><div class="panel"><div class="panel-head"><div class="crumb"><a href="index.html">홈</a> › <a href="index.html#' + esc(f.type) + '">' + esc(t.name) + '</a> › ' + esc(f.name) + '</div></div>' +
       '<div class="fdetail"><div class="gallery"><div class="main"><img id="gmain" src="' + photos[0] + '" alt="' + esc(f.name) + '"></div><div class="thumbs">' + photos.map(function (p, i) { return '<img src="' + p + '" alt="" class="' + (i === 0 ? 'on' : '') + '" data-i="' + i + '">'; }).join('') + '</div></div>' +
       '<div class="finfo"><div class="area">' + esc(t.name) + ' · ' + esc(f.area) + (f.featured ? ' · 배웅 추천' : '') + '</div><h1>' + esc(f.name) + '</h1>' +
       (f.tags && f.tags.length ? '<div class="tags" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">' + f.tags.map(function (x) { return '<span style="font-size:12px;background:var(--cream);border-radius:4px;padding:3px 8px">' + esc(x) + '</span>'; }).join('') + '</div>' : '') +
@@ -228,7 +243,7 @@
       '<div class="maps"><a href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도</a><a href="https://map.kakao.com/?q=' + q + '" target="_blank" rel="noopener">카카오맵</a>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
       '<div class="acts"><a class="btn btn-gold btn-block" href="contact.html?type=' + esc(f.type) + '&facility=' + esc(f.id) + '">' + ICON.form + '이 시설로 상담 신청</a><a class="btn btn-line btn-block" href="' + tel(S.phone) + '">' + ICON.phone + '전화로 바로 묻기 ' + esc(S.phone) + '</a></div>' +
       '<p style="margin-top:14px;font-size:12px;color:var(--muted)">※ 사용료·관리비·이용 기간은 시설 공지에 따라 달라집니다. 계약 전에 서면으로 비교해 드립니다.</p></div></div>' +
-      '<div class="related" style="margin-top:72px"><h3>함께 보는 ' + esc(t.name) + '</h3><div class="fgrid">' + facilities(f.type).filter(function (x) { return x.id !== f.id; }).slice(0, 4).map(fcard).join('') + '</div></div></div>';
+      '<div class="related"><h3>함께 보는 ' + esc(t.name) + '</h3><div class="fgrid">' + facilities(f.type).filter(function (x) { return x.id !== f.id; }).slice(0, 4).map(fcard).join('') + '</div></div></div></div>';
     el.querySelectorAll('.thumbs img').forEach(function (im) { im.onclick = function () { document.getElementById('gmain').src = im.src; el.querySelectorAll('.thumbs img').forEach(function (x) { x.classList.remove('on'); }); im.classList.add('on'); }; });
   }
 
