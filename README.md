@@ -80,3 +80,8 @@ http://localhost:8080 (관리자 /admin.html, 휴대폰 폭 미리보기 /dev/mo
 - 고객 실명 후기 (지금 후기는 배웅 블로그의 상담·답사 이야기)
 - 도메인, 카페24 호스팅 계정
 - 도메인이 정해지면 `dev/make-pages.js` 의 og:image 주소(지금은 GitHub Pages)를 새 도메인으로 바꾸고 `node dev/make-pages.js` 실행
+
+## 배포 (Cloudflare, 2026-10-20 변경)
+카페24 대신 **Cloudflare Workers + D1 + R2** 에 올립니다. 절차는 `deploy/cloudflare.md` 참고.
+`worker.js` 가 `admin/api.php?action=…` 와 같은 주소로 관리자 API 를 제공하므로 관리자 화면과 고객 화면은 그대로이고, `admin/api.php` 와 `deploy/cafe24.ps1` 은 카페24용 예비본으로만 남겨 둡니다.
+로컬 검증: `node dev/test-worker.mjs` (가짜 D1/R2 로 로그인·저장·문의·업로드 흐름 확인).

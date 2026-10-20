@@ -1,0 +1,21 @@
+# Workers Static Assets 로 올리지 않을 파일 (저장소 루트가 assets 디렉터리)
+.git
+.github
+node_modules
+dev
+deploy
+migrations
+admin/api.php
+admin/auth.php
+admin/auth-dev.json
+admin/.lock.json
+admin/store
+uploads
+data/.htaccess
+worker.js
+wrangler.jsonc
+package.json
+package-lock.json
+README.md
+.gitignore
+.assetsignore
