@@ -199,3 +199,28 @@ h1, h2, h3, h4 { font-family: var(--sans); font-weight: 700; letter-spacing: -.0
 .fcard .acts a.fill { background: var(--gold); }
 .fcard .price b { font-family: var(--sans); color: var(--gold-2); }
 .cform .card h3 i { background: var(--gold); }
+
+/* ---------- 타이포그래피 효과 ---------- */
+.tf { opacity: 0; transform: translateY(16px); transition: opacity .75s cubic-bezier(.16, 1, .3, 1), transform .75s cubic-bezier(.16, 1, .3, 1); will-change: opacity, transform; }
+.tf.in { opacity: 1; transform: none; }
+.tf-d1 { transition-delay: .09s; } .tf-d2 { transition-delay: .18s; } .tf-d3 { transition-delay: .27s; }
+.h .w, .h1 .w { display: inline-block; }
+/* 배너 제목: 글자 단위 등장 */
+.banner .txt b .ch { display: inline-block; opacity: 0; transform: translateY(.55em) rotate(3deg); transform-origin: left bottom; }
+.banner .slide.on .txt b .ch { animation: chIn .7s cubic-bezier(.16, 1, .3, 1) forwards; animation-delay: calc(.18s + var(--i, 0) * 32ms); }
+.banner .txt .tag { opacity: 0; transform: translateY(8px); }
+.banner .slide.on .txt .tag { animation: tagIn .55s cubic-bezier(.16, 1, .3, 1) .05s forwards; }
+@keyframes chIn { to { opacity: 1; transform: none; } }
+@keyframes tagIn { to { opacity: 1; transform: none; } }
+/* 강조어: 골드 밑줄이 그어짐 */
+.ul { background-image: linear-gradient(var(--gold), var(--gold)); background-repeat: no-repeat; background-size: 0 2px; background-position: 0 92%; transition: background-size .9s cubic-bezier(.16, 1, .3, 1) .35s; }
+.in .ul, .ul.in { background-size: 100% 2px; }
+/* 숫자 카운트업 */
+.count { font-variant-numeric: tabular-nums; }
+/* 페이지 제목 밑 작은 라벨이 먼저, 제목이 뒤따라 */
+.crumb.tf { transition-delay: 0s; }
+@media (prefers-reduced-motion: reduce) {
+  .tf, .tf.in { opacity: 1; transform: none; transition: none; }
+  .banner .txt b .ch, .banner .txt .tag { opacity: 1; transform: none; animation: none !important; }
+  .ul { background-size: 100% 2px; transition: none; }
+}

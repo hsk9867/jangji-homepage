@@ -76,13 +76,52 @@
       '<b>' + esc(S.bizName) + '</b><br>' + esc(S.bizDesc) + '<br>' + (S.ceo ? '대표 : ' + esc(S.ceo) + ' | ' : '') + '전화 문의 : ' + esc(S.phone) + '<br>' + (S.address ? '주소 : ' + esc(S.address) + '<br>' : '') + (S.bizNo ? '사업자 등록번호 : ' + esc(S.bizNo) + '<br>' : '') +
       '<span style="display:block;margin-top:10px">© ' + new Date().getFullYear() + ' ' + esc(S.bizName) + ' ALL RIGHTS RESERVED. 시설 사진은 배웅 상담팀이 직접 답사하며 촬영했습니다.</span></footer>';
     var fl = '<div class="float">' + (S.kakao ? '<a class="kk" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카톡 상담</a>' : '') + '<a href="' + tel(S.phone) + '">' + ICON.phone + '전화 상담</a></div>';
-    var side = '<aside class="brand-side"><img src="img/logo-h.png" alt="배웅"><h2>모실 곳을 정하는 일,<br>배웅이 처음부터 함께 걷겠습니다</h2><p>직접 답사한 수목장·봉안당·공원묘지만 안내하고, 비용과 조건은 서면으로 비교해 드려요.</p><a class="btn btn-line" href="contact.html">장지 상담 신청하기</a></aside>';
+    var side = '<aside class="brand-side"><img src="img/logo-h.png" alt="배웅"><h2>모실 곳을 정하는 일,<br>배웅이 <em class="ul" style="font-style:normal">처음부터</em> 함께 걷겠습니다</h2><p>직접 답사한 수목장·봉안당·공원묘지만 안내하고, 비용과 조건은 서면으로 비교해 드려요.</p><a class="btn btn-line" href="contact.html">장지 상담 신청하기</a></aside>';
     document.body.insertAdjacentHTML('afterbegin', '<a id="top"></a>' + head);
     document.body.insertAdjacentHTML('beforeend', foot + fl + side);
     var dr = document.getElementById('drawer');
     document.getElementById('burger').onclick = function () { dr.classList.add('open'); };
     document.getElementById('drawerClose').onclick = function () { dr.classList.remove('open'); };
     dr.onclick = function (e) { if (e.target === dr) dr.classList.remove('open'); };
+  }
+
+  /* ---------- 타이포그래피 효과 ---------- */
+  var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function splitChars(text) {
+    var n = 0;
+    return String(text == null ? '' : text).split('\n').map(function (line) {
+      return Array.prototype.map.call(line, function (ch) {
+        if (ch === ' ') return ' ';
+        return '<span class="ch" style="--i:' + (n++) + '">' + esc(ch) + '</span>';
+      }).join('');
+    }).join('<br>');
+  }
+  function countUp(el, to, suffix) {
+    if (REDUCE || !('IntersectionObserver' in window)) { el.textContent = to + suffix; return; }
+    el.textContent = '0' + suffix;
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return; io.disconnect();
+      var t0 = performance.now(), dur = 900;
+      (function tick(now) { var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e) + suffix; if (p < 1) requestAnimationFrame(tick); })(t0);
+    }, { threshold: .6 });
+    io.observe(el);
+  }
+  function typo() {
+    var targets = document.querySelectorAll('.sec .h, .sec .h1, .sec .sub, .sec .crumb, .promo h3, .promo p, .brand-side h2, .brand-side p, .tile, .h-row');
+    if (REDUCE || !('IntersectionObserver' in window)) { document.querySelectorAll('.ul').forEach(function (u) { u.classList.add('in'); }); return; }
+    targets.forEach(function (el) {
+      if (el.classList.contains('tf')) return;
+      var sec = el.closest('.sec, .promo, .brand-side') || el.parentNode;
+      var order = Array.prototype.indexOf.call(sec.querySelectorAll('.h, .h1, .sub, .crumb, h3, p, .tile, .h-row'), el);
+      el.classList.add('tf'); if (order > 0) el.classList.add('tf-d' + Math.min(3, order));
+    });
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.2, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.tf').forEach(function (el) { io.observe(el); });
+    document.querySelectorAll('.ul').forEach(function (u) { if (!u.closest('.tf')) io.observe(u); });
+    // 첫 화면에 이미 보이는 것은 바로
+    requestAnimationFrame(function () { document.querySelectorAll('.tf').forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < innerHeight * .9 && r.bottom > 0) el.classList.add('in'); }); });
   }
 
   /* ---------- 첫 화면 ---------- */
@@ -98,11 +137,14 @@
     if (track && cards.length) {
       track.innerHTML = cards.map(function (c) {
         var href = c.href === 'tel' ? tel(S.phone) : (/\.html$/.test(c.href) ? (c.href === 'contact.html' ? 'contact.html' : 'type.html?type=' + ({ 'sumokjang.html': 'sumok', 'napgoldang.html': 'napgol', 'maejang.html': 'maejang', 'ijang.html': 'ijang' }[c.href] || 'sumok')) : c.href);
-        return '<a class="slide" href="' + esc(href) + '"><img src="' + img(c.image) + '" alt=""><div class="txt"><span class="tag">' + esc(c.tag) + '</span><b>' + nl(c.t) + '</b></div></a>';
+        return '<a class="slide" href="' + esc(href) + '"><img src="' + img(c.image) + '" alt=""><div class="txt"><span class="tag">' + esc(c.tag) + '</span><b>' + splitChars(c.t) + '</b></div></a>';
       }).join('');
       dots.innerHTML = cards.map(function (_, i) { return '<i' + (i === 0 ? ' class="on"' : '') + '></i>'; }).join('');
       var i = 0, n = cards.length, timer;
-      function go(k) { i = (k + n) % n; track.style.transform = 'translateX(-' + (i * 100) + '%)'; dots.querySelectorAll('i').forEach(function (d, j) { d.classList.toggle('on', j === i); }); }
+      var slides = track.querySelectorAll('.slide');
+      function mark() { slides.forEach(function (s, j) { if (j === i) { if (!s.classList.contains('on')) { s.classList.remove('on'); void s.offsetWidth; s.classList.add('on'); } } else s.classList.remove('on'); }); }
+      function go(k) { i = (k + n) % n; track.style.transform = 'translateX(-' + (i * 100) + '%)'; dots.querySelectorAll('i').forEach(function (d, j) { d.classList.toggle('on', j === i); }); mark(); }
+      mark();
       function auto() { clearInterval(timer); timer = setInterval(function () { go(i + 1); }, 5000); }
       auto();
       var sx = null, dx = 0, el = document.getElementById('banner');
@@ -112,7 +154,7 @@
       el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); el.addEventListener('pointerleave', up);
     }
     /* 비용 알아보기 폼 */
-    var fc = document.getElementById('facCount'); if (fc) fc.textContent = facilities().length + '곳';
+    var fc = document.getElementById('facCount'); if (fc) { fc.classList.add('count'); countUp(fc, facilities().length, '곳'); }
     var qr = document.getElementById('q-region');
     if (qr) (S.regions || []).forEach(function (r) { var o = document.createElement('option'); o.value = r; o.textContent = r; qr.appendChild(o); });
     var qf = document.getElementById('qform');
@@ -281,4 +323,5 @@
   if (page === 'contact') contact();
   if (page === 'facility') facilityPage();
   if (page === 'type') typePage();
+  typo();
 })();
