@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>배웅 | 수목장 분양·봉안당·매장묘·파묘 이장 동행 상담</title>
+<meta name="description" content="직접 답사한 경기도 수목장·봉안당·공원묘지만 안내합니다. 수목장 분양부터 파묘·이장, 화장장 예약 안내까지 배웅이 처음부터 함께 걷습니다.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="배웅">
+<meta property="og:title" content="배웅 | 수목장 분양·봉안당·매장묘·파묘 이장 동행 상담">
+<meta property="og:description" content="직접 답사한 경기도 수목장·봉안당·공원묘지만 안내합니다. 수목장 분양부터 파묘·이장, 화장장 예약 안내까지 배웅이 처음부터 함께 걷습니다.">
+<meta property="og:image" content="https://hsk9867.github.io/jangji-homepage/img/og.png">
+<meta name="theme-color" content="#2B3D2D">
+<link rel="icon" href="img/logo-mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="../js/blog-content.js"></script>
+<script src="../js/defaults.js"></script>
+</head>
+<body data-page="home">
+<main class="app">
+
+  <!-- 배너 슬라이드 -->
+  <section class="sec banner-sec">
+    <div class="banner" id="banner" aria-roledescription="carousel" aria-label="배웅 안내 배너">
+      <div class="banner-track" id="bannerTrack"></div>
+      <div class="dots" id="bannerDots"></div>
+    </div>
+  </section>
+
+  <!-- 장지 비용 알아보기 (조건 → 상담 신청) -->
+  <section class="sec" id="quote">
+    <h2 class="h">장지 비용 알아보기</h2>
+    <div class="tile">
+      <i class="ic ic-coin"></i>
+      <p>직접 답사한 시설 <b id="facCount">0곳</b>의 비용을<br>조건에 맞춰 <b>무료</b>로 비교해 드려요</p>
+    </div>
+    <form class="qform" id="qform" novalidate>
+      <label class="lb" for="q-region">희망 지역</label>
+      <div class="sel"><select id="q-region" required><option value="">지역을 선택해주세요</option></select></div>
+      <label class="lb" for="q-type">장지 유형</label>
+      <div class="sel"><select id="q-type">
+        <option value="unsure">아직 정하지 못했어요</option>
+        <option value="sumok">수목장 (자연장)</option>
+        <option value="napgol">봉안당 (납골당)</option>
+        <option value="maejang">매장묘 · 공원묘지</option>
+        <option value="ijang">파묘 · 이장</option>
+        <option value="cremation">화장장 예약 안내</option>
+      </select></div>
+      <label class="lb" for="q-when">현재 상황</label>
+      <div class="sel"><select id="q-when">
+        <option value="later">급하지 않지만 미리 알아보려고 해요.</option>
+        <option value="soon">1주에서 한 달 정도 기간이 남은 것 같아요.</option>
+        <option value="urgent">임종이 며칠 남지 않았어요.</option>
+        <option value="now">임종하신 상태입니다.</option>
+      </select></div>
+      <p class="err" id="q-err" hidden>지역을 선택해주세요.</p>
+      <button class="btn btn-primary btn-block" type="submit">이 조건으로 장지 비용 알아보기</button>
+    </form>
+  </section>
+
+  <!-- 화장장 예약 안내 (강조 카드) -->
+  <section class="sec">
+    <div class="promo">
+      <span class="new">NEW</span>
+      <i class="ic-big ic-flame"></i>
+      <h3>화장장 예약,<br>혼자 헤매지 마세요</h3>
+      <p>e하늘 예약 방법과 가능한 일정을 함께 확인하고<br>화장 이후 모실 곳까지 이어서 안내해 드려요</p>
+      <a class="btn btn-white btn-block" href="contact.html?type=cremation">화장장 예약 안내 받기</a>
+    </div>
+  </section>
+
+  <!-- 서비스 카드 4종 -->
+  <section class="sec" id="services">
+    <div class="feature" data-type="sumok">
+      <h2 class="h">수목장 분양</h2>
+      <p class="sub">나무 아래 모시는 자연장<br>개인목 300~500만원, 관리 부담이 적어요</p>
+      <div class="fcardx c-green">
+        <img src="../img/fac/gonggam-1.jpg" alt="" loading="lazy">
+        <a class="btn btn-white btn-block" href="type.html?type=sumok">자세히 알아보기</a>
+      </div>
+    </div>
+    <div class="feature" data-type="napgol">
+      <h2 class="h">봉안당 (납골당)</h2>
+      <p class="sub">날씨와 관계없이 찾아뵙는 실내 봉안시설<br>개인단 200~1,500만원</p>
+      <div class="fcardx c-blue">
+        <img src="../img/fac/bundanghue-1.jpg" alt="" loading="lazy">
+        <a class="btn btn-white btn-block" href="type.html?type=napgol">자세히 알아보기</a>
+      </div>
+    </div>
+    <div class="feature" data-type="maejang">
+      <h2 class="h">매장묘 · 공원묘지</h2>
+      <p class="sub">가족이 함께 모이는 전통 묘역<br>매장묘 1,700만원부터, 관리는 묘원에서</p>
+      <div class="fcardx c-sand">
+        <img src="../img/fac/jahayeon-1.jpg" alt="" loading="lazy">
+        <a class="btn btn-white btn-block" href="type.html?type=maejang">자세히 알아보기</a>
+      </div>
+    </div>
+    <div class="feature" data-type="ijang">
+      <h2 class="h">파묘 · 이장</h2>
+      <p class="sub">개장 신고부터 파묘, 화장, 새 장지 안치까지<br>배웅이 전 과정을 대행해요</p>
+      <div class="fcardx c-navy">
+        <img src="../img/fac/mugunghwa-3.jpg" alt="" loading="lazy">
+        <a class="btn btn-white btn-block" href="type.html?type=ijang">자세히 알아보기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 시설 찾기 -->
+  <section class="sec gray" id="facilities">
+    <h2 class="h">직접 답사한 장지 시설 확인하기</h2>
+    <p class="sub">지역과 유형으로 골라 보세요. 사진은 모두<br>배웅 상담팀이 현장에서 직접 찍었어요</p>
+    <div class="chips" id="facChips"></div>
+    <div class="flist" id="facList"></div>
+    <a class="btn btn-line btn-block" href="type.html?type=sumok">시설 전체 보기</a>
+  </section>
+
+  <!-- 후기 -->
+  <section class="sec gray" id="reviews">
+    <h2 class="h">다양한 사례의 후기를 확인해 보세요</h2>
+    <div class="chips" id="revChips"></div>
+    <div id="revList"></div>
+    <a class="btn btn-line btn-block" id="revAll" href="../reviews.html">배웅 동행 후기 전체 보기</a>
+  </section>
+
+  <!-- 처음이라면 -->
+  <section class="sec" id="first">
+    <h2 class="h">장지 준비가 처음이라면</h2>
+    <div class="rows">
+      <a class="row" href="#process"><i class="ic ic-map"></i><div><b>처음 하는 장지 준비<br>어떻게 해야 후회 없을까요?</b><small>상담부터 안치까지 4단계</small></div><span class="go"></span></a>
+      <a class="row" href="type.html?type=sumok#compare"><i class="ic ic-tree"></i><div><b>수목장? 봉안당?<br>우리 가족에게 맞는 장지 찾기</b><small>장단점과 비용 비교</small></div><span class="go"></span></a>
+      <a class="row" href="type.html?type=ijang"><i class="ic ic-move"></i><div><b>묘를 옮겨야 할 때<br>파묘·이장은 어떻게 진행되나요?</b><small>개장 신고부터 안치까지</small></div><span class="go"></span></a>
+    </div>
+  </section>
+
+  <!-- 절차 -->
+  <section class="sec gray" id="process">
+    <h2 class="h">상담부터 안치까지, 이렇게 진행돼요</h2>
+    <ol class="steps" id="steps"></ol>
+  </section>
+
+  <!-- 약속 -->
+  <section class="sec" id="promise">
+    <h2 class="h">배웅의 변하지 않는 약속</h2>
+    <p class="sub">장지를 고를 때 후회가 남지 않도록 지키는 원칙이에요</p>
+    <ul class="promises" id="why"></ul>
+  </section>
+
+  <!-- 24시간 문의 -->
+  <section class="sec gray" id="contact">
+    <h2 class="h">급한 일정이거나 궁금한 점이 있으시면<br>언제든 부담없이 연락해 주세요</h2>
+    <div class="cta2">
+      <a class="btn btn-kakao" id="kakaoBtn" href="#" target="_blank" rel="noopener">카카오톡 문의</a>
+      <a class="btn btn-primary" id="telBtn" href="#">전화 문의</a>
+    </div>
+    <a class="btn btn-line btn-block" href="contact.html">상담 신청서 작성하기</a>
+  </section>
+
+  <!-- 배웅 이야기 -->
+  <section class="sec" id="story">
+    <div class="h-row"><h2 class="h">배웅 이야기</h2><a id="blogLink" href="#" target="_blank" rel="noopener">더 보기 ›</a></div>
+    <div class="rows" id="articles"></div>
+  </section>
+
+</main>
+
+<script src="js/app.js"></script>
+</body>
+</html>
