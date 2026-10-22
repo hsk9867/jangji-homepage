@@ -30,15 +30,15 @@
   var NAV = [['service.html?type=sumok', '수목장'], ['service.html?type=napgol', '봉안당'], ['service.html?type=maejang', '매장묘·파묘'], ['service.html?type=cremation', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
   function shell() {
     var head = '<header class="header"><div class="in">' +
-      '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo.png" alt="배웅"></a>' +
+      '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅"></a>' +
       '<nav class="gnb" aria-label="주 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + (n[2] ? '<span class="n">' + n[2] + '</span>' : '') + '</a>'; }).join('') + '</nav>' +
       '<div class="pills"><a class="pill red" href="' + tel(S.phone) + '">' + ICON.phone + '연중무휴 상담</a><a class="pill" href="' + ROOT + 'facilities.html">' + ICON.map + '시설 찾기</a></div>' +
       '<button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div>' +
       '<nav class="subnav" aria-label="빠른 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="contact.html">상담 신청</a></nav></header>' +
-      '<div class="drawer" id="drawer"><div class="panel"><button class="close" id="drawerClose" aria-label="닫기">×</button><img src="img/logo.png" alt="배웅" style="height:30px;width:auto;margin-bottom:14px">' +
+      '<div class="drawer" id="drawer"><div class="panel"><button class="close" id="drawerClose" aria-label="닫기">×</button><img src="img/logo-h.png" alt="배웅" style="height:30px;width:auto;margin-bottom:14px">' +
       NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="index.html#counselors">배웅 상담사</a><a href="contact.html">상담 신청</a>' +
       '<a href="' + tel(S.phone) + '">전화 상담 ' + esc(S.phone) + '</a>' + (S.kakao ? '<a href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카카오톡 상담</a>' : '') + '</div></div>';
-    var foot = '<footer class="footer"><img src="img/logo.png" alt="배웅">' +
+    var foot = '<footer class="footer"><img src="img/logo-h.png" alt="배웅">' +
       '<div class="links"><a href="index.html#story">배웅 이야기</a>' + (S.blogUrl ? '<a href="' + esc(S.blogUrl) + '" target="_blank" rel="noopener">배웅 블로그</a>' : '') + '<a href="' + ROOT + 'privacy.html" class="b">개인정보처리방침</a><a href="' + ROOT + 'facilities.html">답사 시설</a><a href="' + ROOT + 'reviews.html">상담 후기</a><a href="contact.html">상담 신청</a><a href="' + ROOT + '">기존 홈페이지 보기</a></div>' +
       '<div class="info">' + esc(S.bizName) + '<br>' + esc(S.bizDesc) + '<br>전화 문의: ' + esc(S.phone) + ' · ' + esc(S.hours) + (S.email ? '<br>이메일: ' + esc(S.email) : '') + (S.bizNo ? '<br>사업자 등록번호: ' + esc(S.bizNo) : '') + '</div>' +
       '<div class="copy">© ' + new Date().getFullYear() + '. ' + esc(S.bizName) + ' ALL RIGHTS RESERVED.</div></footer>';
@@ -86,12 +86,15 @@
     sec.querySelectorAll('.arr[data-dir]').forEach(function (b) { b.onclick = function () { wrap.scrollBy({ left: (b.dataset.dir === 'prev' ? -1 : 1) * Math.round(wrap.clientWidth * .8), behavior: 'smooth' }); }; });
   }
   function home() {
-    /* 문구 → 로고 인트로: 한 세션에 한 번만 글자 애니메이션, 이후엔 로고만 */
-    var bl = document.querySelector('.brandline');
-    if (bl) {
-      var seen = false; try { seen = !!sessionStorage.getItem('bw_bl'); } catch (e) {}
-      if (seen) bl.classList.add('done'); else { bl.classList.add('play'); try { sessionStorage.setItem('bw_bl', '1'); } catch (e) {} }
-      bl.querySelectorAll('.bl-text span').forEach(function (s, i) { s.style.setProperty('--i', i); });
+    /* 첫 접속 인트로(전체 화면 CSS 효과): 문구가 단어별로 떠오른 뒤 로고로 바뀌고 사라진다. 세션당 1회, ?intro=1 로 다시 보기 */
+    var seen = false; try { seen = !!sessionStorage.getItem('bw_intro'); } catch (e) {}
+    if (!seen || /intro=1/.test(location.search)) {
+      var words = ['모실', '곳을', '정하는', '일,', null, '배웅이', '함께', '걷습니다'], wi = 0;
+      document.body.insertAdjacentHTML('afterbegin', '<div class="bw-intro" aria-hidden="true"><div class="in"><p class="t">' +
+        words.map(function (w) { return w === null ? '<br>' : '<span style="--i:' + (wi++) + '">' + w + '</span>'; }).join(' ') + '</p><img class="lg" src="img/logo-intro.jpg" alt=""></div></div>');
+      try { sessionStorage.setItem('bw_intro', '1'); } catch (e) {}
+      if (/introhold/.test(location.search)) document.querySelector('.bw-intro').classList.add('hold');
+      else setTimeout(function () { var el = document.querySelector('.bw-intro'); if (el) el.remove(); }, 4900);
     }
 
     /* 슬라이드 */
