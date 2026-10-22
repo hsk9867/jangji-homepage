@@ -46,6 +46,13 @@
 .igrid a:hover .ico { transform: translateY(-3px) scale(1.05); background: var(--accent-soft); box-shadow: 0 8px 18px rgba(43, 61, 45, .16); }
 .igrid a:active .ico { transform: scale(.95); }
 
+/* 플로팅 버튼 묶음: 지원금 · 카톡 · 전화 · 화장장 예약 */
+.fabs { position: fixed; bottom: 24px; left: calc(50% + var(--col) / 2 + 16px); z-index: 60; display: flex; flex-direction: column; gap: 8px; }
+.fabs .fab { position: static; }
+.fabs .fab.kakao { background: #FAE100; color: #3C1E1E; border: 0; }
+.fabs .fab.support { background: var(--gold); color: var(--white); border: 0; }
+@media (max-width: 760px) { .fabs { left: auto; right: 16px; bottom: 16px; } }
+
 /* 후기·상담사 가로 스크롤 */
 .rv-filter { display: flex; gap: 6px; margin-top: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
 .rv-filter::-webkit-scrollbar { display: none; }
@@ -55,7 +62,8 @@
 .rv-filter button.on small { color: rgba(255, 255, 255, .7); }
 .rv-wrap { margin: 14px -20px 0; padding: 4px 20px 8px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x proximity; cursor: grab; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
 .rv-wrap::-webkit-scrollbar { display: none; }
-.rv-wrap.drag { cursor: grabbing; scroll-snap-type: none; }
+.rv-wrap.drag, .rv-wrap.auto { scroll-snap-type: none; }
+.rv-wrap.drag { cursor: grabbing; }
 .rv-wrap.drag a, .rv-wrap.drag article { pointer-events: none; }
 .rv-track { display: flex; gap: 12px; width: max-content; }
 .rv { flex: 0 0 236px; scroll-snap-align: start; background: var(--white); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; display: flex; flex-direction: column; transition: transform .18s, box-shadow .18s; }
@@ -148,3 +156,32 @@
 .gnb a { white-space: nowrap; }
 @media (max-width: 1040px) { .gnb { gap: 16px; } .gnb a { font-size: 14px; } .pills { margin-left: 12px; } }
 @media (max-width: 900px) { .pills .pill:last-child { display: none; } }
+
+/* 서비스 안내(전체) 페이지 */
+.svc-link { display: block; margin-top: 12px; text-align: center; font-size: 14px; font-weight: 700; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(43, 61, 45, .35); }
+.svcs-hero h1 { font-size: 22px; line-height: 1.4; }
+.svc-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.svc-tabs a { height: 34px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 13px; font-weight: 600; color: var(--text-2); display: inline-flex; align-items: center; background: var(--white); }
+.svc-tabs a:hover { border-color: var(--accent); color: var(--accent); }
+.svc .svc-head .eyebrow { display: block; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: .04em; margin-bottom: 2px; }
+.svc .svc-head h2 { font-size: 18px; line-height: 1.4; }
+.svc .lead { margin-top: 14px; }
+.svc-grid { display: grid; gap: 8px; margin-top: 16px; }
+.svc-grid div { background: var(--gray); border-radius: var(--r-s); padding: 12px 14px; display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: start; }
+.sec.gray .svc-grid div { background: var(--white); }
+.svc-grid b { font-size: 13px; color: var(--accent); }
+.svc-grid span { font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
+.svc-steps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; counter-reset: sv; }
+.svc-steps li { counter-increment: sv; font-size: 12.5px; font-weight: 600; color: var(--text-2); background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 6px 11px 6px 8px; display: inline-flex; align-items: center; gap: 6px; }
+.svc-steps li::before { content: counter(sv); width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--white); font-size: 10.5px; display: grid; place-items: center; }
+.svc-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+@media (max-width: 400px) { .svc-grid div { grid-template-columns: 1fr; gap: 3px; } }
+
+/* 모바일 상단 카테고리 줄: 헤더 바로 아래 칩 형태, 오른쪽 끝 그라데이션으로 더 있다는 힌트 */
+@media (max-width: 760px) {
+  .header .subnav { position: relative; height: 50px; gap: 8px; padding: 0 16px; align-items: center; background: var(--white); scrollbar-width: none; }
+  .header .subnav a { height: 32px; padding: 0 13px; border-radius: 999px; background: var(--gray); color: var(--text); font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap; flex: none; }
+  .header .subnav a:last-child { background: var(--accent); color: var(--white); margin-right: 16px; }
+  .header .subnav::after { content: ''; position: sticky; right: 0; flex: none; width: 28px; height: 50px; margin-left: -28px; background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--white)); pointer-events: none; }
+  .col { padding-top: calc(var(--head) + 50px); }
+}

@@ -42,7 +42,11 @@
       '<div class="links"><a href="index.html#story">배웅 이야기</a>' + (S.blogUrl ? '<a href="' + esc(S.blogUrl) + '" target="_blank" rel="noopener">배웅 블로그</a>' : '') + '<a href="' + ROOT + 'privacy.html" class="b">개인정보처리방침</a><a href="' + ROOT + 'facilities.html">답사 시설</a><a href="' + ROOT + 'reviews.html">상담 후기</a><a href="contact.html">상담 신청</a><a href="' + ROOT + '">기존 홈페이지 보기</a></div>' +
       '<div class="info">' + esc(S.bizName) + '<br>' + esc(S.bizDesc) + '<br>전화 문의: ' + esc(S.phone) + ' · ' + esc(S.hours) + (S.email ? '<br>이메일: ' + esc(S.email) : '') + (S.bizNo ? '<br>사업자 등록번호: ' + esc(S.bizNo) : '') + '</div>' +
       '<div class="copy">© ' + new Date().getFullYear() + '. ' + esc(S.bizName) + ' ALL RIGHTS RESERVED.</div></footer>';
-    var fab = '<a class="fab" href="service.html?type=cremation" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a><a class="fab tel" href="' + tel(S.phone) + '" aria-label="전화 상담">' + ICON.phone + '전화</a>';
+    var fab = '<div class="fabs">' +
+      '<a class="fab support" href="service.html?type=support" aria-label="장례지원금 안내"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2 3v2h14v-2zm2 5h4v1.5H7z"/></svg>지원금</a>' +
+      (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
+      '<a class="fab tel" href="' + tel(S.phone) + '" aria-label="전화 상담">' + ICON.phone + '전화</a>' +
+      '<a class="fab" href="service.html?type=cremation" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
     document.body.insertAdjacentHTML('afterbegin', head);
     var col = document.querySelector('.col');
     if (col) col.insertAdjacentHTML('beforeend', foot);
@@ -90,13 +94,46 @@
     window.addEventListener('pointerup', function () { if (!down) return; down = false; wrap.classList.remove('drag'); });
     wrap.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
   }
+  /* 자연스러운 자동 슬라이드: 카드 묶음을 한 번 복제해 끊김 없이 흐르고, 손을 대거나 마우스를 올리면 멈춘다 */
+  function autoSlide(wrap, track, speed) {
+    if (!wrap || !track || track.children.length < 2) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (track.dataset.auto) { track.dataset.stop = '1'; }
+    track.dataset.auto = '1'; track.dataset.stop = '';
+    var kids = Array.prototype.slice.call(track.children);
+    kids.forEach(function (k) { var c = k.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.tabIndex = -1; track.appendChild(c); });
+    var half = 0, paused = false, last = 0, idleT, pos = wrap.scrollLeft;
+    function measure() { half = track.scrollWidth / 2; }
+    wrap.addEventListener('scroll', function () { if (paused) pos = wrap.scrollLeft; }, { passive: true });
+    measure();
+    function pause() { paused = true; clearTimeout(idleT); }
+    function resume() { clearTimeout(idleT); idleT = setTimeout(function () { paused = false; }, 1800); }
+    wrap.classList.add('auto');
+    wrap.addEventListener('pointerenter', pause); wrap.addEventListener('pointerleave', resume);
+    wrap.addEventListener('pointerdown', pause); wrap.addEventListener('pointerup', resume);
+    wrap.addEventListener('touchstart', pause, { passive: true }); wrap.addEventListener('touchend', resume);
+    wrap.addEventListener('focusin', pause); wrap.addEventListener('focusout', resume);
+    function step(now) {
+      if (track.dataset.stop) return;
+      var dt = last ? Math.min(1000, now - last) : 16; last = now;
+      if (!paused && !document.hidden) {
+        if (!half) measure();
+        pos += (speed || 28) * dt / 1000;
+        if (half && pos >= half) pos -= half;
+        wrap.scrollLeft = pos;
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+    window.addEventListener('resize', measure);
+  }
   function arrows(sec, wrap) {
     sec.querySelectorAll('.arr[data-dir]').forEach(function (b) { b.onclick = function () { wrap.scrollBy({ left: (b.dataset.dir === 'prev' ? -1 : 1) * Math.round(wrap.clientWidth * .8), behavior: 'smooth' }); }; });
   }
   function home() {
     /* 첫 접속 인트로(전체 화면 CSS 효과): 문구가 단어별로 떠오른 뒤 로고로 바뀌고 사라진다. 세션당 1회, ?intro=1 로 다시 보기 */
     var seen = false; try { seen = !!sessionStorage.getItem('bw_intro'); } catch (e) {}
-    if (!seen || /intro=1/.test(location.search)) {
+    if ((!seen && !/intro=0/.test(location.search)) || /intro=1/.test(location.search)) {
       var words = ['모실', '곳을', '정하는', '일,', null, '배웅이', '함께', '걷습니다'], wi = 0;
       document.body.insertAdjacentHTML('afterbegin', '<div class="bw-intro" aria-hidden="true"><div class="in"><p class="t">' +
         words.map(function (w) { return w === null ? '<br>' : '<span style="--i:' + (wi++) + '">' + w + '</span>'; }).join(' ') + '</p><img class="lg" src="img/logo-intro.jpg" alt=""></div></div>');
@@ -164,6 +201,7 @@
             '<div class="bd"><span class="tp">' + esc(tp) + (f ? ' · ' + esc(f.name) : '') + '</span><b>' + esc(x.title) + '</b><p>' + esc((x.body || '').replace(/\n+/g, ' ')) + '</p><span class="who">' + esc(x.author) + '<span>' + esc(x.date) + '</span></span></div></a>';
         }).join('');
         rwrap.scrollLeft = 0;
+        autoSlide(rwrap, rtrack, 26);
       };
       drawR('');
       rf.querySelectorAll('button').forEach(function (b) { b.onclick = function () { rf.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); drawR(b.dataset.k); }; });
@@ -180,6 +218,7 @@
           '<a class="btn btn-line btn-block btn-sm" href="contact.html?memo=' + encodeURIComponent(c.name + ' 상담원 상담 요청') + '">상담 문의</a></article>';
       }).join('');
       dragScroll(document.getElementById('cnWrap')); arrows(document.getElementById('counselors'), document.getElementById('cnWrap'));
+      autoSlide(document.getElementById('cnWrap'), cn, 22);
     }
 
     /* 서비스 이용안내 4단계 */
@@ -226,6 +265,33 @@
       cta: 'unsure'
     }
   };
+  /* ---------- 서비스 안내 (전체 한눈에, 속시원 '어떤 서비스인지 먼저 볼게요') ---------- */
+  function servicesPage() {
+    var el = document.getElementById('svpage'); if (!el) return;
+    document.title = '서비스 안내 | 배웅';
+    var T = C.types;
+    var stepT = function (arr) { return (arr || S.steps || []).map(function (x) { return x.t; }); };
+    var SV = [
+      { k: 'sumok', ic: LI.tree, eyebrow: '수목장', h: '나무 아래, 자연으로 모시는 수목장', p: T.sumok.desc, who: '자연 속에 모시고 싶고 관리 부담을 줄이고 싶은 가족', cost: T.sumok.priceTag + ' ' + T.sumok.price + ' · ' + T.sumok.priceNote, do_: '직접 답사한 수목장 가운데 조건에 맞는 곳 비교, 주말 동행 답사, 계약 대행', steps: stepT(), href: 'service.html?type=sumok', btn: '수목장 자세히 보기' },
+      { k: 'napgol', ic: LI.hall, eyebrow: '봉안당(납골당)', h: '날씨와 상관없이 찾아뵙는 실내 봉안시설', p: T.napgol.desc, who: '자주 찾아뵙고 싶은 가족, 도심에서 가까운 곳을 원하는 분', cost: T.napgol.priceTag + ' ' + T.napgol.price + ' · ' + T.napgol.priceNote, do_: '단 위치·관리비·이용 기간을 서면으로 비교, 동행 답사, 계약 대행', steps: stepT(), href: 'service.html?type=napgol', btn: '봉안당 자세히 보기' },
+      { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘 · 파묘', h: '가족이 함께 모이는 묘역, 그리고 묘를 옮겨야 할 때', p: T.maejang.desc + ' 기존 묘를 정리해야 한다면 개장 신고부터 파묘, 화장, 새 장지 안치까지 배웅이 대행합니다.', who: '가족 묘역을 원하는 분, 기존 묘를 정리·이장해야 하는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · 파묘·이장은 분묘 수와 장비 진입 여부에 따라 현장 확인 후 견적', do_: '공원묘지 비교·계약 대행, 파묘·이장 절차 대행(개장 신고·길일 협의·유골 수습·새 장지 안치)', steps: stepT(), href: 'service.html?type=maejang', btn: '매장묘·파묘 자세히 보기' },
+      { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, e하늘 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: 'e하늘에서 가능한 일정 확인, 필요한 서류 안내, 화장 이후 모실 곳까지 이어서 상담', steps: stepT(EXTRA.cremation.steps), href: 'service.html?type=cremation', btn: '화장장 예약 안내 보기' },
+      { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해요', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부 확인, 지원금 종류 정리, 서류와 신청 방법 안내', steps: stepT(EXTRA.support.steps), href: 'service.html?type=support', btn: '장례지원금 안내 보기' },
+      { k: 'facility', ic: LI.pin, eyebrow: '답사 시설', h: '배웅이 직접 다녀온 장지만 보여드려요', p: '배웅 상담팀이 직접 방문해 진입로, 주차, 관리 상태까지 확인한 경기도 시설 ' + facilities().length + '곳입니다. 사진과 위치, 사용료를 먼저 보고 마음에 드는 곳으로 바로 상담을 신청할 수 있어요.', who: '어떤 곳들이 있는지부터 둘러보고 싶은 분', cost: '사용료·관리비는 시설별로 표기 · 계약 전 서면으로 다시 비교', do_: '시설별 사진·위치·특징 정리, 마음에 드는 곳으로 동행 답사', steps: ['유형 고르기', '시설 상세 보기', '이 시설로 상담 신청', '동행 답사'], href: ROOT + 'facilities.html', btn: '답사 시설 전체 보기' }
+    ];
+    el.innerHTML = '<section class="sec svcs-hero"><p class="crumb"><a href="index.html">홈</a> › 서비스 안내</p><h1>잘 몰라도 괜찮아요.<br>어떤 서비스인지 먼저 보고 고르세요</h1><p class="lead">배웅이 하는 일 여섯 가지를 한 번에 정리했어요. 상담과 동행 답사는 모두 무료입니다.</p>' +
+      '<nav class="svc-tabs" aria-label="서비스 바로가기">' + SV.map(function (s) { return '<a href="#sv-' + s.k + '">' + s.eyebrow + '</a>'; }).join('') + '</nav></section>' +
+      SV.map(function (s, i) {
+        return '<section class="sec svc' + (i % 2 ? ' gray' : '') + '" id="sv-' + s.k + '"><div class="svc-head"><span class="em" aria-hidden="true">' + s.ic + '</span><div><span class="eyebrow">' + esc(s.eyebrow) + '</span><h2>' + esc(s.h) + '</h2></div></div>' +
+          '<p class="lead">' + esc(s.p) + '</p>' +
+          '<div class="svc-grid"><div><b>이런 분께</b><span>' + esc(s.who) + '</span></div><div><b>비용은</b><span>' + esc(s.cost) + '</span></div><div><b>배웅이 하는 일</b><span>' + esc(s.do_) + '</span></div></div>' +
+          '<ol class="svc-steps">' + s.steps.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
+          '<div class="svc-acts"><a class="btn btn-primary" href="' + s.href + '">' + esc(s.btn) + '</a><a class="btn btn-line" href="contact.html?type=' + (s.k === 'facility' ? 'unsure' : s.k) + '">상담 신청</a></div></section>';
+      }).join('') +
+      '<section class="sec"><div class="contact-box"><small>어떤 서비스가 맞는지 모르겠다면</small><b>그냥 전화 주세요. 상담하며 같이 정해요</b><div class="acts"><a class="btn btn-primary" href="contact.html?type=unsure">상담 신청</a><a class="btn btn-white" href="' + tel(S.phone) + '">전화문의</a>' + (S.kakao ? '<a class="btn btn-white" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '</div></div></section>';
+    if (location.hash) { var t = document.querySelector(location.hash); if (t) setTimeout(function () { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50); }
+  }
+
   function servicePage() {
     var el = document.getElementById('spage'); if (!el) return;
     var k = qs('type') || 'sumok';
@@ -343,5 +409,6 @@
   shell();
   if (page === 'home') home();
   if (page === 'service') servicePage();
+  if (page === 'services') servicesPage();
   if (page === 'contact') contact();
 })();
