@@ -54,13 +54,25 @@
   }
 
   /* ---------- 첫 화면 (v4: 속시원식 구성 + v2 톤앤매너) ---------- */
+  var LI = {
+    tree: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 7 10h3l-3.5 5H11v4h2v-4h4.5L14 10h3z"/></svg>',
+    hall: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10m14 11V10M9 21v-7m6 7v-7M3 10h18L12 4z"/></svg>',
+    tomb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20V9a5 5 0 0 1 10 0v11M4 20h16M9.5 13h5"/></svg>',
+    calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4m8-4v4M9 15.5l2 2 4-4"/></svg>',
+    support: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 11h18M7 15h3"/><circle cx="16.5" cy="15" r="1.3"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.4-6-11a6 6 0 0 1 12 0c0 5.6-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>',
+    phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.6 3.6a1 1 0 0 1-.25 1z"/></svg>',
+    compare: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M4 7h16M6 7l-3 7a3 3 0 0 0 6 0zm12 0-3 7a3 3 0 0 0 6 0zM8 21h8"/></svg>',
+    walk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.6"/><path d="M10 21l2-6 2.5 2.5V21M8.5 13.5 10 9.5l3-1 2.5 3 2.5.8M10 9.5 7 11l-1 3.5"/></svg>',
+    contract: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 16.5h4"/></svg>'
+  };
   var QUICK = [
-    ['sumok', '🌳', '수목장', 'service.html?type=sumok'],
-    ['napgol', '🏛️', '봉안당', 'service.html?type=napgol'],
-    ['maejang', '🪦', '매장묘/파묘', 'service.html?type=maejang'],
-    ['cremation', '🕊️', '화장장 예약', 'service.html?type=cremation'],
-    ['support', '💐', '장례지원금', 'service.html?type=support'],
-    ['facility', '📍', '답사 시설', ROOT + 'facilities.html']
+    ['sumok', LI.tree, '수목장', 'service.html?type=sumok'],
+    ['napgol', LI.hall, '봉안당', 'service.html?type=napgol'],
+    ['maejang', LI.tomb, '매장묘/파묘', 'service.html?type=maejang'],
+    ['cremation', LI.calendar, '화장장 예약', 'service.html?type=cremation'],
+    ['support', LI.support, '장례지원금', 'service.html?type=support'],
+    ['facility', LI.pin, '답사 시설', ROOT + 'facilities.html']
   ];
   var REV_TABS = [['', '전체'], ['sumok', '수목장'], ['napgol', '봉안당'], ['maejang', '매장묘'], ['ijang', '파묘/이장']];
   var COUNSELORS = [
@@ -68,12 +80,8 @@
     { name: '이서연', role: '장지 비교 · 동행 답사', quote: '가족이 자주 찾아뵐 수 있는 곳을 먼저 봅니다', tags: ['주말 동행 답사', '서면 조건 비교'], img: '' },
     { name: '박준호', role: '파묘 · 이장 상담', quote: '절차는 저희가, 가족은 마음만 챙기세요', tags: ['개장 신고 대행', '길일 협의'], img: '' }
   ];
-  var GUIDE = [
-    { t: '장지 상담신청', d: '배웅은 모든 고객님을 위해 365일 무료 상담 신청을 운영하고 있어요. 전화·카카오톡·신청서 어느 쪽이든 괜찮아요.', em: '📞', href: 'contact.html' },
-    { t: '현장답사 및 분양상담', d: '현장을 직접 둘러보세요! 마음에 드는 장지를 찾을 때까지 배웅 상담사가 함께 동행할게요. 주말 답사도 무료예요.', em: '🧭', href: 'contact.html' },
-    { t: '위치 결정', d: '가족이 자주 찾아뵐 수 있는 거리, 진입로, 관리 상태까지 확인해 최적의 자리를 고를 수 있도록 컨설팅해 드려요.', em: '📍', href: ROOT + 'facilities.html' },
-    { t: '계약', d: '마음에 드는 장지를 찾으셨다면, 최초 비용·관리비·이용 기간을 서면으로 비교하고 합리적으로 계약할 수 있게 대행해 드려요.', em: '📝', href: 'contact.html' }
-  ];
+  var GUIDE_ICONS = [LI.phone, LI.compare, LI.walk, LI.contract];
+  var GUIDE_LINKS = ['contact.html', ROOT + 'facilities.html', 'contact.html', 'contact.html'];
   function dragScroll(wrap) {
     if (!wrap) return;
     var down = false, sx = 0, sl = 0, moved = false;
@@ -151,7 +159,7 @@
 
     /* 서비스 이용안내 4단계 */
     var gg = document.getElementById('guideGrid');
-    if (gg) gg.innerHTML = GUIDE.map(function (g, i) { return '<a class="gd" href="' + g.href + '"><div><span class="st">STEP ' + (i + 1) + '</span><b>' + esc(g.t) + '</b><p>' + esc(g.d) + '</p></div><span class="em" aria-hidden="true">' + g.em + '</span></a>'; }).join('');
+    if (gg) gg.innerHTML = (S.steps || []).map(function (g, i) { return '<a class="gd" href="' + (GUIDE_LINKS[i] || 'contact.html') + '"><div><span class="st">0' + (i + 1) + '</span><b>' + esc(g.t) + '</b><p>' + esc(g.d) + '</p></div><span class="ic" aria-hidden="true">' + (GUIDE_ICONS[i] || LI.phone) + '</span></a>'; }).join('');
 
     /* 답사 시설: 유형 태그 + 행 */
     var ft = document.getElementById('facTags'), fl = document.getElementById('facList');
@@ -168,9 +176,6 @@
       ft.querySelectorAll('.tag').forEach(function (b) { b.onclick = function () { ft.querySelectorAll('.tag').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); drawF(b.dataset.k); }; });
     }
 
-    /* 진행 절차 */
-    var sc = document.getElementById('stepCards'); if (sc) sc.innerHTML = (S.steps || []).map(function (x, i) { return '<div><span class="idx">0' + (i + 1) + '</span><b>' + esc(x.t) + '</b><span>' + esc(x.d) + '</span></div>'; }).join('');
-
     /* 연락 */
     var ck = document.getElementById('ctKakao'); if (ck) { if (S.kakao) ck.href = S.kakao; else ck.remove(); }
     var ct = document.getElementById('ctTel'); if (ct) ct.href = tel(S.phone);
@@ -180,7 +185,7 @@
   /* ---------- 서비스 안내 페이지 (6개 바로가기용) ---------- */
   var EXTRA = {
     cremation: {
-      name: '화장장 예약 안내', em: '🕊️', short: '화장장 예약은 보건복지부 e하늘 장사정보시스템에서만 할 수 있어요. 배웅이 예약 방법과 가능한 일정을 함께 확인해 드립니다.',
+      name: '화장장 예약 안내', short: '화장장 예약은 보건복지부 e하늘 장사정보시스템에서만 할 수 있어요. 배웅이 예약 방법과 가능한 일정을 함께 확인해 드립니다.',
       priceTag: '화장 비용', price: '지역 주민 무료~수십만원', priceNote: '화장장마다 관내·관외 요금이 달라요. 거주지 기준으로 함께 확인해 드려요.',
       desc: '임종 후 화장장 예약은 가장 먼저, 그리고 가장 빨리 해야 하는 일입니다. 원하는 날짜·시간대가 금방 마감되기 때문에 희망 지역과 일정만 알려주시면 배웅이 e하늘에서 가능한 일정을 바로 확인해 드립니다.',
       steps: [{ t: '희망 지역·일정 전달', d: '거주지, 장례식장, 발인 예정일을 알려주세요.' }, { t: 'e하늘 가능 일정 확인', d: '관내·관외 화장장의 빈 시간대를 함께 확인합니다.' }, { t: '예약과 서류 안내', d: '사망진단서 등 필요한 서류와 예약 방법을 안내해 드려요.' }, { t: '화장 후 모실 곳까지', d: '수목장·봉안당 등 화장 이후 장지까지 이어서 상담합니다.' }],
@@ -188,7 +193,7 @@
       cta: 'cremation'
     },
     support: {
-      name: '장례지원금 안내', em: '💐', short: '정부와 지자체가 지원하는 장례 관련 지원금을 놓치지 않도록 배웅이 대상 여부와 신청 방법을 확인해 드려요.',
+      name: '장례지원금 안내', short: '정부와 지자체가 지원하는 장례 관련 지원금을 놓치지 않도록 배웅이 대상 여부와 신청 방법을 확인해 드려요.',
       priceTag: '대표 지원금', price: '장제급여 80만원 등', priceNote: '기초생활수급자 장제급여, 지자체 화장장려금, 국가유공자 장례 지원 등 자격에 따라 달라요.',
       desc: '장례 뒤에 신청할 수 있는 지원금은 종류가 많고 지자체마다 금액과 조건이 달라서 모르고 지나치는 가족이 많습니다. 배웅은 상담 과정에서 받을 수 있는 지원금을 함께 확인하고 신청 서류를 안내해 드립니다.',
       steps: [{ t: '대상 확인', d: '고인과 신청인의 자격(수급 여부, 거주지, 유공자 등)을 확인합니다.' }, { t: '지원금 종류 안내', d: '장제급여, 화장장려금, 자연장 장려금 등 받을 수 있는 항목을 정리해 드려요.' }, { t: '서류 준비', d: '사망진단서, 화장증명서, 가족관계증명서 등 필요한 서류를 안내합니다.' }, { t: '신청 방법 안내', d: '주민센터·복지로 신청 절차를 단계별로 알려 드려요.' }],
@@ -204,7 +209,7 @@
     document.title = t.name + ' | 배웅';
     var list = C.types[k] ? facilities(k) : [];
     var cta = (t.cta || k);
-    var html = '<section class="sec svc-hero"><p class="crumb"><a href="index.html">홈</a> › ' + esc(t.name) + '</p><div class="svc-head"><span class="em" aria-hidden="true">' + (q ? q[1] : (t.em || '🌳')) + '</span><div><h1>' + esc(t.name) + '</h1><p class="lead">' + esc(t.short) + '</p></div></div>' +
+    var html = '<section class="sec svc-hero"><p class="crumb"><a href="index.html">홈</a> › ' + esc(t.name) + '</p><div class="svc-head"><span class="em" aria-hidden="true">' + (q ? q[1] : LI.tree) + '</span><div><h1>' + esc(t.name) + '</h1><p class="lead">' + esc(t.short) + '</p></div></div>' +
       '<div class="info-box"><i>' + ICON.scale + '</i><div><b>' + esc(t.priceTag) + ' ' + esc(t.price) + '</b><br>' + esc(t.priceNote) + '</div></div></section>' +
       '<section class="sec gray"><h2>어떤 서비스인가요?</h2><p class="lead">' + esc(t.desc) + '</p>' +
       (t.pros ? '<div class="pc"><div class="gcard"><b>이런 점이 좋아요</b><ul class="dotl">' + t.pros.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' + (t.cons ? '<div class="gcard"><b>이런 점은 확인하세요</b><ul class="dotl">' + t.cons.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '') + '</div>' : '') +

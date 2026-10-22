@@ -26,7 +26,8 @@
 .igrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 8px; margin-top: 18px; padding: 18px 8px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); box-shadow: 0 6px 20px rgba(37, 37, 37, .05); }
 .igrid a { display: grid; justify-items: center; gap: 8px; font-size: 13px; font-weight: 600; text-align: center; color: var(--text); transition: color .15s; }
 .igrid .ico { width: 66px; height: 66px; border-radius: 20px; background: var(--gray); display: grid; place-items: center; transition: transform .18s, background .18s, box-shadow .18s; }
-.igrid .em { font-size: 32px; line-height: 1; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; }
+.igrid .em { display: grid; place-items: center; color: var(--accent); }
+.igrid .em svg { width: 30px; height: 30px; }
 .igrid a:hover { color: var(--accent); }
 .igrid a:hover .ico { transform: translateY(-3px) scale(1.05); background: var(--accent-soft); box-shadow: 0 8px 18px rgba(43, 61, 45, .16); }
 .igrid a:active .ico { transform: scale(.95); }
@@ -73,13 +74,15 @@
 .cn .btn { color: var(--accent); border-color: var(--accent); font-weight: 700; }
 
 /* 서비스 이용안내 (속시원 약속 카드 → 4단계 안내) */
-.ggrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.ggrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
 .gd { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 16px 14px; display: grid; grid-template-columns: 1fr 44px; gap: 8px; align-items: start; transition: transform .18s, box-shadow .18s, border-color .18s; }
 .gd:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(37, 37, 37, .08); border-color: var(--accent-soft); }
-.gd .st { display: block; font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--gold); }
+.gd .st { display: block; font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--gold); }
 .gd b { display: block; margin-top: 4px; font-size: 15px; font-weight: 800; color: var(--accent); letter-spacing: -.02em; line-height: 1.3; }
-.gd p { margin-top: 6px; font-size: 12.5px; line-height: 1.55; color: var(--text-2); }
-.gd .em { font-size: 36px; line-height: 1; justify-self: end; margin-top: 18px; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .12)); }
+.gd p { margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--text-2); }
+.gd .ic { width: 44px; height: 44px; border-radius: 12px; background: #F3EFE4; color: var(--accent); display: grid; place-items: center; justify-self: end; transition: background .18s, color .18s; }
+.gd .ic svg { width: 24px; height: 24px; }
+.gd:hover .ic { background: var(--accent); color: var(--white); }
 .sec.gray .gd { border-color: transparent; }
 
 /* 진행 절차 */
@@ -98,7 +101,8 @@
 .svc-hero { padding-bottom: 24px; }
 .crumb { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
 .svc-head { display: flex; gap: 14px; align-items: center; }
-.svc-head .em { font-size: 34px; line-height: 1; width: 60px; height: 60px; border-radius: 18px; background: var(--gray); display: grid; place-items: center; flex: none; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; }
+.svc-head .em { width: 60px; height: 60px; border-radius: 18px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; flex: none; }
+.svc-head .em svg { width: 30px; height: 30px; }
 .svc-head h1 { font-size: 22px; }
 .svc-head .lead { margin-top: 4px; }
 .pc { display: grid; gap: 10px; margin-top: 14px; }
