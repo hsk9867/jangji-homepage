@@ -120,6 +120,31 @@
       timer = setInterval(function () { go(cur + 1); }, 5000);
     }
 
+    /* 실적 띠: 보일 때 숫자가 올라간다 */
+    var STATS = [
+      { n: 100, suffix: '+', unit: '곳', label: '상담 가능 장지' },
+      { n: 23524, suffix: '', unit: '건', label: '누적 상담 신청' },
+      { n: 21233, suffix: '', unit: '건', label: '누적 계약 체결' },
+      { n: 98, suffix: '%', unit: '', label: '고객 만족도' }
+    ];
+    var stl = document.getElementById('statList');
+    if (stl) {
+      stl.innerHTML = STATS.map(function (s) { return '<li><b><span class="num" data-n="' + s.n + '">' + s.n.toLocaleString('ko-KR') + '</span>' + s.suffix + (s.unit ? '<small>' + s.unit + '</small>' : '') + '</b><span class="lb">' + s.label + '</span></li>'; }).join('');
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce && 'IntersectionObserver' in window) {
+        var ran = false;
+        var io = new IntersectionObserver(function (es) {
+          if (!es[0].isIntersecting || ran) return; ran = true; io.disconnect();
+          stl.querySelectorAll('.num').forEach(function (el) {
+            var to = Number(el.dataset.n), t0 = performance.now(), dur = 1400;
+            (function tick(now) { var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e).toLocaleString('ko-KR'); if (p < 1) requestAnimationFrame(tick); })(t0);
+          });
+        }, { threshold: .4 });
+        stl.querySelectorAll('.num').forEach(function (el) { el.textContent = '0'; });
+        io.observe(stl);
+      }
+    }
+
     /* 6개 이모지 바로가기 */
     var ig = document.getElementById('igrid');
     if (ig) ig.innerHTML = QUICK.map(function (q) { return '<a href="' + q[3] + '"><span class="ico"><span class="em" aria-hidden="true">' + q[1] + '</span></span><span>' + q[2] + '</span></a>'; }).join('');
