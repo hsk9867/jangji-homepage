@@ -140,7 +140,7 @@
     /* 첫 접속 인트로(전체 화면 CSS 효과): 문구가 단어별로 떠오른 뒤 로고로 바뀌고 사라진다. 세션당 1회, ?intro=1 로 다시 보기 */
     var seen = false; try { seen = !!sessionStorage.getItem('bw_intro'); } catch (e) {}
     if ((!seen && !/intro=0/.test(location.search)) || /intro=1/.test(location.search)) {
-      document.body.insertAdjacentHTML('afterbegin', '<div class="bw-intro" aria-hidden="true"><div class="in"><p class="t"><span class="l1">모실 곳을 정하는 일,</span><span class="l2">배웅이 함께 걷습니다</span></p><img class="lg" src="img/logo-intro.jpg" alt=""></div></div>');
+      document.body.insertAdjacentHTML('afterbegin', '<div class="bw-intro" aria-hidden="true"><div class="in"><p class="t"><span class="l1">모실 곳을 정하는 일,</span><span class="l2">배웅이 함께 걷습니다.</span></p><img class="lg" src="img/logo-intro.jpg" alt=""></div></div>');
       try { sessionStorage.setItem('bw_intro', '1'); } catch (e) {}
       if (/introhold/.test(location.search)) document.querySelector('.bw-intro').classList.add('hold');
       else setTimeout(function () { var el = document.querySelector('.bw-intro'); if (el) el.remove(); }, 6400);
