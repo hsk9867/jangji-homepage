@@ -163,14 +163,14 @@
 
     /* 실적 띠: 보일 때 숫자가 올라간다 */
     var STATS = [
-      { n: 100, suffix: '+', unit: '곳', label: '상담 가능 장지' },
-      { n: 23524, suffix: '', unit: '건', label: '누적 상담 신청' },
-      { n: 21233, suffix: '', unit: '건', label: '누적 계약 체결' },
-      { n: 98, suffix: '%', unit: '', label: '고객 만족도' }
+      { n: 100, suffix: '+', unit: '곳', label: '상담 가능 장지', img: img('img/fac/eden-2.jpg') },
+      { n: 23524, suffix: '', unit: '건', label: '누적 상담 신청', img: img('img/fac/gonggam-2.jpg') },
+      { n: 21233, suffix: '', unit: '건', label: '누적 계약 체결', img: img('img/fac/haneulmun-2.jpg') },
+      { n: 98, suffix: '', unit: '%', label: '고객 만족도', img: 'img/counselor-1.jpg' }
     ];
     var stl = document.getElementById('statList');
     if (stl) {
-      stl.innerHTML = STATS.map(function (s) { return '<li><b><span class="num" data-n="' + s.n + '">' + s.n.toLocaleString('ko-KR') + '</span>' + s.suffix + (s.unit ? '<small>' + s.unit + '</small>' : '') + '</b><span class="lb">' + s.label + '</span></li>'; }).join('');
+      stl.innerHTML = STATS.map(function (s) { return '<li><span class="ph"><img src="' + s.img + '" alt="" loading="lazy"></span><span class="lb">' + s.label + '</span><b><span class="num" data-n="' + s.n + '">' + s.n.toLocaleString('ko-KR') + '</span>' + s.suffix + (s.unit ? '<small>' + s.unit + '</small>' : '') + '</b></li>'; }).join('');
       var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduce && 'IntersectionObserver' in window) {
         var ran = false;
