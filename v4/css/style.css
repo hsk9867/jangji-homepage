@@ -214,7 +214,7 @@
 
 /* PC: 가운데 컬럼을 680px 로 넓혀 좌우 여백을 줄임 */
 @media (min-width: 1000px) {
-  :root { --col: 680px; }
+  :root { --col: 760px; }
   .sec, .form-sec, .fpage, .related { padding-left: 28px; padding-right: 28px; }
   .sec { padding-top: 44px; padding-bottom: 44px; }
   .msg { padding-left: 28px; padding-right: 28px; }
@@ -232,6 +232,16 @@
   .gd { padding: 18px 16px; }
   .gd p { font-size: 13.5px; }
 }
-/* 넓어진 컬럼 옆 브랜드 블록은 1320px 이상에서만 */
-@media (min-width: 1100px) and (max-width: 1319px) { .brand-side { display: none; } }
-@media (min-width: 1320px) { .brand-side { left: calc(50% - var(--col) / 2 - 310px); } }
+/* 큰 모니터: 컬럼 880px, 바로가기 6개를 한 줄로 */
+@media (min-width: 1500px) {
+  :root { --col: 880px; }
+  .sec, .form-sec, .fpage, .related, .msg, .stats { padding-left: 36px; padding-right: 36px; }
+  .rv-wrap { margin: 14px -36px 0; padding: 4px 36px 8px; }
+  .igrid { grid-template-columns: repeat(6, 1fr); padding: 24px 14px 20px; }
+  .rv { flex-basis: 268px; }
+  .cn { flex-basis: 360px; }
+  .slide .tx { font-size: 26px; }
+}
+/* 넓어진 컬럼 옆 브랜드 블록은 겹치지 않는 폭(1600px 이상)에서만 */
+@media (min-width: 1100px) and (max-width: 1599px) { .brand-side { display: none; } }
+@media (min-width: 1600px) { .brand-side { left: calc(50% - var(--col) / 2 - 320px); } }
