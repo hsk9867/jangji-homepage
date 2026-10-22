@@ -1,21 +1,30 @@
 /* 배웅 홈페이지 시안 v4 — 메인 구성은 속시원(aircon-quote) 방식, 톤앤매너는 v2 그대로 */
 @import url("../../v2/css/style.css");
 
-/* 첫 접속 인트로: 크림 배경 전체 화면, 문구 → 로고 */
-.bw-intro { position: fixed; inset: 0; z-index: 999; background: #F5F1E8; display: flex; align-items: center; justify-content: center; pointer-events: none; animation: bwOut .8s ease 4.1s forwards; }
-.bw-intro .in { position: relative; width: min(72vw, 300px); display: grid; place-items: center; }
-.bw-intro .t { position: absolute; width: 90vw; text-align: center; font-size: clamp(21px, 5.6vw, 30px); font-weight: 700; color: #2B3D2D; line-height: 1.55; letter-spacing: -.02em; animation: bwTextOut .6s ease 2.3s forwards; }
-.bw-intro .t span { display: inline-block; opacity: 0; transform: translateY(16px); filter: blur(6px); animation: bwIn .7s cubic-bezier(.2, .7, .2, 1) forwards; animation-delay: calc(.2s + var(--i, 0) * .17s); }
-.bw-intro .lg { width: 100%; height: auto; opacity: 0; transform: scale(.9); animation: bwLogo 1.1s cubic-bezier(.2, .7, .2, 1) 2.75s forwards; }
-@keyframes bwIn { to { opacity: 1; transform: none; filter: blur(0); } }
-@keyframes bwTextOut { to { opacity: 0; transform: translateY(-14px); filter: blur(4px); } }
+/* 첫 접속 인트로: 크림 배경 전체 화면, 명조체 문구가 차분히 떠오른 뒤 로고로 */
+.bw-intro { position: fixed; inset: 0; z-index: 999; background: #F5F1E8; display: flex; align-items: center; justify-content: center; pointer-events: none; animation: bwOut 1s ease 5.4s forwards; }
+.bw-intro .in { position: relative; width: min(44vw, 170px); display: grid; place-items: center; }
+.bw-intro .t { position: absolute; width: 92vw; text-align: center; font-family: 'Noto Serif KR', 'Pretendard Variable', serif; font-size: clamp(19px, 5vw, 26px); font-weight: 500; color: #2B3D2D; line-height: 1.8; letter-spacing: .02em; animation: bwTextOut .9s ease 3.3s forwards; }
+.bw-intro .t span { display: block; opacity: 0; transform: translateY(8px); animation: bwIn 1.4s cubic-bezier(.25, .6, .3, 1) forwards; }
+.bw-intro .t .l1 { animation-delay: .4s; }
+.bw-intro .t .l2 { animation-delay: 1.3s; }
+.bw-intro .lg { width: 100%; height: auto; opacity: 0; transform: scale(.97); animation: bwLogo 1.4s cubic-bezier(.25, .6, .3, 1) 4s forwards; }
+@keyframes bwIn { to { opacity: 1; transform: none; } }
+@keyframes bwTextOut { to { opacity: 0; transform: translateY(-6px); } }
 @keyframes bwLogo { to { opacity: 1; transform: none; } }
 @keyframes bwOut { to { opacity: 0; visibility: hidden; } }
 .bw-intro.hold, .bw-intro.hold * { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .bw-intro { display: none; } }
 
-/* 실적 띠 (카드뉴스와 바로가기 사이) */
-.stats { padding: 18px 20px 0; }
+/* 문구 띠 (카드뉴스와 무료 상담 신청 사이) */
+.msg { padding: 22px 20px 0; }
+.msg p { background: #F7F4EC; border-radius: var(--r); padding: 24px 18px 26px; text-align: center; font-family: 'Noto Serif KR', 'Pretendard Variable', serif; font-size: 17px; font-weight: 500; color: #2B3D2D; line-height: 1.75; letter-spacing: .01em; }
+.msg p::before { content: ''; display: block; width: 28px; height: 2px; background: var(--gold); margin: 0 auto 14px; }
+.msg p span { display: inline-block; }
+@media (max-width: 760px) { .msg { padding: 16px 16px 0; } .msg p { font-size: 16px; } }
+
+/* 실적 띠 (상담사 소개 아래) */
+.stats { padding: 0 20px 10px; }
 .stats ul { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--accent); color: var(--white); border-radius: var(--r); padding: 16px 6px; }
 .stats li { text-align: center; padding: 2px 4px; border-left: 1px solid rgba(255, 255, 255, .16); }
 .stats li:first-child { border-left: 0; }
@@ -26,7 +35,7 @@
   .stats ul { grid-template-columns: 1fr 1fr; row-gap: 14px; padding: 14px 6px; }
   .stats li:nth-child(3) { border-left: 0; }
 }
-@media (max-width: 760px) { .stats { padding: 14px 16px 0; } }
+@media (max-width: 760px) { .stats { padding: 0 16px 8px; } }
 
 /* 섹션 제목 줄 (속시원식: 제목 + 화살표) */
 .sec-title { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
