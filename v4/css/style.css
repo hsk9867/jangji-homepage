@@ -321,3 +321,5 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .cc .acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .cc .acts .btn { height: 34px; font-size: 13px; padding: 0 12px; gap: 4px; }
 @media (max-width: 420px) { .ehaneul .acts { grid-template-columns: 1fr; } }
+
+.cc .acts .place i { font-style: normal; font-weight: 900; font-size: 12px; color: #03c75a; margin-right: 2px; }

@@ -392,7 +392,7 @@
       grid.innerHTML = list.length ? list.map(function (r) {
         var mq = encodeURIComponent(r.name);
         return '<article class="cc"><div class="hd"><b>' + esc(r.name) + '</b><span class="pub">' + esc(r.pub || '') + (r.furnace ? ' · 화장로 ' + esc(r.furnace) + '기' : '') + '</span></div><div class="ar">' + esc(r.sido) + ' ' + esc(r.sigungu) + '</div><div class="ad">' + esc(r.addr) + '</div>' +
-          '<div class="acts">' + (r.tel ? '<a class="btn btn-line btn-sm" href="' + tel(r.tel) + '">' + ICON.phone + esc(r.tel) + '</a>' : '') + '<a class="btn btn-line btn-sm" href="https://map.naver.com/p/search/' + mq + '" target="_blank" rel="noopener">지도</a>' + (r.web ? '<a class="btn btn-line btn-sm" href="' + esc(r.web) + '" target="_blank" rel="noopener">홈페이지</a>' : '') + '</div></article>';
+          '<div class="acts">' + (r.tel ? '<a class="btn btn-line btn-sm" href="' + tel(r.tel) + '">' + ICON.phone + esc(r.tel) + '</a>' : '') + '<a class="btn btn-line btn-sm place" href="https://map.naver.com/p/search/' + mq + '" target="_blank" rel="noopener"><i>N</i>네이버 플레이스</a>' + (r.web ? '<a class="btn btn-line btn-sm" href="' + esc(r.web) + '" target="_blank" rel="noopener">홈페이지</a>' : '') + '</div></article>';
       }).join('') : '<div class="rv-empty">조건에 맞는 화장시설이 없습니다.</div>';
     }
     fetch('data/crematoriums.json?t=' + Math.floor(Date.now() / 3600000)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
