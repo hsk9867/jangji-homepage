@@ -27,7 +27,7 @@
   function alertBox(msg) { var d = document.createElement('div'); d.textContent = msg; d.style.cssText = 'position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#252525;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)'; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2200); }
 
   /* ---------- 공통 틀: 헤더·푸터·플로팅 ---------- */
-  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['service.html?type=maejang', '매장묘'], ['crematorium.html', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['ijang.html', '파묘·이장'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
+  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['service.html?type=maejang', '매장묘'], ['ijang.html', '파묘·이장'], ['crematorium.html', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
   function shell() {
     var head = '<header class="header"><div class="in">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅"></a>' +
@@ -76,9 +76,9 @@
     ['sumok', LI.tree, '수목장', 'search.html?type=sumok'],
     ['napgol', LI.hall, '봉안당', 'search.html?type=napgol'],
     ['maejang', LI.tomb, '매장묘', 'service.html?type=maejang'],
+    ['ijang', LI.ijang, '파묘/이장', 'ijang.html'],
     ['cremation', LI.calendar, '화장장 예약', 'crematorium.html'],
-    ['support', LI.support, '장례지원금', 'service.html?type=support'],
-    ['ijang', LI.ijang, '파묘/이장', 'ijang.html']
+    ['support', LI.support, '장례지원금', 'service.html?type=support']
   ];
   var REV_TABS = [['', '전체'], ['sumok', '수목장'], ['napgol', '봉안당'], ['maejang', '매장묘'], ['ijang', '파묘/이장']];
   var COUNSELORS = [
