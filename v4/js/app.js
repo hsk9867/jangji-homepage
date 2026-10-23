@@ -27,7 +27,7 @@
   function alertBox(msg) { var d = document.createElement('div'); d.textContent = msg; d.style.cssText = 'position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#252525;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)'; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2200); }
 
   /* ---------- 공통 틀: 헤더·푸터·플로팅 ---------- */
-  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['service.html?type=maejang', '매장묘'], ['crematorium.html', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['service.html?type=ijang', '파묘·이장'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
+  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['service.html?type=maejang', '매장묘'], ['crematorium.html', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['ijang.html', '파묘·이장'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
   function shell() {
     var head = '<header class="header"><div class="in">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅"></a>' +
@@ -78,7 +78,7 @@
     ['maejang', LI.tomb, '매장묘', 'service.html?type=maejang'],
     ['cremation', LI.calendar, '화장장 예약', 'crematorium.html'],
     ['support', LI.support, '장례지원금', 'service.html?type=support'],
-    ['ijang', LI.ijang, '파묘/이장', 'service.html?type=ijang']
+    ['ijang', LI.ijang, '파묘/이장', 'ijang.html']
   ];
   var REV_TABS = [['', '전체'], ['sumok', '수목장'], ['napgol', '봉안당'], ['maejang', '매장묘'], ['ijang', '파묘/이장']];
   var COUNSELORS = [
@@ -283,7 +283,7 @@
       { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘', h: '가족이 함께 모이는 전통 묘역', p: T.maejang.desc, who: '가족 묘역을 원하시는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · ' + T.maejang.priceNote, do_: '직접 답사한 공원묘지 비교, 동행 답사, 계약 대행', steps: stepT(), href: 'service.html?type=maejang', btn: '매장묘 자세히 보기' },
       { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, e하늘 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: 'e하늘에서 가능한 일정을 확인하고 필요한 서류를 안내하며, 화장 이후 모실 곳까지 이어서 상담합니다', steps: stepT(EXTRA.cremation.steps), href: 'crematorium.html', btn: '전국 화장시설 찾기' },
       { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'service.html?type=support', btn: '장례지원금 안내 보기' },
-      { k: 'ijang', ic: LI.ijang, eyebrow: '파묘 · 이장', h: '묘를 옮겨야 할 때, 절차는 배웅이 맡습니다', p: T.ijang.desc, who: '기존 묘를 정리하거나 다른 곳으로 모셔야 하는 가족', cost: T.ijang.priceTag + ' ' + T.ijang.price + ' · ' + T.ijang.priceNote, do_: '개장 신고 대행, 길일 협의, 파묘·유골 수습, 화장과 새 장지 안치까지 진행', steps: stepT(T.ijang.steps), href: 'service.html?type=ijang', btn: '파묘·이장 안내 보기' }
+      { k: 'ijang', ic: LI.ijang, eyebrow: '파묘 · 이장', h: '묘를 옮겨야 할 때, 절차는 배웅이 맡습니다', p: T.ijang.desc, who: '기존 묘를 정리하거나 다른 곳으로 모셔야 하는 가족', cost: T.ijang.priceTag + ' ' + T.ijang.price + ' · ' + T.ijang.priceNote, do_: '개장 신고 대행, 길일 협의, 파묘·유골 수습, 화장과 새 장지 안치까지 진행', steps: stepT(T.ijang.steps), href: 'ijang.html', btn: '파묘·이장 안내 보기' }
     ];
     el.innerHTML = '<section class="sec svcs-hero"><p class="crumb"><a href="index.html">홈</a> › 서비스 안내</p><h1>처음이셔도 괜찮습니다.<br>어떤 서비스인지 먼저 살펴보십시오</h1><p class="lead">배웅이 하는 일 여섯 가지를 한 자리에 정리했습니다. 상담과 동행 답사는 모두 무료입니다.</p>' +
       '<nav class="svc-tabs" aria-label="서비스 바로가기">' + SV.map(function (s) { return '<a href="#sv-' + s.k + '">' + s.eyebrow + '</a>'; }).join('') + '</nav></section>' +
@@ -409,6 +409,35 @@
     });
   }
 
+  /* ---------- 파묘·이장 안내 (baewoong.co.kr/grave-relocation 내용 기준) ---------- */
+  function ijangPage() {
+    var el = document.getElementById('ijang'); if (!el) return;
+    document.title = '파묘·이장 안내 | 배웅';
+    var TERMS = [
+      ['파묘(破墓)', '기존 묘를 열고 유해를 수습하는 일입니다. 이장 절차의 첫 번째 단계입니다.'],
+      ['이장(移葬)', '수습한 유해를 새로운 장소에 다시 모시는 일입니다. 파묘와 반드시 함께 진행됩니다.'],
+      ['개장(改葬)', '「장사 등에 관한 법률」상의 용어로, 파묘·이장 전 과정을 뜻합니다. 관할 관청의 허가가 반드시 필요합니다.']
+    ];
+    var STEPS = [
+      ['가족 협의', '방향 결정과 역할 분담', '이장 사유를 공유하고 새 안장지의 방향(봉안당·자연장·봉안묘 등)을 함께 정합니다. 서류 준비, 현장 동행, 화장장 예약 담당을 나누어 두면 이후 혼선이 줄어듭니다.'],
+      ['새 안장지 선정', '파묘 이전에 계약 완료', '새 안장지 계약을 파묘 전에 반드시 마쳐야 합니다. 계약 없이 파묘를 먼저 하면 유해를 임시 보관해야 하는 상황이 생깁니다. 관리 구조, 접근성, 운영 주체, 비용 조건을 함께 확인합니다.'],
+      ['개장 신고', '허가증 없이 작업 불가', '현재 묘가 있는 시·군·구청에 신고하고 허가증을 받습니다. 필요 서류: 개장 신고서, 신청인 신분증, 토지 소유자 동의서(사유지), 가족관계증명서, 묘지 위치 약도 또는 지번. 처리 기간은 보통 3~7일이며, 개장허가증을 받은 뒤에만 파묘를 시작할 수 있습니다.'],
+      ['파묘 업체 선정', '견적 항목 분리 확인', '사업자등록증과 장례지도사 자격 보유 여부를 먼저 확인합니다. 견적서는 파묘 작업비, 운반비, 화장비, 기타 비용이 분리된 형태로 받고, 두 곳 이상을 비교하는 것이 기준이 됩니다.'],
+      ['파묘 당일', '개토제와 유해 수습', '개토제(開土祭)로 시작합니다. 간단한 제물(과일·포·술)을 차리고 후손이 인사를 올린 뒤 작업합니다. 화장하는 경우 관할 화장장에 2~5일 전 사전 예약이 필요하며, 당일 예약은 대부분 어렵습니다.'],
+      ['재안장', '새 안장지에 모시는 절차', '새 묘지에 안장하는 경우 취토(取土)와 성분(成墳)으로 마무리합니다. 봉안당·수목장으로 모시는 경우 각 시설의 안장 절차에 따릅니다.'],
+      ['이장 고유', '마무리 제례', '새 자리에 모신 뒤 이장 고유(告由)를 올리고 후손이 인사를 드리며 전체 절차를 마칩니다.']
+    ];
+    var CHECKS = ['가족 협의 — 방향 결정과 역할 분담까지 완료', '새 안장지 계약 — 파묘 이전에 완료', '개장 신고서 제출과 허가증 수령 — 허가증 없이 작업 불가', '이장 업체 계약과 날짜 확정 — 견적 항목 분리 확인', '화장장 사전 예약 — 화장의 경우 최소 2~5일 전', '개토제 준비물 — 제물, 향, 초 사전 확인', '가족 일정 공유 — 당일 참석 인원 사전 조율'];
+    el.innerHTML = '<section class="sec" style="padding-bottom:0"><div class="ij-hero"><div class="tx"><h1>조상님을<br>새 자리로 정중하게</h1><p>개장 신고부터 화장장 예약, 봉안까지 함께합니다</p><a class="btn btn-primary" href="contact.html?type=ijang">이장·개장 상담 신청</a></div><div class="art" aria-hidden="true">' + LI.ijang + '</div></div></section>' +
+      '<section class="sec"><p class="crumb"><a href="index.html">홈</a> › 파묘·이장 안내</p><h2>파묘·이장 절차, 순서보다 먼저 정리해야 할 기준</h2><p class="lead">상담 현장에서 파묘·이장을 문의하시는 분들 중 상당수가 "어디서부터 시작해야 할지 모르겠다"는 말씀으로 대화를 시작하십니다. 도시 개발로 인한 묘지 수용, 묘지 사용 기한 만료, 후손의 거주지 이전, 관리가 어려워지는 상황까지 사유는 다양합니다. 이 과정은 날짜를 잡고 업체를 부르는 일이 아니라 법적 신고, 새 안장지 계약, 업체 선정, 가족 협의까지 순서가 맞아야 하는 일입니다. 순서가 틀리면 처음부터 다시 준비해야 하는 상황이 생깁니다.</p></section>' +
+      '<section class="sec gray"><h2>파묘·이장·개장, 개념부터 정확히</h2><div class="ij-terms">' + TERMS.map(function (t) { return '<div><b>' + t[0] + '</b><p>' + t[1] + '</p></div>'; }).join('') + '</div><p class="notice" style="margin-top:12px">개장은 반드시 관할 시·군·구청에 신고하고 허가증을 받은 뒤에 진행할 수 있습니다. 허가 전에 작업을 진행하면 법적 문제가 생길 수 있습니다.</p></section>' +
+      '<section class="sec"><h2>이장 시기 선택 기준</h2><p class="lead">전통적으로 이장은 음력 길일을 택합니다. 음력 3월(봄)이 가장 선호되고, 음력 10월(가을)이 그다음입니다. 삼복, 기일, 명절 전후는 피하는 시기로 꼽히며, 지관이나 풍수사에게 날을 따로 받는 경우도 있습니다.</p><p class="lead" style="margin-top:10px">다만 시기는 가족 협의 일정, 새 안장지 계약 완료 여부, 개장 허가 처리 기간을 함께 고려해 정해야 합니다. 전통 기준과 행정 일정을 함께 맞추는 것이 실무 기준이며, 시기 확정은 이장 준비의 가장 마지막 단계입니다.</p></section>' +
+      '<section class="sec gray"><h2>파묘·이장 7단계 절차</h2><ol class="ij-steps">' + STEPS.map(function (s, i) { return '<li><i>' + (i + 1) + '</i><div><b>' + s[0] + ' <small>' + s[1] + '</small></b><p>' + s[2] + '</p></div></li>'; }).join('') + '</ol></section>' +
+      '<section class="sec"><h2>파묘·이장 전 확인 체크포인트</h2><p class="lead">준비하시는 분들이 실제로 가장 많이 빠뜨리는 항목입니다. 일곱 가지가 모두 정리된 뒤에 파묘 날짜를 확정하는 것이 기준입니다.</p><ul class="ij-check">' + CHECKS.map(function (c) { return '<li>' + ICON.check + c + '</li>'; }).join('') + '</ul></section>' +
+      '<section class="sec gray"><h2>기준을 먼저 정리하고 시작하십시오</h2><p class="lead">파묘·이장은 가족 협의 → 새 안장지 선정 → 개장 신고 → 업체 계약 → 파묘 당일 → 재안장 → 마무리 제례의 순서로 진행됩니다. 빠뜨리기 쉬운 것은 새 안장지 계약의 선행, 개장 허가증 수령, 화장장 사전 예약입니다. 순서가 어긋나면 일정이 지연되거나 유해를 임시 보관해야 하는 문제가 생깁니다.</p>' +
+      '<div class="contact-box" style="margin-top:18px"><small>이장 일정을 잡기 전에</small><b>파묘·이장 절차 전반을 함께 정리해 드립니다</b><div class="acts"><a class="btn btn-primary" href="contact.html?type=ijang">이장·개장 상담 신청</a><a class="btn btn-white" href="' + tel(S.phone) + '">전화문의</a>' + (S.kakao ? '<a class="btn btn-white" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '</div></div></section>';
+  }
+
   function servicePage() {
     var el = document.getElementById('spage'); if (!el) return;
     var k = qs('type') || 'sumok';
@@ -528,5 +557,6 @@
   if (page === 'services') servicesPage();
   if (page === 'search') searchPage();
   if (page === 'crematorium') cremPage();
+  if (page === 'ijang') ijangPage();
   if (page === 'contact') contact();
 })();
