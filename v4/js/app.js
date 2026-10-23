@@ -27,7 +27,7 @@
   function alertBox(msg) { var d = document.createElement('div'); d.textContent = msg; d.style.cssText = 'position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#252525;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)'; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2200); }
 
   /* ---------- 공통 틀: 헤더·푸터·플로팅 ---------- */
-  var NAV = [['service.html?type=sumok', '수목장'], ['service.html?type=napgol', '봉안당'], ['service.html?type=maejang', '매장묘·파묘'], ['service.html?type=cremation', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
+  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['service.html?type=maejang', '매장묘'], ['crematorium.html', '화장장 예약'], ['service.html?type=ijang', '파묘·이장'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
   function shell() {
     var head = '<header class="header"><div class="in">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅"></a>' +
@@ -43,10 +43,9 @@
       '<div class="info">' + esc(S.bizName) + '<br>' + esc(S.bizDesc) + '<br>전화 문의: ' + esc(S.phone) + ' · ' + esc(S.hours) + (S.email ? '<br>이메일: ' + esc(S.email) : '') + (S.bizNo ? '<br>사업자 등록번호: ' + esc(S.bizNo) : '') + '</div>' +
       '<div class="copy">© ' + new Date().getFullYear() + '. ' + esc(S.bizName) + ' ALL RIGHTS RESERVED.</div></footer>';
     var fab = '<div class="fabs">' +
-      '<a class="fab support" href="service.html?type=support" aria-label="장례지원금 안내"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2 3v2h14v-2zm2 5h4v1.5H7z"/></svg>지원금</a>' +
       (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
       '<a class="fab tel" href="' + tel(S.phone) + '" aria-label="전화 상담">' + ICON.phone + '전화</a>' +
-      '<a class="fab" href="service.html?type=cremation" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
+      '<a class="fab" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
     document.body.insertAdjacentHTML('afterbegin', head);
     var col = document.querySelector('.col');
     if (col) col.insertAdjacentHTML('beforeend', foot);
@@ -71,12 +70,11 @@
     contract: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 16.5h4"/></svg>'
   };
   var QUICK = [
-    ['sumok', LI.tree, '수목장', 'service.html?type=sumok'],
-    ['napgol', LI.hall, '봉안당', 'service.html?type=napgol'],
-    ['maejang', LI.tomb, '매장묘/파묘', 'service.html?type=maejang'],
-    ['cremation', LI.calendar, '화장장 예약', 'service.html?type=cremation'],
-    ['support', LI.support, '장례지원금', 'service.html?type=support'],
-    ['facility', LI.pin, '답사 시설', ROOT + 'facilities.html']
+    ['sumok', LI.tree, '수목장', 'search.html?type=sumok'],
+    ['napgol', LI.hall, '봉안당', 'search.html?type=napgol'],
+    ['maejang', LI.tomb, '매장묘', 'service.html?type=maejang'],
+    ['cremation', LI.calendar, '화장장 예약', 'crematorium.html'],
+    ['ijang', LI.walk, '파묘/이장', 'service.html?type=ijang']
   ];
   var REV_TABS = [['', '전체'], ['sumok', '수목장'], ['napgol', '봉안당'], ['maejang', '매장묘'], ['ijang', '파묘/이장']];
   var COUNSELORS = [
@@ -148,8 +146,8 @@
 
     /* 슬라이드 */
     var SL = [
-      { img: 'img/slide-sumok.jpg', chip: '수목장 분양 안내', tx: '직접 답사한 수목장만<br>분양 조건을 서면으로 비교해 드립니다', href: 'service.html?type=sumok' },
-      { img: 'img/fac/haneulmun-2.jpg', chip: '화장장 예약 안내', tx: '화장장 예약이 처음이시라면<br>희망 지역만 알려주십시오', href: 'service.html?type=cremation' },
+      { img: 'img/slide-sumok.jpg', chip: '수목장 분양 안내', tx: '직접 답사한 수목장만<br>분양 조건을 서면으로 비교해 드립니다', href: 'search.html?type=sumok' },
+      { img: 'img/fac/haneulmun-2.jpg', chip: '화장장 예약 안내', tx: '화장장 예약이 처음이시라면<br>희망 지역만 알려주십시오', href: 'crematorium.html' },
       { img: 'img/fac/bundanghome-1.jpg', chip: '주말 무료 동행 답사', tx: '주말에도 상담사가<br>현장에 동행합니다', href: 'contact.html' }
     ];
     var sl = document.getElementById('slider'), dots = document.getElementById('dots'), cur = 0, timer;
@@ -276,24 +274,134 @@
     var T = C.types;
     var stepT = function (arr) { return (arr || S.steps || []).map(function (x) { return x.t; }); };
     var SV = [
-      { k: 'sumok', ic: LI.tree, eyebrow: '수목장', h: '나무 아래, 자연으로 모시는 수목장', p: T.sumok.desc, who: '자연 속에 모시고 싶고 관리 부담을 줄이고 싶은 가족', cost: T.sumok.priceTag + ' ' + T.sumok.price + ' · ' + T.sumok.priceNote, do_: '직접 답사한 수목장 가운데 조건에 맞는 곳을 비교하고, 주말 동행 답사와 계약 대행까지 맡습니다', steps: stepT(), href: 'service.html?type=sumok', btn: '수목장 자세히 보기' },
-      { k: 'napgol', ic: LI.hall, eyebrow: '봉안당(납골당)', h: '날씨와 상관없이 찾아뵙는 실내 봉안시설', p: T.napgol.desc, who: '자주 찾아뵙고 싶은 가족, 도심에서 가까운 곳을 원하는 분', cost: T.napgol.priceTag + ' ' + T.napgol.price + ' · ' + T.napgol.priceNote, do_: '단 위치·관리비·이용 기간을 서면으로 비교하고, 동행 답사와 계약 대행을 맡습니다', steps: stepT(), href: 'service.html?type=napgol', btn: '봉안당 자세히 보기' },
-      { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘 · 파묘', h: '가족이 함께 모이는 묘역, 그리고 묘를 옮겨야 할 때', p: T.maejang.desc + ' 기존 묘를 정리하셔야 한다면 개장 신고부터 파묘, 화장, 새 장지 안치까지 배웅이 대행합니다.', who: '가족 묘역을 원하는 분, 기존 묘를 정리·이장해야 하는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · 파묘·이장은 분묘 수와 장비 진입 여부에 따라 현장 확인 후 견적', do_: '공원묘지 비교와 계약 대행, 파묘·이장 절차 대행(개장 신고·길일 협의·유골 수습·새 장지 안치)', steps: stepT(), href: 'service.html?type=maejang', btn: '매장묘·파묘 자세히 보기' },
-      { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, e하늘 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: 'e하늘에서 가능한 일정을 확인하고 필요한 서류를 안내하며, 화장 이후 모실 곳까지 이어서 상담합니다', steps: stepT(EXTRA.cremation.steps), href: 'service.html?type=cremation', btn: '화장장 예약 안내 보기' },
-      { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'service.html?type=support', btn: '장례지원금 안내 보기' },
-      { k: 'facility', ic: LI.pin, eyebrow: '답사 시설', h: '배웅이 직접 다녀온 장지만 보여드립니다', p: '배웅 상담팀이 직접 방문해 진입로, 주차, 관리 상태까지 확인한 경기도 시설 ' + facilities().length + '곳입니다. 사진과 위치, 사용료를 먼저 보시고 마음에 드는 곳으로 바로 상담을 신청하실 수 있습니다.', who: '어떤 곳들이 있는지부터 둘러보고 싶으신 분', cost: '사용료·관리비는 시설별로 표기 · 계약 전 서면으로 다시 비교', do_: '시설별 사진·위치·특징을 정리하고, 마음에 드는 곳으로 동행 답사합니다', steps: ['유형 고르기', '시설 상세 보기', '이 시설로 상담 신청', '동행 답사'], href: ROOT + 'facilities.html', btn: '답사 시설 전체 보기' }
+      { k: 'sumok', ic: LI.tree, eyebrow: '수목장', h: '나무 아래, 자연으로 모시는 수목장', p: T.sumok.desc, who: '자연 속에 모시고 싶고 관리 부담을 줄이고 싶은 가족', cost: T.sumok.priceTag + ' ' + T.sumok.price + ' · ' + T.sumok.priceNote, do_: '직접 답사한 수목장 가운데 조건에 맞는 곳을 비교하고, 주말 동행 답사와 계약 대행까지 맡습니다', steps: stepT(), href: 'search.html?type=sumok', btn: '수목장 찾기·비교' },
+      { k: 'napgol', ic: LI.hall, eyebrow: '봉안당(납골당)', h: '날씨와 상관없이 찾아뵙는 실내 봉안시설', p: T.napgol.desc, who: '자주 찾아뵙고 싶은 가족, 도심에서 가까운 곳을 원하는 분', cost: T.napgol.priceTag + ' ' + T.napgol.price + ' · ' + T.napgol.priceNote, do_: '단 위치·관리비·이용 기간을 서면으로 비교하고, 동행 답사와 계약 대행을 맡습니다', steps: stepT(), href: 'search.html?type=napgol', btn: '봉안당 찾기·비교' },
+      { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘', h: '가족이 함께 모이는 전통 묘역', p: T.maejang.desc, who: '가족 묘역을 원하시는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · ' + T.maejang.priceNote, do_: '직접 답사한 공원묘지 비교, 동행 답사, 계약 대행', steps: stepT(), href: 'service.html?type=maejang', btn: '매장묘 자세히 보기' },
+      { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, e하늘 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: 'e하늘에서 가능한 일정을 확인하고 필요한 서류를 안내하며, 화장 이후 모실 곳까지 이어서 상담합니다', steps: stepT(EXTRA.cremation.steps), href: 'crematorium.html', btn: '전국 화장시설 찾기' },
+      { k: 'ijang', ic: LI.walk, eyebrow: '파묘 · 이장', h: '묘를 옮겨야 할 때, 절차는 배웅이 맡습니다', p: T.ijang.desc, who: '기존 묘를 정리하거나 다른 곳으로 모셔야 하는 가족', cost: T.ijang.priceTag + ' ' + T.ijang.price + ' · ' + T.ijang.priceNote, do_: '개장 신고 대행, 길일 협의, 파묘·유골 수습, 화장과 새 장지 안치까지 진행', steps: stepT(T.ijang.steps), href: 'service.html?type=ijang', btn: '파묘·이장 안내 보기' }
     ];
-    el.innerHTML = '<section class="sec svcs-hero"><p class="crumb"><a href="index.html">홈</a> › 서비스 안내</p><h1>처음이셔도 괜찮습니다.<br>어떤 서비스인지 먼저 살펴보십시오</h1><p class="lead">배웅이 하는 일 여섯 가지를 한 자리에 정리했습니다. 상담과 동행 답사는 모두 무료입니다.</p>' +
+    el.innerHTML = '<section class="sec svcs-hero"><p class="crumb"><a href="index.html">홈</a> › 서비스 안내</p><h1>처음이셔도 괜찮습니다.<br>어떤 서비스인지 먼저 살펴보십시오</h1><p class="lead">배웅이 하는 일 다섯 가지를 한 자리에 정리했습니다. 상담과 동행 답사는 모두 무료입니다.</p>' +
       '<nav class="svc-tabs" aria-label="서비스 바로가기">' + SV.map(function (s) { return '<a href="#sv-' + s.k + '">' + s.eyebrow + '</a>'; }).join('') + '</nav></section>' +
       SV.map(function (s, i) {
         return '<section class="sec svc' + (i % 2 ? ' gray' : '') + '" id="sv-' + s.k + '"><div class="svc-head"><span class="em" aria-hidden="true">' + s.ic + '</span><div><span class="eyebrow">' + esc(s.eyebrow) + '</span><h2>' + esc(s.h) + '</h2></div></div>' +
           '<p class="lead">' + esc(s.p) + '</p>' +
           '<div class="svc-grid"><div><b>이런 분께</b><span>' + esc(s.who) + '</span></div><div><b>비용은</b><span>' + esc(s.cost) + '</span></div><div><b>배웅이 하는 일</b><span>' + esc(s.do_) + '</span></div></div>' +
           '<ol class="svc-steps">' + s.steps.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
-          '<div class="svc-acts"><a class="btn btn-primary" href="' + s.href + '">' + esc(s.btn) + '</a><a class="btn btn-line" href="contact.html?type=' + (s.k === 'facility' ? 'unsure' : s.k) + '">상담 신청</a></div></section>';
+          '<div class="svc-acts"><a class="btn btn-primary" href="' + s.href + '">' + esc(s.btn) + '</a><a class="btn btn-line" href="contact.html?type=' + s.k + '">상담 신청</a></div></section>';
       }).join('') +
       '<section class="sec"><div class="contact-box"><small>어떤 서비스가 맞을지 모르시겠다면</small><b>편히 전화 주십시오. 상담하며 함께 정하겠습니다</b><div class="acts"><a class="btn btn-primary" href="contact.html?type=unsure">상담 신청</a><a class="btn btn-white" href="' + tel(S.phone) + '">전화문의</a>' + (S.kakao ? '<a class="btn btn-white" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '</div></div></section>';
     if (location.hash) { var t = document.querySelector(location.hash); if (t) setTimeout(function () { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50); }
+  }
+
+  /* ---------- 장지 검색·비교 (수목장·봉안당·매장묘) ---------- */
+  var SEARCH_TYPES = [['sumok', '수목장'], ['napgol', '봉안당'], ['maejang', '매장묘']];
+  function areaKey(a) { return String(a || '').replace(/^경기\s*/, '').replace(/\(.*\)$/, '').trim(); }
+  function searchPage() {
+    var el = document.getElementById('srch'); if (!el) return;
+    var k = qs('type'); if (!C.types[k] || !SEARCH_TYPES.some(function (t) { return t[0] === k; })) k = 'sumok';
+    var t = typeOf(k), all = facilities(k);
+    document.title = t.name + ' 검색·비교 | 배웅';
+    var areas = []; all.forEach(function (f) { var a = areaKey(f.area); if (a && areas.indexOf(a) < 0) areas.push(a); });
+    var tagCount = {}; all.forEach(function (f) { (f.tags || []).forEach(function (x) { tagCount[x] = (tagCount[x] || 0) + 1; }); });
+    var tags = Object.keys(tagCount).sort(function (a, b) { return tagCount[b] - tagCount[a]; }).slice(0, 8);
+    var state = { area: '', tag: '', feat: false, q: '' }, picked = [];
+
+    el.innerHTML = '<section class="sec srch-top"><p class="notice-line"><i></i>직접 답사한 시설만 안내합니다.</p>' +
+      '<h1>' + esc(t.name) + ' 찾기</h1><p class="lead">' + esc(t.short) + '</p>' +
+      '<div class="type-tabs">' + SEARCH_TYPES.map(function (x) { return '<a href="search.html?type=' + x[0] + '"' + (x[0] === k ? ' class="on"' : '') + '>' + x[1] + ' <small>' + facilities(x[0]).length + '</small></a>'; }).join('') + '</div>' +
+      '<div class="filt"><div class="fl">지역</div><div class="chips" id="fArea"><button type="button" class="on" data-v="">전체</button>' + areas.map(function (a) { return '<button type="button" data-v="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div></div>' +
+      (tags.length ? '<div class="filt"><div class="fl">특징</div><div class="chips" id="fTag"><button type="button" class="on" data-v="">전체</button>' + tags.map(function (a) { return '<button type="button" data-v="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div></div>' : '') +
+      '<div class="filt row2"><input type="search" id="fQ" placeholder="시설명으로 찾기"><label class="tog"><input type="checkbox" id="fFeat"><span>배웅 추천만</span></label></div>' +
+      '<div class="cnt"><b id="cnt"></b> <span class="dim">비교함에 담아 최대 3곳까지 한눈에 비교할 수 있습니다.</span></div></section>' +
+      '<section class="sec gray" id="listSec"><div class="fgrid" id="fgrid"></div></section>' +
+      '<section class="sec" id="cmpSec" hidden><div class="sec-title"><h2>선택한 시설 비교</h2><button type="button" class="arr" id="cmpClose" aria-label="닫기">×</button></div><div class="cmp-wrap" id="cmpWrap"></div></section>' +
+      '<div class="cmpbar" id="cmpbar" hidden><div class="in"><span id="cmpN"></span><button type="button" class="btn btn-primary btn-sm" id="cmpGo">비교하기</button><button type="button" class="btn btn-line btn-sm" id="cmpClear">비우기</button></div></div>';
+
+    function filtered() {
+      return all.filter(function (f) {
+        if (state.area && areaKey(f.area) !== state.area) return false;
+        if (state.tag && (f.tags || []).indexOf(state.tag) < 0) return false;
+        if (state.feat && !f.featured) return false;
+        if (state.q && (f.name + ' ' + f.area + ' ' + (f.tags || []).join(' ')).indexOf(state.q) < 0) return false;
+        return true;
+      });
+    }
+    function card(f) {
+      var ph = (f.photos || [])[0], on = picked.indexOf(f.id) >= 0;
+      return '<article class="fc' + (on ? ' on' : '') + '" data-id="' + esc(f.id) + '"><a class="ph" href="facility.html?id=' + esc(f.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '') + (f.featured ? '<span class="bdg">배웅 추천</span>' : '') + '</a>' +
+        '<div class="bd"><a class="nm" href="facility.html?id=' + esc(f.id) + '">' + esc(f.name) + '</a><div class="ar">' + esc(f.area) + (f.operator ? ' · ' + esc(f.operator) : '') + '</div>' +
+        '<div class="pr">' + esc(f.price || '상담 시 안내') + '</div>' +
+        ((f.tags || []).length ? '<div class="tg">' + f.tags.slice(0, 3).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>' : '') +
+        '<div class="acts"><button type="button" class="btn btn-line btn-sm cmp">' + (on ? '비교함에서 빼기' : '비교 담기') + '</button><a class="btn btn-primary btn-sm" href="contact.html?type=' + esc(k) + '&facility=' + esc(f.id) + '">상담 신청</a></div></div></article>';
+    }
+    function draw() {
+      var list = filtered();
+      document.getElementById('cnt').textContent = '총 ' + list.length + '곳';
+      document.getElementById('fgrid').innerHTML = list.length ? list.map(card).join('') : '<div class="rv-empty">조건에 맞는 시설이 없습니다. 지역이나 특징을 바꿔 보십시오. 원하시는 조건을 상담으로 알려주시면 직접 찾아 안내해 드립니다.</div>';
+    }
+    function bar() {
+      var b = document.getElementById('cmpbar'); b.hidden = !picked.length;
+      document.getElementById('cmpN').innerHTML = '비교함 <b>' + picked.length + '</b> / 3';
+    }
+    function compare() {
+      var fs = picked.map(facility).filter(Boolean); if (!fs.length) return;
+      var rows = [['사진', function (f) { var p = (f.photos || [])[0]; return p ? '<img src="' + img(p) + '" alt="">' : ''; }], ['시설명', function (f) { return '<b>' + esc(f.name) + '</b>' + (f.featured ? '<span class="bdg2">배웅 추천</span>' : ''); }], ['지역', function (f) { return esc(f.area); }], ['주소', function (f) { return esc(f.address || '-'); }], ['운영', function (f) { return esc(f.operator || '-'); }], ['사용료', function (f) { return esc(f.price || '상담 시 안내'); }], ['특징', function (f) { return (f.tags || []).map(function (x) { return '<span class="t">' + esc(x) + '</span>'; }).join('') || '-'; }], ['배웅 한줄평', function (f) { return esc(f.comment || '-'); }], ['', function (f) { return '<a class="btn btn-primary btn-sm btn-block" href="contact.html?type=' + esc(k) + '&facility=' + esc(f.id) + '">상담 신청</a><a class="btn btn-line btn-sm btn-block" style="margin-top:6px" href="facility.html?id=' + esc(f.id) + '">상세 보기</a>'; }]];
+      document.getElementById('cmpWrap').innerHTML = '<table class="cmp"><tbody>' + rows.map(function (r) { return '<tr><th>' + r[0] + '</th>' + fs.map(function (f) { return '<td>' + r[1](f) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table><p class="dim" style="margin-top:10px;font-size:12px">※ 사용료·관리비·이용 기간은 시설 공지에 따라 달라지며, 계약 전에 서면으로 다시 비교해 드립니다.</p>';
+      var s = document.getElementById('cmpSec'); s.hidden = false; s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    el.addEventListener('click', function (e) {
+      var b = e.target.closest('#fArea button, #fTag button');
+      if (b) { var box = b.parentNode; box.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); state[box.id === 'fArea' ? 'area' : 'tag'] = b.dataset.v; draw(); return; }
+      var c = e.target.closest('.fc .cmp');
+      if (c) {
+        var id = c.closest('.fc').dataset.id, i = picked.indexOf(id);
+        if (i >= 0) picked.splice(i, 1); else { if (picked.length >= 3) { alertBox('비교함에는 최대 3곳까지 담을 수 있습니다.'); return; } picked.push(id); }
+        var on = picked.indexOf(id) >= 0; c.closest('.fc').classList.toggle('on', on); c.textContent = on ? '비교함에서 빼기' : '비교 담기';
+        bar(); return;
+      }
+      if (e.target.id === 'cmpGo') compare();
+      if (e.target.id === 'cmpClear') { picked = []; draw(); bar(); document.getElementById('cmpSec').hidden = true; }
+      if (e.target.id === 'cmpClose') document.getElementById('cmpSec').hidden = true;
+    });
+    document.getElementById('fQ').addEventListener('input', function (e) { state.q = e.target.value.trim(); draw(); });
+    document.getElementById('fFeat').addEventListener('change', function (e) { state.feat = e.target.checked; draw(); });
+    draw(); bar();
+  }
+
+  /* ---------- 화장장 예약 안내: 전국 화장시설 검색 (보건복지부 현황 자료) + e하늘 예약 연결 ---------- */
+  function cremPage() {
+    var el = document.getElementById('crem'); if (!el) return;
+    document.title = '화장장 예약 안내 | 배웅';
+    var x = EXTRA.cremation;
+    el.innerHTML = '<section class="sec svc-hero"><p class="crumb"><a href="index.html">홈</a> › 화장장 예약 안내</p><div class="svc-head"><span class="em" aria-hidden="true">' + LI.calendar + '</span><div><h1>화장장 예약 안내</h1><p class="lead">' + esc(x.short) + '</p></div></div>' +
+      '<div class="ehaneul"><div><b>화장 예약은 e하늘 장사정보시스템에서</b><p>전국 화장시설 예약은 보건복지부 e하늘에서만 접수합니다. 희망 일정이 빠르게 마감되니 아래에서 가까운 시설을 확인하신 뒤 바로 예약하십시오. 처음이시면 배웅이 함께 확인해 드립니다.</p></div><div class="acts"><a class="btn btn-primary" href="' + EHANEUL + 'funeral" target="_blank" rel="noopener">e하늘 화장 예약 바로가기</a><a class="btn btn-line" href="' + tel(S.phone) + '">배웅에 전화로 묻기</a></div></div></section>' +
+      '<section class="sec gray" id="cremList"><div class="sec-title"><h2>전국 화장시설 찾기</h2><small class="dim" id="cremSrc"></small></div>' +
+      '<div class="filt row2" style="margin-top:14px"><div class="sel" style="flex:1"><select id="cSido"><option value="">시·도 전체</option></select></div><input type="search" id="cQ" placeholder="시설명·시군구로 찾기" style="flex:1.2"></div>' +
+      '<div class="cnt"><b id="cCnt"></b></div><div class="cgrid" id="cgrid"><div class="rv-empty">자료를 불러오는 중입니다…</div></div></section>' +
+      '<section class="sec"><h2>진행 순서</h2><div class="sgrid v">' + x.steps.map(function (s, i) { return '<div><span class="idx">0' + (i + 1) + '</span><b>' + esc(s.t) + '</b><span>' + esc(s.d) + '</span></div>'; }).join('') + '</div></section>' +
+      '<section class="sec gray"><h2>자주 묻는 질문</h2><div class="faq">' + x.faqs.map(function (f, i) { return '<details' + (i === 0 ? ' open' : '') + '><summary>' + esc(f.q) + '</summary><p>' + esc(f.a) + '</p></details>'; }).join('') + '</div></section>' +
+      '<section class="sec"><div class="contact-box"><small>화장 일정부터 모실 곳까지</small><b>연중무휴, 언제든 편히 연락 주십시오</b><div class="acts"><a class="btn btn-primary" href="contact.html?type=cremation">상담 신청</a><a class="btn btn-white" href="' + tel(S.phone) + '">전화문의</a>' + (S.kakao ? '<a class="btn btn-white" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '</div></div></section>';
+    var data = [], sido = document.getElementById('cSido'), q = document.getElementById('cQ'), grid = document.getElementById('cgrid');
+    function draw() {
+      var s = sido.value, kw = q.value.trim();
+      var list = data.filter(function (r) { return (!s || r.sido === s) && (!kw || (r.name + ' ' + r.sigungu + ' ' + r.addr).indexOf(kw) >= 0); });
+      document.getElementById('cCnt').textContent = '총 ' + list.length + '곳' + (s ? ' · ' + s : '');
+      grid.innerHTML = list.length ? list.map(function (r) {
+        var mq = encodeURIComponent(r.name);
+        return '<article class="cc"><div class="hd"><b>' + esc(r.name) + '</b><span class="pub">' + esc(r.pub || '') + (r.furnace ? ' · 화장로 ' + esc(r.furnace) + '기' : '') + '</span></div><div class="ar">' + esc(r.sido) + ' ' + esc(r.sigungu) + '</div><div class="ad">' + esc(r.addr) + '</div>' +
+          '<div class="acts">' + (r.tel ? '<a class="btn btn-line btn-sm" href="' + tel(r.tel) + '">' + ICON.phone + esc(r.tel) + '</a>' : '') + '<a class="btn btn-line btn-sm" href="https://map.naver.com/p/search/' + mq + '" target="_blank" rel="noopener">지도</a>' + (r.web ? '<a class="btn btn-line btn-sm" href="' + esc(r.web) + '" target="_blank" rel="noopener">홈페이지</a>' : '') + '</div></article>';
+      }).join('') : '<div class="rv-empty">조건에 맞는 화장시설이 없습니다.</div>';
+    }
+    fetch('data/crematoriums.json?t=' + Math.floor(Date.now() / 3600000)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+      data = d.items || [];
+      var sidos = []; data.forEach(function (r) { if (sidos.indexOf(r.sido) < 0) sidos.push(r.sido); });
+      sido.innerHTML = '<option value="">시·도 전체</option>' + sidos.map(function (s0) { return '<option value="' + esc(s0) + '">' + esc(s0) + '</option>'; }).join('');
+      document.getElementById('cremSrc').textContent = '출처: 보건복지부 화장시설 현황' + (d.asOf ? ' (' + d.asOf + ' 기준)' : '');
+      sido.onchange = draw; q.oninput = draw; draw();
+    }).catch(function () {
+      grid.innerHTML = '<div class="rv-empty">전국 화장시설 목록은 준비 중입니다. 지역을 알려주시면 배웅이 가까운 화장시설과 예약 가능 일정을 바로 확인해 드립니다.</div>';
+      document.getElementById('cCnt').textContent = '';
+    });
   }
 
   function servicePage() {
@@ -310,9 +418,8 @@
       (t.pros ? '<div class="pc"><div class="gcard"><b>이런 점이 좋아요</b><ul class="dotl">' + t.pros.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' + (t.cons ? '<div class="gcard"><b>이런 점은 확인하십시오</b><ul class="dotl">' + t.cons.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '') + '</div>' : '') +
       (t.reasons ? '<div class="gcard" style="margin-top:14px"><b>이럴 때 파묘·이장을 생각합니다</b><ul class="dotl">' + t.reasons.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '') +
       (t.recommend ? '<div class="gcard" style="margin-top:14px"><b>이런 가족께 권합니다</b><ul class="dotl">' + [].concat(t.recommend).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '') + '</section>' +
-      (k === 'maejang' ? '<section class="sec"><h2>파묘·이장도 함께 진행합니다</h2><p class="lead">' + esc(typeOf('ijang').short) + '</p><a class="btn btn-line btn-block mt12" href="service.html?type=ijang">파묘·이장 안내 보기</a></section>' : '') +
-      ((t.steps || S.steps) ? '<section class="sec' + (k === 'maejang' ? ' gray' : '') + '"><h2>진행 순서</h2><div class="sgrid v">' + (t.steps || S.steps).map(function (x, i) { return '<div><span class="idx">0' + (i + 1) + '</span><b>' + esc(x.t) + '</b><span>' + esc(x.d) + '</span></div>'; }).join('') + '</div></section>' : '') +
-      (list.length ? '<section class="sec gray"><h2>직접 답사한 ' + esc(t.name) + ' <small class="cnt">' + list.length + '곳</small></h2><div class="flist">' + list.slice(0, 6).map(function (f) { var ph = (f.photos || [])[0]; return '<a class="frow" href="facility.html?id=' + esc(f.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span></span>') + '<div><div class="nm">' + esc(f.name) + '</div><div class="ar">' + esc(f.area) + (f.price ? ' · ' + esc(f.price) : '') + '</div></div></a>'; }).join('') + '</div><a class="btn btn-line btn-block mt12" href="' + ROOT + 'facilities.html">답사 시설 전체 보기</a></section>' : '') +
+      ((t.steps || S.steps) ? '<section class="sec"><h2>진행 순서</h2><div class="sgrid v">' + (t.steps || S.steps).map(function (x, i) { return '<div><span class="idx">0' + (i + 1) + '</span><b>' + esc(x.t) + '</b><span>' + esc(x.d) + '</span></div>'; }).join('') + '</div></section>' : '') +
+      (list.length ? '<section class="sec gray"><h2>직접 답사한 ' + esc(t.name) + ' <small class="cnt">' + list.length + '곳</small></h2><div class="flist">' + list.slice(0, 6).map(function (f) { var ph = (f.photos || [])[0]; return '<a class="frow" href="facility.html?id=' + esc(f.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span></span>') + '<div><div class="nm">' + esc(f.name) + '</div><div class="ar">' + esc(f.area) + (f.price ? ' · ' + esc(f.price) : '') + '</div></div></a>'; }).join('') + '</div><a class="btn btn-line btn-block mt12" href="' + (SEARCH_TYPES.some(function (x) { return x[0] === k; }) ? 'search.html?type=' + k : ROOT + 'facilities.html') + '">' + esc(t.name) + ' 전체 찾기·비교</a></section>' : '') +
       (t.faqs ? '<section class="sec"><h2>자주 묻는 질문</h2><div class="faq">' + t.faqs.map(function (f, i) { return '<details' + (i === 0 ? ' open' : '') + '><summary>' + esc(f.q) + '</summary><p>' + esc(f.a) + '</p></details>'; }).join('') + '</div></section>' : '') +
       '<section class="sec gray"><div class="contact-box"><small>' + esc(t.name) + '에 대해 더 궁금하신 점은</small><b>연중무휴, 언제든 편히 연락 주십시오</b><div class="acts"><a class="btn btn-primary" href="contact.html?type=' + esc(cta) + '">상담 신청</a><a class="btn btn-white" href="' + tel(S.phone) + '">전화문의</a>' + (S.kakao ? '<a class="btn btn-white" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '</div></div></section>';
     el.innerHTML = html;
@@ -414,5 +521,7 @@
   if (page === 'home') home();
   if (page === 'service') servicePage();
   if (page === 'services') servicesPage();
+  if (page === 'search') searchPage();
+  if (page === 'crematorium') cremPage();
   if (page === 'contact') contact();
 })();
