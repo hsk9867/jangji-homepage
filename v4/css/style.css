@@ -282,7 +282,7 @@
 .fc { background: var(--white); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow .18s, border-color .18s; }
 .fc.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
 .fc .ph { position: relative; display: block; aspect-ratio: 4 / 3; background: var(--gray); }
-.fc .ph img { width: 100%; height: 100%; object-fit: cover; }
+.fc .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .fc .bdg { position: absolute; top: 10px; left: 10px; background: var(--accent); color: var(--white); font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
 .fc .bd { padding: 12px 14px 14px; display: grid; gap: 4px; }
 .fc .nm { font-size: 15px; font-weight: 700; line-height: 1.35; }
@@ -345,3 +345,9 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .ij-check svg { width: 20px; height: 20px; padding: 3px; border-radius: 50%; background: var(--accent); fill: var(--white); flex: none; }
 @media (max-width: 420px) { .ij-hero { grid-template-columns: 1fr; padding: 24px 18px; } .ij-hero .art { display: none; } .ij-hero h1 { font-size: 23px; } }
 @media (min-width: 1000px) { .ij-hero { padding: 38px 32px; grid-template-columns: 1fr 160px; } .ij-hero h1 { font-size: 30px; } .ij-hero .art svg { width: 160px; height: 160px; } }
+
+/* 찾기 필터: 선택 상자 */
+.filt.sels { gap: 8px; }
+.filt.sels .sel { flex: 1; min-width: 0; }
+.filt.sels .sel select { height: 44px; font-size: 14px; background: var(--white); }
+.filt.row2 input[type=search] { height: 44px; background: var(--white); }

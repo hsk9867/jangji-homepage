@@ -27,7 +27,7 @@
   function alertBox(msg) { var d = document.createElement('div'); d.textContent = msg; d.style.cssText = 'position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#252525;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)'; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2200); }
 
   /* ---------- 공통 틀: 헤더·푸터·플로팅 ---------- */
-  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['service.html?type=maejang', '매장묘'], ['ijang.html', '파묘·이장'], ['crematorium.html', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
+  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['search.html?type=maejang', '매장묘'], ['ijang.html', '파묘·이장'], ['crematorium.html', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
   function shell() {
     var head = '<header class="header"><div class="in">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅"></a>' +
@@ -75,7 +75,7 @@
   var QUICK = [
     ['sumok', LI.tree, '수목장', 'search.html?type=sumok'],
     ['napgol', LI.hall, '봉안당', 'search.html?type=napgol'],
-    ['maejang', LI.tomb, '매장묘', 'service.html?type=maejang'],
+    ['maejang', LI.tomb, '매장묘', 'search.html?type=maejang'],
     ['ijang', LI.ijang, '파묘/이장', 'ijang.html'],
     ['cremation', LI.calendar, '화장장 예약', 'crematorium.html'],
     ['support', LI.support, '장례지원금', 'service.html?type=support']
@@ -280,7 +280,7 @@
     var SV = [
       { k: 'sumok', ic: LI.tree, eyebrow: '수목장', h: '나무 아래, 자연으로 모시는 수목장', p: T.sumok.desc, who: '자연 속에 모시고 싶고 관리 부담을 줄이고 싶은 가족', cost: T.sumok.priceTag + ' ' + T.sumok.price + ' · ' + T.sumok.priceNote, do_: '직접 답사한 수목장 가운데 조건에 맞는 곳을 비교하고, 주말 동행 답사와 계약 대행까지 맡습니다', steps: stepT(), href: 'search.html?type=sumok', btn: '수목장 찾기·비교' },
       { k: 'napgol', ic: LI.hall, eyebrow: '봉안당(납골당)', h: '날씨와 상관없이 찾아뵙는 실내 봉안시설', p: T.napgol.desc, who: '자주 찾아뵙고 싶은 가족, 도심에서 가까운 곳을 원하는 분', cost: T.napgol.priceTag + ' ' + T.napgol.price + ' · ' + T.napgol.priceNote, do_: '단 위치·관리비·이용 기간을 서면으로 비교하고, 동행 답사와 계약 대행을 맡습니다', steps: stepT(), href: 'search.html?type=napgol', btn: '봉안당 찾기·비교' },
-      { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘', h: '가족이 함께 모이는 전통 묘역', p: T.maejang.desc, who: '가족 묘역을 원하시는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · ' + T.maejang.priceNote, do_: '직접 답사한 공원묘지 비교, 동행 답사, 계약 대행', steps: stepT(), href: 'service.html?type=maejang', btn: '매장묘 자세히 보기' },
+      { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘', h: '가족이 함께 모이는 전통 묘역', p: T.maejang.desc, who: '가족 묘역을 원하시는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · ' + T.maejang.priceNote, do_: '직접 답사한 공원묘지 비교, 동행 답사, 계약 대행', steps: stepT(), href: 'search.html?type=maejang', btn: '매장묘 찾기·비교' },
       { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, e하늘 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: 'e하늘에서 가능한 일정을 확인하고 필요한 서류를 안내하며, 화장 이후 모실 곳까지 이어서 상담합니다', steps: stepT(EXTRA.cremation.steps), href: 'crematorium.html', btn: '전국 화장시설 찾기' },
       { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'service.html?type=support', btn: '장례지원금 안내 보기' },
       { k: 'ijang', ic: LI.ijang, eyebrow: '파묘 · 이장', h: '묘를 옮겨야 할 때, 절차는 배웅이 맡습니다', p: T.ijang.desc, who: '기존 묘를 정리하거나 다른 곳으로 모셔야 하는 가족', cost: T.ijang.priceTag + ' ' + T.ijang.price + ' · ' + T.ijang.priceNote, do_: '개장 신고 대행, 길일 협의, 파묘·유골 수습, 화장과 새 장지 안치까지 진행', steps: stepT(T.ijang.steps), href: 'ijang.html', btn: '파묘·이장 안내 보기' }
@@ -314,8 +314,8 @@
     el.innerHTML = '<section class="sec srch-top"><p class="notice-line"><i></i>직접 답사한 시설만 안내합니다.</p>' +
       '<h1>' + esc(t.name) + ' 찾기</h1><p class="lead">' + esc(t.short) + '</p>' +
       '<div class="type-tabs">' + SEARCH_TYPES.map(function (x) { return '<a href="search.html?type=' + x[0] + '"' + (x[0] === k ? ' class="on"' : '') + '>' + x[1] + ' <small>' + facilities(x[0]).length + '</small></a>'; }).join('') + '</div>' +
-      '<div class="filt"><div class="fl">지역</div><div class="chips" id="fArea"><button type="button" class="on" data-v="">전체</button>' + areas.map(function (a) { return '<button type="button" data-v="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div></div>' +
-      (tags.length ? '<div class="filt"><div class="fl">특징</div><div class="chips" id="fTag"><button type="button" class="on" data-v="">전체</button>' + tags.map(function (a) { return '<button type="button" data-v="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div></div>' : '') +
+      '<div class="filt row2 sels"><div class="sel"><select id="fArea" aria-label="지역"><option value="">지역 전체</option>' + areas.map(function (a) { return '<option value="' + esc(a) + '">' + esc(a) + '</option>'; }).join('') + '</select></div>' +
+      '<div class="sel"><select id="fTag" aria-label="특징"><option value="">특징 전체</option>' + tags.map(function (a) { return '<option value="' + esc(a) + '">' + esc(a) + '</option>'; }).join('') + '</select></div></div>' +
       '<div class="filt row2"><input type="search" id="fQ" placeholder="시설명으로 찾기"><label class="tog"><input type="checkbox" id="fFeat"><span>배웅 추천만</span></label></div>' +
       '<div class="cnt"><b id="cnt"></b> <span class="dim">비교함에 담아 최대 3곳까지 한눈에 비교할 수 있습니다.</span></div></section>' +
       '<section class="sec gray" id="listSec"><div class="fgrid" id="fgrid"></div></section>' +
@@ -355,8 +355,6 @@
       var s = document.getElementById('cmpSec'); s.hidden = false; s.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     el.addEventListener('click', function (e) {
-      var b = e.target.closest('#fArea button, #fTag button');
-      if (b) { var box = b.parentNode; box.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); state[box.id === 'fArea' ? 'area' : 'tag'] = b.dataset.v; draw(); return; }
       var c = e.target.closest('.fc .cmp');
       if (c) {
         var id = c.closest('.fc').dataset.id, i = picked.indexOf(id);
@@ -368,6 +366,8 @@
       if (e.target.id === 'cmpClear') { picked = []; draw(); bar(); document.getElementById('cmpSec').hidden = true; }
       if (e.target.id === 'cmpClose') document.getElementById('cmpSec').hidden = true;
     });
+    document.getElementById('fArea').addEventListener('change', function (e) { state.area = e.target.value; draw(); });
+    document.getElementById('fTag').addEventListener('change', function (e) { state.tag = e.target.value; draw(); });
     document.getElementById('fQ').addEventListener('input', function (e) { state.q = e.target.value.trim(); draw(); });
     document.getElementById('fFeat').addEventListener('change', function (e) { state.feat = e.target.checked; draw(); });
     draw(); bar();
