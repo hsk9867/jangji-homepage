@@ -200,8 +200,8 @@
 @media (max-width: 760px) {
   .header .subnav { position: relative; height: 50px; gap: 8px; padding: 0 16px; align-items: center; background: var(--white); scrollbar-width: none; }
   .header .subnav a { height: 32px; padding: 0 13px; border-radius: 999px; background: var(--gray); color: var(--text); font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap; flex: none; }
-  .header .subnav a:last-child { background: var(--accent); color: var(--white); margin-right: 16px; }
-  .header .subnav::after { content: ''; position: sticky; right: 0; flex: none; width: 28px; height: 50px; margin-left: -28px; background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--white)); pointer-events: none; }
+  .header .subnav a:last-child { background: var(--accent); color: var(--white); }
+  .header .subnav::after { content: ''; flex: none; width: 8px; }
   .col { padding-top: calc(var(--head) + 50px); }
 }
 
