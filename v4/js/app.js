@@ -27,23 +27,23 @@
   function alertBox(msg) { var d = document.createElement('div'); d.textContent = msg; d.style.cssText = 'position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#252525;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)'; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2200); }
 
   /* ---------- 공통 틀: 헤더·푸터·플로팅 ---------- */
-  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['search.html?type=maejang', '매장묘'], ['ijang.html', '파묘·이장'], ['crematorium.html', '화장장 예약'], ['service.html?type=support', '장례지원금'], ['index.html#reviews', '상담 후기', (C.reviews || []).length]];
+  var NAV = [['search.html?type=sumok', '수목장'], ['search.html?type=napgol', '봉안당'], ['search.html?type=maejang', '공원묘지'], ['ijang.html', '파묘·이장']];
   function shell() {
     var head = '<header class="header"><div class="in">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅"></a>' +
       '<nav class="gnb" aria-label="주 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + (n[2] ? '<span class="n">' + n[2] + '</span>' : '') + '</a>'; }).join('') + '</nav>' +
-      '<div class="pills"><a class="pill red" href="' + tel(S.phone) + '">' + ICON.phone + '연중무휴 상담</a><a class="pill" href="' + ROOT + 'facilities.html">' + ICON.map + '시설 찾기</a></div>' +
+      '<div class="pills"><a class="pill cta" href="contact.html">' + ICON.form + '상담 신청</a></div>' +
       '<button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div>' +
       '<nav class="subnav" aria-label="빠른 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="contact.html">상담 신청</a></nav></header>' +
       '<div class="drawer" id="drawer"><div class="panel"><button class="close" id="drawerClose" aria-label="닫기">×</button><img src="img/logo-h.png" alt="배웅" style="height:30px;width:auto;margin-bottom:14px">' +
-      NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="index.html#counselors">배웅 상담사</a><a href="contact.html">상담 신청</a>' +
+      NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="crematorium.html">화장장 예약</a><a href="contact.html?type=support">장례지원금 상담</a><a href="index.html#reviews">상담 후기</a><a href="index.html#counselors">배웅 상담사</a><a href="index.html#faq">자주 하는 질문</a><a href="contact.html">상담 신청</a>' +
       '<a href="' + tel(S.phone) + '">전화 상담 ' + esc(S.phone) + '</a>' + (S.kakao ? '<a href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카카오톡 상담</a>' : '') + '</div></div>';
     var foot = '<footer class="footer"><img src="img/logo-h.png" alt="배웅">' +
-      '<div class="links"><a href="index.html#story">배웅 이야기</a>' + (S.blogUrl ? '<a href="' + esc(S.blogUrl) + '" target="_blank" rel="noopener">배웅 블로그</a>' : '') + '<a href="' + ROOT + 'privacy.html" class="b">개인정보처리방침</a><a href="' + ROOT + 'facilities.html">답사 시설</a><a href="' + ROOT + 'reviews.html">상담 후기</a><a href="contact.html">상담 신청</a><a href="' + ROOT + '">기존 홈페이지 보기</a></div>' +
+      '<div class="links"><a href="index.html#story">배웅 이야기</a>' + (S.blogUrl ? '<a href="' + esc(S.blogUrl) + '" target="_blank" rel="noopener">배웅 블로그</a>' : '') + '<a href="' + ROOT + 'privacy.html" class="b">개인정보처리방침</a><a href="' + ROOT + 'facilities.html">답사 시설</a><a href="' + ROOT + 'reviews.html">상담 후기</a><a href="contact.html">상담 신청</a><a href="http://baewoong.co.kr" target="_blank" rel="noopener">기존 홈페이지(baewoong.co.kr)</a></div>' +
       '<div class="info">' + esc(S.bizName) + '<br>' + esc(S.bizDesc) + '<br>전화 문의: ' + esc(S.phone) + ' · ' + esc(S.hours) + (S.email ? '<br>이메일: ' + esc(S.email) : '') + (S.bizNo ? '<br>사업자 등록번호: ' + esc(S.bizNo) : '') + '</div>' +
       '<div class="copy">© ' + new Date().getFullYear() + '. ' + esc(S.bizName) + ' ALL RIGHTS RESERVED.</div></footer>';
     var fab = '<div class="fabs">' +
-      '<a class="fab support" href="service.html?type=support" aria-label="장례지원금 안내"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2 3v2h14v-2zm2 5h4v1.5H7z"/></svg>지원금</a>' +
+      '<a class="fab support" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2 3v2h14v-2zm2 5h4v1.5H7z"/></svg>지원금</a>' +
       (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
       '<a class="fab tel" href="' + tel(S.phone) + '" aria-label="전화 상담">' + ICON.phone + '전화</a>' +
       '<a class="fab" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
@@ -51,6 +51,13 @@
     var col = document.querySelector('.col');
     if (col) col.insertAdjacentHTML('beforeend', foot);
     document.body.insertAdjacentHTML('beforeend', fab);
+    var cur = here();
+    document.body.insertAdjacentHTML('beforeend', '<nav class="tabbar" aria-label="하단 메뉴">' +
+      '<a href="index.html"' + (cur === 'index.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>홈</a>' +
+      '<a href="search.html?type=sumok"' + (cur === 'search.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24"><path d="M4 5h7v14H4zM13 5h7v14h-7z" opacity=".35"/><path d="M4 5h7v6H4zM13 13h7v6h-7z"/></svg>장지 비교</a>' +
+      '<a href="contact.html"' + (cur === 'contact.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>상담 신청</a>' +
+      '<button type="button" id="tabMenu"><svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>메뉴</button></nav>');
+    document.getElementById('tabMenu').onclick = function () { document.getElementById('drawer').classList.add('open'); };
     var dr = document.getElementById('drawer');
     document.getElementById('burger').onclick = function () { dr.classList.add('open'); };
     document.getElementById('drawerClose').onclick = function () { dr.classList.remove('open'); };
@@ -78,7 +85,7 @@
     ['maejang', LI.tomb, '매장묘', 'search.html?type=maejang'],
     ['ijang', LI.ijang, '파묘/이장', 'ijang.html'],
     ['cremation', LI.calendar, '화장장 예약', 'crematorium.html'],
-    ['support', LI.support, '장례지원금', 'service.html?type=support']
+    ['support', LI.support, '장례지원금', 'contact.html?type=support']
   ];
   var REV_TABS = [['', '전체'], ['sumok', '수목장'], ['napgol', '봉안당'], ['maejang', '매장묘'], ['ijang', '파묘/이장']];
   var COUNSELORS = [
@@ -192,30 +199,45 @@
     var ig = document.getElementById('igrid');
     if (ig) ig.innerHTML = QUICK.map(function (q) { return '<a href="' + q[3] + '"><span class="ico"><span class="em" aria-hidden="true">' + q[1] + '</span></span><span>' + q[2] + '</span></a>'; }).join('');
 
-    /* 후기: 유형 탭 + 가로 카드 */
-    var rf = document.getElementById('rvFilter'), rtrack = document.getElementById('rvTrack'), rwrap = document.getElementById('rvWrap');
+    /* 고객 상담 후기: 유형 탭 + 가로 카드, 전체 보기와 상세는 사이트 안에서 */
+    var rf = document.getElementById('rvFilter'), rtrack = document.getElementById('rvTrack'), rwrap = document.getElementById('rvWrap'), rall = document.getElementById('rvAll');
     if (rf) {
-      var revs = (C.reviews || []).filter(function (x) { return x.visible !== false; });
-      rf.innerHTML = REV_TABS.map(function (k, i) { var n = revs.filter(function (r) { return !k[0] || r.type === k[0]; }).length; return '<button type="button"' + (i === 0 ? ' class="on"' : '') + ' data-k="' + k[0] + '">' + k[1] + (n ? ' <small>' + n + '</small>' : '') + '</button>'; }).join('');
+      var revs = [];
+      var stars = function (n) { var s = ''; for (var i = 0; i < 5; i++) s += '<i' + (i < n ? ' class="on"' : '') + '>★</i>'; return '<span class="st" aria-label="별점 ' + n + '점">' + s + '</span>'; };
+      var tname = function (t) { return (REV_TABS.filter(function (x) { return x[0] === t; })[0] || ['', typeOf(t).name])[1]; };
+      var rcard = function (x, full) {
+        return '<article class="rv" data-id="' + esc(x.id) + '"' + (full ? '' : ' tabindex="0" role="button"') + '><div class="bd">' + stars(x.rating || 5) + '<p' + (full ? ' class="full"' : '') + '>' + esc(x.text) + '</p><span class="who"><b>' + esc(x.name) + '</b><span>' + esc(tname(x.type)) + ' · ' + esc(x.region) + ' · ' + esc(x.date) + '</span></span>' + (x.sample ? '<span class="smp">예시</span>' : '') + '</div></article>';
+      };
       var drawR = function (k) {
         var list = revs.filter(function (r) { return !k || r.type === k; });
-        if (!list.length) { rtrack.innerHTML = '<div class="rv-empty">' + (REV_TABS.filter(function (t) { return t[0] === k; })[0] || ['', ''])[1] + ' 후기는 준비 중입니다. 블로그에서 동행 기록을 먼저 보실 수 있습니다.</div>'; return; }
-        rtrack.innerHTML = list.map(function (x) {
-          var f = facility(x.facilityId), ph = (x.photos || [])[0] || (f && (f.photos || [])[0]) || (typeOf(x.type).image || '');
-          var tp = (REV_TABS.filter(function (t) { return t[0] === x.type; })[0] || ['', typeOf(x.type).name])[1];
-          return '<a class="rv" href="' + esc(x.blogUrl || S.blogUrl || '#') + '" target="_blank" rel="noopener">' + (ph ? '<div class="ph"><img src="' + img(ph) + '" alt="" loading="lazy"></div>' : '') +
-            '<div class="bd"><span class="tp">' + esc(tp) + (f ? ' · ' + esc(f.name) : '') + '</span><b>' + esc(x.title) + '</b><p>' + esc((x.body || '').replace(/\n+/g, ' ')) + '</p><span class="who">' + esc(x.author) + '<span>' + esc(x.date) + '</span></span></div></a>';
-        }).join('');
+        if (!list.length) { rtrack.innerHTML = '<div class="rv-empty">' + tname(k) + ' 후기는 준비 중입니다.</div>'; return; }
+        rtrack.innerHTML = list.map(function (x) { return rcard(x, false); }).join('');
         rwrap.scrollLeft = 0;
-        autoSlide(rwrap, rtrack, 26);
+        autoSlide(rwrap, rtrack, 22);
       };
-      drawR('');
-      rf.querySelectorAll('button').forEach(function (b) { b.onclick = function () { rf.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); drawR(b.dataset.k); }; });
+      var openR = function (id) {
+        var x = revs.filter(function (r) { return r.id === id; })[0]; if (!x) return;
+        document.body.insertAdjacentHTML('beforeend', '<div class="modal" id="rvModal"><div class="box"><button type="button" class="x" aria-label="닫기">×</button>' + stars(x.rating || 5) + '<p>' + esc(x.text).replace(/\n/g, '<br>') + '</p><div class="who"><b>' + esc(x.name) + '</b> · ' + esc(tname(x.type)) + ' · ' + esc(x.region) + ' · ' + esc(x.date) + '</div><a class="btn btn-primary btn-block" href="contact.html?type=' + esc(x.type) + '">같은 유형으로 상담 신청</a></div></div>');
+        var m = document.getElementById('rvModal');
+        m.onclick = function (e) { if (e.target === m || e.target.classList.contains('x')) m.remove(); };
+      };
+      fetch('data/testimonials.json?t=' + Math.floor(Date.now() / 600000)).then(function (r) { return r.ok ? r.json() : { items: [] }; }).then(function (d) {
+        revs = (d.items || []).filter(function (x) { return x.visible !== false; });
+        rf.innerHTML = REV_TABS.map(function (k, i) { var n = revs.filter(function (r) { return !k[0] || r.type === k[0]; }).length; return '<button type="button"' + (i === 0 ? ' class="on"' : '') + ' data-k="' + k[0] + '">' + k[1] + (n ? ' <small>' + n + '</small>' : '') + '</button>'; }).join('');
+        rf.querySelectorAll('button').forEach(function (b) { b.onclick = function () { rf.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); drawR(b.dataset.k); }; });
+        drawR('');
+        document.getElementById('rvAllBtn').onclick = function () {
+          var open = rall.hidden; rall.hidden = !open; this.textContent = open ? '후기 접기' : '상담 후기 전체 보기';
+          if (open) { rall.innerHTML = revs.map(function (x) { return rcard(x, true); }).join(''); rall.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        };
+      }).catch(function () { rtrack.innerHTML = '<div class="rv-empty">후기를 불러오지 못했습니다.</div>'; });
+      document.getElementById('reviews').addEventListener('click', function (e) { var c = e.target.closest('.rv[role=button]'); if (c && !rwrap.classList.contains('drag')) openR(c.dataset.id); });
+      document.getElementById('reviews').addEventListener('keydown', function (e) { var c = e.target.closest('.rv[role=button]'); if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openR(c.dataset.id); } });
       dragScroll(rwrap); arrows(document.getElementById('reviews'), rwrap);
     }
 
-    /* 상담사 카드 */
-    var cn = document.getElementById('cnTrack');
+    /* 상담사 카드 (고정형) */
+    var cn = document.getElementById('cnGrid');
     if (cn) {
       cn.innerHTML = COUNSELORS.map(function (c) {
         return '<article class="cn"><div class="top"><div class="txt"><span class="badge">배웅 상담원</span><h3>' + esc(c.name) + ' <small>상담원</small></h3><div class="role">' + esc(c.role) + '</div><p>' + esc(c.quote) + '</p></div>' +
@@ -223,8 +245,6 @@
           '<ul class="chk">' + c.tags.map(function (t) { return '<li>' + ICON.check + esc(t) + '</li>'; }).join('') + '</ul>' +
           '<a class="btn btn-line btn-block btn-sm" href="contact.html?memo=' + encodeURIComponent(c.name + ' 상담원 상담 요청') + '">상담 문의</a></article>';
       }).join('');
-      dragScroll(document.getElementById('cnWrap')); arrows(document.getElementById('counselors'), document.getElementById('cnWrap'));
-      autoSlide(document.getElementById('cnWrap'), cn, 22);
     }
 
     /* 서비스 이용안내 4단계 */
@@ -235,7 +255,8 @@
     var ft = document.getElementById('facTags'), fl = document.getElementById('facList');
     if (ft) {
       var fkeys = ['sumok', 'napgol', 'maejang'];
-      ft.innerHTML = fkeys.map(function (k, i) { return '<button type="button" class="tag' + (i === 0 ? ' on' : '') + '" data-k="' + k + '">' + typeOf(k).name + ' ' + facilities(k).length + '</button>'; }).join('');
+      var fshort = { sumok: '수목장', napgol: '봉안당', maejang: '공원묘지' };
+      ft.innerHTML = fkeys.map(function (k, i) { return '<button type="button" class="tag' + (i === 0 ? ' on' : '') + '" data-k="' + k + '">' + fshort[k] + ' <small>' + facilities(k).length + '</small></button>'; }).join('');
       var drawF = function (k) {
         fl.innerHTML = facilities(k).slice(0, 4).map(function (f) {
           var ph = (f.photos || [])[0];
@@ -244,6 +265,20 @@
       };
       drawF('sumok');
       ft.querySelectorAll('.tag').forEach(function (b) { b.onclick = function () { ft.querySelectorAll('.tag').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); drawF(b.dataset.k); }; });
+    }
+
+    /* 자주 하는 질문 */
+    var fq = document.getElementById('faqList');
+    if (fq) {
+      var FQ = { '수목장은 몇 분까지 함께 모실 수 있나요?': '수목장은 몇 분까지 함께 모실 수 있습니까?', '납골당과 봉안당은 다른가요?': '납골당과 봉안당은 다른 곳입니까?', '이장은 언제 하는 게 좋나요?': '이장은 언제 하는 것이 좋습니까?' };
+      var pick = function (k, i) { var f = (C.types[k] && C.types[k].faqs || [])[i]; return f ? { q: FQ[f.q] || f.q, a: f.a } : null; };
+      var FAQS = [
+        { q: '상담과 동행 답사는 정말 무료입니까?', a: '네. 상담, 시설 비교, 동행 답사 모두 비용이 없습니다. 계약은 시설과 직접 하시며, 배웅은 조건 확인과 절차를 돕습니다.' },
+        { q: '어떤 지역의 시설을 안내합니까?', a: '경기도를 중심으로 배웅 상담팀이 직접 답사한 수목장·봉안당·공원묘지만 안내합니다. 그 외 지역은 상담 후 확인해 드립니다.' },
+        pick('sumok', 0), pick('napgol', 0), pick('ijang', 0),
+        { q: '임종 직후라 급한데 바로 도움을 받을 수 있습니까?', a: '연중무휴 전화로 연락 주시면 화장장 예약 가능 일정 확인부터 모실 곳 상담까지 바로 진행합니다.' }
+      ].filter(Boolean);
+      fq.innerHTML = FAQS.map(function (f, i) { return '<details' + (i === 0 ? ' open' : '') + '><summary>' + esc(f.q) + '</summary><p>' + esc(f.a) + '</p></details>'; }).join('');
     }
 
     /* 연락 */
@@ -282,7 +317,7 @@
       { k: 'napgol', ic: LI.hall, eyebrow: '봉안당(납골당)', h: '날씨와 상관없이 찾아뵙는 실내 봉안시설', p: T.napgol.desc, who: '자주 찾아뵙고 싶은 가족, 도심에서 가까운 곳을 원하는 분', cost: T.napgol.priceTag + ' ' + T.napgol.price + ' · ' + T.napgol.priceNote, do_: '단 위치·관리비·이용 기간을 서면으로 비교하고, 동행 답사와 계약 대행을 맡습니다', steps: stepT(), href: 'search.html?type=napgol', btn: '봉안당 찾기·비교' },
       { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘', h: '가족이 함께 모이는 전통 묘역', p: T.maejang.desc, who: '가족 묘역을 원하시는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · ' + T.maejang.priceNote, do_: '직접 답사한 공원묘지 비교, 동행 답사, 계약 대행', steps: stepT(), href: 'search.html?type=maejang', btn: '매장묘 찾기·비교' },
       { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, e하늘 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: 'e하늘에서 가능한 일정을 확인하고 필요한 서류를 안내하며, 화장 이후 모실 곳까지 이어서 상담합니다', steps: stepT(EXTRA.cremation.steps), href: 'crematorium.html', btn: '전국 화장시설 찾기' },
-      { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'service.html?type=support', btn: '장례지원금 안내 보기' },
+      { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'contact.html?type=support', btn: '장례지원금 상담 신청' },
       { k: 'ijang', ic: LI.ijang, eyebrow: '파묘 · 이장', h: '묘를 옮겨야 할 때, 절차는 배웅이 맡습니다', p: T.ijang.desc, who: '기존 묘를 정리하거나 다른 곳으로 모셔야 하는 가족', cost: T.ijang.priceTag + ' ' + T.ijang.price + ' · ' + T.ijang.priceNote, do_: '개장 신고 대행, 길일 협의, 파묘·유골 수습, 화장과 새 장지 안치까지 진행', steps: stepT(T.ijang.steps), href: 'ijang.html', btn: '파묘·이장 안내 보기' }
     ];
     el.innerHTML = '<section class="sec svcs-hero"><p class="crumb"><a href="index.html">홈</a> › 서비스 안내</p><h1>처음이셔도 괜찮습니다.<br>어떤 서비스인지 먼저 살펴보십시오</h1><p class="lead">배웅이 하는 일 여섯 가지를 한 자리에 정리했습니다. 상담과 동행 답사는 모두 무료입니다.</p>' +
@@ -462,7 +497,7 @@
   /* ---------- 상담 신청 ---------- */
   var TYPES = [
     ['sumok', '수목장 분양', '나무 아래 자연장'], ['napgol', '봉안당(납골당)', '실내 안치단'], ['maejang', '매장묘·공원묘지', '가족 묘역'],
-    ['ijang', '파묘·이장', '묘 정리·새 장지'], ['cremation', '화장장 예약 안내', '예약 절차·일정 안내'], ['unsure', '아직 정하지 못했습니다', '상담하며 정합니다']
+    ['ijang', '파묘·이장', '묘 정리·새 장지'], ['cremation', '화장장 예약 안내', '예약 절차·일정 안내'], ['support', '장례지원금', '대상 확인·신청 안내'], ['unsure', '아직 정하지 못했습니다', '상담하며 정합니다']
   ];
   var WHEN = [['urgent', '급합니다', '1주일 이내'], ['soon', '1~3개월 안에', ''], ['later', '미리 준비합니다', '생전 준비 등'], ['now', '임종하신 상태', '바로 연락드립니다'], ['unknown', '아직 정하지 못했습니다', '']];
   function typeLabel(k) { var t = TYPES.filter(function (x) { return x[0] === k; })[0]; return t ? t[1] : ''; }
