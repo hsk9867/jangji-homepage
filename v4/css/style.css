@@ -476,3 +476,25 @@ a.msg:hover .tx { background: #F2EDE1; }
 }
 @media (max-width: 900px) { .pills .pill.cta { display: inline-flex; } }
 @media (max-width: 760px) { .pill.cta { height: 34px; padding: 0 12px; font-size: 13px; } }
+
+/* 푸터: 진한 배경 + 큰 글씨 */
+.footer.dark { background: #2B3D2D; color: rgba(255, 255, 255, .78); border-top: 0; padding: 36px 20px 110px; font-size: 15px; }
+.footer.dark > img { display: none; }
+.footer.dark .flinks { display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--white); }
+.footer.dark .flinks a { color: var(--white); }
+.footer.dark .flinks span { color: rgba(255, 255, 255, .4); }
+.footer.dark .finfo { margin-top: 26px; display: grid; gap: 8px; line-height: 1.6; }
+.footer.dark .finfo .co { font-size: 17px; color: var(--white); }
+.footer.dark .finfo .co b { font-weight: 800; }
+.footer.dark .finfo .co span { margin-left: 8px; color: rgba(255, 255, 255, .8); font-size: 15px; }
+.footer.dark .fcopy { margin-top: 20px; font-size: 14px; color: rgba(255, 255, 255, .6); }
+.footer.dark .fcall { display: inline-block; margin-top: 24px; border: 1px solid rgba(255, 255, 255, .55); border-radius: 12px; padding: 14px 20px; color: var(--white); }
+.footer.dark .fcall small { display: block; font-size: 13px; font-weight: 700; color: rgba(255, 255, 255, .85); }
+.footer.dark .fcall b { display: block; margin-top: 4px; font-size: 22px; font-weight: 800; letter-spacing: .01em; }
+.footer.dark .fbottom { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .18); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.footer.dark .fbottom img { height: 30px; width: auto; filter: brightness(0) invert(1); opacity: .92; }
+.footer.dark .fsns { display: flex; gap: 8px; }
+.footer.dark .fsns a { width: 40px; height: 40px; border-radius: 10px; border: 1.5px solid rgba(255, 255, 255, .7); display: grid; place-items: center; color: var(--white); }
+.footer.dark .fsns svg { width: 20px; height: 20px; fill: currentColor; }
+@media (min-width: 761px) { .footer.dark { padding-bottom: 40px; } }
+@media (min-width: 1000px) { .footer.dark { padding: 44px 28px 44px; font-size: 16px; } .footer.dark .finfo .co { font-size: 18px; } .footer.dark .fcall b { font-size: 24px; } }

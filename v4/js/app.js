@@ -38,10 +38,19 @@
       '<div class="drawer" id="drawer"><div class="panel"><button class="close" id="drawerClose" aria-label="닫기">×</button><img src="img/logo-h.png" alt="배웅" style="height:30px;width:auto;margin-bottom:14px">' +
       NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="crematorium.html">화장장 예약</a><a href="contact.html?type=support">장례지원금 상담</a><a href="index.html#reviews">상담 후기</a><a href="index.html#counselors">배웅 상담사</a><a href="index.html#faq">자주 하는 질문</a><a href="contact.html">상담 신청</a>' +
       '<a href="' + tel(S.phone) + '">전화 상담 ' + esc(S.phone) + '</a>' + (S.kakao ? '<a href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카카오톡 상담</a>' : '') + '</div></div>';
-    var foot = '<footer class="footer"><img src="img/logo-h.png" alt="배웅">' +
-      '<div class="links"><a href="index.html#story">배웅 이야기</a>' + (S.blogUrl ? '<a href="' + esc(S.blogUrl) + '" target="_blank" rel="noopener">배웅 블로그</a>' : '') + '<a href="' + ROOT + 'privacy.html" class="b">개인정보처리방침</a><a href="' + ROOT + 'facilities.html">답사 시설</a><a href="' + ROOT + 'reviews.html">상담 후기</a><a href="contact.html">상담 신청</a><a href="http://baewoong.co.kr" target="_blank" rel="noopener">기존 홈페이지(baewoong.co.kr)</a></div>' +
-      '<div class="info">' + esc(S.bizName) + '<br>' + esc(S.bizDesc) + '<br>전화 문의: ' + esc(S.phone) + ' · ' + esc(S.hours) + (S.email ? '<br>이메일: ' + esc(S.email) : '') + (S.bizNo ? '<br>사업자 등록번호: ' + esc(S.bizNo) : '') + '</div>' +
-      '<div class="copy">© ' + new Date().getFullYear() + '. ' + esc(S.bizName) + ' ALL RIGHTS RESERVED.</div></footer>';
+    var info = [['대표', S.ceo], ['사업자등록번호', S.bizNo], ['주소', S.address], ['메일', S.email]].filter(function (x) { return x[1]; });
+    var foot = '<footer class="footer dark">' +
+      '<div class="flinks"><a href="' + ROOT + 'privacy.html">이용약관</a><span>|</span><a href="' + ROOT + 'privacy.html"><b>개인정보처리방침</b></a></div>' +
+      '<div class="finfo"><div class="co"><b>' + esc(S.bizName) + '</b>' + (S.ceo ? ' <span>대표 : ' + esc(S.ceo) + '</span>' : '') + '</div>' +
+      info.filter(function (x) { return x[0] !== '대표'; }).map(function (x) { return '<div>' + x[0] + ' : ' + esc(x[1]) + '</div>'; }).join('') +
+      '<div>' + esc(S.bizDesc) + '</div></div>' +
+      '<div class="fcopy">© ' + new Date().getFullYear() + '. ' + esc(S.bizName) + ' All rights reserved.</div>' +
+      '<a class="fcall" href="' + tel(S.phone) + '"><small>고객문의 (' + esc(S.hours.split(' · ')[0]) + ')</small><b>' + esc(S.phone) + '</b></a>' +
+      '<div class="fbottom"><img src="img/logo-h.png" alt="배웅"><div class="fsns">' +
+      (S.kakao ? '<a href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 채널"><svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.4.3.7.6.5l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg></a>' : '') +
+      (S.blogUrl ? '<a href="' + esc(S.blogUrl) + '" target="_blank" rel="noopener" aria-label="네이버 블로그"><svg viewBox="0 0 24 24"><path d="M6 17V7h3.2l4.3 6V7H17v10h-3.2l-4.3-6v6z"/></svg></a>' : '') +
+      '<a href="' + ROOT + 'facilities.html" aria-label="답사 시설"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></a>' +
+      '<a href="http://baewoong.co.kr" target="_blank" rel="noopener" aria-label="기존 홈페이지"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a15 15 0 0 0-1.3-5.4A8 8 0 0 1 18.9 11zM12 4c.9 1.3 1.6 3.4 1.9 7h-3.8c.3-3.6 1-5.7 1.9-7zM5.1 13h3a15 15 0 0 0 1.3 5.4A8 8 0 0 1 5.1 13zm3-2h-3a8 8 0 0 1 4.3-5.4A15 15 0 0 0 8.1 11zM12 20c-.9-1.3-1.6-3.4-1.9-7h3.8c-.3 3.6-1 5.7-1.9 7zm2.6-1.6a15 15 0 0 0 1.3-5.4h3a8 8 0 0 1-4.3 5.4z"/></svg></a></div></div></footer>';
     var fab = '<div class="fabs">' +
       '<a class="fab support" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2 3v2h14v-2zm2 5h4v1.5H7z"/></svg>지원금</a>' +
       (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
