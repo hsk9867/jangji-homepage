@@ -49,7 +49,8 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435057522",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "religion": "불교"
   },
   {
    "id": "cheongsol",
@@ -160,8 +161,8 @@ window.BLOG_CONTENT = {
    "operator": "재단법인 갈월사",
    "price": "상담 시 안내",
    "tags": [
-    "사찰 수목장",
-    "조용한 환경"
+    "수목장·봉안당·묘지",
+    "사찰 운영"
    ],
    "comment": "재단법인 갈월사가 운영하는 수목장입니다. 사찰 부지의 차분한 분위기 덕분에 조용한 환경에서 추모하고 싶은 가족에게 잘 어울리며, 서울 근교에서 방문 계획을 세우기 편합니다.",
    "photos": [
@@ -174,7 +175,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224428635972",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "types": [
+    "sumok",
+    "napgol",
+    "maejang"
+   ]
   },
   {
    "id": "geumodongji",
@@ -198,6 +204,31 @@ window.BLOG_CONTENT = {
     "img/fac/geumodongji-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224423941202",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "aegibong",
+   "type": "sumok",
+   "name": "김포 애기봉수목장 (금강사 추모공원)",
+   "area": "경기 김포",
+   "address": "경기도 김포시 하성면 평화공원로70번길 104-25",
+   "operator": "금강사 추모공원",
+   "tags": [
+    "한강 전망",
+    "평화누리길 인근"
+   ],
+   "comment": "김포 하성면 애기봉 자락에 있는 수목장으로, 금강사 추모공원으로도 알려져 있습니다. 한강과 바다가 만나는 풍경을 내려다보는 자리이고, 입구에서 평화누리길과 애기봉전망대로 길이 이어집니다. 서울 강서구와 인천에서 40분 안팎입니다.",
+   "photos": [
+    "img/fac/aegibong-1.jpg",
+    "img/fac/aegibong-2.jpg",
+    "img/fac/aegibong-3.jpg",
+    "img/fac/aegibong-4.jpg",
+    "img/fac/aegibong-5.jpg",
+    "img/fac/aegibong-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224430604950",
+   "price": "상담 시 안내",
    "featured": true,
    "visible": true
   },
@@ -398,12 +429,13 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224426403323",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "religion": "불교"
   },
   {
    "id": "namseoul",
    "type": "napgol",
-   "name": "성남 남서울가족공원",
+   "name": "곤지암 남서울 추모공원",
    "area": "경기 광주(곤지암)",
    "address": "경기도 광주시 곤지암읍 가마을길 83-19",
    "operator": "기독교 법인",
@@ -447,6 +479,211 @@ window.BLOG_CONTENT = {
     "img/fac/bundanghome-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224359282787",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "doseongsa",
+   "type": "napgol",
+   "name": "포천 도성사 납골당",
+   "area": "경기 포천",
+   "address": "경기도 포천시 화현면",
+   "operator": "사찰 운영 (도성사)",
+   "religion": "불교",
+   "tags": [
+    "사찰 봉안당",
+    "개인단·부부단·가족단"
+   ],
+   "comment": "포천 화현면에 자리한 사찰 봉안당입니다. 스님의 예불과 법회가 이어져 불교식 추모를 원하는 가족이 많이 찾고, 개인단·부부단·가족단 가운데 고를 수 있습니다. 포천·양주·의정부 등 경기 북부 가족이 함께 비교하는 곳입니다.",
+   "photos": [
+    "img/fac/doseongsa-1.jpg",
+    "img/fac/doseongsa-2.jpg",
+    "img/fac/doseongsa-3.jpg",
+    "img/fac/doseongsa-4.jpg",
+    "img/fac/doseongsa-5.jpg",
+    "img/fac/doseongsa-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224438326758",
+   "price": "상담 시 안내",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "bongwonsa",
+   "type": "napgol",
+   "name": "서울 봉원사 납골당",
+   "area": "서울 서대문",
+   "address": "서울특별시 서대문구 봉원사길 120",
+   "operator": "사찰 운영 (봉원사)",
+   "religion": "불교",
+   "tags": [
+    "서울 도심 사찰",
+    "불교식 추모"
+   ],
+   "comment": "서울 서대문구 안산 자락의 전통사찰 봉원사에 마련된 봉안시설입니다. 서울 시내에서 오가기 가까워 자주 찾아뵙고 싶은 가족에게 알맞습니다. 안치 형태와 비용은 상담 때 최신 자료로 확인해 드립니다.",
+   "photos": [
+    "img/fac/bongwonsa-1.jpg",
+    "img/fac/bongwonsa-2.jpg",
+    "img/fac/bongwonsa-3.jpg"
+   ],
+   "blogUrl": "",
+   "price": "상담 시 안내",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "utopia",
+   "type": "napgol",
+   "types": [
+    "napgol",
+    "sumok"
+   ],
+   "name": "안성 유토피아추모관",
+   "area": "경기 안성",
+   "address": "경기도 안성시 일죽면 화곡길 130",
+   "operator": "사설",
+   "religion": "불교 · 기독교",
+   "tags": [
+    "봉안당·수목장",
+    "종교별 공간"
+   ],
+   "comment": "안성 일죽면에 있는 추모공원으로, 실내 봉안당과 수목장을 함께 운영합니다. 불교와 기독교 가족 모두 이용할 수 있고, 파묘·이장 후 새로 모실 곳으로도 많이 찾습니다. 밝은 대리석 실내와 넓은 로비가 특징입니다.",
+   "photos": [
+    "img/fac/utopia-1.jpg",
+    "img/fac/utopia-2.jpg",
+    "img/fac/utopia-3.jpg",
+    "img/fac/utopia-4.jpg",
+    "img/fac/utopia-5.jpg",
+    "img/fac/utopia-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224383816905",
+   "price": "상담 시 안내",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "jangan",
+   "type": "napgol",
+   "name": "일산 장안추모공원 (구 장안정사)",
+   "area": "경기 고양(일산)",
+   "address": "경기도 고양시 일산동구 백마로502번길 64-13",
+   "operator": "사찰형 봉안시설",
+   "religion": "불교",
+   "tags": [
+    "사찰형 봉안당",
+    "30년 역사"
+   ],
+   "comment": "일산동구에 자리한 사찰형 봉안시설로, 30년 넘게 운영해 온 곳입니다. 창이 넓은 밝은 봉안실과 가족이 머물 수 있는 휴게 공간이 있고, 일산·고양 생활권 가족이 많이 비교합니다.",
+   "photos": [
+    "img/fac/jangan-1.jpg",
+    "img/fac/jangan-2.jpg",
+    "img/fac/jangan-3.jpg",
+    "img/fac/jangan-4.jpg",
+    "img/fac/jangan-5.jpg",
+    "img/fac/jangan-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224357352928",
+   "price": "상담 시 안내",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "tongillo",
+   "type": "napgol",
+   "name": "파주 통일로추모공원",
+   "area": "경기 파주",
+   "address": "경기도 파주시 조리읍 명봉산로114번길 84",
+   "operator": "사설",
+   "tags": [
+    "고양·파주 생활권",
+    "벽제 승화원 인근"
+   ],
+   "comment": "파주 조리읍 통일로 인근의 봉안시설입니다. 벽제 서울시립승화원에서 가까워 화장 후 바로 모실 곳으로 함께 검토하는 가족이 많습니다. 층과 위치에 따라 금액이 달라 같은 조건끼리 비교해 드립니다.",
+   "photos": [
+    "img/fac/tongillo-1.jpg",
+    "img/fac/tongillo-2.jpg",
+    "img/fac/tongillo-3.jpg",
+    "img/fac/tongillo-4.jpg",
+    "img/fac/tongillo-5.jpg",
+    "img/fac/tongillo-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224234646149",
+   "price": "상담 시 안내",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "paradise",
+   "type": "napgol",
+   "name": "강화 파라다이스추모원",
+   "area": "인천 강화",
+   "address": "인천광역시 강화군 송해면 강화대로 879-16",
+   "operator": "사설",
+   "tags": [
+    "인천·김포권",
+    "탁 트인 전망"
+   ],
+   "comment": "강화군 송해면 강화대로변에 있는 봉안시설입니다. 인천 도심과 김포·부천에서 차로 오가기 편하고, 언덕 위라 전망이 넓게 트여 있습니다. 개인단·부부단·가족단 조건을 현장에서 함께 확인해 드립니다.",
+   "photos": [
+    "img/fac/paradise-1.jpg",
+    "img/fac/paradise-2.jpg",
+    "img/fac/paradise-3.jpg",
+    "img/fac/paradise-4.jpg",
+    "img/fac/paradise-5.jpg",
+    "img/fac/paradise-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224424228676",
+   "price": "상담 시 안내",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "pajuchumo",
+   "type": "napgol",
+   "name": "파주추모공원",
+   "area": "경기 파주",
+   "address": "경기도 파주시 파주읍 약수골길 67",
+   "operator": "재단법인 성파원",
+   "tags": [
+    "재단법인 운영",
+    "주차 약 100대"
+   ],
+   "comment": "재단법인 성파원이 운영하는 파주읍의 봉안시설입니다. 구관과 신관 모두 개인단·부부단을 고를 수 있고, 층과 위치에 따라 분양가가 다릅니다. 주차는 약 100대 규모이며 서울 서북부에서 가깝습니다.",
+   "photos": [
+    "img/fac/pajuchumo-1.jpg",
+    "img/fac/pajuchumo-2.jpg",
+    "img/fac/pajuchumo-3.jpg",
+    "img/fac/pajuchumo-4.jpg",
+    "img/fac/pajuchumo-5.jpg",
+    "img/fac/pajuchumo-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224254570574",
+   "price": "상담 시 안내",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "pureunsol",
+   "type": "napgol",
+   "name": "일산 푸른솔추모공원",
+   "area": "경기 고양(일산)",
+   "address": "경기도 고양시 일산동구 성현로 426-32",
+   "operator": "사설",
+   "tags": [
+    "일반실·고급실·VIP실",
+    "일산 생활권"
+   ],
+   "comment": "고양시 일산동구에 있는 사설 봉안시설입니다. 안치 공간은 2층과 3층에 있고 일반실·고급실·VIP실로 나뉩니다. 창 너머 숲이 보이는 밝은 봉안실이 특징이며, 일산 납골당을 찾는 가족이 자주 후보로 올리는 곳입니다.",
+   "photos": [
+    "img/fac/pureunsol-1.jpg",
+    "img/fac/pureunsol-2.jpg",
+    "img/fac/pureunsol-3.jpg",
+    "img/fac/pureunsol-4.jpg",
+    "img/fac/pureunsol-5.jpg",
+    "img/fac/pureunsol-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224391393867",
+   "price": "상담 시 안내",
    "featured": true,
    "visible": true
   },
@@ -495,7 +732,7 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224173996112",
    "featured": true,
-   "visible": true
+   "visible": false
   },
   {
    "id": "jahayeon",
@@ -543,6 +780,31 @@ window.BLOG_CONTENT = {
     "img/fac/nakwon-5.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224235940313",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "elysium",
+   "type": "maejang",
+   "name": "광주 엘리시움 공원묘원",
+   "area": "경기 광주",
+   "address": "경기도 광주시 오포로 211-50",
+   "operator": "재단법인 삼성개발공원묘원 (1975년 설립)",
+   "tags": [
+    "재단법인 직접 분양",
+    "배수로 정비 묘역"
+   ],
+   "comment": "1975년 설립된 재단법인 삼성개발공원묘원이 운영하는 공원묘지입니다. 재단에서 직접 분양하고 현장 관리 직원이 상주하며, 배수로를 갖춘 묘역이라 유실 걱정이 적습니다. 분당·성남에서 가깝고 진입 동선이 단순합니다.",
+   "photos": [
+    "img/fac/elysium-1.jpg",
+    "img/fac/elysium-2.jpg",
+    "img/fac/elysium-3.jpg",
+    "img/fac/elysium-4.jpg",
+    "img/fac/elysium-5.jpg",
+    "img/fac/elysium-6.jpg"
+   ],
+   "blogUrl": "https://blog.naver.com/baewoong0816/224099221267",
+   "price": "상담 시 안내",
    "featured": true,
    "visible": true
   }
