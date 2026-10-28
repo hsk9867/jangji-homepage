@@ -55,7 +55,7 @@
       '<a class="fab support" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2 3v2h14v-2zm2 5h4v1.5H7z"/></svg>지원금</a>' +
       (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
       '<a class="fab tel" href="' + tel(S.phone) + '" aria-label="전화 상담">' + ICON.phone + '전화</a>' +
-      '<a class="fab" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
+      '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
     document.body.insertAdjacentHTML('afterbegin', head);
     var col = document.querySelector('.col');
     if (col) col.insertAdjacentHTML('beforeend', foot);
@@ -245,16 +245,18 @@
       dragScroll(rwrap); arrows(document.getElementById('reviews'), rwrap);
     }
 
-    /* 상담사 카드 (고정형) */
-    var cn = document.getElementById('cnGrid');
+    /* 상담사 카드 (슬라이드, 축소형) */
+    var cn = document.getElementById('cnTrack');
     if (cn) {
       cn.innerHTML = COUNSELORS.map(function (c) {
-        return '<article class="cn">' +
+        return '<article class="cn"><div class="top">' +
           (c.img ? '<img class="pic" src="' + c.img + '" alt="' + esc(c.name) + ' 상담원" loading="lazy">' : '<div class="pic ph" aria-hidden="true"><span>' + esc(c.name.slice(0, 1)) + '</span></div>') +
-          '<div class="txt"><h3>' + esc(c.name) + ' <small>상담원</small></h3><div class="role">' + esc(c.role) + '</div>' +
-          '<ul class="chk">' + c.tags.map(function (t) { return '<li>' + ICON.check + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+          '<div class="txt"><h3>' + esc(c.name) + ' <small>상담원</small></h3><div class="role">' + esc(c.role) + '</div></div></div>' +
+          '<p class="quote">' + esc(c.quote) + '</p>' +
+          '<ul class="chk">' + c.tags.map(function (t) { return '<li>' + ICON.check + esc(t) + '</li>'; }).join('') + '</ul>' +
           '<a class="ask" href="contact.html?memo=' + encodeURIComponent(c.name + ' 상담원 상담 요청') + '">상담 문의</a></article>';
       }).join('');
+      dragScroll(document.getElementById('cnWrap')); arrows(document.getElementById('counselors'), document.getElementById('cnWrap'));
     }
 
     /* 서비스 이용안내 4단계 */

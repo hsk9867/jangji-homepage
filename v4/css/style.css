@@ -517,24 +517,33 @@ a.msg:hover .tx { background: #F2EDE1; }
 
 /* 상담사 소개: 비중 축소 — 작은 원형 사진 + 한 줄 정보 목록형 */
 #counselors .lead { font-size: 14px; }
-.cn-grid { gap: 10px; margin-top: 14px; }
-.cn { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; }
+.cn { flex: 0 0 250px; padding: 16px 16px 14px; border-radius: 14px; gap: 10px; }
 .cn:hover { transform: none; box-shadow: 0 6px 16px rgba(37, 37, 37, .05); }
-.cn .pic { width: 60px; height: 60px; border-radius: 50%; flex: none; object-fit: cover; object-position: top; }
+.cn .top { display: flex; align-items: center; gap: 12px; }
+.cn .pic { width: 56px; height: 56px; border-radius: 50%; flex: none; object-fit: cover; object-position: top; }
 .cn .pic.ph { background: var(--accent-soft); }
-.cn .pic.ph span { width: 60px; height: 60px; background: none; font-size: 22px; }
+.cn .pic.ph span { width: 56px; height: 56px; background: none; font-size: 20px; }
 .cn .txt { flex: 1; min-width: 0; }
 .cn h3 { margin: 0; font-size: 17px; }
 .cn h3 small { font-size: 13px; }
-.cn .role { margin-top: 2px; font-size: 14px; }
-.cn .chk { padding-top: 7px; border-top: 0; gap: 4px 10px; }
+.cn .role { margin-top: 2px; font-size: 13.5px; }
+.cn .quote { font-size: 13px; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cn .chk { padding-top: 10px; gap: 4px 10px; }
 .cn .chk li { font-size: 12.5px; font-weight: 600; color: var(--text-2); gap: 5px; }
 .cn .chk svg { width: 16px; height: 16px; padding: 3px; }
-.cn .ask { flex: none; align-self: center; font-size: 13px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 8px 13px; white-space: nowrap; }
+.cn .ask { display: block; text-align: center; font-size: 14px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 10px 13px; }
 .cn .ask:hover { background: #D8E2D8; }
-@media (min-width: 761px) { .cn-grid { grid-template-columns: 1fr; } }
-@media (min-width: 1000px) { .cn-grid { grid-template-columns: 1fr 1fr 1fr; } .cn { flex-wrap: wrap; padding: 16px; } .cn .ask { margin-left: 74px; } }
-@media (min-width: 1500px) { .cn .ask { margin-left: 74px; } }
+@media (min-width: 761px) { .cn { flex-basis: 270px; } }
+@media (min-width: 1000px) { .cn { flex-basis: 290px; } }
+
+/* ===== 2026-10-28 고객 수정사항 3 ===== */
+/* 화장장 예약 버튼: 푸터 짙은 초록과 같은 색이라 안 보이던 문제 → 밝은 연녹색 */
+.fabs .fab.crem { background: #DCE8DD; color: #2F5236; border: 0; box-shadow: 0 6px 18px rgba(0, 0, 0, .22); }
+.fabs .fab.crem svg { fill: #2F5236; }
+/* 푸터 고객문의 박스: 번호가 가려지지 않는 선에서 중앙 배치 */
+.footer.dark .fcall { display: block; text-align: center; margin: 24px auto 0; max-width: 360px; }
+@media (max-width: 760px) { .footer.dark .fcall { width: calc(100% - 64px); margin-left: 0; } }
+
 
 /* 블로그 카드: 네이버 초록 → 부드러운 베이지 */
 .brand-card { background: #EDE4D1; color: var(--accent); }
