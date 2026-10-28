@@ -538,8 +538,8 @@ a.msg:hover .tx { background: #F2EDE1; }
 
 /* ===== 2026-10-28 고객 수정사항 3 ===== */
 /* 화장장 예약 버튼: 푸터 짙은 초록과 같은 색이라 안 보이던 문제 → 밝은 연녹색 */
-.fabs .fab.crem { background: #DCE8DD; color: #2F5236; border: 0; box-shadow: 0 6px 18px rgba(0, 0, 0, .22); }
-.fabs .fab.crem svg { fill: #2F5236; }
+.fabs .fab.crem { background: #5B9E63; color: var(--white); border: 2px solid rgba(255, 255, 255, .9); box-shadow: 0 6px 18px rgba(0, 0, 0, .28); }
+.fabs .fab.crem svg { fill: var(--white); }
 /* 푸터 고객문의 박스: 번호가 가려지지 않는 선에서 중앙 배치 */
 .footer.dark .fcall { display: block; text-align: center; margin: 24px auto 0; max-width: 360px; }
 @media (max-width: 760px) { .footer.dark .fcall { width: calc(100% - 64px); margin-left: 0; } }
