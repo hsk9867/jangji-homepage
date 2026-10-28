@@ -34,7 +34,7 @@
       '<nav class="gnb" aria-label="주 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + (n[2] ? '<span class="n">' + n[2] + '</span>' : '') + '</a>'; }).join('') + '</nav>' +
       '<div class="pills"><a class="pill cta" href="contact.html">' + ICON.form + '상담 신청</a></div>' +
       '<button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div>' +
-      '<nav class="subnav" aria-label="빠른 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="contact.html">상담 신청</a></nav></header>' +
+      '<nav class="subnav" aria-label="빠른 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '</nav></header>' +
       '<div class="drawer" id="drawer"><div class="panel"><button class="close" id="drawerClose" aria-label="닫기">×</button><img src="img/logo-h.png" alt="배웅" style="height:30px;width:auto;margin-bottom:14px">' +
       NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="crematorium.html">화장장 예약</a><a href="contact.html?type=support">장례지원금 상담</a><a href="index.html#reviews">상담 후기</a><a href="index.html#counselors">배웅 상담사</a><a href="index.html#faq">자주 하는 질문</a><a href="contact.html">상담 신청</a>' +
       '<a href="' + tel(S.phone) + '">전화 상담 ' + esc(S.phone) + '</a>' + (S.kakao ? '<a href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카카오톡 상담</a>' : '') + '</div></div>';
@@ -62,10 +62,10 @@
     document.body.insertAdjacentHTML('beforeend', fab);
     var cur = here();
     document.body.insertAdjacentHTML('beforeend', '<nav class="tabbar" aria-label="하단 메뉴">' +
-      '<a href="index.html"' + (cur === 'index.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>홈</a>' +
-      '<a href="search.html?type=sumok"' + (cur === 'search.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24"><path d="M4 5h7v14H4zM13 5h7v14h-7z" opacity=".35"/><path d="M4 5h7v6H4zM13 13h7v6h-7z"/></svg>장지 비교</a>' +
-      '<a href="contact.html"' + (cur === 'contact.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>상담 신청</a>' +
-      '<button type="button" id="tabMenu"><svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>메뉴</button></nav>');
+      '<a href="index.html"' + (cur === 'index.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M5.5 10.4 12 4.8l6.5 5.6V20h-4.3v-5.3H9.8V20H5.5z"/><path d="M3 11.8 12 4l9 7.8"/></svg>홈</a>' +
+      '<a href="search.html?type=sumok"' + (cur === 'search.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="f" x="3.5" y="3.5" width="11.5" height="11.5" rx="2.2"/><rect class="f" x="9" y="9" width="11.5" height="11.5" rx="2.2"/></svg>장지 비교</a>' +
+      '<a href="contact.html"' + (cur === 'contact.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M12 4c-4.8 0-8.6 3-8.6 6.8 0 2.2 1.3 4.2 3.4 5.5L6 20.5l4.3-2.2c.6.1 1.1.1 1.7.1 4.8 0 8.6-3 8.6-6.8S16.8 4 12 4z"/><path d="M8.5 11h7M8.5 14h4"/></svg>상담 신청</a>' +
+      '<button type="button" id="tabMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>메뉴</button></nav>');
     document.getElementById('tabMenu').onclick = function () { document.getElementById('drawer').classList.add('open'); };
     var dr = document.getElementById('drawer');
     document.getElementById('burger').onclick = function () { dr.classList.add('open'); };
@@ -249,10 +249,11 @@
     var cn = document.getElementById('cnGrid');
     if (cn) {
       cn.innerHTML = COUNSELORS.map(function (c) {
-        return '<article class="cn"><div class="top"><div class="txt"><span class="badge">배웅 상담원</span><h3>' + esc(c.name) + ' <small>상담원</small></h3><div class="role">' + esc(c.role) + '</div><p>' + esc(c.quote) + '</p></div>' +
-          (c.img ? '<img class="pic" src="' + c.img + '" alt="' + esc(c.name) + ' 상담원">' : '<div class="pic ph" aria-hidden="true"><span>' + esc(c.name.slice(0, 1)) + '</span><small>사진 준비 중</small></div>') + '</div>' +
-          '<ul class="chk">' + c.tags.map(function (t) { return '<li>' + ICON.check + esc(t) + '</li>'; }).join('') + '</ul>' +
-          '<a class="btn btn-line btn-block btn-sm" href="contact.html?memo=' + encodeURIComponent(c.name + ' 상담원 상담 요청') + '">상담 문의</a></article>';
+        return '<article class="cn">' +
+          (c.img ? '<img class="pic" src="' + c.img + '" alt="' + esc(c.name) + ' 상담원" loading="lazy">' : '<div class="pic ph" aria-hidden="true"><span>' + esc(c.name.slice(0, 1)) + '</span></div>') +
+          '<div class="txt"><h3>' + esc(c.name) + ' <small>상담원</small></h3><div class="role">' + esc(c.role) + '</div>' +
+          '<ul class="chk">' + c.tags.map(function (t) { return '<li>' + ICON.check + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+          '<a class="ask" href="contact.html?memo=' + encodeURIComponent(c.name + ' 상담원 상담 요청') + '">상담 문의</a></article>';
       }).join('');
     }
 
@@ -516,52 +517,41 @@
     var fac = facility(qs('facility'));
     var type = qs('type') || (fac ? fac.type : '');
     if (!typeLabel(type)) type = '';
-    var regions = (S.regions || []).slice();
+    var regions = (S.regions || []).slice().concat(['상관없음']);
     var preR = qs('region'), preW = qs('when');
-    el.innerHTML = '<form id="form" novalidate>' +
-      '<div class="fs"><h3><i>1</i>문의하실 내용을 선택해 주십시오<small>하나 선택</small></h3><div class="opts">' + TYPES.map(function (t) { return '<label class="opt"><input type="radio" name="type" value="' + t[0] + '"' + (t[0] === type ? ' checked' : '') + '><span>' + t[1] + '<small>' + t[2] + '</small></span></label>'; }).join('') + '</div>' +
+    var opt = function (v, l, sel) { return '<option value="' + esc(v) + '"' + (sel ? ' selected' : '') + '>' + esc(l) + '</option>'; };
+    el.innerHTML = '<form id="form" class="cf" novalidate>' +
+      '<div class="cf-field"><label for="f-name">이름 <em>(필수)</em></label><input id="f-name" autocomplete="name" placeholder="이름을 입력해 주십시오" value="' + esc(qs('name')) + '"></div>' +
+      '<div class="cf-field"><label for="f-phone">연락처 <em>(필수)</em></label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" value="' + esc(qs('phone')) + '"></div>' +
+      '<div class="cf-field"><label for="f-type">상담 분야 <em>(필수)</em></label><div class="cf-sel"><select id="f-type">' + opt('', '선택해 주십시오', !type) + TYPES.map(function (t) { return opt(t[0], t[1], t[0] === type); }).join('') + '</select></div>' +
       '<div class="notice" id="cremNote" hidden><b>화장장 예약은 보건복지부 e하늘 장사정보시스템에서만 할 수 있습니다.</b> 배웅이 예약 방법과 가능한 일정을 함께 확인해 드리고, 화장 이후 모실 곳까지 이어서 안내해 드립니다. <a href="' + EHANEUL + '" target="_blank" rel="noopener">e하늘 바로가기</a></div>' +
       (fac ? '<div class="notice"><b>' + esc(fac.name) + '</b> 시설 문의로 접수됩니다.</div>' : '') + '</div>' +
-      '<div class="fs"><h3><i>2</i>희망하시는 지역을 선택해 주십시오<small>여러 개 선택 가능</small></h3><div class="opts four">' + regions.map(function (r) { return '<label class="opt chk"><input type="checkbox" name="region" value="' + esc(r) + '"' + (preR === r ? ' checked' : '') + '><span>' + esc(r) + '</span></label>'; }).join('') + '<label class="opt chk"><input type="checkbox" name="region" value="상관없음"' + (preR === '상관없음' ? ' checked' : '') + '><span>상관없음</span></label></div></div>' +
-      '<div class="fs"><h3><i>3</i>언제까지 필요하신지 알려주십시오</h3><div class="opts four">' + WHEN.map(function (w) { return '<label class="opt"><input type="radio" name="when" value="' + w[0] + '"' + (preW === w[0] ? ' checked' : '') + '><span>' + w[1] + (w[2] ? '<small>' + w[2] + '</small>' : '') + '</span></label>'; }).join('') + '</div></div>' +
-      '<div class="fs"><h3><i>4</i>연락받으실 정보</h3>' +
-      '<div class="field"><label for="f-name">이름 <em>*</em></label><input id="f-name" autocomplete="name" placeholder="홍길동" value="' + esc(qs('name')) + '"></div>' +
-      '<div class="field"><label for="f-phone">휴대폰 번호 <em>*</em></label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" value="' + esc(qs('phone')) + '"></div>' +
-      '<div class="field"><label for="f-memo">궁금하신 점 (선택)</label><textarea id="f-memo" placeholder="모실 인원, 예산, 원하시는 조건 등을 적어 주십시오">' + esc(qs('memo')) + '</textarea></div>' +
-      '<label class="agree"><input type="checkbox" id="f-agree"><span>상담을 위한 개인정보(이름, 연락처, 문의 내용) 수집·이용에 동의합니다. 상담 완료 후 1년간 보관 후 파기합니다. <a href="' + ROOT + 'privacy.html" target="_blank">자세히 보기</a></span></label>' +
-      '<button class="btn btn-primary btn-block" type="submit" style="margin-top:18px;height:52px">상담 신청하기</button>' +
-      '<p style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center">접수 후 상담팀이 순서대로 연락드리겠습니다. 급하신 경우 ' + esc(S.phone) + ' 로 바로 전화 주십시오.</p></div></form>' +
-      '<div class="sum" id="sum"></div>' +
-      '<div class="side-call"><small style="font-size:12px;color:var(--text-2)">바로 상담</small><b><a href="' + tel(S.phone) + '">' + esc(S.phone) + '</a></b><p>' + esc(S.hours) + '</p>' + (S.kakao ? '<a class="btn btn-kakao btn-block btn-sm" style="margin-top:12px" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div>';
+      '<div class="cf-field"><label for="f-region">희망 지역 <span>(선택)</span></label><div class="cf-sel"><select id="f-region">' + opt('', '선택해 주십시오', !preR) + regions.map(function (r) { return opt(r, r, r === preR); }).join('') + '</select></div></div>' +
+      '<div class="cf-field"><label for="f-memo">추가 문의 <span>(선택)</span></label><textarea id="f-memo" placeholder="모실 인원, 예산, 원하시는 조건 등을 적어 주십시오">' + esc(qs('memo')) + '</textarea></div>' +
+      '<label class="cf-agree"><input type="checkbox" id="f-agree"><span>개인정보 수집·이용에 동의합니다 <em>(필수)</em><small>상담을 위해 이름·연락처·문의 내용을 수집하며, 상담 완료 후 1년간 보관 후 파기합니다. <a href="' + ROOT + 'privacy.html" target="_blank">자세히 보기</a></small></span></label>' +
+      '<button class="btn btn-primary btn-block cf-submit" type="submit">상담 신청하기</button>' +
+      '<p class="cf-note">접수 후 상담팀이 순서대로 연락드리겠습니다.</p></form>' +
+      '<div class="cf-call"><div><small>바로 상담을 원하시면</small><b><a href="' + tel(S.phone) + '">' + esc(S.phone) + '</a></b><p>' + esc(S.hours) + '</p></div>' + (S.kakao ? '<a class="btn btn-kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div>';
     var form = document.getElementById('form');
-    function val(n) { var x = form.querySelector('input[name=' + n + ']:checked'); return x ? x.value : ''; }
-    function regs() { return Array.prototype.map.call(form.querySelectorAll('input[name=region]:checked'), function (x) { return x.value; }); }
-    function sync() {
-      document.getElementById('cremNote').hidden = val('type') !== 'cremation';
-      var w = WHEN.filter(function (x) { return x[0] === val('when'); })[0];
-      document.getElementById('sum').innerHTML = '<div style="grid-template-columns:1fr;font-weight:700;color:var(--text)">선택하신 내용</div>' + [['문의', typeLabel(val('type'))], ['시설', fac ? fac.name : ''], ['지역', regs().join(', ')], ['시기', w ? w[1] : '']].map(function (r) { return '<div><span>' + r[0] + '</span><b>' + (r[1] ? esc(r[1]) : '<span>-</span>') + '</b></div>'; }).join('');
-    }
-    form.addEventListener('change', function (e) {
-      if (e.target.name === 'region') { var any = form.querySelector('input[name=region][value=상관없음]'); if (e.target === any && any.checked) form.querySelectorAll('input[name=region]').forEach(function (x) { if (x !== any) x.checked = false; }); else if (e.target.checked) any.checked = false; }
-      sync();
-    });
-    sync();
+    var typeSel = form.querySelector('#f-type');
+    typeSel.onchange = function () { document.getElementById('cremNote').hidden = typeSel.value !== 'cremation'; };
+    typeSel.onchange();
     form.onsubmit = function (e) {
       e.preventDefault();
       var name = form.querySelector('#f-name').value.trim(), phone = form.querySelector('#f-phone').value.trim();
-      if (!val('type')) return alertBox('문의 유형을 선택해 주십시오.');
-      if (!name) return alertBox('이름을 입력해 주십시오.');
-      if (!/^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(phone)) return alertBox('휴대폰 번호를 확인해 주십시오.');
+      if (!name) { form.querySelector('#f-name').focus(); return alertBox('이름을 입력해 주십시오.'); }
+      if (!/^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(phone)) { form.querySelector('#f-phone').focus(); return alertBox('연락처를 확인해 주십시오.'); }
+      if (!typeSel.value) { typeSel.focus(); return alertBox('상담 분야를 선택해 주십시오.'); }
       if (!form.querySelector('#f-agree').checked) return alertBox('개인정보 수집·이용에 동의해 주십시오.');
-      var w = WHEN.filter(function (x) { return x[0] === val('when'); })[0];
-      var rec = { type: typeLabel(val('type')), region: regs().join(', '), when: w ? w[1] : '', name: name, phone: phone, memo: form.querySelector('#f-memo').value.trim(), facility: fac ? fac.name : '', page: 'v4' };
+      var w = WHEN.filter(function (x) { return x[0] === preW; })[0];
+      var rec = { type: typeLabel(typeSel.value), region: form.querySelector('#f-region').value, when: w ? w[1] : '', name: name, phone: phone, memo: form.querySelector('#f-memo').value.trim(), facility: fac ? fac.name : '', page: 'v4' };
       var btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = '접수 중…';
-      fetch(ROOT + 'admin/api.php?action=inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(rec) })
+      fetch(ROOT + 'admin/api.php?action=inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ inquiry: rec }) })
         .then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function () { done(rec, true); })
         .catch(function () { done(rec, false); });
     };
     function done(rec, ok) {
-      var msg = '[배웅 상담 신청]\n문의: ' + rec.type + (rec.facility ? '\n시설: ' + rec.facility : '') + '\n지역: ' + (rec.region || '-') + '\n시기: ' + (rec.when || '-') + '\n이름: ' + rec.name + '\n연락처: ' + rec.phone + (rec.memo ? '\n내용: ' + rec.memo : '');
+      var msg = '[배웅 상담 신청]\n문의: ' + rec.type + (rec.facility ? '\n시설: ' + rec.facility : '') + '\n지역: ' + (rec.region || '-') + (rec.when ? '\n시기: ' + rec.when : '') + '\n이름: ' + rec.name + '\n연락처: ' + rec.phone + (rec.memo ? '\n내용: ' + rec.memo : '');
       el.innerHTML = '<div class="done"><div class="ic">' + ICON.check + '</div>' +
         '<h3>' + (ok ? '상담 신청이 접수되었습니다' : '미리보기 화면에서는 접수되지 않습니다') + '</h3>' +
         '<p>' + (ok ? '상담팀이 순서대로 연락드리겠습니다. 급하신 경우 바로 전화 주십시오.' : '실제 홈페이지에서는 이 화면에서 접수됩니다. 지금은 아래 버튼으로 카카오톡이나 전화로 같은 내용을 보내 주십시오.') + '</p>' +

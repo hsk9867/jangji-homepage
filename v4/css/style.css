@@ -200,7 +200,6 @@
 @media (max-width: 760px) {
   .header .subnav { position: relative; height: 50px; gap: 8px; padding: 0 16px; align-items: center; background: var(--white); scrollbar-width: none; }
   .header .subnav a { height: 32px; padding: 0 13px; border-radius: 999px; background: var(--gray); color: var(--text); font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap; flex: none; }
-  .header .subnav a:last-child { background: var(--accent); color: var(--white); }
   .header .subnav::after { content: ''; flex: none; width: 8px; }
   .col { padding-top: calc(var(--head) + 50px); }
 }
@@ -498,3 +497,77 @@ a.msg:hover .tx { background: #F2EDE1; }
 .footer.dark .fsns svg { width: 20px; height: 20px; fill: currentColor; }
 @media (min-width: 761px) { .footer.dark { padding-bottom: 40px; } }
 @media (min-width: 1000px) { .footer.dark { padding: 44px 28px 44px; font-size: 16px; } .footer.dark .finfo .co { font-size: 18px; } .footer.dark .fcall b { font-size: 24px; } }
+
+/* ===== 2026-10-28 고객 수정사항 2 ===== */
+/* 상담 신청 버튼: 서브메뉴 옆 중복 버튼 삭제, 헤더 버튼은 부드러운 톤 */
+.pill.cta { background: #EFE8D8; color: var(--accent); border: 1px solid #DCCFB2; }
+.pill.cta:hover { background: #E8DFC9; }
+
+/* 하단 고정 메뉴: 아이콘·글씨 확대, 기본은 선, 활성 시 부드러운 녹색으로 채움 */
+@media (max-width: 760px) {
+  .tabbar a, .tabbar button { height: 68px; gap: 5px; font-size: 13.5px; font-weight: 600; color: #4B4B4B; letter-spacing: -.01em; }
+  .tabbar svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .tabbar .on { color: #4F6E56; font-weight: 700; }
+  .tabbar .on svg { stroke: #4F6E56; }
+  .tabbar .on svg .f { fill: #D6E2D8; }
+  .fabs { bottom: 84px; }
+  .footer { padding-bottom: 128px; }
+  .cmpbar { bottom: 68px; }
+}
+
+/* 상담사 소개: 비중 축소 — 작은 원형 사진 + 한 줄 정보 목록형 */
+#counselors .lead { font-size: 14px; }
+.cn-grid { gap: 10px; margin-top: 14px; }
+.cn { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; }
+.cn:hover { transform: none; box-shadow: 0 6px 16px rgba(37, 37, 37, .05); }
+.cn .pic { width: 60px; height: 60px; border-radius: 50%; flex: none; object-fit: cover; object-position: top; }
+.cn .pic.ph { background: var(--accent-soft); }
+.cn .pic.ph span { width: 60px; height: 60px; background: none; font-size: 22px; }
+.cn .txt { flex: 1; min-width: 0; }
+.cn h3 { margin: 0; font-size: 17px; }
+.cn h3 small { font-size: 13px; }
+.cn .role { margin-top: 2px; font-size: 14px; }
+.cn .chk { padding-top: 7px; border-top: 0; gap: 4px 10px; }
+.cn .chk li { font-size: 12.5px; font-weight: 600; color: var(--text-2); gap: 5px; }
+.cn .chk svg { width: 16px; height: 16px; padding: 3px; }
+.cn .ask { flex: none; align-self: center; font-size: 13px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 8px 13px; white-space: nowrap; }
+.cn .ask:hover { background: #D8E2D8; }
+@media (min-width: 761px) { .cn-grid { grid-template-columns: 1fr; } }
+@media (min-width: 1000px) { .cn-grid { grid-template-columns: 1fr 1fr 1fr; } .cn { flex-wrap: wrap; padding: 16px; } .cn .ask { margin-left: 74px; } }
+@media (min-width: 1500px) { .cn .ask { margin-left: 74px; } }
+
+/* 블로그 카드: 네이버 초록 → 부드러운 베이지 */
+.brand-card { background: #EDE4D1; color: var(--accent); }
+.brand-card small { color: #7C6B49; }
+.brand-card .nblog { color: var(--accent); }
+.brand-card:hover { background: #E7DCC5; }
+
+/* 상담 신청: 한 페이지 간소 폼, 큰 글씨·큰 입력칸 */
+.form-sec h1 { font-size: 26px; }
+.form-sec .lead { font-size: 16px; margin-top: 8px; line-height: 1.6; }
+.cf { margin-top: 6px; }
+.cf-field { margin-top: 22px; }
+.cf-field label { display: block; font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+.cf-field label em { font-style: normal; color: var(--gold); font-size: 14px; font-weight: 700; margin-left: 2px; }
+.cf-field label span { color: var(--muted); font-size: 14px; font-weight: 500; margin-left: 2px; }
+.cf-field input, .cf-field textarea, .cf-sel select { width: 100%; height: 58px; border: 1.5px solid var(--line-2); border-radius: 12px; background: var(--white); padding: 0 16px; font-size: 17px; color: var(--text); }
+.cf-field input::placeholder, .cf-field textarea::placeholder { color: #A9A9A9; }
+.cf-field textarea { height: 120px; padding: 14px 16px; resize: vertical; line-height: 1.5; }
+.cf-sel { position: relative; }
+.cf-sel select { appearance: none; -webkit-appearance: none; padding-right: 46px; }
+.cf-sel::after { content: ''; position: absolute; right: 20px; top: 50%; width: 10px; height: 10px; border-right: 2px solid var(--text-2); border-bottom: 2px solid var(--text-2); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.cf-field input:focus, .cf-field textarea:focus, .cf-sel select:focus { outline: 2px solid var(--accent); border-color: transparent; }
+.cf .notice { font-size: 14px; }
+.cf-agree { display: flex; gap: 12px; align-items: flex-start; margin-top: 26px; padding: 16px; border: 1.5px solid var(--line-2); border-radius: 12px; cursor: pointer; }
+.cf-agree input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--accent); flex: none; }
+.cf-agree span { font-size: 16px; font-weight: 700; line-height: 1.4; }
+.cf-agree em { font-style: normal; color: var(--gold); font-size: 13px; margin-left: 2px; }
+.cf-agree small { display: block; margin-top: 5px; font-size: 13px; font-weight: 500; color: var(--muted); line-height: 1.5; }
+.cf-agree a { text-decoration: underline; }
+.cf-submit { margin-top: 18px; height: 60px; font-size: 19px; font-weight: 700; border-radius: 12px; }
+.cf-note { margin-top: 12px; font-size: 14px; color: var(--muted); text-align: center; }
+.cf-call { margin-top: 28px; background: #F7F4EC; border-radius: var(--r); padding: 20px 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.cf-call small { font-size: 14px; color: var(--text-2); }
+.cf-call b { display: block; font-size: 24px; color: var(--accent); line-height: 1.2; margin-top: 2px; }
+.cf-call p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.cf-call .btn { height: 48px; font-size: 15px; }
