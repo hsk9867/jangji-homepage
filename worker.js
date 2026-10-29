@@ -138,6 +138,11 @@ function sanitizeContent(c) {
       o.photos = (Array.isArray(x.photos) ? x.photos : []).slice(0, 30).map(cleanPath).filter(Boolean);
       if (x.blogUrl != null) o.blogUrl = cleanUrl(x.blogUrl);
       if (listKey === 'facilities') o.tags = cleanList(x.tags, 10, 30);
+      if (listKey === 'facilities') {
+        o.keywords = cleanList(x.keywords, 6, 24);
+        if (Array.isArray(x.types)) o.types = x.types.filter(k => TYPE_KEYS.includes(k)).slice(0, 4);
+        if (x.religion != null) o.religion = cleanStr(x.religion, 40);
+      }
       o.featured = !!x.featured;
       o.visible = x.visible == null ? true : !!x.visible;
       if (x.sample) o.sample = true;
@@ -229,6 +234,9 @@ async function notify(env, site, rec) {
     body: JSON.stringify({ from: `${name} <${env.MAIL_FROM}>`, to: [to], subject: `[${name}] 새 상담 문의 - ${rec.name} (${rec.type})`, text })
   }).catch(() => {});
 }
+
+/* 고객 리뷰 키워드 (v4/js/app.js REVIEW_KEYWORDS 와 같게 유지) */
+const REVIEW_KEYWORDS = ['경치가 좋아요', '조용해요', '주차가 편해요', '관리가 잘 돼요', '시설이 깨끗해요', '찾아가기 쉬워요', '실내가 밝아요', '직원이 친절해요', '산책하기 좋아요', '비용이 합리적이에요', '쉴 공간이 있어요', '자주 찾아뵙기 좋아요', '상담이 꼼꼼했어요', '답사 동행이 든든했어요'];
 
 /* ---------- 관리자 API ---------- */
 async function api(request, env, ctx, url) {
@@ -336,6 +344,78 @@ async function api(request, env, ctx, url) {
         sets.push("updated_at = datetime('now')");
         vals.push(id);
         await env.DB.prepare('UPDATE inquiries SET ' + sets.join(', ') + ' WHERE id = ?').bind(...vals).run();
+        return json({ ok: true });
+      }
+
+      /* ---------- 시설 고객 리뷰: 공개 목록 (게시된 것만) ---------- */
+      case 'review_list': {
+        const fac = cleanStr(url.searchParams.get('facility'), 40);
+        const q = fac ? env.DB.prepare("SELECT id, facility, created_at, data FROM facility_reviews WHERE status = '게시' AND facility = ? ORDER BY created_at DESC LIMIT 300").bind(fac)
+          : env.DB.prepare("SELECT id, facility, created_at, data FROM facility_reviews WHERE status = '게시' ORDER BY created_at DESC LIMIT 1000");
+        const rows = await q.all();
+        const list = (rows.results || []).map(r => { const d = JSON.parse(r.data); return { id: r.id, facility: r.facility, date: r.created_at.slice(0, 10), name: d.name, text: d.text, keywords: d.keywords || [], photos: d.photos || [] }; });
+        return json({ ok: true, reviews: list });
+      }
+      /* ---------- 시설 고객 리뷰: 작성 (로그인 불필요, 관리자 승인 후 게시) ---------- */
+      case 'review_submit': {
+        needPost();
+        const b = await readBody(9 * 1024 * 1024);
+        const rv = b.review && typeof b.review === 'object' ? b.review : null;
+        if (!rv) fail('bad_record');
+        const facility = cleanStr(rv.facility, 40);
+        if (!/^[a-zA-Z0-9_-]{1,40}$/.test(facility)) fail('bad_record', '시설 정보가 올바르지 않습니다.');
+        let name = cleanStr(rv.name, 20) || '고객';
+        name = name.length >= 2 ? name[0] + '○'.repeat(Math.min(2, name.length - 1)) : name;
+        const text = cleanStr(rv.text, 1000);
+        if (text.length < 10) fail('bad_record', '리뷰를 10자 이상 적어 주세요.');
+        const keywords = (Array.isArray(rv.keywords) ? rv.keywords : []).map(k => cleanStr(k, 24)).filter(k => REVIEW_KEYWORDS.includes(k)).slice(0, 5);
+        if (!keywords.length) fail('bad_record', '키워드를 하나 이상 골라 주세요.');
+        const ip = request.headers.get('CF-Connecting-IP') || '';
+        const ipHash = (await sha256(ip + '|jangji')).slice(0, 16);
+        const cnt = await env.DB.prepare("SELECT COUNT(*) AS n FROM facility_reviews WHERE ip_hash = ? AND created_at >= datetime('now', '-1 hour')").bind(ipHash).first();
+        if (cnt && cnt.n >= 5) fail('rate_limited', '잠시 후 다시 시도해 주세요.');
+        const photos = [];
+        const imgs = (Array.isArray(rv.photos) ? rv.photos : []).slice(0, 3);
+        if (imgs.length && !env.UPLOADS) fail('write', '사진 저장소가 연결되지 않았습니다.');
+        for (const data of imgs) {
+          const m = /^data:image\/(jpeg|png|webp);base64,([A-Za-z0-9+/=]+)$/.exec(String(data || ''));
+          if (!m) fail('bad_image', 'JPG, PNG 사진만 올릴 수 있습니다.');
+          let bytes; try { bytes = b64decode(m[2]); } catch (e) { fail('bad_image', '사진 데이터가 손상되었습니다.'); }
+          if (bytes.length > 3 * 1024 * 1024) fail('bad_image', '사진이 너무 큽니다.');
+          const info = imageInfo(bytes); if (!info) fail('bad_image', '사진 파일이 아닙니다.');
+          const d = new Date(), sub = d.getUTCFullYear() + String(d.getUTCMonth() + 1).padStart(2, '0');
+          const key = 'uploads/' + sub + '/' + randHex(10) + '.' + info.ext;
+          await env.UPLOADS.put(key, bytes, { httpMetadata: { contentType: info.mime, cacheControl: 'public, max-age=31536000, immutable' } });
+          photos.push(key);
+        }
+        const id = 'R' + Date.now().toString(36).toUpperCase() + randHex(2).slice(0, 3);
+        const now = new Date().toISOString();
+        await env.DB.prepare('INSERT INTO facility_reviews (id, facility, created_at, status, ip_hash, data) VALUES (?, ?, ?, ?, ?, ?)')
+          .bind(id, facility, now, '대기', ipHash, JSON.stringify({ name, text, keywords, photos })).run();
+        return json({ ok: true, id });
+      }
+      /* ---------- 관리자: 리뷰 목록·게시 관리 ---------- */
+      case 'review_admin': {
+        needLogin();
+        const rows = await env.DB.prepare('SELECT id, facility, created_at, status, data FROM facility_reviews ORDER BY created_at DESC LIMIT 2000').all();
+        const list = (rows.results || []).map(r => Object.assign({ id: r.id, facility: r.facility, createdAt: r.created_at, status: r.status }, JSON.parse(r.data)));
+        return json({ ok: true, reviews: list });
+      }
+      case 'review_update': {
+        needPost(); needLogin();
+        const b = await readBody();
+        const id = cleanStr(b.id, 40); if (!id) fail('bad_request');
+        const row = await env.DB.prepare('SELECT data FROM facility_reviews WHERE id = ?').bind(id).first();
+        if (!row) fail('not_found');
+        if (b.delete) {
+          const d = JSON.parse(row.data);
+          if (env.UPLOADS) for (const k of d.photos || []) ctx.waitUntil(env.UPLOADS.delete(k).catch(() => {}));
+          await env.DB.prepare('DELETE FROM facility_reviews WHERE id = ?').bind(id).run();
+          return json({ ok: true });
+        }
+        const st = cleanStr(b.status, 10);
+        if (!['대기', '게시', '숨김'].includes(st)) fail('bad_request');
+        await env.DB.prepare("UPDATE facility_reviews SET status = ?, updated_at = datetime('now') WHERE id = ?").bind(st, id).run();
         return json({ ok: true });
       }
 

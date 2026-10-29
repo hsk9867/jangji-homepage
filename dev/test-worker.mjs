@@ -12,7 +12,7 @@ const worker = mod.default;
 
 /* ---- 가짜 D1 (쓰는 SQL 문장만 처리) ---- */
 function fakeD1() {
-  const settings = new Map(), inquiries = [];
+  const settings = new Map(), inquiries = [], frev = [];
   function stmt(sql) {
     let args = [];
     const s = sql.replace(/\s+/g, ' ').trim();
@@ -21,6 +21,8 @@ function fakeD1() {
       async first() {
         if (/^SELECT value FROM settings/.test(s)) return settings.has(args[0]) ? { value: settings.get(args[0]) } : null;
         if (/^SELECT COUNT\(\*\) AS n FROM inquiries/.test(s)) return { n: inquiries.filter(r => r.ip_hash === args[0]).length };
+        if (/^SELECT COUNT\(\*\) AS n FROM facility_reviews/.test(s)) return { n: frev.filter(r => r.ip_hash === args[0]).length };
+        if (/^SELECT data FROM facility_reviews/.test(s)) { const r = frev.find(x => x.id === args[0]); return r ? { data: r.data } : null; }
         if (/^SELECT id FROM inquiries/.test(s)) return inquiries.find(r => r.id === args[0]) ? { id: args[0] } : null;
         throw new Error('first? ' + s);
       },
@@ -28,6 +30,9 @@ function fakeD1() {
         if (/^INSERT INTO settings/.test(s)) { settings.set(args[0], args[1]); return { success: true }; }
         if (/^DELETE FROM settings/.test(s)) { settings.delete(args[0]); return { success: true }; }
         if (/^INSERT INTO inquiries/.test(s)) { inquiries.unshift({ id: args[0], received_at: args[1], status: args[2], ip_hash: args[3], data: args[4], admin_note: null, updated_at: null }); return { success: true }; }
+        if (/^INSERT INTO facility_reviews/.test(s)) { frev.unshift({ id: args[0], facility: args[1], created_at: args[2], status: args[3], ip_hash: args[4], data: args[5] }); return { success: true }; }
+        if (/^DELETE FROM facility_reviews/.test(s)) { const i = frev.findIndex(r => r.id === args[0]); if (i >= 0) frev.splice(i, 1); return { success: true }; }
+        if (/^UPDATE facility_reviews SET status/.test(s)) { const r = frev.find(x => x.id === args[1]); r.status = args[0]; return { success: true }; }
         if (/^DELETE FROM inquiries/.test(s)) { const i = inquiries.findIndex(r => r.id === args[0]); if (i >= 0) inquiries.splice(i, 1); return { success: true }; }
         if (/^UPDATE inquiries SET/.test(s)) {
           const r = inquiries.find(x => x.id === args[args.length - 1]); const cols = s.match(/SET (.*) WHERE/)[1].split(',').map(x => x.trim());
@@ -37,6 +42,9 @@ function fakeD1() {
         throw new Error('run? ' + s);
       },
       async all() {
+        if (/FROM facility_reviews WHERE status = '게시' AND facility/.test(s)) return { results: frev.filter(r => r.status === '게시' && r.facility === args[0]) };
+        if (/FROM facility_reviews WHERE status = '게시'/.test(s)) return { results: frev.filter(r => r.status === '게시') };
+        if (/^SELECT id, facility, created_at, status, data FROM facility_reviews/.test(s)) return { results: frev.slice() };
         if (/^SELECT data, status, admin_note, updated_at FROM inquiries/.test(s)) return { results: inquiries.slice() };
         throw new Error('all? ' + s);
       }
@@ -49,6 +57,7 @@ function fakeD1() {
 function fakeR2() {
   const m = new Map();
   return {
+    async delete(k) { m.delete(k); },
     async put(k, bytes, opt) { m.set(k, { bytes, ct: opt?.httpMetadata?.contentType }); },
     async get(k) { const o = m.get(k); if (!o) return null; return { body: o.bytes, httpEtag: '"x"', writeHttpMetadata(h) { if (o.ct) h.set('Content-Type', o.ct); } }; },
     _m: m
@@ -109,3 +118,30 @@ cookie = saved; r = await call('status'); ok('old cookie invalid after password 
 r = await call('logout'); ok('logout', r.ok);
 res = await worker.fetch(new Request('https://x.test/admin/api.php?action=save', { method: 'POST', body: '{}' }), env, ctx); r = await res.json(); ok('POST without JANGJI header rejected', !r.ok && r.error === 'bad_request');
 console.log('done');
+
+/* ---- 시설 리뷰 ---- */
+{
+  const png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+  cookie = ''; await call('login', { password: 'new-password-22' }); const adminCookie = cookie; cookie = '';
+  let r = await call('review_submit', { review: { facility: 'muryang', name: '홍길동', text: '짧음', keywords: ['조용해요'] } });
+  ok('review short text rejected', !r.ok && r.error === 'bad_record', r);
+  r = await call('review_submit', { review: { facility: 'muryang', name: '홍길동', text: '경치가 좋고 조용해서 마음에 들었습니다.', keywords: ['없는 키워드'] } });
+  ok('review needs valid keyword', !r.ok && r.error === 'bad_record', r);
+  r = await call('review_submit', { review: { facility: 'muryang', name: '홍길동', text: '경치가 좋고 조용해서 마음에 들었습니다.', keywords: ['조용해요', '경치가 좋아요', '가짜'], photos: [png] } }, { headers: { 'CF-Connecting-IP': '5.6.7.8' } });
+  ok('review submitted', r.ok && /^R/.test(r.id), r);
+  const rid = r.id;
+  r = await call('review_list?x=1&facility=muryang'.replace('?x=1', ''));
+  ok('pending review hidden from public', r.ok && r.reviews.length === 0, r);
+  r = await call('review_admin'); ok('review_admin needs login', !r.ok && r.error === 'auth');
+  cookie = adminCookie;
+  r = await call('review_admin');
+  ok('admin sees review (masked name, photo, filtered keywords)', r.ok && r.reviews[0].name === '홍○○' && r.reviews[0].photos.length === 1 && r.reviews[0].keywords.join() === '조용해요,경치가 좋아요', r.reviews && r.reviews[0]);
+  r = await call('review_update', { id: rid, status: '게시' }); ok('approve', r.ok);
+  cookie = '';
+  const res2 = await worker.fetch(new Request('https://x.test/admin/api.php?action=review_list&facility=muryang'), env, ctx); r = await res2.json();
+  ok('approved review public', r.ok && r.reviews.length === 1 && r.reviews[0].text.startsWith('경치'), r);
+  cookie = adminCookie;
+  const before = env.UPLOADS._m.size; r = await call('review_update', { id: rid, delete: true }); ok('delete review + photo', r.ok && env.UPLOADS._m.size === before - 1, [before, env.UPLOADS._m.size]);
+  r = await call('save', { content: { facilities: [{ id: 'aa', type: 'napgol', name: 'A', keywords: ['경치가 좋아요', '조용해요'], types: ['napgol', 'sumok', 'xx'], religion: '불교' }] } });
+  ok('save keeps keywords/types/religion', r.ok && r.content.facilities[0].keywords.length === 2 && r.content.facilities[0].types.join() === 'napgol,sumok' && r.content.facilities[0].religion === '불교', r.content && r.content.facilities);
+}

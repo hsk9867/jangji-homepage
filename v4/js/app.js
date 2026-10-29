@@ -19,6 +19,11 @@
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function img(p) { return p ? (/^(https?:)?\/\//.test(p) ? p : ROOT + p) : ''; }
   function tel(p) { return 'tel:' + String(p || '').replace(/[^0-9+]/g, ''); }
+  /* 시설 키워드 (경치가 좋아요 등) — 없으면 특징 태그 */
+  function kwOf(f) { return (f.keywords && f.keywords.length) ? f.keywords : (f.tags || []); }
+  function kwChips(list, n) { list = list || []; return list.length ? '<div class="kw">' + list.slice(0, n || 3).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>' : ''; }
+  /* 고객 리뷰 키워드 (worker.js REVIEW_KEYWORDS 와 같게 유지) */
+  var REVIEW_KEYWORDS = ['경치가 좋아요', '조용해요', '주차가 편해요', '관리가 잘 돼요', '시설이 깨끗해요', '찾아가기 쉬워요', '실내가 밝아요', '직원이 친절해요', '산책하기 좋아요', '비용이 합리적이에요', '쉴 공간이 있어요', '자주 찾아뵙기 좋아요', '상담이 꼼꼼했어요', '답사 동행이 든든했어요'];
   function qs(k) { return new URLSearchParams(location.search).get(k) || ''; }
   function typeOf(k) { return C.types[k] || { name: '' }; }
   function facilities(type) { return (C.facilities || []).filter(function (f) { return f.visible !== false && (!type || f.type === type || (f.types || []).indexOf(type) >= 0); }); }
@@ -53,9 +58,9 @@
       '<a href="' + ROOT + 'facilities.html" aria-label="답사 시설"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></a>' +
       '<a href="http://baewoong.co.kr" target="_blank" rel="noopener" aria-label="기존 홈페이지"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a15 15 0 0 0-1.3-5.4A8 8 0 0 1 18.9 11zM12 4c.9 1.3 1.6 3.4 1.9 7h-3.8c.3-3.6 1-5.7 1.9-7zM5.1 13h3a15 15 0 0 0 1.3 5.4A8 8 0 0 1 5.1 13zm3-2h-3a8 8 0 0 1 4.3-5.4A15 15 0 0 0 8.1 11zM12 20c-.9-1.3-1.6-3.4-1.9-7h3.8c-.3 3.6-1 5.7-1.9 7zm2.6-1.6a15 15 0 0 0 1.3-5.4h3a8 8 0 0 1-4.3 5.4z"/></svg></a></div></div></footer>';
     var fab = '<div class="fabs">' +
-      '<a class="fab support" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2 3v2h14v-2zm2 5h4v1.5H7z"/></svg>지원금</a>' +
       (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
       '<a class="fab tel" href="' + tel(S.phone) + '" aria-label="전화 상담">' + ICON.phone + '전화</a>' +
+      '<a class="fab support" href="contact.html?type=support" aria-label="장례지원금 상담 신청">장례<br>지원금</a>' +
       '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
     document.body.insertAdjacentHTML('afterbegin', head);
     var col = document.querySelector('.col');
@@ -275,12 +280,12 @@
     var ft = document.getElementById('facTags'), fl = document.getElementById('facList');
     if (ft) {
       var fkeys = ['sumok', 'napgol', 'maejang'];
-      var fshort = { sumok: '수목장', napgol: '봉안당', maejang: '공원묘지' };
-      ft.innerHTML = fkeys.map(function (k, i) { return '<button type="button" class="tag' + (i === 0 ? ' on' : '') + '" data-k="' + k + '">' + fshort[k] + ' <small>' + facilities(k).length + '</small></button>'; }).join('');
+      var fshort = { sumok: '수목장', napgol: '봉안당', maejang: '공원묘지' }, femo = { sumok: '🌳', napgol: '🏛️', maejang: '⛰️' };
+      ft.innerHTML = fkeys.map(function (k, i) { return '<button type="button" class="tag' + (i === 0 ? ' on' : '') + '" data-k="' + k + '">' + fshort[k] + ' <span class="emo" aria-hidden="true">' + femo[k] + '</span></button>'; }).join('');
       var drawF = function (k) {
         fl.innerHTML = facilities(k).slice(0, 4).map(function (f) {
           var ph = (f.photos || [])[0];
-          return '<a class="frow" href="facility.html?id=' + esc(f.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span></span>') + '<div><div class="nm">' + esc(f.name) + '</div><div class="ar">' + esc(f.area) + (f.featured ? ' · 배웅 추천' : '') + '</div>' + (f.tags && f.tags.length ? '<div class="tg">' + f.tags.slice(0, 3).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>' : '') + '</div></a>';
+          return '<a class="frow" href="facility.html?id=' + esc(f.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span></span>') + '<div><div class="nm">' + esc(f.name) + '</div><div class="ar">' + esc(f.area) + (f.featured ? ' · 배웅 추천' : '') + '</div>' + kwChips(kwOf(f), 2) + '</div></a>';
         }).join('');
       };
       drawF('sumok');
@@ -382,7 +387,7 @@
         if (state.area && areaKey(f.area) !== state.area) return false;
         if (state.tag && (f.tags || []).indexOf(state.tag) < 0) return false;
         if (state.feat && !f.featured) return false;
-        if (state.q && (f.name + ' ' + f.area + ' ' + (f.tags || []).join(' ')).indexOf(state.q) < 0) return false;
+        if (state.q && (f.name + ' ' + f.area + ' ' + (f.tags || []).join(' ') + ' ' + (f.keywords || []).join(' ')).indexOf(state.q) < 0) return false;
         return true;
       });
     }
@@ -391,7 +396,7 @@
       return '<article class="fc' + (on ? ' on' : '') + '" data-id="' + esc(f.id) + '"><a class="ph" href="facility.html?id=' + esc(f.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '') + (f.featured ? '<span class="bdg">배웅 추천</span>' : '') + '</a>' +
         '<div class="bd"><a class="nm" href="facility.html?id=' + esc(f.id) + '">' + esc(f.name) + '</a><div class="ar">' + esc(f.area) + (f.operator ? ' · ' + esc(f.operator) : '') + '</div>' +
         '<div class="pr">' + esc(f.price || '상담 시 안내') + '</div>' +
-        ((f.tags || []).length ? '<div class="tg">' + f.tags.slice(0, 3).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>' : '') +
+        kwChips(kwOf(f), 3) +
         '<div class="acts"><button type="button" class="btn btn-line btn-sm cmp">' + (on ? '비교함에서 빼기' : '비교 담기') + '</button><a class="btn btn-primary btn-sm" href="contact.html?type=' + esc(k) + '&facility=' + esc(f.id) + '">상담 신청</a></div></div></article>';
     }
     function draw() {
@@ -556,7 +561,7 @@
       var w = WHEN.filter(function (x) { return x[0] === preW; })[0];
       var rec = { type: typeLabel(typeSel.value), region: form.querySelector('#f-region').value, when: w ? w[1] : '', name: name, phone: phone, memo: form.querySelector('#f-memo').value.trim(), facility: fac ? fac.name : '', page: 'v4' };
       var btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = '접수 중…';
-      fetch(ROOT + 'admin/api.php?action=inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ inquiry: rec }) })
+      fetch(ROOT + 'admin/api.php?action=inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'JANGJI' }, body: JSON.stringify({ inquiry: rec }) })
         .then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function () { done(rec, true); })
         .catch(function () { done(rec, false); });
     };
@@ -583,14 +588,120 @@
     el.insertAdjacentHTML('afterbegin', '<div class="fpage"><div class="crumb"><a href="index.html">홈</a> › <a href="index.html#' + esc(f.type) + '">' + esc(t.name) + '</a> › ' + esc(f.name) + '</div>' +
       '<div class="gallery"><div class="main"><img id="gmain" src="' + photos[0] + '" alt="' + esc(f.name) + '"></div><div class="thumbs">' + photos.map(function (p, i) { return '<img src="' + p + '" alt="" class="' + (i === 0 ? 'on' : '') + '" data-i="' + i + '">'; }).join('') + '</div></div>' +
       '<div class="finfo"><div class="area">' + esc(t.name) + ' · ' + esc(f.area) + (f.featured ? ' · 배웅 추천' : '') + '</div><h1>' + esc(f.name) + '</h1>' +
-      (f.tags && f.tags.length ? '<div class="tg">' + f.tags.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>' : '') +
+      kwChips(kwOf(f), 6) +
       '<p class="comment">' + esc(f.comment) + '</p>' +
+      '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
       '<table>' + [['유형', (f.types || [f.type]).map(function (k) { return typeOf(k).name; }).join(' · ')], ['지역', f.area], ['주소', f.address], ['운영', f.operator], ['종교', f.religion], ['사용료', (f.price || '상담 시 안내') + ' <small style="color:var(--muted)">· ' + esc(t.priceTag) + ' 평균 ' + esc(t.price) + '</small>']].filter(function (r) { return r[1]; }).map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</td></tr>'; }).join('') + '</table>' +
       '<div class="maps"><a href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도</a><a href="https://map.kakao.com/?q=' + q + '" target="_blank" rel="noopener">카카오맵</a>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
       '<div class="acts"><a class="btn btn-primary btn-block" href="contact.html?type=' + esc(f.type) + '&facility=' + esc(f.id) + '">' + ICON.form + '이 시설로 상담 신청</a><a class="btn btn-line btn-block" href="' + tel(S.phone) + '">' + ICON.phone + '전화로 바로 묻기 ' + esc(S.phone) + '</a></div>' +
       '<p style="margin-top:12px;font-size:12px;color:var(--muted)">※ 사용료·관리비·이용 기간은 시설 공지에 따라 달라집니다. 계약 전에 서면으로 비교해 드립니다.</p></div></div>' +
       '<div class="related"><h3>함께 보는 ' + esc(t.name) + '</h3><div class="flist">' + facilities(f.type).filter(function (x) { return x.id !== f.id; }).slice(0, 4).map(function (x) { var ph = (x.photos || [])[0]; return '<a class="frow" href="facility.html?id=' + esc(x.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span></span>') + '<div><div class="nm">' + esc(x.name) + '</div><div class="ar">' + esc(x.area) + '</div></div></a>'; }).join('') + '</div></div>');
     el.querySelectorAll('.thumbs img').forEach(function (im) { im.onclick = function () { document.getElementById('gmain').src = im.src; el.querySelectorAll('.thumbs img').forEach(function (x) { x.classList.remove('on'); }); im.classList.add('on'); }; });
+    facReviews(f);
+  }
+
+  /* ---------- 시설 고객 리뷰: 사진 + 글 + 키워드 (별점 없음) ---------- */
+  function facReviews(f) {
+    var box = document.getElementById('frev'); if (!box) return;
+    var getJson = function (u) { return fetch(u).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }); };
+    Promise.all([
+      getJson(ROOT + 'admin/api.php?action=review_list&facility=' + encodeURIComponent(f.id)),
+      getJson('data/facility-reviews.json?t=' + Math.floor(Date.now() / 600000))
+    ]).then(function (res) {
+      var live = (res[0] && res[0].reviews) || [];
+      var samples = ((res[1] && res[1].items) || []).filter(function (x) { return x.facility === f.id; });
+      draw(live.concat(samples));
+    });
+    function draw(list) {
+      var cnt = {}; list.forEach(function (r) { (r.keywords || []).forEach(function (k) { cnt[k] = (cnt[k] || 0) + 1; }); });
+      var top = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 3);
+      var max = top.length ? cnt[top[0]] : 1;
+      box.innerHTML = '<div class="frev-hd"><h2>고객 리뷰 <b>' + list.length + '</b></h2><button type="button" class="frev-btn" id="frevWrite">리뷰 쓰기</button></div>' +
+        (list.length ? (top.length ? '<div class="frev-top"><small>이런 점이 좋았어요</small>' + top.map(function (k) { return '<div class="bar"><i style="width:' + Math.round(cnt[k] / max * 100) + '%"></i><span>“' + esc(k) + '”</span><b>' + cnt[k] + '</b></div>'; }).join('') + '</div>' : '') +
+          '<div class="frev-wrap"><div class="frev-track">' + list.map(function (r, i) {
+            var ph = (r.photos || [])[0];
+            return '<button type="button" class="frc" data-i="' + i + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' + ((r.photos || []).length > 1 ? '<em>+' + (r.photos.length - 1) + '</em>' : '') : '') +
+              '<span class="tx"><span class="t">' + esc(r.text) + '</span>' + kwChips(r.keywords, 2) + '<span class="who">' + esc(r.name || '고객') + (r.date ? ' · ' + esc(String(r.date).slice(0, 10).replace(/-/g, '.')) : '') + (r.sample ? ' <i>예시</i>' : '') + '</span></span></button>';
+          }).join('') + '</div></div>'
+        : '<div class="frev-empty">아직 등록된 리뷰가 없습니다.<br>다녀오신 가족의 이야기를 남겨 주십시오.</div>');
+      box.querySelectorAll('.frc').forEach(function (b) { b.onclick = function () { openRev(list[+b.dataset.i]); }; });
+      document.getElementById('frevWrite').onclick = openWrite;
+      var w = box.querySelector('.frev-wrap'); if (w) dragScroll(w);
+    }
+    function modal(html) {
+      var m = document.createElement('div'); m.className = 'modal'; m.innerHTML = '<div class="box">' + '<button type="button" class="x" aria-label="닫기">×</button>' + html + '</div>';
+      document.body.appendChild(m); document.body.style.overflow = 'hidden';
+      var close = function () { m.remove(); document.body.style.overflow = ''; };
+      m.querySelector('.x').onclick = close; m.onclick = function (e) { if (e.target === m) close(); };
+      return { el: m, close: close };
+    }
+    function openRev(r) {
+      modal('<div class="frev-full">' + (r.photos || []).map(function (p) { return '<img src="' + img(p) + '" alt="">'; }).join('') + kwChips(r.keywords, 5) +
+        '<p>' + esc(r.text).replace(/\n/g, '<br>') + '</p><div class="who">' + esc(r.name || '고객') + (r.date ? ' · ' + esc(String(r.date).slice(0, 10).replace(/-/g, '.')) : '') + (r.sample ? ' · 예시 리뷰' : '') + '</div></div>');
+    }
+    function openWrite() {
+      var picked = [], files = [];
+      var m = modal('<form class="frev-form" novalidate><h3>' + esc(f.name) + ' 리뷰 쓰기</h3>' +
+        '<div class="ff"><label>어떤 점이 좋으셨나요? <em>(최대 5개)</em></label><div class="kpick">' + REVIEW_KEYWORDS.map(function (k) { return '<button type="button" data-k="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '</div></div>' +
+        '<div class="ff"><label for="rv-text">리뷰 내용</label><textarea id="rv-text" rows="5" maxlength="1000" placeholder="다녀오신 소감을 편하게 적어 주십시오 (10자 이상)"></textarea></div>' +
+        '<div class="ff"><label>사진 <em>(선택, 최대 3장)</em></label><div class="pics" id="rv-pics"><label class="add">＋ 사진 추가<input type="file" id="rv-file" accept="image/*" multiple hidden></label></div></div>' +
+        '<div class="ff"><label for="rv-name">이름</label><input id="rv-name" maxlength="20" placeholder="예: 홍길동 (김○○처럼 가려서 보입니다)"></div>' +
+        '<label class="agree"><input type="checkbox" id="rv-agree"> 리뷰와 사진이 홈페이지에 공개되는 것에 동의합니다</label>' +
+        '<p class="err" id="rv-err"></p><button type="submit" class="btn btn-primary btn-block">리뷰 등록</button><p class="note">등록하신 리뷰는 확인 후 게시됩니다.</p></form>');
+      var form = m.el.querySelector('form'), err = m.el.querySelector('#rv-err');
+      form.querySelectorAll('.kpick button').forEach(function (b) {
+        b.onclick = function () {
+          var k = b.dataset.k, i = picked.indexOf(k);
+          if (i >= 0) { picked.splice(i, 1); b.classList.remove('on'); }
+          else if (picked.length < 5) { picked.push(k); b.classList.add('on'); }
+        };
+      });
+      var pics = m.el.querySelector('#rv-pics');
+      function drawPics() {
+        pics.querySelectorAll('.pv').forEach(function (x) { x.remove(); });
+        files.forEach(function (d, i) { pics.insertAdjacentHTML('beforeend', '<span class="pv"><img src="' + d + '" alt=""><button type="button" data-i="' + i + '" aria-label="사진 빼기">×</button></span>'); });
+        pics.querySelectorAll('.pv button').forEach(function (b) { b.onclick = function () { files.splice(+b.dataset.i, 1); drawPics(); }; });
+        pics.querySelector('.add').style.display = files.length >= 3 ? 'none' : '';
+      }
+      m.el.querySelector('#rv-file').onchange = function () {
+        Array.prototype.slice.call(this.files, 0, 3 - files.length).forEach(function (file) { shrink(file, function (d) { if (d && files.length < 3) { files.push(d); drawPics(); } }); });
+        this.value = '';
+      };
+      form.onsubmit = function (e) {
+        e.preventDefault(); err.textContent = '';
+        var text = form.querySelector('#rv-text').value.trim(), name = form.querySelector('#rv-name').value.trim();
+        if (!picked.length) { err.textContent = '좋았던 점 키워드를 하나 이상 골라 주십시오.'; return; }
+        if (text.length < 10) { err.textContent = '리뷰를 10자 이상 적어 주십시오.'; return; }
+        if (!name) { err.textContent = '이름을 적어 주십시오.'; return; }
+        if (!form.querySelector('#rv-agree').checked) { err.textContent = '공개 동의에 체크해 주십시오.'; return; }
+        var btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = '등록 중…';
+        fetch(ROOT + 'admin/api.php?action=review_submit', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'JANGJI' }, body: JSON.stringify({ review: { facility: f.id, name: name, text: text, keywords: picked, photos: files } }) })
+          .then(function (r) { return r.json(); })
+          .then(function (r) {
+            if (!r.ok) throw new Error(r.message || '등록하지 못했습니다.');
+            form.innerHTML = '<h3>감사합니다</h3><p>소중한 리뷰가 접수되었습니다. 확인 후 이 페이지에 게시됩니다.</p><button type="button" class="btn btn-primary btn-block" id="rvDone">닫기</button>';
+            form.querySelector('#rvDone').onclick = m.close;
+          })
+          .catch(function (x) { btn.disabled = false; btn.textContent = '리뷰 등록'; err.textContent = (x && x.message && !/JSON|fetch/i.test(x.message) ? x.message : '지금은 등록할 수 없습니다.') + ' 전화(' + S.phone + ')로 남겨 주셔도 됩니다.'; });
+      };
+    }
+    /* 사진은 긴 변 1280px JPEG 로 줄여서 보냅니다 */
+    function shrink(file, cb) {
+      if (!/^image\//.test(file.type)) return cb('');
+      var fr = new FileReader();
+      fr.onload = function () {
+        var im = new Image();
+        im.onload = function () {
+          var k = Math.min(1, 1280 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+          c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+          c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+          cb(c.toDataURL('image/jpeg', .82));
+        };
+        im.onerror = function () { cb(''); };
+        im.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    }
   }
 
   var page = document.body.dataset.page;

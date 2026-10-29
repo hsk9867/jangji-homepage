@@ -607,3 +607,64 @@ a.msg:hover .tx { background: #F2EDE1; }
   .header.sub-hide .subnav { height: 0; opacity: 0; }
   .col { padding-top: calc(var(--head) + 48px); }
 }
+
+/* ===== 2026-10-29 시설 키워드 + 고객 리뷰 ===== */
+.kw { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.kw span { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; background: #F3EEE3; color: #6B5A3A; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.kw span::before { content: '“'; margin-right: 1px; color: var(--gold); }
+.kw span::after { content: '”'; margin-left: 1px; color: var(--gold); }
+.finfo .kw span { height: 30px; font-size: 14px; padding: 0 12px; }
+.frow .kw { margin-top: 6px; }
+.frow .kw span { height: 22px; font-size: 11.5px; padding: 0 8px; }
+
+.frev { margin: 22px 0 6px; padding: 18px 0 4px; border-top: 1px solid var(--line); }
+.frev-hd { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.frev-hd h2 { font-size: 19px; font-weight: 800; }
+.frev-hd h2 b { color: var(--accent); margin-left: 2px; }
+.frev-btn { border: 1px solid var(--accent); color: var(--accent); background: var(--white); border-radius: 999px; padding: 8px 14px; font-size: 14px; font-weight: 700; }
+.frev-top { margin-top: 14px; display: grid; gap: 6px; }
+.frev-top small { font-size: 13px; color: var(--text-2); font-weight: 700; margin-bottom: 2px; }
+.frev-top .bar { position: relative; display: flex; align-items: center; justify-content: space-between; height: 38px; padding: 0 14px; border-radius: 10px; background: #F7F4EC; overflow: hidden; font-size: 14.5px; font-weight: 600; }
+.frev-top .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #EDE4D1; border-radius: 10px; }
+.frev-top .bar span, .frev-top .bar b { position: relative; }
+.frev-top .bar b { color: var(--accent); }
+.frev-wrap { margin: 14px -20px 0; padding: 2px 20px 10px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.frev-wrap::-webkit-scrollbar { display: none; }
+.frev-track { display: flex; gap: 10px; width: max-content; }
+.frc { position: relative; flex: none; width: 290px; display: flex; gap: 12px; align-items: flex-start; text-align: left; background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 12px; scroll-snap-align: start; }
+.frc > img { width: 76px; height: 76px; border-radius: 10px; object-fit: cover; flex: none; background: var(--gray); }
+.frc > em { position: absolute; left: 62px; top: 66px; background: rgba(0, 0, 0, .6); color: #fff; font-style: normal; font-size: 11px; font-weight: 700; border-radius: 6px; padding: 1px 5px; }
+.frc .tx { display: grid; gap: 2px; min-width: 0; }
+.frc .t { font-size: 14px; line-height: 1.5; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.frc .kw { margin-top: 6px; gap: 4px; }
+.frc .kw span { height: 22px; font-size: 11.5px; padding: 0 8px; }
+.frc .who { margin-top: 6px; font-size: 12px; color: var(--muted); }
+.frc .who i { font-style: normal; background: var(--gray); border-radius: 4px; padding: 0 5px; margin-left: 2px; }
+.frev-empty { margin-top: 12px; padding: 20px; border-radius: 12px; background: #F7F4EC; text-align: center; font-size: 14.5px; line-height: 1.6; color: var(--text-2); }
+.frev-full img { width: 100%; border-radius: 12px; margin-bottom: 8px; display: block; }
+.frev-full .kw span { height: 28px; font-size: 13px; }
+.frev-form h3 { font-size: 20px; font-weight: 800; padding-right: 24px; }
+.frev-form .ff { margin-top: 18px; }
+.frev-form .ff > label { display: block; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.frev-form .ff em { font-style: normal; font-weight: 500; font-size: 13px; color: var(--muted); }
+.frev-form .kpick { display: flex; flex-wrap: wrap; gap: 8px; }
+.frev-form .kpick button { height: 38px; padding: 0 13px; border-radius: 999px; border: 1.5px solid var(--line-2); background: var(--white); font-size: 14.5px; font-weight: 600; color: var(--text-2); }
+.frev-form .kpick button.on { border-color: var(--gold); background: #F3EEE3; color: #5B4A2A; }
+.frev-form textarea, .frev-form input:not([type]) { width: 100%; border: 1.5px solid var(--line-2); border-radius: 12px; padding: 12px 14px; font-size: 16px; font-family: inherit; }
+.frev-form input:not([type]) { height: 52px; }
+.frev-form .pics { display: flex; gap: 8px; flex-wrap: wrap; }
+.frev-form .pics .add { width: 84px; height: 84px; border: 1.5px dashed var(--line-2); border-radius: 12px; display: grid; place-items: center; font-size: 13px; color: var(--text-2); cursor: pointer; text-align: center; }
+.frev-form .pv { position: relative; }
+.frev-form .pv img { width: 84px; height: 84px; object-fit: cover; border-radius: 12px; display: block; }
+.frev-form .pv button { position: absolute; top: -6px; right: -6px; width: 24px; height: 24px; border-radius: 50%; border: 0; background: #333; color: #fff; font-size: 15px; line-height: 1; }
+.frev-form .agree { display: flex; gap: 8px; align-items: flex-start; margin-top: 16px; font-size: 14.5px; line-height: 1.5; }
+.frev-form .agree input { width: 20px; height: 20px; flex: none; margin-top: 1px; }
+.frev-form .err { min-height: 20px; margin-top: 8px; color: #C0392B; font-size: 14px; }
+.frev-form .note { margin-top: 8px; font-size: 13px; color: var(--muted); text-align: center; }
+.frev-form > p { margin-top: 10px; }
+@media (min-width: 761px) { .frev-wrap { margin: 14px 0 0; padding: 2px 0 10px; } .frc { width: 320px; } }
+
+/* 플로팅 장례지원금: 아이콘 없이 글자만 */
+.fabs .fab.support { font-size: 12px; font-weight: 800; line-height: 1.2; text-align: center; letter-spacing: -.02em; }
+@media (max-width: 760px) { .fabs .fab.support { font-size: 11px; } }
+#facTags .tag .emo { font-size: 15px; margin-left: 2px; }

@@ -228,6 +228,7 @@
       '<div class="f"><label>가격 안내</label><input type="text" name="price" value="' + esc(f.price) + '" placeholder="예: 1위 300만원~ / 상담 시 안내"></div>' +
       '<div class="f"><label>블로그 답사기 주소</label><input type="url" name="blogUrl" value="' + esc(f.blogUrl || '') + '" placeholder="https://blog.naver.com/baewoong0816/..."><small>넣으면 시설 페이지에 "블로그 답사기 전체 보기" 버튼이 생깁니다.</small></div>' +
       '<div class="f"><label>특징 태그</label><input type="text" name="tags" value="' + esc((f.tags || []).join(', ')) + '" placeholder="쉼표로 구분: 주차 편리, 가족목 가능"></div>' +
+      '<div class="f"><label>키워드 (카드에 보이는 말, 3개 정도)</label><input type="text" name="keywords" value="' + esc((f.keywords || []).join(', ')) + '" placeholder="쉼표로 구분: 경치가 좋아요, 조용해요, 주차가 편해요"></div>' +
       '<div class="f"><label>답사 메모</label><textarea name="comment" placeholder="직접 가 보고 느낀 점, 진입로, 주차, 분위기 등">' + esc(f.comment) + '</textarea></div>' +
       '<label class="chk"><input type="checkbox" name="featured"' + (f.featured ? ' checked' : '') + '>첫 화면에 추천 시설로 보이기</label>' +
       '<label class="chk"><input type="checkbox" name="visible"' + (f.visible !== false ? ' checked' : '') + '>홈페이지에 공개</label>' +
@@ -241,6 +242,7 @@
         f.type = val(p, 'type'); f.name = val(p, 'name'); f.area = val(p, 'area'); f.operator = val(p, 'operator'); f.address = val(p, 'address');
         f.price = val(p, 'price'); f.blogUrl = val(p, 'blogUrl'); f.comment = val(p, 'comment'); f.featured = val(p, 'featured'); f.visible = val(p, 'visible');
         f.tags = val(p, 'tags').split(',').map(function (x) { return x.trim(); }).filter(Boolean);
+        f.keywords = val(p, 'keywords').split(',').map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 6);
         if (!f.name) { toast('시설 이름을 입력해 주세요.', true); return; }
         delete f.sample;
         var prev = clone(c.facilities);
@@ -425,8 +427,47 @@
     };
   }
 
+  /* ---------- 탭: 시설 리뷰 (고객 작성 → 승인 후 게시) ---------- */
+  var RV_STATUS = ['대기', '게시', '숨김'];
+  function facName(id) { var f = (state.content.facilities || []).filter(function (x) { return x.id === id; })[0]; return f ? f.name : id; }
+  function renderFacReviews() {
+    view.innerHTML = '<h2>시설 리뷰</h2><p class="help">고객이 시설 상세 페이지에서 남긴 리뷰입니다. <b>게시</b>로 바꾼 리뷰만 홈페이지에 보입니다.</p><div class="list"><div class="empty">불러오는 중…</div></div>';
+    api('review_admin').then(function (r) {
+      if (!r.ok) { if (r.error === 'auth') return showLogin(); throw new Error(r.message || r.error); }
+      state.frev = r.reviews || [];
+      var b = $('rev-new'); var n = state.frev.filter(function (x) { return x.status === '대기'; }).length; b.textContent = n; b.classList.toggle('hidden', !n);
+      drawFacReviews();
+    }).catch(function (e) { view.querySelector('.list').innerHTML = '<div class="empty">' + esc(e.message) + '</div>'; });
+  }
+  function drawFacReviews() {
+    var f = state.frevFilter || '';
+    var list = state.frev.filter(function (x) { return !f || x.status === f; });
+    view.innerHTML = '<h2>시설 리뷰</h2><p class="help">고객이 시설 상세 페이지에서 남긴 리뷰입니다. <b>게시</b>로 바꾼 리뷰만 홈페이지에 보입니다.</p>' +
+      '<div class="bar"><div class="chips" id="frv-chips"><button class="chip' + (!f ? ' on' : '') + '" data-s="">전체 ' + state.frev.length + '</button>' +
+      RV_STATUS.map(function (st) { var n = state.frev.filter(function (x) { return x.status === st; }).length; return '<button class="chip' + (f === st ? ' on' : '') + '" data-s="' + st + '">' + st + ' ' + n + '</button>'; }).join('') + '</div></div>' +
+      '<div class="list">' + (list.length ? list.map(function (x) {
+        var d = new Date(x.createdAt);
+        return '<div class="inq' + (x.status === '대기' ? ' new' : '') + '" data-id="' + esc(x.id) + '"><div class="hd"><b>' + esc(facName(x.facility)) + '</b><span>' + esc(x.name) + '</span><time>' + (isNaN(d) ? '' : d.toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })) + '</time></div>' +
+          '<div class="meta">' + (x.keywords || []).map(function (k) { return '“' + esc(k) + '”'; }).join(' ') + '</div>' +
+          '<div class="memo">' + esc(x.text) + '</div>' +
+          ((x.photos || []).length ? '<div style="display:flex;gap:6px;margin:6px 0">' + x.photos.map(function (ph) { return '<a href="' + esc(ph) + '" target="_blank"><img src="' + esc(ph) + '" alt="" style="width:72px;height:72px;object-fit:cover;border-radius:8px"></a>'; }).join('') + '</div>' : '') +
+          '<div class="ctl"><select data-status>' + RV_STATUS.map(function (st) { return '<option' + (st === x.status ? ' selected' : '') + '>' + st + '</option>'; }).join('') + '</select><button class="btn sm del" data-del>삭제</button></div></div>';
+      }).join('') : '<div class="empty">' + (f ? '이 상태의 리뷰가 없습니다.' : '아직 들어온 리뷰가 없습니다.') + '</div>') + '</div>';
+    $('frv-chips').onclick = function (e) { var b = e.target.closest('.chip'); if (b) { state.frevFilter = b.dataset.s; drawFacReviews(); } };
+    view.querySelectorAll('.inq').forEach(function (box) {
+      var id = box.dataset.id;
+      box.querySelector('[data-status]').onchange = function () {
+        var st = this.value;
+        api('review_update', { id: id, status: st }).then(function (r) { if (!r.ok) throw new Error(r.message || r.error); toast(st === '게시' ? '홈페이지에 게시했습니다.' : '상태를 바꿨습니다.'); renderFacReviews(); }).catch(function (e) { toast(e.message, true); });
+      };
+      armButton(box.querySelector('[data-del]'), function () {
+        api('review_update', { id: id, delete: true }).then(function (r) { if (!r.ok) throw new Error(r.message || r.error); toast('삭제했습니다.'); renderFacReviews(); }).catch(function (e) { toast(e.message, true); });
+      });
+    });
+  }
+
   /* ---------- 화면 전환 ---------- */
-  var RENDER = { inbox: renderInbox, facilities: renderFacilities, reviews: renderReviews, types: renderTypes, site: renderSite, settings: renderSettings };
+  var RENDER = { inbox: renderInbox, facilities: renderFacilities, facreviews: renderFacReviews, reviews: renderReviews, types: renderTypes, site: renderSite, settings: renderSettings };
   function go(tab) {
     state.tab = tab;
     document.querySelectorAll('#tabs button').forEach(function (b) { b.classList.toggle('on', b.dataset.tab === tab); });

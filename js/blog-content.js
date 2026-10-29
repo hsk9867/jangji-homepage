@@ -24,7 +24,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224438264593",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "경치가 좋아요",
+    "산책하기 좋아요",
+    "이장 후 모시기 좋아요"
+   ]
   },
   {
    "id": "yangji",
@@ -50,7 +55,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224435057522",
    "featured": true,
    "visible": true,
-   "religion": "불교"
+   "religion": "불교",
+   "keywords": [
+    "사찰이 직접 관리해요",
+    "조용해요",
+    "자연이 아름다워요"
+   ]
   },
   {
    "id": "cheongsol",
@@ -75,7 +85,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224439604912",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "산책로가 잘 돼 있어요",
+    "관리가 깔끔해요",
+    "가족목이 있어요"
+   ]
   },
   {
    "id": "gonggam",
@@ -100,7 +115,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224438297505",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "전망이 탁 트였어요",
+    "일산에서 가까워요",
+    "단정해요"
+   ]
   },
   {
    "id": "jayeonae",
@@ -125,7 +145,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224426431900",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "숲길이 좋아요",
+    "실내 봉안도 있어요",
+    "비교 답사하기 좋아요"
+   ]
   },
   {
    "id": "naraewon",
@@ -150,7 +175,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435686400",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "숲이 울창해요",
+    "가족목을 고를 수 있어요",
+    "수원에서 가까워요"
+   ]
   },
   {
    "id": "galwolsa",
@@ -180,6 +210,11 @@ window.BLOG_CONTENT = {
     "sumok",
     "napgol",
     "maejang"
+   ],
+   "keywords": [
+    "조용해요",
+    "사찰 분위기예요",
+    "장법을 고를 수 있어요"
    ]
   },
   {
@@ -205,7 +240,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224423941202",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "수목 구역이 넓어요",
+    "자리 선택이 다양해요",
+    "서울에서 오가기 편해요"
+   ]
   },
   {
    "id": "aegibong",
@@ -230,7 +270,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224430604950",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "한강이 보여요",
+    "산책하기 좋아요",
+    "사찰이 함께 있어요"
+   ]
   },
   {
    "id": "seohyeon",
@@ -255,7 +300,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224421902471",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "날씨 걱정이 없어요",
+    "예배 공간이 있어요",
+    "실내가 정갈해요"
+   ]
   },
   {
    "id": "bundanghue",
@@ -280,7 +330,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224412999053",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "서재처럼 아늑해요",
+    "분당에서 가까워요",
+    "관리가 잘 돼요"
+   ]
   },
   {
    "id": "haneulan",
@@ -305,7 +360,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435729048",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "실내가 밝아요",
+    "복도가 넓어요",
+    "경기 북부에서 가까워요"
+   ]
   },
   {
    "id": "thecrest",
@@ -330,7 +390,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224440757870",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "갤러리처럼 고급스러워요",
+    "상담 라운지가 있어요",
+    "조용해요"
+   ]
   },
   {
    "id": "eden",
@@ -355,7 +420,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435322086",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "남양주·구리에서 가까워요",
+    "비용 안내가 명확해요",
+    "전통 분위기예요"
+   ]
   },
   {
    "id": "honorstone",
@@ -380,7 +450,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224431109629",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "주차가 편해요",
+    "유족대기실이 있어요",
+    "규모가 커요"
+   ]
   },
   {
    "id": "haneulmun",
@@ -405,7 +480,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224400313974",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "사계절 참배가 편해요",
+    "고양에서 가까워요",
+    "안치단이 정돈돼 있어요"
+   ]
   },
   {
    "id": "obongjeongsa",
@@ -430,7 +510,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224426403323",
    "featured": true,
    "visible": true,
-   "religion": "불교"
+   "religion": "불교",
+   "keywords": [
+    "사찰 분위기예요",
+    "의왕·안양에서 가까워요",
+    "조용해요"
+   ]
   },
   {
    "id": "namseoul",
@@ -455,7 +540,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224414358078",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "기독교 가족에게 좋아요",
+    "수목장도 함께 있어요",
+    "강남에서도 가까워요"
+   ]
   },
   {
    "id": "bundanghome",
@@ -480,7 +570,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224359282787",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "도서관처럼 편안해요",
+    "공간이 세련돼요",
+    "분당 생활권이에요"
+   ]
   },
   {
    "id": "doseongsa",
@@ -506,7 +601,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224438326758",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "예불이 이어져요",
+    "가족단이 있어요",
+    "실내가 화사해요"
+   ]
   },
   {
    "id": "bongwonsa",
@@ -529,7 +629,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "서울 시내라 가까워요",
+    "전통사찰이에요",
+    "자주 찾아뵙기 좋아요"
+   ]
   },
   {
    "id": "utopia",
@@ -559,7 +664,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224383816905",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "실내가 밝아요",
+    "종교별 공간이 있어요",
+    "로비가 넓어요"
+   ]
   },
   {
    "id": "jangan",
@@ -585,7 +695,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224357352928",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "창이 넓어 밝아요",
+    "휴게 공간이 있어요",
+    "30년 넘게 운영했어요"
+   ]
   },
   {
    "id": "tongillo",
@@ -610,7 +725,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224234646149",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "벽제에서 가까워요",
+    "동선이 단순해요",
+    "조건 비교가 쉬워요"
+   ]
   },
   {
    "id": "paradise",
@@ -635,7 +755,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224424228676",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "전망이 탁 트였어요",
+    "인천·김포에서 가까워요",
+    "차로 오가기 편해요"
+   ]
   },
   {
    "id": "pajuchumo",
@@ -660,7 +785,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224254570574",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "주차가 편해요",
+    "재단법인이 운영해요",
+    "서울 서북부에서 가까워요"
+   ]
   },
   {
    "id": "pureunsol",
@@ -685,7 +815,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224391393867",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "창밖으로 숲이 보여요",
+    "객실 등급을 고를 수 있어요",
+    "일산에서 가까워요"
+   ]
   },
   {
    "id": "mugunghwa",
@@ -710,7 +845,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224430584944",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "장법을 고를 수 있어요",
+    "가족묘가 가능해요",
+    "경치가 좋아요"
+   ]
   },
   {
    "id": "sinsegye",
@@ -732,7 +872,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224173996112",
    "featured": true,
-   "visible": false
+   "visible": false,
+   "keywords": [
+    "경치가 좋아요",
+    "묘역이 넓어요",
+    "의정부에서 가까워요"
+   ]
   },
   {
    "id": "jahayeon",
@@ -757,7 +902,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224428607421",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "일산에서 가까워요",
+    "묘역이 정돈돼 있어요",
+    "산책하기 좋아요"
+   ]
   },
   {
    "id": "nakwon",
@@ -781,7 +931,12 @@ window.BLOG_CONTENT = {
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224235940313",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "오래된 공원묘원이에요",
+    "파주·고양에서 가까워요",
+    "묘역이 넓어요"
+   ]
   },
   {
    "id": "elysium",
@@ -806,7 +961,12 @@ window.BLOG_CONTENT = {
    "blogUrl": "https://blog.naver.com/baewoong0816/224099221267",
    "price": "상담 시 안내",
    "featured": true,
-   "visible": true
+   "visible": true,
+   "keywords": [
+    "주차가 편해요",
+    "관리 직원이 상주해요",
+    "진입로가 단순해요"
+   ]
   }
  ],
  "reviews": [

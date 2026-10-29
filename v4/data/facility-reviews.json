@@ -1,0 +1,25 @@
+{
+  "note": "시설 상세 페이지 고객 리뷰 예시입니다. 실제 리뷰는 고객이 홈페이지에서 작성하고 관리자가 '게시'로 바꾸면 함께 보입니다. sample 값이 true 인 항목은 '예시' 표시가 붙습니다. 실제 오픈 전에 지워 주세요.",
+  "items": [
+    { "id": "s1", "facility": "muryang", "sample": true, "name": "김○○", "date": "2026-10-12", "keywords": ["경치가 좋아요", "조용해요", "답사 동행이 든든했어요"], "photos": ["img/fac/muryang-2.jpg"],
+      "text": "아버지 이장 후 모실 곳을 찾다가 상담사님과 함께 다녀왔습니다. 능선에서 보이는 산 풍경이 시원하고 조용해서 가족 모두 마음에 들어 했습니다." },
+    { "id": "s2", "facility": "muryang", "sample": true, "name": "이○○", "date": "2026-09-28", "keywords": ["관리가 잘 돼요", "산책하기 좋아요"], "photos": ["img/fac/muryang-4.jpg", "img/fac/muryang-5.jpg"],
+      "text": "나무 사이 길이 잘 정리되어 있어서 어머니도 천천히 걸어 올라가실 수 있었어요. 명절에 다시 찾았을 때도 깔끔하게 관리되어 있었습니다." },
+    { "id": "s3", "facility": "gonggam", "sample": true, "name": "박○○", "date": "2026-10-03", "keywords": ["찾아가기 쉬워요", "경치가 좋아요"], "photos": ["img/fac/gonggam-1.jpg"],
+      "text": "일산 집에서 20분이면 도착해서 자주 찾아뵐 수 있습니다. 위쪽 자리에서 보이는 전망이 좋아서 그 자리로 정했습니다." },
+    { "id": "s4", "facility": "gonggam", "sample": true, "name": "최○○", "date": "2026-08-21", "keywords": ["상담이 꼼꼼했어요", "비용이 합리적이에요"], "photos": [],
+      "text": "처음이라 무엇을 물어봐야 할지 몰랐는데 비용과 추가 안치 조건을 표로 정리해 주셔서 가족끼리 이야기하기 편했습니다." },
+    { "id": "s5", "facility": "bundanghome", "sample": true, "name": "정○○", "date": "2026-10-15", "keywords": ["실내가 밝아요", "시설이 깨끗해요", "쉴 공간이 있어요"], "photos": ["img/fac/bundanghome-2.jpg"],
+      "text": "도서관처럼 꾸며진 공간이라 무겁지 않고 편안했습니다. 앉아서 쉴 수 있는 자리가 곳곳에 있어 어르신들도 좋아하셨어요." },
+    { "id": "s6", "facility": "bundanghome", "sample": true, "name": "한○○", "date": "2026-09-09", "keywords": ["자주 찾아뵙기 좋아요", "주차가 편해요"], "photos": ["img/fac/bundanghome-4.jpg"],
+      "text": "분당에서 가까워 퇴근길에도 들를 수 있어요. 주차 공간이 넉넉해서 명절에도 크게 기다리지 않았습니다." },
+    { "id": "s7", "facility": "haneulmun", "sample": true, "name": "윤○○", "date": "2026-10-01", "keywords": ["시설이 깨끗해요", "직원이 친절해요"], "photos": ["img/fac/haneulmun-3.jpg"],
+      "text": "실내라 비 오는 날에도 편하게 다녀올 수 있습니다. 현장 직원분들도 친절하게 안치단 위치를 안내해 주셨어요." },
+    { "id": "s8", "facility": "mugunghwa", "sample": true, "name": "조○○", "date": "2026-09-17", "keywords": ["경치가 좋아요", "관리가 잘 돼요", "답사 동행이 든든했어요"], "photos": ["img/fac/mugunghwa-2.jpg", "img/fac/mugunghwa-1.jpg"],
+      "text": "잔디장과 수목장을 한 번에 비교해 볼 수 있어서 좋았습니다. 상담사님이 장법별 비용을 정리해 주셔서 가족 묘로 결정했습니다." },
+    { "id": "s9", "facility": "utopia", "sample": true, "name": "강○○", "date": "2026-10-20", "keywords": ["실내가 밝아요", "조용해요"], "photos": ["img/fac/utopia-2.jpg"],
+      "text": "로비가 넓고 밝아서 처음 들어섰을 때 마음이 편안했습니다. 기독교 구역이 따로 있어 저희 가족에게 맞았어요." },
+    { "id": "s10", "facility": "thecrest", "sample": true, "name": "신○○", "date": "2026-08-30", "keywords": ["쉴 공간이 있어요", "시설이 깨끗해요", "조용해요"], "photos": ["img/fac/thecrest-1.jpg"],
+      "text": "갤러리 같은 분위기라 납골당이라는 느낌이 덜했습니다. 1층 라운지에서 가족들이 차 한 잔 하며 이야기 나눌 수 있었어요." }
+  ]
+}
