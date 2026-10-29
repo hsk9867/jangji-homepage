@@ -36,8 +36,9 @@
       '<button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div>' +
       '<nav class="subnav" aria-label="빠른 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '</nav></header>' +
       '<div class="drawer" id="drawer"><div class="panel"><button class="close" id="drawerClose" aria-label="닫기">×</button><img src="img/logo-h.png" alt="배웅" style="height:30px;width:auto;margin-bottom:14px">' +
-      NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="crematorium.html">화장장 예약</a><a href="contact.html?type=support">장례지원금 상담</a><a href="index.html#reviews">상담 후기</a><a href="index.html#counselors">배웅 상담사</a><a href="index.html#faq">자주 하는 질문</a><a href="contact.html">상담 신청</a>' +
-      '<a href="' + tel(S.phone) + '">전화 상담 ' + esc(S.phone) + '</a>' + (S.kakao ? '<a href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카카오톡 상담</a>' : '') + '</div></div>';
+      NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '<a href="crematorium.html">화장장 예약</a><a href="contact.html?type=support">장례지원금 상담</a><a href="index.html#reviews">상담 후기</a>' +
+      '<div class="dr-call"><a class="dc tel" href="' + tel(S.phone) + '">' + ICON.phone + '<span>전화 상담<b>' + esc(S.phone) + '</b></span></a>' +
+      (S.kakao ? '<a class="dc kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '<span>카카오톡 상담<b>채널로 문의하기</b></span></a>' : '') + '</div></div></div>';
     var info = [['대표', S.ceo], ['사업자등록번호', S.bizNo], ['주소', S.address], ['메일', S.email]].filter(function (x) { return x[1]; });
     var foot = '<footer class="footer dark">' +
       '<div class="flinks"><a href="' + ROOT + 'privacy.html">이용약관</a><span>|</span><a href="' + ROOT + 'privacy.html"><b>개인정보처리방침</b></a></div>' +
@@ -71,6 +72,13 @@
     document.getElementById('burger').onclick = function () { dr.classList.add('open'); };
     document.getElementById('drawerClose').onclick = function () { dr.classList.remove('open'); };
     dr.onclick = function (e) { if (e.target === dr) dr.classList.remove('open'); };
+    var hd = document.querySelector('.header'), lastY = window.scrollY;
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY;
+      if (y > lastY + 6 && y > 60) hd.classList.add('sub-hide');
+      else if (y < lastY - 6 || y <= 60) hd.classList.remove('sub-hide');
+      if (Math.abs(y - lastY) > 6 || y <= 60) lastY = y;
+    }, { passive: true });
   }
 
   /* ---------- 첫 화면 (v4: 속시원식 구성 + v2 톤앤매너) ---------- */

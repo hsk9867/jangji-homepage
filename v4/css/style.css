@@ -580,3 +580,30 @@ a.msg:hover .tx { background: #F2EDE1; }
 .cf-call b { display: block; font-size: 24px; color: var(--accent); line-height: 1.2; margin-top: 2px; }
 .cf-call p { font-size: 13px; color: var(--muted); margin-top: 4px; }
 .cf-call .btn { height: 48px; font-size: 15px; }
+
+/* ===== 2026-10-29 고객 수정사항 4 ===== */
+/* 햄버거 메뉴 하단 전화·카톡 버튼 */
+.drawer .panel .dr-call { margin-top: 22px; display: grid; gap: 10px; }
+.drawer .panel .dr-call a.dc { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 0; border-radius: 14px; font-size: 15px; font-weight: 700; }
+.drawer .panel .dr-call a.dc svg { width: 26px; height: 26px; fill: currentColor; flex: none; }
+.drawer .panel .dr-call a.dc span { display: grid; gap: 2px; }
+.drawer .panel .dr-call a.dc b { font-size: 18px; font-weight: 800; letter-spacing: .01em; }
+.drawer .panel .dr-call a.dc.kakao b { font-size: 13px; font-weight: 600; opacity: .8; }
+.drawer .panel .dr-call a.dc.tel { background: var(--accent); color: var(--white); }
+.drawer .panel .dr-call a.dc.kakao { background: #FAE100; color: #3C1E1E; }
+
+/* 카드뉴스 글자 크게 */
+.slide .tx { font-size: 26px; line-height: 1.38; }
+.slide .chip { font-size: 15px; padding: 7px 14px; }
+@media (min-width: 761px) { .slide .tx { font-size: 32px; } }
+@media (min-width: 1500px) { .slide .tx { font-size: 34px; } }
+
+/* 모바일 상단 카테고리: 칩 → 첫장식 균등 배치 글자 탭, 스크롤 내리면 접힘 */
+@media (max-width: 760px) {
+  .header .subnav { height: 48px; gap: 0; padding: 0 8px; justify-content: space-around; overflow: hidden; border-top: 0; transition: height .25s ease, opacity .2s ease; }
+  .header .subnav a { flex: 1; justify-content: center; height: 100%; padding: 0; border-radius: 0; background: none; color: #555; font-size: 16px; font-weight: 600; }
+  .header .subnav a:active { color: var(--accent); }
+  .header .subnav::after { display: none; }
+  .header.sub-hide .subnav { height: 0; opacity: 0; }
+  .col { padding-top: calc(var(--head) + 48px); }
+}
