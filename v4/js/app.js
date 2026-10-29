@@ -395,7 +395,7 @@
       var ph = (f.photos || [])[0], on = picked.indexOf(f.id) >= 0;
       return '<article class="fc' + (on ? ' on' : '') + '" data-id="' + esc(f.id) + '"><a class="ph" href="facility.html?id=' + esc(f.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '') + (f.featured ? '<span class="bdg">배웅 추천</span>' : '') + '</a>' +
         '<div class="bd"><a class="nm" href="facility.html?id=' + esc(f.id) + '">' + esc(f.name) + '</a><div class="ar">' + esc(f.area) + (f.operator ? ' · ' + esc(f.operator) : '') + '</div>' +
-        '<div class="pr">' + esc(f.price || '상담 시 안내') + '</div>' +
+        '<div class="pr">' + (f.price ? '<small>최저</small> ' + esc(f.price) : '상담 시 안내') + '</div>' +
         kwChips(kwOf(f), 3) +
         '<div class="acts"><button type="button" class="btn btn-line btn-sm cmp">' + (on ? '비교함에서 빼기' : '비교 담기') + '</button><a class="btn btn-primary btn-sm" href="contact.html?type=' + esc(k) + '&facility=' + esc(f.id) + '">상담 신청</a></div></div></article>';
     }
@@ -591,7 +591,8 @@
       kwChips(kwOf(f), 6) +
       '<p class="comment">' + esc(f.comment) + '</p>' +
       '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
-      '<table>' + [['유형', (f.types || [f.type]).map(function (k) { return typeOf(k).name; }).join(' · ')], ['지역', f.area], ['주소', f.address], ['운영', f.operator], ['종교', f.religion], ['사용료', (f.price || '상담 시 안내') + ' <small style="color:var(--muted)">· ' + esc(t.priceTag) + ' 평균 ' + esc(t.price) + '</small>']].filter(function (r) { return r[1]; }).map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</td></tr>'; }).join('') + '</table>' +
+      '<table>' + [['유형', (f.types || [f.type]).map(function (k) { return typeOf(k).name; }).join(' · ')], ['지역', f.area], ['주소', f.address], ['운영', f.operator], ['종교', f.religion], ['사용료', f.price ? '<b class="pmin">' + esc(f.price) + '</b>' : '상담 시 안내']].filter(function (r) { return r[1]; }).map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</td></tr>'; }).join('') + '</table>' +
+      ((f.priceItems || []).length > 1 || ((f.priceItems || [])[0] || {}).label !== '기본' ? '<div class="ptable"><h3>가격 정보</h3><ul>' + (f.priceItems || []).map(function (x) { return '<li><span>' + esc(x.label) + '</span><b>' + esc(x.price) + '</b></li>'; }).join('') + '</ul><p>안치 위치·층·조건에 따라 달라질 수 있어 상담 때 최신 가격으로 다시 확인해 드립니다.</p></div>' : '') +
       '<div class="maps"><a href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도</a><a href="https://map.kakao.com/?q=' + q + '" target="_blank" rel="noopener">카카오맵</a>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
       '<div class="acts"><a class="btn btn-primary btn-block" href="contact.html?type=' + esc(f.type) + '&facility=' + esc(f.id) + '">' + ICON.form + '이 시설로 상담 신청</a><a class="btn btn-line btn-block" href="' + tel(S.phone) + '">' + ICON.phone + '전화로 바로 묻기 ' + esc(S.phone) + '</a></div>' +
       '<p style="margin-top:12px;font-size:12px;color:var(--muted)">※ 사용료·관리비·이용 기간은 시설 공지에 따라 달라집니다. 계약 전에 서면으로 비교해 드립니다.</p></div></div>' +

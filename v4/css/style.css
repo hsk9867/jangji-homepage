@@ -668,3 +668,15 @@ a.msg:hover .tx { background: #F2EDE1; }
 .fabs .fab.support { font-size: 12px; font-weight: 800; line-height: 1.2; text-align: center; letter-spacing: -.02em; }
 @media (max-width: 760px) { .fabs .fab.support { font-size: 11px; } }
 #facTags .tag .emo { font-size: 15px; margin-left: 2px; }
+
+/* ===== 2026-10-29 시설 가격 ===== */
+.pmin { color: var(--accent); font-size: 17px; font-weight: 800; }
+.fc .pr small { font-size: 12px; font-weight: 600; color: var(--muted); }
+.ptable { margin-top: 16px; border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: #FBF9F4; }
+.ptable h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+.ptable ul { display: grid; }
+.ptable li { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px dashed var(--line-2); font-size: 15px; }
+.ptable li:last-child { border-bottom: 0; }
+.ptable li span { color: var(--text-2); }
+.ptable li b { color: var(--accent); font-weight: 800; white-space: nowrap; }
+.ptable p { margin-top: 8px; font-size: 12.5px; color: var(--muted); line-height: 1.5; }

@@ -8,7 +8,7 @@ window.BLOG_CONTENT = {
    "area": "경기 남양주",
    "address": "경기도 남양주시 수동면 비룡로 864-1",
    "operator": "사설 (무량사 인근)",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "tags": [
     "사찰 인근",
     "파묘·이장 후 안치"
@@ -29,6 +29,28 @@ window.BLOG_CONTENT = {
     "경치가 좋아요",
     "산책하기 좋아요",
     "이장 후 모시기 좋아요"
+   ],
+   "priceItems": [
+    {
+     "label": "잔디장",
+     "price": "190만원~"
+    },
+    {
+     "label": "공동목",
+     "price": "340만원~"
+    },
+    {
+     "label": "개인목",
+     "price": "340만원~"
+    },
+    {
+     "label": "부부목",
+     "price": "690만원~"
+    },
+    {
+     "label": "가족목",
+     "price": "1,190만원~"
+    }
    ]
   },
   {
@@ -38,7 +60,7 @@ window.BLOG_CONTENT = {
    "area": "경기 용인",
    "address": "경기도 용인시 처인구 백암면 박곡로208번길 24",
    "operator": "사찰 운영 (불광사)",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "tags": [
     "사찰 수목장",
     "사찰 직접 관리"
@@ -60,6 +82,28 @@ window.BLOG_CONTENT = {
     "사찰이 직접 관리해요",
     "조용해요",
     "자연이 아름다워요"
+   ],
+   "priceItems": [
+    {
+     "label": "수목장 잔디장",
+     "price": "140만원~"
+    },
+    {
+     "label": "수목장 공동목",
+     "price": "190만원~"
+    },
+    {
+     "label": "수목장 개인목",
+     "price": "290만원~"
+    },
+    {
+     "label": "수목장 부부목",
+     "price": "590만원~"
+    },
+    {
+     "label": "수목장 가족목",
+     "price": "890만원~"
+    }
    ]
   },
   {
@@ -69,7 +113,7 @@ window.BLOG_CONTENT = {
    "area": "경기 김포",
    "address": "경기도 김포시 월곶면 애기봉로409번길 82-11",
    "operator": "자연장지",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "tags": [
     "가족목 가능",
     "정돈된 산책로"
@@ -90,6 +134,20 @@ window.BLOG_CONTENT = {
     "산책로가 잘 돼 있어요",
     "관리가 깔끔해요",
     "가족목이 있어요"
+   ],
+   "priceItems": [
+    {
+     "label": "수목장 개인목",
+     "price": "140만원~"
+    },
+    {
+     "label": "수목장 부부목",
+     "price": "490만원~"
+    },
+    {
+     "label": "수목장 가족목",
+     "price": "1,190만원~"
+    }
    ]
   },
   {
@@ -99,7 +157,7 @@ window.BLOG_CONTENT = {
    "area": "경기 고양(일산)",
    "address": "경기도 고양시 일산동구 지영로194번길 132",
    "operator": "사설",
-   "price": "상담 시 안내",
+   "price": "390만원~",
    "tags": [
     "일산 생활권",
     "단정한 수목 구역"
@@ -120,6 +178,12 @@ window.BLOG_CONTENT = {
     "전망이 탁 트였어요",
     "일산에서 가까워요",
     "단정해요"
+   ],
+   "priceItems": [
+    {
+     "label": "수목장 개인목",
+     "price": "390만원~"
+    }
    ]
   },
   {
@@ -129,7 +193,7 @@ window.BLOG_CONTENT = {
    "area": "경기 고양(일산)",
    "address": "경기도 고양시 일산동구 지영로194번길 135",
    "operator": "일산 메모리얼파크",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "tags": [
     "수목장·봉안당 함께",
     "일산 생활권"
@@ -150,6 +214,24 @@ window.BLOG_CONTENT = {
     "숲길이 좋아요",
     "실내 봉안도 있어요",
     "비교 답사하기 좋아요"
+   ],
+   "priceItems": [
+    {
+     "label": "수목장 공동목",
+     "price": "140만원~"
+    },
+    {
+     "label": "수목장 개인목",
+     "price": "290만원~"
+    },
+    {
+     "label": "수목장 부부목",
+     "price": "590만원~"
+    },
+    {
+     "label": "수목장 가족목",
+     "price": "1,690만원~"
+    }
    ]
   },
   {
@@ -159,7 +241,7 @@ window.BLOG_CONTENT = {
    "area": "경기 화성",
    "address": "경기도 화성시 팔탄면 온천로 280-6",
    "operator": "사설",
-   "price": "상담 시 안내",
+   "price": "290만원~",
    "tags": [
     "개인목·부부목·가족목",
     "수원 인근"
@@ -180,6 +262,20 @@ window.BLOG_CONTENT = {
     "숲이 울창해요",
     "가족목을 고를 수 있어요",
     "수원에서 가까워요"
+   ],
+   "priceItems": [
+    {
+     "label": "수목장 개인목",
+     "price": "290만원~"
+    },
+    {
+     "label": "수목장 부부목",
+     "price": "490만원~"
+    },
+    {
+     "label": "수목장 가족목",
+     "price": "1,190만원~"
+    }
    ]
   },
   {
@@ -189,7 +285,7 @@ window.BLOG_CONTENT = {
    "area": "경기 양평",
    "address": "경기도 양평군 양평읍",
    "operator": "재단법인 갈월사",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "tags": [
     "수목장·봉안당·묘지",
     "사찰 운영"
@@ -215,6 +311,28 @@ window.BLOG_CONTENT = {
     "조용해요",
     "사찰 분위기예요",
     "장법을 고를 수 있어요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실(측면)",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 일반실(정면)",
+     "price": "240만원~"
+    },
+    {
+     "label": "수목장 잔디장",
+     "price": "290만원~"
+    },
+    {
+     "label": "수목장 공동목",
+     "price": "290만원~"
+    },
+    {
+     "label": "수목장 수목장",
+     "price": "690만원~"
+    }
    ]
   },
   {
@@ -224,7 +342,7 @@ window.BLOG_CONTENT = {
    "area": "경기 용인",
    "address": "경기도 용인시 처인구 원삼면 문촌리 일대",
    "operator": "사설",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "tags": [
     "넓은 수목 구역",
     "서울 접근성"
@@ -245,6 +363,20 @@ window.BLOG_CONTENT = {
     "수목 구역이 넓어요",
     "자리 선택이 다양해요",
     "서울에서 오가기 편해요"
+   ],
+   "priceItems": [
+    {
+     "label": "잔디장",
+     "price": "190만원~"
+    },
+    {
+     "label": "개인목",
+     "price": "490만원~"
+    },
+    {
+     "label": "가족목",
+     "price": "1,490만원~"
+    }
    ]
   },
   {
@@ -268,13 +400,39 @@ window.BLOG_CONTENT = {
     "img/fac/aegibong-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224430604950",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "한강이 보여요",
     "산책하기 좋아요",
     "사찰이 함께 있어요"
+   ],
+   "priceItems": [
+    {
+     "label": "잔디장",
+     "price": "190만원~"
+    },
+    {
+     "label": "개인목(측백)",
+     "price": "490만원~"
+    },
+    {
+     "label": "개인목(반송)",
+     "price": "990만원~"
+    },
+    {
+     "label": "부부목",
+     "price": "1,290만원~"
+    },
+    {
+     "label": "가족목(4위)",
+     "price": "2,990만원~"
+    },
+    {
+     "label": "가족목(8위)",
+     "price": "5,990만원~"
+    }
    ]
   },
   {
@@ -284,7 +442,7 @@ window.BLOG_CONTENT = {
    "area": "경기 파주",
    "address": "경기도 파주시 광탄면 명봉산로 277",
    "operator": "실내 봉안시설",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "tags": [
     "실내 봉안당",
     "예배 공간"
@@ -305,6 +463,20 @@ window.BLOG_CONTENT = {
     "날씨 걱정이 없어요",
     "예배 공간이 있어요",
     "실내가 정갈해요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 고급실",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 특실(부부)",
+     "price": "2,490만원~"
+    }
    ]
   },
   {
@@ -314,7 +486,7 @@ window.BLOG_CONTENT = {
    "area": "경기 광주(분당권)",
    "address": "경기도 광주시 오포읍 오포로 211-49",
    "operator": "사설",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "tags": [
     "분당 접근성",
     "서재형 인테리어"
@@ -335,6 +507,32 @@ window.BLOG_CONTENT = {
     "서재처럼 아늑해요",
     "분당에서 가까워요",
     "관리가 잘 돼요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 봉안담(대리석)",
+     "price": "140만원~"
+    },
+    {
+     "label": "봉안당 봉안담(유리)",
+     "price": "240만원~"
+    },
+    {
+     "label": "봉안당 일반실(구)",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 일반실(신)",
+     "price": "440만원~"
+    },
+    {
+     "label": "봉안당 고급실(신)",
+     "price": "540만원~"
+    },
+    {
+     "label": "봉안당 특실(신)",
+     "price": "1,390만원~"
+    }
    ]
   },
   {
@@ -344,7 +542,7 @@ window.BLOG_CONTENT = {
    "area": "경기 양주",
    "address": "경기도 양주시",
    "operator": "사설",
-   "price": "상담 시 안내",
+   "price": "240만원~",
    "tags": [
     "경기 북부",
     "밝은 실내"
@@ -365,6 +563,20 @@ window.BLOG_CONTENT = {
     "실내가 밝아요",
     "복도가 넓어요",
     "경기 북부에서 가까워요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실",
+     "price": "240만원~"
+    },
+    {
+     "label": "봉안당 고급실",
+     "price": "440만원~"
+    },
+    {
+     "label": "봉안당 특실",
+     "price": "490만원~"
+    }
    ]
   },
   {
@@ -374,7 +586,7 @@ window.BLOG_CONTENT = {
    "area": "경기 포천",
    "address": "경기도 포천시 내촌면 부마로 341-1",
    "operator": "광릉추모공원",
-   "price": "상담 시 안내",
+   "price": "590만원~",
    "tags": [
     "갤러리 봉안당",
     "상담 라운지"
@@ -395,6 +607,16 @@ window.BLOG_CONTENT = {
     "갤러리처럼 고급스러워요",
     "상담 라운지가 있어요",
     "조용해요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당(일반)",
+     "price": "590만원~"
+    },
+    {
+     "label": "봉안당(고급)",
+     "price": "1,690만원~"
+    }
    ]
   },
   {
@@ -404,7 +626,7 @@ window.BLOG_CONTENT = {
    "area": "경기 남양주",
    "address": "경기도 남양주시 화도읍 수레로964번길 113-13",
    "operator": "사설",
-   "price": "상담 시 안내",
+   "price": "110만원~",
    "tags": [
     "전통 봉안당",
     "남양주·구리권"
@@ -425,6 +647,16 @@ window.BLOG_CONTENT = {
     "남양주·구리에서 가까워요",
     "비용 안내가 명확해요",
     "전통 분위기예요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 구관",
+     "price": "110만원~"
+    },
+    {
+     "label": "봉안당 신관",
+     "price": "240만원~"
+    }
    ]
   },
   {
@@ -434,7 +666,7 @@ window.BLOG_CONTENT = {
    "area": "경기 용인",
    "address": "경기도 용인시 처인구 모현읍 새래로 158-33",
    "operator": "사설 (용인공원 아너스톤)",
-   "price": "상담 시 안내",
+   "price": "290만원~",
    "tags": [
     "대형 주차장",
     "유족대기실"
@@ -455,6 +687,32 @@ window.BLOG_CONTENT = {
     "주차가 편해요",
     "유족대기실이 있어요",
     "규모가 커요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실(복도)",
+     "price": "290만원~"
+    },
+    {
+     "label": "봉안당 일반실",
+     "price": "490만원~"
+    },
+    {
+     "label": "봉안당 고급실(복도)",
+     "price": "290만원~"
+    },
+    {
+     "label": "봉안당 고급실",
+     "price": "690만원~"
+    },
+    {
+     "label": "봉안당 특실(복도)",
+     "price": "990만원~"
+    },
+    {
+     "label": "봉안당 특실",
+     "price": "1,990만원~"
+    }
    ]
   },
   {
@@ -464,7 +722,7 @@ window.BLOG_CONTENT = {
    "area": "경기 고양(일산)",
    "address": "경기도 고양시 덕양구 보광로106번길 46",
    "operator": "실내 봉안시설",
-   "price": "상담 시 안내",
+   "price": "1만원~",
    "tags": [
     "실내 봉안당",
     "일산·고양권"
@@ -485,6 +743,12 @@ window.BLOG_CONTENT = {
     "사계절 참배가 편해요",
     "고양에서 가까워요",
     "안치단이 정돈돼 있어요"
+   ],
+   "priceItems": [
+    {
+     "label": "기본",
+     "price": "1만원~"
+    }
    ]
   },
   {
@@ -494,7 +758,7 @@ window.BLOG_CONTENT = {
    "area": "경기 의왕",
    "address": "경기도 의왕시 고천동 일대",
    "operator": "사찰 봉안시설",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "tags": [
     "사찰 봉안당",
     "의왕·안양권"
@@ -515,6 +779,24 @@ window.BLOG_CONTENT = {
     "사찰 분위기예요",
     "의왕·안양에서 가까워요",
     "조용해요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 봉안담",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 일반실(구)",
+     "price": "690만원~"
+    },
+    {
+     "label": "봉안당 일반실(신)",
+     "price": "240만원~"
+    },
+    {
+     "label": "봉안당 고급실(신)",
+     "price": "290만원~"
+    }
    ]
   },
   {
@@ -524,7 +806,7 @@ window.BLOG_CONTENT = {
    "area": "경기 광주(곤지암)",
    "address": "경기도 광주시 곤지암읍 가마을길 83-19",
    "operator": "기독교 법인",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "tags": [
     "기독교 봉안당",
     "수목장 함께 운영"
@@ -545,6 +827,36 @@ window.BLOG_CONTENT = {
     "기독교 가족에게 좋아요",
     "수목장도 함께 있어요",
     "강남에서도 가까워요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 고급실",
+     "price": "240만원~"
+    },
+    {
+     "label": "봉안당 특실",
+     "price": "490만원~"
+    },
+    {
+     "label": "수목장 잔디장",
+     "price": "240만원~"
+    },
+    {
+     "label": "수목장 개인목",
+     "price": "590만원~"
+    },
+    {
+     "label": "수목장 부부목",
+     "price": "990만원~"
+    },
+    {
+     "label": "수목장 가족목",
+     "price": "1,990만원~"
+    }
    ]
   },
   {
@@ -554,7 +866,7 @@ window.BLOG_CONTENT = {
    "area": "경기 성남(분당)",
    "address": "경기도 성남시 분당구 (영장산 자락)",
    "operator": "사설",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "tags": [
     "도서관형 봉안당",
     "분당권"
@@ -575,6 +887,24 @@ window.BLOG_CONTENT = {
     "도서관처럼 편안해요",
     "공간이 세련돼요",
     "분당 생활권이에요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실(유리)",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 일반실(서재)",
+     "price": "490만원~"
+    },
+    {
+     "label": "봉안당 고급실",
+     "price": "890만원~"
+    },
+    {
+     "label": "봉안당 특실",
+     "price": "990만원~"
+    }
    ]
   },
   {
@@ -582,7 +912,7 @@ window.BLOG_CONTENT = {
    "type": "napgol",
    "name": "포천 도성사 납골당",
    "area": "경기 포천",
-   "address": "경기도 포천시 화현면",
+   "address": "경기도 포천시 화현면 화동로596번길 90",
    "operator": "사찰 운영 (도성사)",
    "religion": "불교",
    "tags": [
@@ -599,13 +929,27 @@ window.BLOG_CONTENT = {
     "img/fac/doseongsa-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224438326758",
-   "price": "상담 시 안내",
+   "price": "90만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "예불이 이어져요",
     "가족단이 있어요",
     "실내가 화사해요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실(개인)",
+     "price": "90만원~"
+    },
+    {
+     "label": "봉안당 일반실(부부)",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 고급실(부부)",
+     "price": "390만원~"
+    }
    ]
   },
   {
@@ -627,13 +971,19 @@ window.BLOG_CONTENT = {
     "img/fac/bongwonsa-3.jpg"
    ],
    "blogUrl": "",
-   "price": "상담 시 안내",
+   "price": "1만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "서울 시내라 가까워요",
     "전통사찰이에요",
     "자주 찾아뵙기 좋아요"
+   ],
+   "priceItems": [
+    {
+     "label": "기본",
+     "price": "1만원~"
+    }
    ]
   },
   {
@@ -662,13 +1012,47 @@ window.BLOG_CONTENT = {
     "img/fac/utopia-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224383816905",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "실내가 밝아요",
     "종교별 공간이 있어요",
     "로비가 넓어요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실(구)",
+     "price": "170만원~"
+    },
+    {
+     "label": "봉안당 고급실(구)",
+     "price": "440만원~"
+    },
+    {
+     "label": "봉안당 특실(구)",
+     "price": "790만원~"
+    },
+    {
+     "label": "봉안당 일반실(신)",
+     "price": "290만원~"
+    },
+    {
+     "label": "봉안당 고급실(신)",
+     "price": "490만원~"
+    },
+    {
+     "label": "수목장 공동목",
+     "price": "140만원~"
+    },
+    {
+     "label": "수목장 부부목",
+     "price": "690만원~"
+    },
+    {
+     "label": "수목장 가족목",
+     "price": "1,490만원~"
+    }
    ]
   },
   {
@@ -693,13 +1077,19 @@ window.BLOG_CONTENT = {
     "img/fac/jangan-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224357352928",
-   "price": "상담 시 안내",
+   "price": "190만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "창이 넓어 밝아요",
     "휴게 공간이 있어요",
     "30년 넘게 운영했어요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실",
+     "price": "190만원~"
+    }
    ]
   },
   {
@@ -723,13 +1113,23 @@ window.BLOG_CONTENT = {
     "img/fac/tongillo-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224234646149",
-   "price": "상담 시 안내",
+   "price": "110만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "벽제에서 가까워요",
     "동선이 단순해요",
     "조건 비교가 쉬워요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실",
+     "price": "110만원~"
+    },
+    {
+     "label": "수목장 고급실",
+     "price": "290만원~"
+    }
    ]
   },
   {
@@ -753,13 +1153,31 @@ window.BLOG_CONTENT = {
     "img/fac/paradise-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224424228676",
-   "price": "상담 시 안내",
+   "price": "340만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "전망이 탁 트였어요",
     "인천·김포에서 가까워요",
     "차로 오가기 편해요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실(구)",
+     "price": "340만원~"
+    },
+    {
+     "label": "봉안당 일반실(신)",
+     "price": "490만원~"
+    },
+    {
+     "label": "봉안당 고급실(신)",
+     "price": "790만원~"
+    },
+    {
+     "label": "봉안당 특별실(신)",
+     "price": "2,490만원~"
+    }
    ]
   },
   {
@@ -783,13 +1201,27 @@ window.BLOG_CONTENT = {
     "img/fac/pajuchumo-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224254570574",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "주차가 편해요",
     "재단법인이 운영해요",
     "서울 서북부에서 가까워요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실(구)",
+     "price": "140만원~"
+    },
+    {
+     "label": "봉안당 고급실(구)",
+     "price": "440만원~"
+    },
+    {
+     "label": "봉안당 일반실(신)",
+     "price": "190만원~"
+    }
    ]
   },
   {
@@ -813,13 +1245,31 @@ window.BLOG_CONTENT = {
     "img/fac/pureunsol-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224391393867",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "창밖으로 숲이 보여요",
     "객실 등급을 고를 수 있어요",
     "일산에서 가까워요"
+   ],
+   "priceItems": [
+    {
+     "label": "봉안당 일반실(구)",
+     "price": "140만원~"
+    },
+    {
+     "label": "봉안당 고급실(구)",
+     "price": "340만원~"
+    },
+    {
+     "label": "봉안당 특실(구)",
+     "price": "640만원~"
+    },
+    {
+     "label": "봉안당 일반실(신)",
+     "price": "690만원~"
+    }
    ]
   },
   {
@@ -829,7 +1279,7 @@ window.BLOG_CONTENT = {
    "area": "경기 양평",
    "address": "경기도 양평군 서종면",
    "operator": "공원묘원",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "tags": [
     "잔디장·수목장·봉안담",
     "가족묘"
@@ -850,6 +1300,56 @@ window.BLOG_CONTENT = {
     "장법을 고를 수 있어요",
     "가족묘가 가능해요",
     "경치가 좋아요"
+   ],
+   "priceItems": [
+    {
+     "label": "수목장 잔디장",
+     "price": "190만원~"
+    },
+    {
+     "label": "수목장 개인목",
+     "price": "690만원~"
+    },
+    {
+     "label": "수목장 부부목",
+     "price": "690만원~"
+    },
+    {
+     "label": "수목장 가족목",
+     "price": "1,290만원~"
+    },
+    {
+     "label": "봉안당 봉안담(개인)",
+     "price": "290만원~"
+    },
+    {
+     "label": "봉안당 봉안담(부부)",
+     "price": "590만원~"
+    },
+    {
+     "label": "공원묘지 매장묘",
+     "price": "3,490만원~"
+    },
+    {
+     "label": "공원묘지 봉안묘",
+     "price": "1,890만원~"
+    },
+    {
+     "label": "봉안당 일반실",
+     "price": "140만원~"
+    },
+    {
+     "label": "봉안당 고급실",
+     "price": "190만원~"
+    },
+    {
+     "label": "봉안당 불교실",
+     "price": "690만원~"
+    },
+    {
+     "label": "봉안당 봉안담(유리)",
+     "price": "240만원~"
+    }
    ]
   },
   {
@@ -859,7 +1359,7 @@ window.BLOG_CONTENT = {
    "area": "경기 양주",
    "address": "경기도 양주시 장흥면 권율로29번길 170",
    "operator": "공원묘원 (1971년 설립)",
-   "price": "상담 시 안내",
+   "price": "490만원~",
    "tags": [
     "50년 운영",
     "가족묘"
@@ -877,6 +1377,20 @@ window.BLOG_CONTENT = {
     "경치가 좋아요",
     "묘역이 넓어요",
     "의정부에서 가까워요"
+   ],
+   "priceItems": [
+    {
+     "label": "공원묘지 매장묘",
+     "price": "2,490만원~"
+    },
+    {
+     "label": "공원묘지 봉안묘",
+     "price": "790만원~"
+    },
+    {
+     "label": "수목장 수목장",
+     "price": "490만원~"
+    }
    ]
   },
   {
@@ -886,7 +1400,7 @@ window.BLOG_CONTENT = {
    "area": "경기 고양(일산)",
    "address": "경기도 고양시 일산동구 지영로 36-87",
    "operator": "공원묘원",
-   "price": "상담 시 안내",
+   "price": "140만원~",
    "tags": [
     "매장묘·봉안묘·평장",
     "일산 유일 공원묘원"
@@ -907,6 +1421,24 @@ window.BLOG_CONTENT = {
     "일산에서 가까워요",
     "묘역이 정돈돼 있어요",
     "산책하기 좋아요"
+   ],
+   "priceItems": [
+    {
+     "label": "공원묘지 매장묘",
+     "price": "3,690만원~"
+    },
+    {
+     "label": "공원묘지 평장묘",
+     "price": "390만원~"
+    },
+    {
+     "label": "공원묘지 봉안묘",
+     "price": "1,340만원~"
+    },
+    {
+     "label": "봉안당 봉안담",
+     "price": "140만원~"
+    }
    ]
   },
   {
@@ -916,7 +1448,7 @@ window.BLOG_CONTENT = {
    "area": "경기 파주",
    "address": "경기도 파주시 송화로 일대",
    "operator": "재단법인 (1972년)",
-   "price": "상담 시 안내",
+   "price": "1,350만원~",
    "tags": [
     "오랜 운영",
     "파주·고양권"
@@ -936,6 +1468,44 @@ window.BLOG_CONTENT = {
     "오래된 공원묘원이에요",
     "파주·고양에서 가까워요",
     "묘역이 넓어요"
+   ],
+   "priceItems": [
+    {
+     "label": "매장묘(봉분형)",
+     "price": "3,350만원~"
+    },
+    {
+     "label": "복합묘(봉분형)",
+     "price": "5,570만원~"
+    },
+    {
+     "label": "봉안묘(2위)",
+     "price": "1,350만원~"
+    },
+    {
+     "label": "봉안묘(4위)",
+     "price": "1,770만원~"
+    },
+    {
+     "label": "봉안묘(6위)",
+     "price": "2,330만원~"
+    },
+    {
+     "label": "봉안묘(8위)",
+     "price": "2,720만원~"
+    },
+    {
+     "label": "봉안묘(12위)",
+     "price": "3,230만원~"
+    },
+    {
+     "label": "봉안묘(16위)",
+     "price": "3,950만원~"
+    },
+    {
+     "label": "봉안묘(24위)",
+     "price": "4,310만원~"
+    }
    ]
   },
   {
@@ -959,13 +1529,27 @@ window.BLOG_CONTENT = {
     "img/fac/elysium-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224099221267",
-   "price": "상담 시 안내",
+   "price": "1,475만원~",
    "featured": true,
    "visible": true,
    "keywords": [
     "주차가 편해요",
     "관리 직원이 상주해요",
     "진입로가 단순해요"
+   ],
+   "priceItems": [
+    {
+     "label": "공원묘지 매장묘",
+     "price": "1,840만원~"
+    },
+    {
+     "label": "공원묘지 봉안묘",
+     "price": "2,340만원~"
+    },
+    {
+     "label": "공원묘지 평장묘",
+     "price": "1,475만원~"
+    }
    ]
   }
  ],

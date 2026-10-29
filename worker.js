@@ -142,6 +142,7 @@ function sanitizeContent(c) {
         o.keywords = cleanList(x.keywords, 6, 24);
         if (Array.isArray(x.types)) o.types = x.types.filter(k => TYPE_KEYS.includes(k)).slice(0, 4);
         if (x.religion != null) o.religion = cleanStr(x.religion, 40);
+        if (Array.isArray(x.priceItems)) o.priceItems = x.priceItems.slice(0, 20).filter(p => p && typeof p === 'object').map(p => ({ label: cleanStr(p.label, 40), price: cleanStr(p.price, 30) })).filter(p => p.label && p.price);
       }
       o.featured = !!x.featured;
       o.visible = x.visible == null ? true : !!x.visible;

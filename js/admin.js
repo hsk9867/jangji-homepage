@@ -228,6 +228,7 @@
       '<div class="f"><label>가격 안내</label><input type="text" name="price" value="' + esc(f.price) + '" placeholder="예: 1위 300만원~ / 상담 시 안내"></div>' +
       '<div class="f"><label>블로그 답사기 주소</label><input type="url" name="blogUrl" value="' + esc(f.blogUrl || '') + '" placeholder="https://blog.naver.com/baewoong0816/..."><small>넣으면 시설 페이지에 "블로그 답사기 전체 보기" 버튼이 생깁니다.</small></div>' +
       '<div class="f"><label>특징 태그</label><input type="text" name="tags" value="' + esc((f.tags || []).join(', ')) + '" placeholder="쉼표로 구분: 주차 편리, 가족목 가능"></div>' +
+      '<div class="f"><label>가격표 (한 줄에 하나: 상품 | 가격)</label><textarea name="priceItems" rows="5" placeholder="봉안당 일반실 | 190만원~">' + esc((f.priceItems || []).map(function (x) { return x.label + ' | ' + x.price; }).join('\n')) + '</textarea></div>' +
       '<div class="f"><label>키워드 (카드에 보이는 말, 3개 정도)</label><input type="text" name="keywords" value="' + esc((f.keywords || []).join(', ')) + '" placeholder="쉼표로 구분: 경치가 좋아요, 조용해요, 주차가 편해요"></div>' +
       '<div class="f"><label>답사 메모</label><textarea name="comment" placeholder="직접 가 보고 느낀 점, 진입로, 주차, 분위기 등">' + esc(f.comment) + '</textarea></div>' +
       '<label class="chk"><input type="checkbox" name="featured"' + (f.featured ? ' checked' : '') + '>첫 화면에 추천 시설로 보이기</label>' +
@@ -242,6 +243,8 @@
         f.type = val(p, 'type'); f.name = val(p, 'name'); f.area = val(p, 'area'); f.operator = val(p, 'operator'); f.address = val(p, 'address');
         f.price = val(p, 'price'); f.blogUrl = val(p, 'blogUrl'); f.comment = val(p, 'comment'); f.featured = val(p, 'featured'); f.visible = val(p, 'visible');
         f.tags = val(p, 'tags').split(',').map(function (x) { return x.trim(); }).filter(Boolean);
+        f.priceItems = pairsFromLines(val(p, 'priceItems')).filter(function (x) { return x.t && x.d; }).map(function (x) { return { label: x.t, price: x.d }; });
+        if (f.priceItems.length) f.price = f.priceItems.map(function (x) { return x.price; }).sort(function (a, b) { return (parseInt(a.replace(/[^0-9]/g, ''), 10) || 0) - (parseInt(b.replace(/[^0-9]/g, ''), 10) || 0); })[0];
         f.keywords = val(p, 'keywords').split(',').map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 6);
         if (!f.name) { toast('시설 이름을 입력해 주세요.', true); return; }
         delete f.sample;
