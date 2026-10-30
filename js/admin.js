@@ -225,6 +225,9 @@
       '<div class="row2"><div class="f"><label>지역 (필터에 쓰임)</label><input type="text" name="area" list="regions" value="' + esc(f.area) + '" placeholder="예: 경기"><datalist id="regions">' + regions + '</datalist></div>' +
       '<div class="f"><label>운영 형태</label><input type="text" name="operator" list="ops" value="' + esc(f.operator) + '" placeholder="공설 / 사설 / 종교 / 재단"><datalist id="ops"><option value="공설"><option value="사설"><option value="종교"><option value="재단"></datalist></div></div>' +
       '<div class="f"><label>주소</label><input type="text" name="address" value="' + esc(f.address) + '" placeholder="지도 연결에 쓰입니다"></div>' +
+      '<div class="row2"><div class="f"><label>위도</label><input type="text" name="lat" inputmode="decimal" value="' + esc(f.lat || '') + '" placeholder="37.7154048"></div>' +
+      '<div class="f"><label>경도</label><input type="text" name="lng" inputmode="decimal" value="' + esc(f.lng || '') + '" placeholder="127.3242272"></div></div>' +
+      '<small style="display:block;margin:-6px 0 10px;color:#777">구글 지도에서 시설 위치를 마우스 오른쪽 클릭하면 맨 위에 숫자 두 개(위도, 경도)가 나옵니다. 그 값을 넣으면 시설 페이지에 지도가 나오고, 비우면 지도가 숨겨집니다.</small>' +
       '<div class="f"><label>가격 안내</label><input type="text" name="price" value="' + esc(f.price) + '" placeholder="예: 1위 300만원~ / 상담 시 안내"></div>' +
       '<div class="f"><label>블로그 답사기 주소</label><input type="url" name="blogUrl" value="' + esc(f.blogUrl || '') + '" placeholder="https://blog.naver.com/baewoong0816/..."><small>넣으면 시설 페이지에 "블로그 답사기 전체 보기" 버튼이 생깁니다.</small></div>' +
       '<div class="f"><label>특징 태그</label><input type="text" name="tags" value="' + esc((f.tags || []).join(', ')) + '" placeholder="쉼표로 구분: 주차 편리, 가족목 가능"></div>' +
@@ -242,6 +245,8 @@
         var p = document.querySelector('.panel');
         f.type = val(p, 'type'); f.name = val(p, 'name'); f.area = val(p, 'area'); f.operator = val(p, 'operator'); f.address = val(p, 'address');
         f.price = val(p, 'price'); f.blogUrl = val(p, 'blogUrl'); f.comment = val(p, 'comment'); f.featured = val(p, 'featured'); f.visible = val(p, 'visible');
+        var la = parseFloat(val(p, 'lat')), ln = parseFloat(val(p, 'lng'));
+        if (la >= 33 && la <= 39 && ln >= 124 && ln <= 132) { f.lat = la; f.lng = ln; } else { delete f.lat; delete f.lng; }
         f.tags = val(p, 'tags').split(',').map(function (x) { return x.trim(); }).filter(Boolean);
         f.priceItems = pairsFromLines(val(p, 'priceItems')).filter(function (x) { return x.t && x.d; }).map(function (x) { return { label: x.t, price: x.d }; });
         if (f.priceItems.length) f.price = f.priceItems.map(function (x) { return x.price; }).sort(function (a, b) { return (parseInt(a.replace(/[^0-9]/g, ''), 10) || 0) - (parseInt(b.replace(/[^0-9]/g, ''), 10) || 0); })[0];
@@ -377,6 +382,7 @@
         '<div class="row2">' + fText('한 줄 소개 (로고 옆)', s, 'slogan', '장지 안심 동행 서비스') + fText('상담 시간', s, 'hours', '연중무휴 상담') + '</div>' +
         '<div class="row2">' + fText('카카오톡 채널 주소', s, 'kakao', 'https://pf.kakao.com/...', '비워 두면 카톡 버튼이 숨겨집니다.') + fText('블로그 주소', s, 'blogUrl', 'https://blog.naver.com/...') + '</div>' +
         fText('장례지원금 신청서 주소', s, 'supportFormUrl', 'https://naver.me/...', '첫 화면 "장례지원금" 띠의 버튼이 이 주소로 연결됩니다. 비우면 띠가 숨겨집니다.') +
+        fText('네이버 지도 키 (NCP Maps Client ID)', s, 'naverMapKey', '', '네이버 클라우드 플랫폼 Maps 에서 발급한 Client ID 입니다. 넣으면 시설 페이지 지도가 네이버 지도로 나오고, 비우면 OpenStreetMap 지도로 나옵니다.') +
         fText('문의 알림 받을 이메일', s, 'notifyEmail', 'example@naver.com', '홈페이지 문의가 들어오면 이 주소로 알림 메일을 보냅니다 (카페24 서버에서 동작).') + '</div>' +
       '<div class="card"><h3>로고</h3><div id="logo-host"></div><p class="help" style="margin-top:8px">정사각형 또는 육각형 마크(PNG, 배경 투명) 권장. 상호 글자 옆에 작게 나옵니다.</p></div>' +
       '<div class="card"><h3>첫 화면</h3><div class="f"><label>카드 뉴스 첫 장 사진</label><div id="hero-host"></div><small>세로가 긴 사진 권장. 2장째부터는 수목장·봉안당·공원묘지 대표 사진이 자동으로 쓰입니다.</small></div>' +

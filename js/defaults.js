@@ -12,6 +12,7 @@
       kakao: 'https://pf.kakao.com/_mYSxon/chat',
       blogUrl: 'https://blog.naver.com/baewoong0816',
       supportFormUrl: 'https://naver.me/G28Gr3bM',
+      naverMapKey: '', /* 네이버 클라우드 Maps(Dynamic Map) 클라이언트 ID. 비우면 시설 상세 지도가 OpenStreetMap 으로 나옵니다. */
       notifyEmail: '',
       bizName: '주식회사 배웅',
       bizDesc: '장례 토탈컨설팅 · 수목장 안내 · 계약대행 서비스',

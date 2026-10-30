@@ -106,7 +106,7 @@ function sanitizeContent(c) {
   const out = {};
   if (c.site && typeof c.site === 'object') {
     const s = c.site, o = {};
-    for (const k of ['name', 'slogan', 'phone', 'hours', 'notifyEmail', 'bizName', 'bizDesc', 'ceo', 'bizNo', 'address', 'email', 'heroEyebrow', 'heroTitle', 'heroSub', 'finalTitle']) if (s[k] != null) o[k] = cleanStr(s[k], 400);
+    for (const k of ['name', 'slogan', 'phone', 'hours', 'notifyEmail', 'bizName', 'bizDesc', 'ceo', 'bizNo', 'address', 'email', 'heroEyebrow', 'heroTitle', 'heroSub', 'finalTitle', 'naverMapKey']) if (s[k] != null) o[k] = cleanStr(s[k], 400);
     for (const k of ['logo', 'heroImage']) if (s[k] != null) o[k] = cleanPath(s[k]);
     for (const k of ['kakao', 'blogUrl', 'supportFormUrl']) if (s[k] != null) o[k] = cleanUrl(s[k]);
     for (const k of ['heroBadges', 'regions']) if (Array.isArray(s[k])) o[k] = cleanList(s[k], 30, 60);
@@ -142,6 +142,8 @@ function sanitizeContent(c) {
         o.keywords = cleanList(x.keywords, 6, 24);
         if (Array.isArray(x.types)) o.types = x.types.filter(k => TYPE_KEYS.includes(k)).slice(0, 4);
         if (x.religion != null) o.religion = cleanStr(x.religion, 40);
+        const lat = Number(x.lat), lng = Number(x.lng);
+        if (lat >= 33 && lat <= 39 && lng >= 124 && lng <= 132) { o.lat = Math.round(lat * 1e7) / 1e7; o.lng = Math.round(lng * 1e7) / 1e7; }
         if (Array.isArray(x.priceItems)) o.priceItems = x.priceItems.slice(0, 20).filter(p => p && typeof p === 'object').map(p => ({ label: cleanStr(p.label, 40), price: cleanStr(p.price, 30) })).filter(p => p.label && p.price);
       }
       o.featured = !!x.featured;

@@ -6,6 +6,7 @@
   var TYPE_KEYS = ['sumok', 'napgol', 'maejang', 'ijang'];
   var EHANEUL = 'https://www.15774129.go.kr/';
   var ICON = {
+    share: '<svg viewBox="0 0 24 24"><path d="M18 16.1c-.8 0-1.5.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8a3 3 0 1 0-3-3c0 .2 0 .5.1.7L8 9.8A3 3 0 1 0 8 14.2l7.1 4.2c-.1.2-.1.4-.1.6a2.9 2.9 0 1 0 3-2.9z"/></svg>',
     phone: '<svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>',
     kakao: '<svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.4.3.7.6.5l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>',
     form: '<svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>',
@@ -179,7 +180,7 @@
 
     /* 슬라이드 */
     var SL = [
-      { img: 'img/slide-sumok.jpg', chip: '수목장 분양 안내', tx: '직접 답사한 수목장만<br>분양 조건을 서면으로 비교해 드립니다', href: 'search.html?type=sumok' },
+      { img: 'img/slide-sumok.jpg', chip: '수목장 분양 안내', tx: '직접 답사한 수목장만<br>분양 조건을 직접 비교해 드립니다', href: 'search.html?type=sumok' },
       { img: 'img/fac/haneulmun-2.jpg', chip: '화장장 예약 안내', tx: '화장장 예약이 처음이시라면<br>희망 지역만 알려주십시오', href: 'crematorium.html' },
       { img: 'img/fac/bundanghome-1.jpg', chip: '주말 무료 동행 답사', tx: '주말에도 상담사가<br>현장에 동행합니다', href: 'contact.html' }
     ];
@@ -593,12 +594,75 @@
       '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
       '<table>' + [['유형', (f.types || [f.type]).map(function (k) { return typeOf(k).name; }).join(' · ')], ['지역', f.area], ['주소', f.address], ['운영', f.operator], ['종교', f.religion], ['사용료', f.price ? '<b class="pmin">' + esc(f.price) + '</b>' : '상담 시 안내']].filter(function (r) { return r[1]; }).map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</td></tr>'; }).join('') + '</table>' +
       ((f.priceItems || []).length > 1 || ((f.priceItems || [])[0] || {}).label !== '기본' ? '<div class="ptable"><h3>가격 정보</h3><ul>' + (f.priceItems || []).map(function (x) { return '<li><span>' + esc(x.label) + '</span><b>' + esc(x.price) + '</b></li>'; }).join('') + '</ul><p>안치 위치·층·조건에 따라 달라질 수 있어 상담 때 최신 가격으로 다시 확인해 드립니다.</p></div>' : '') +
-      '<div class="maps"><a href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도</a><a href="https://map.kakao.com/?q=' + q + '" target="_blank" rel="noopener">카카오맵</a>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
+      '<div class="maps"><button type="button" class="share" id="fshare">' + ICON.share + '가족에게 공유하기</button>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
+      (f.lat && f.lng ? '<section class="floc" aria-label="위치 정보"><h3>위치 정보</h3><p class="addr">' + esc(f.address || '') + '</p><div id="fmap" class="fmap"></div><a class="more" href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도에서 크게 보기</a></section>' : '') +
       '<div class="acts"><a class="btn btn-primary btn-block" href="contact.html?type=' + esc(f.type) + '&facility=' + esc(f.id) + '">' + ICON.form + '이 시설로 상담 신청</a><a class="btn btn-line btn-block" href="' + tel(S.phone) + '">' + ICON.phone + '전화로 바로 묻기 ' + esc(S.phone) + '</a></div>' +
       '<p style="margin-top:12px;font-size:12px;color:var(--muted)">※ 사용료·관리비·이용 기간은 시설 공지에 따라 달라집니다. 계약 전에 서면으로 비교해 드립니다.</p></div></div>' +
       '<div class="related"><h3>함께 보는 ' + esc(t.name) + '</h3><div class="flist">' + facilities(f.type).filter(function (x) { return x.id !== f.id; }).slice(0, 4).map(function (x) { var ph = (x.photos || [])[0]; return '<a class="frow" href="facility.html?id=' + esc(x.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span></span>') + '<div><div class="nm">' + esc(x.name) + '</div><div class="ar">' + esc(x.area) + '</div></div></a>'; }).join('') + '</div></div>');
     el.querySelectorAll('.thumbs img').forEach(function (im) { im.onclick = function () { document.getElementById('gmain').src = im.src; el.querySelectorAll('.thumbs img').forEach(function (x) { x.classList.remove('on'); }); im.classList.add('on'); }; });
+    var sh = document.getElementById('fshare');
+    if (sh) sh.onclick = function () { shareFacility(f); };
+    facMap(f);
     facReviews(f);
+  }
+
+  /* ---------- 가족에게 공유하기: 휴대폰은 공유 시트, PC 는 링크 복사 ---------- */
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg; t.classList.add('on');
+    clearTimeout(t._tm); t._tm = setTimeout(function () { t.classList.remove('on'); }, 2200);
+  }
+  function shareFacility(f) {
+    var url = location.href.split('#')[0];
+    var text = '[배웅] ' + f.name + (f.area ? ' · ' + f.area : '') + (f.address ? '\n' + f.address : '') + (f.price ? '\n사용료 ' + f.price : '');
+    var done = function () { toast('링크를 복사했습니다. 가족에게 붙여 넣어 보내 주십시오.'); };
+    if (navigator.share) {
+      navigator.share({ title: f.name + ' | 배웅', text: text, url: url }).catch(function (e) { if (e && e.name !== 'AbortError') copy(); });
+    } else copy();
+    function copy() {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, fallback); else fallback();
+    }
+    function fallback() {
+      var ta = document.createElement('textarea'); ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { window.prompt('아래 주소를 복사해 가족에게 보내 주십시오.', url); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  /* ---------- 위치 정보 지도: 네이버 지도(NCP 키 S.naverMapKey), 키가 없으면 OpenStreetMap 으로 표시 ---------- */
+  function facMap(f) {
+    var box = document.getElementById('fmap'); if (!box || !f.lat || !f.lng) return;
+    var key = S.naverMapKey || window.NAVER_MAP_KEY || '';
+    var started = false;
+    var start = function () {
+      if (started) return; started = true;
+      if (key) loadScript('https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=' + encodeURIComponent(key), naverMap, osmMap); else osmMap();
+    };
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); start(); } }, { rootMargin: '200px' });
+      io.observe(box);
+    } else start();
+    function naverMap() {
+      if (!window.naver || !naver.maps) return osmMap();
+      var pos = new naver.maps.LatLng(f.lat, f.lng);
+      var map = new naver.maps.Map(box, { center: pos, zoom: 14, scaleControl: false, logoControlOptions: { position: naver.maps.Position.BOTTOM_LEFT }, mapDataControl: false, zoomControl: true, zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT, style: naver.maps.ZoomControlStyle.SMALL } });
+      var mk = new naver.maps.Marker({ position: pos, map: map, title: f.name });
+      var iw = new naver.maps.InfoWindow({ content: '<div class="fmap-iw"><b>' + esc(f.name) + '</b><span>' + esc(f.address || '') + '</span></div>', borderWidth: 0, backgroundColor: 'transparent', disableAnchor: true, pixelOffset: new naver.maps.Point(0, -8) });
+      iw.open(map, mk);
+      naver.maps.Event.addListener(mk, 'click', function () { if (iw.getMap()) iw.close(); else iw.open(map, mk); });
+    }
+    function osmMap() {
+      var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(css);
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js', function () {
+        var map = L.map(box, { scrollWheelZoom: false }).setView([f.lat, f.lng], 14);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+        L.marker([f.lat, f.lng]).addTo(map).bindPopup('<b>' + esc(f.name) + '</b><br>' + esc(f.address || '')).openPopup();
+      }, function () { box.innerHTML = '<p class="fmap-err">지도를 불러오지 못했습니다.</p>'; });
+    }
+    function loadScript(src, ok, fail) {
+      var s = document.createElement('script'); s.src = src; s.async = true; s.onload = ok; s.onerror = fail || function () {}; document.head.appendChild(s);
+    }
   }
 
   /* ---------- 시설 고객 리뷰: 사진 + 글 + 키워드 (별점 없음) ---------- */
