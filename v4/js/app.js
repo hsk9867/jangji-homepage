@@ -203,7 +203,7 @@
         var below = msg.getBoundingClientRect().bottom - r.bottom;
         var tb = document.querySelector('.tabbar'), tbh = tb && getComputedStyle(tb).display !== 'none' ? tb.offsetHeight : 0;
         var h = innerHeight - top - below - tbh - 14;
-        h = Math.max(240, Math.min(h, r.width * 1.3));
+        h = Math.max(r.width * .8, Math.min(h, r.width * 1.25)); /* 짧은 폰에서도 4:3.2 아래로는 안 줄여 글자가 사진 밖으로 안 나가게 */
         sl.style.aspectRatio = 'auto'; sl.style.height = Math.round(h) + 'px';
       };
       fitHero(true);

@@ -754,31 +754,30 @@ a.msg.msg2 .ill { bottom: 4px; }
 .fscroll { display: flex; gap: 12px; overflow-x: auto; padding: 0 20px 4px; scroll-snap-type: x mandatory; scroll-padding: 0 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
 .fscroll::-webkit-scrollbar { display: none; }
 .fscroll.drag { scroll-snap-type: none; cursor: grabbing; }
-.fcard { flex: 0 0 68%; max-width: 300px; scroll-snap-align: start; text-decoration: none; color: inherit; display: block; }
-.fcard .ph { position: relative; display: block; aspect-ratio: 4 / 3.3; border-radius: 12px; overflow: hidden; background: var(--gray); }
+.fcard { flex: 0 0 58%; max-width: 250px; scroll-snap-align: start; text-decoration: none; color: inherit; display: block; }
+.fcard .ph { position: relative; display: block; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; background: var(--gray); }
 .fcard .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
 .fcard:hover .ph img { transform: scale(1.04); }
 .fcard .cnt { position: absolute; right: 8px; bottom: 8px; background: rgba(0, 0, 0, .55); color: #fff; font-size: 11.5px; font-weight: 500; padding: 3px 8px; border-radius: 6px; }
 .fcard .nmr { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
-.fcard .nmr b { flex: 1; min-width: 0; font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fcard .nmr b { flex: 1; min-width: 0; font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fcard .nmr em { flex: none; font-style: normal; font-size: 11.5px; font-weight: 600; color: var(--text-2); border: 1px solid var(--line-2); border-radius: 5px; padding: 2px 6px; }
 .fcard .ar { display: block; margin-top: 3px; font-size: 12.5px; color: var(--muted); }
-.fslide .fa { position: absolute; top: calc((min(68vw, 300px) * 3.3 / 4) / 2 - 15px); width: 30px; height: 30px; border-radius: 50%; border: 0; background: #fff; color: var(--text); font-size: 18px; line-height: 1; box-shadow: 0 2px 8px rgba(0, 0, 0, .18); display: grid; place-items: center; z-index: 2; cursor: pointer; }
+.fslide .fa { position: absolute; top: calc((min(58vw, 250px) * 3 / 4) / 2 - 15px); width: 30px; height: 30px; border-radius: 50%; border: 0; background: #fff; color: var(--text); font-size: 18px; line-height: 1; box-shadow: 0 2px 8px rgba(0, 0, 0, .18); display: grid; place-items: center; z-index: 2; cursor: pointer; }
 .fslide .fa.prev { left: 10px; }
 .fslide .fa.next { right: 10px; }
 @media (max-width: 760px) { .fslide { margin: 14px -16px 0; } .fscroll { padding: 0 16px 4px; scroll-padding: 0 16px; } }
-@media (min-width: 1000px) { .fslide { margin: 14px -28px 0; } .fscroll { padding: 0 28px 4px; scroll-padding: 0 28px; } .fcard { flex-basis: 260px; } .fslide .fa { top: calc(260px * 3.3 / 4 / 2 - 15px); } }
+@media (min-width: 1000px) { .fslide { margin: 14px -28px 0; } .fscroll { padding: 0 28px 4px; scroll-padding: 0 28px; } .fcard { flex-basis: 220px; } .fslide .fa { top: calc(220px * 3 / 4 / 2 - 15px); } }
 @media (min-width: 1500px) { .fslide { margin: 14px -36px 0; } .fscroll { padding: 0 36px 4px; scroll-padding: 0 36px; } }
-@media (min-width: 761px) and (max-width: 999px) { .fslide .fa { top: calc(300px * 3.3 / 4 / 2 - 15px); } }
+@media (min-width: 761px) and (max-width: 999px) { .fslide .fa { top: calc(250px * 3 / 4 / 2 - 15px); } }
 
 /* 2026-11-03 첫 화면 예시 맞춤: 카드뉴스 양옆 여백+둥근 모서리, 진한 라벨, 첫 화면 플로팅 숨김 */
-.hero { padding: 10px 20px 0; }
-.slider { border-radius: 14px; }
+.hero { padding: 0; }
+.slider { border-radius: 0; }
 .dots { margin-top: 12px; }
 .slide .chip { background: rgba(52, 52, 52, .92); color: #fff; border: 0; backdrop-filter: none; font-size: 14px; font-weight: 600; padding: 8px 15px; top: 16px; left: 16px; }
 .slide .tx { left: 18px; bottom: 20px; }
-@media (max-width: 760px) { .hero { padding: 10px 16px 0; } .slide .tx { font-size: 24px; } .slide .tx small { font-size: 13px; margin-bottom: 10px; } }
-@media (min-width: 1000px) { .hero { padding: 12px 28px 0; } }
-@media (min-width: 1500px) { .hero { padding: 12px 36px 0; } }
+@media (max-width: 760px) { .hero { padding: 0; } .slide .tx { font-size: 24px; } .slide .tx small { font-size: 13px; margin-bottom: 10px; } }
+@media (min-width: 1000px) { .hero { padding: 0; } }
 .fabs { transition: opacity .3s, transform .3s; }
 body.fab-hide .fabs { opacity: 0; transform: translateY(12px); pointer-events: none; }
