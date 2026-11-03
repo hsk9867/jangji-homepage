@@ -770,3 +770,15 @@ a.msg.msg2 .ill { bottom: 4px; }
 @media (min-width: 1000px) { .fslide { margin: 14px -28px 0; } .fscroll { padding: 0 28px 4px; scroll-padding: 0 28px; } .fcard { flex-basis: 260px; } .fslide .fa { top: calc(260px * 3.3 / 4 / 2 - 15px); } }
 @media (min-width: 1500px) { .fslide { margin: 14px -36px 0; } .fscroll { padding: 0 36px 4px; scroll-padding: 0 36px; } }
 @media (min-width: 761px) and (max-width: 999px) { .fslide .fa { top: calc(300px * 3.3 / 4 / 2 - 15px); } }
+
+/* 2026-11-03 첫 화면 예시 맞춤: 카드뉴스 양옆 여백+둥근 모서리, 진한 라벨, 첫 화면 플로팅 숨김 */
+.hero { padding: 10px 20px 0; }
+.slider { border-radius: 14px; }
+.dots { margin-top: 12px; }
+.slide .chip { background: rgba(52, 52, 52, .92); color: #fff; border: 0; backdrop-filter: none; font-size: 14px; font-weight: 600; padding: 8px 15px; top: 16px; left: 16px; }
+.slide .tx { left: 18px; bottom: 20px; }
+@media (max-width: 760px) { .hero { padding: 10px 16px 0; } .slide .tx { font-size: 24px; } .slide .tx small { font-size: 13px; margin-bottom: 10px; } }
+@media (min-width: 1000px) { .hero { padding: 12px 28px 0; } }
+@media (min-width: 1500px) { .hero { padding: 12px 36px 0; } }
+.fabs { transition: opacity .3s, transform .3s; }
+body.fab-hide .fabs { opacity: 0; transform: translateY(12px); pointer-events: none; }

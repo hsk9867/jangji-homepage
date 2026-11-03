@@ -208,6 +208,9 @@
       };
       fitHero(true);
       addEventListener('resize', function () { fitHero(false); });
+      /* 첫 화면(카드뉴스+문구 띠)에서는 플로팅 버튼을 숨기고, 아래로 내리면 나타난다 */
+      var fabHide = function () { var m = document.querySelector('a.msg'); var lim = m ? m.getBoundingClientRect().bottom + scrollY - innerHeight + 40 : 200; document.body.classList.toggle('fab-hide', scrollY < Math.max(lim, 80)); };
+      fabHide(); addEventListener('scroll', fabHide, { passive: true }); addEventListener('resize', fabHide);
       addEventListener('load', function () { fitHero(true); });
     }
 
