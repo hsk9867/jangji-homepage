@@ -781,3 +781,16 @@ a.msg.msg2 .ill { bottom: 4px; }
 @media (min-width: 1000px) { .hero { padding: 0; } }
 .fabs { transition: opacity .3s, transform .3s; }
 body.fab-hide .fabs { opacity: 0; transform: translateY(12px); pointer-events: none; }
+
+/* 2026-11-03 문구 띠: 고객 제공 '길을 걷는 두 사람' 그림(img/msg-walk.jpg)을 오른쪽에 깔고 왼쪽으로 배경색에 녹인다 */
+a.msg.msg2::before { background: #FCEFDE; }
+a.msg.msg2:hover::before { background: #F9E9D4; }
+a.msg.msg2 .ill { right: 20px; bottom: 0; top: 22px; width: 150px; overflow: hidden; border-radius: 0 var(--r) var(--r) 0; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 42%); mask-image: linear-gradient(90deg, transparent 0, #000 42%); }
+a.msg.msg2 .ill img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+a.msg.msg2 .mt { padding-right: 150px; }
+@media (max-width: 760px) { a.msg.msg2 .ill { right: 16px; top: 16px; width: 132px; } a.msg.msg2 .mt { padding-right: 128px; } }
+@media (min-width: 1000px) { a.msg.msg2 .ill { right: 28px; width: 190px; } a.msg.msg2 .mt { padding-right: 190px; } }
+@media (min-width: 1500px) { a.msg.msg2 .ill { right: 36px; } }
+/* grid 자식이 안쪽 가로 슬라이드 폭만큼 늘어나 문서가 옆으로 넘치던 문제: min-width 0 */
+#facBlocks { grid-template-columns: minmax(0, 1fr); }
+#facBlocks .fblk, #facBlocks .fslide, #facBlocks .fscroll { min-width: 0; max-width: 100%; }
