@@ -731,3 +731,14 @@ a.msg.msg2:hover::before { background: #F2EADB; }
 .rv .ph { position: relative; aspect-ratio: 16 / 10; overflow: hidden; flex: none; }
 .rv .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .rv .ph .rtag { position: absolute; left: 10px; bottom: 10px; background: rgba(255, 255, 255, .94); color: var(--text); font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 6px; }
+
+/* 2026-11-03 문구 띠 예시 맞춤: 글꼴·색·배경 */
+a.msg.msg2::before { background: radial-gradient(120% 140% at 85% 60%, #FBF7F0 0%, #F6EEE2 45%, #F2E8D9 100%); }
+a.msg.msg2:hover::before { background: #F1E7D7; }
+a.msg.msg2 .mt { gap: 6px; }
+a.msg.msg2 .mt small { font-size: 12.5px; font-weight: 500; color: #5E574B; letter-spacing: -.01em; }
+a.msg.msg2 .mt strong { font-weight: 600; color: #2E2C28; line-height: 1.42; letter-spacing: -.02em; }
+a.msg.msg2 .mt em { margin-top: 8px; font-size: 13px; font-weight: 500; color: #8A6E46; background: #FFFDF9; border: 1px solid #D8C4A0; padding: 6px 14px; }
+a.msg.msg2 .ill { bottom: 4px; }
+@media (max-width: 760px) { a.msg.msg2 .mt { padding: 20px 92px 20px 20px; } a.msg.msg2 .mt strong { font-size: 16.5px; } a.msg.msg2 .ill { right: 14px; width: 78px; } }
+@media (max-width: 370px) { a.msg.msg2 .mt strong { font-size: 15.5px; } }

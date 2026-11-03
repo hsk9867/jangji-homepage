@@ -191,6 +191,24 @@
       var go = function (i) { cur = (i + SL.length) % SL.length; sl.querySelectorAll('.slide').forEach(function (e, j) { e.classList.toggle('on', j === cur); }); dots.querySelectorAll('button').forEach(function (b, j) { b.classList.toggle('on', j === cur); }); };
       dots.querySelectorAll('button').forEach(function (b, i) { b.onclick = function () { go(i); clearInterval(timer); timer = setInterval(function () { go(cur + 1); }, 5000); }; });
       timer = setInterval(function () { go(cur + 1); }, 5000);
+
+      /* 첫 화면에 헤더~카드뉴스~문구 띠까지 딱 맞게: 남는 높이를 카드뉴스에 준다 */
+      var fitW = 0;
+      var fitHero = function (force) {
+        var msg = document.querySelector('a.msg');
+        if (!msg || (!force && innerWidth === fitW)) return;
+        fitW = innerWidth;
+        sl.style.height = ''; sl.style.aspectRatio = '';
+        var r = sl.getBoundingClientRect(), top = r.top + scrollY;
+        var below = msg.getBoundingClientRect().bottom - r.bottom;
+        var tb = document.querySelector('.tabbar'), tbh = tb && getComputedStyle(tb).display !== 'none' ? tb.offsetHeight : 0;
+        var h = innerHeight - top - below - tbh - 14;
+        h = Math.max(240, Math.min(h, r.width * 1.3));
+        sl.style.aspectRatio = 'auto'; sl.style.height = Math.round(h) + 'px';
+      };
+      fitHero(true);
+      addEventListener('resize', function () { fitHero(false); });
+      addEventListener('load', function () { fitHero(true); });
     }
 
     /* 실적 띠: 보일 때 숫자가 올라간다 */
