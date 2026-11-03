@@ -179,13 +179,13 @@
 
     /* 슬라이드 */
     var SL = [
-      { img: 'img/card-sumok.jpg', chip: '수목장 분양 안내', sub: '수목장·봉안당·공원묘지부터 파묘·이장까지,<br>가족의 뜻에 맞게 안내합니다.', tx: '모실 곳을 정하는 일,<br>처음부터<br>함께 걷겠습니다.', href: 'search.html?type=sumok' },
-      { img: 'img/card-napgol.jpg', chip: '봉안당 분양 안내', sub: '직접 답사한 봉안당의 위치·시설·관리 조건을<br>한눈에 비교해 드립니다.', tx: '자주 찾아뵐 수 있는 곳,<br>꼼꼼히 살펴<br>안내하겠습니다.', href: 'search.html?type=napgol' },
+      { img: 'img/card-sumok.jpg', chip: '수목장 분양 안내', tx: '모실 곳을 정하는 일,<br>처음부터<br>함께 걷겠습니다.', href: 'search.html?type=sumok' },
+      { img: 'img/card-napgol.jpg', chip: '봉안당 분양 안내', tx: '자주 찾아뵐 수 있는 곳,<br>꼼꼼히 살펴<br>안내하겠습니다.', href: 'search.html?type=napgol' },
       { img: 'img/fac/bundanghome-1.jpg', chip: '주말 무료 동행 답사', tx: '주말에도 상담사가<br>현장에 동행합니다', href: 'contact.html' }
     ];
     var sl = document.getElementById('slider'), dots = document.getElementById('dots'), cur = 0, timer;
     if (sl) {
-      sl.innerHTML = SL.map(function (s, i) { return '<a class="slide' + (i === 0 ? ' on' : '') + '" href="' + s.href + '"><img src="' + img(s.img) + '" alt=""><span class="chip">' + s.chip + '</span><span class="tx">' + (s.sub ? '<small>' + s.sub + '</small>' : '') + s.tx + '</span></a>'; }).join('');
+      sl.innerHTML = SL.map(function (s, i) { return '<a class="slide' + (i === 0 ? ' on' : '') + '" href="' + s.href + '"><img src="' + img(s.img) + '" alt=""><span class="chip">' + s.chip + '</span><span class="tx">' + s.tx + '</span></a>'; }).join('');
       dots.innerHTML = SL.map(function (s, i) { return '<button type="button" aria-label="슬라이드 ' + (i + 1) + '"' + (i === 0 ? ' class="on"' : '') + '></button>'; }).join('');
       var go = function (i) { cur = (i + SL.length) % SL.length; sl.querySelectorAll('.slide').forEach(function (e, j) { e.classList.toggle('on', j === cur); }); dots.querySelectorAll('button').forEach(function (b, j) { b.classList.toggle('on', j === cur); }); };
       dots.querySelectorAll('button').forEach(function (b, i) { b.onclick = function () { go(i); clearInterval(timer); timer = setInterval(function () { go(cur + 1); }, 5000); }; });
