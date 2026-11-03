@@ -851,3 +851,37 @@ details.ptable p { padding: 0 16px 14px; }
 .footer.dark .fbottom { border-top-color: #E0E0DC; }
 .footer.dark .fbottom img { filter: none; opacity: 1; }
 .footer.dark .fsns a { border-color: #333; color: #333; background: var(--white); }
+
+/* ===== 2026-11-03 고객 수정사항 5 ===== */
+/* 모바일 헤더: 상담 신청 버튼이 빠지면서 햄버거가 로고 옆에 붙던 것 → 오른쪽 끝으로 */
+@media (max-width: 760px) { .header .in .burger { margin-left: auto; } }
+
+/* 문구 띠 그림: 두 사람이 카드 위쪽에 떠 보여서 조금 아래로 */
+a.msg.msg2 .ill { top: 54px; }
+@media (max-width: 760px) { a.msg.msg2 .ill { top: 46px; } }
+@media (min-width: 1000px) { a.msg.msg2 .ill { top: 58px; } }
+
+/* 답사 시설 블록 제목 아이콘: 검은 원 → 연녹색 원 + 투톤 일러스트 */
+.fblk-hd .ico { width: 36px; height: 36px; background: var(--accent-soft, #E3EBE4); }
+.fblk-hd .ico svg { width: 26px; height: 26px; }
+
+/* 파묘·이장 / e하늘 화장장 예약 카드 + 무료 상담·장례지원금 버튼 (자주 하는 질문 위) */
+#extra { padding-top: 6px; }
+.xcards { display: grid; gap: 12px; }
+.xcard { display: block; background: #F7F6F2; border: 1px solid #ECEAE3; border-radius: 16px; padding: 20px 20px 18px; color: inherit; text-decoration: none; }
+.xcard b { display: block; font-size: 17px; font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+.xcard p { margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: var(--text-2); word-break: keep-all; }
+.xcard .lk { display: block; margin-top: 12px; font-size: 14px; font-weight: 700; color: var(--text); text-decoration: none; }
+.xcard .lk + .lk { margin-top: 8px; }
+.xcard .lk i { font-style: normal; margin-left: 2px; }
+.xcard a.lk:hover, a.xcard:hover .lk { color: var(--accent); }
+.xbtns { display: grid; gap: 10px; margin-top: 14px; }
+.xbtn { display: flex; align-items: center; justify-content: center; height: 54px; border-radius: 999px; font-size: 16px; font-weight: 700; text-decoration: none; letter-spacing: -.01em; }
+.xbtn.dark { background: #1F1F1F; color: #fff; }
+.xbtn.dark:hover { background: #333; }
+.xbtn.line { background: #fff; color: var(--accent); border: 1.5px solid var(--accent); }
+.xbtn.line:hover { background: var(--accent-soft, #E3EBE4); }
+@media (min-width: 761px) { .xcards { grid-template-columns: 1fr 1fr; } .xbtns { grid-template-columns: 1fr 1fr; } .xcard b { font-size: 18px; } .xcard p { font-size: 14.5px; } }
+
+/* 답사 시설 카드 사진 칸: aspect-ratio 를 모르는 구형 브라우저에서도 모든 카드가 같은 4:3 높이가 되도록 padding 방식 병행 */
+.fcard .ph { aspect-ratio: auto; height: 0; padding-top: 75%; }

@@ -300,11 +300,8 @@
     /* 답사 시설: 유형별 추천 블록(아이콘 제목 + 더 보기 + 사진 카드 가로 슬라이드) */
     var fb = document.getElementById('facBlocks');
     if (fb) {
-      var FICO = {
-        sumok: '<svg viewBox="0 0 24 24"><path d="M12 3c-3.3 0-6 2.5-6 5.6 0 1.2.4 2.3 1.1 3.2C6.4 12.6 6 13.6 6 14.6 6 17 8.2 19 11 19v2h2v-2c2.8 0 5-2 5-4.4 0-1-.4-2-1.1-2.8.7-.9 1.1-2 1.1-3.2C18 5.5 15.3 3 12 3z" fill="currentColor"/></svg>',
-        napgol: '<svg viewBox="0 0 24 24"><path d="M12 3 3 8v2h18V8zM5 11h2v7H5zm4 0h2v7H9zm4 0h2v7h-2zm4 0h2v7h-2zM3 19h18v2H3z" fill="currentColor"/></svg>',
-        maejang: '<svg viewBox="0 0 24 24"><path d="M2 19c3-6 6-9 10-9s7 3 10 9z" fill="currentColor"/><path d="M8 9a4 4 0 0 1 8 0z" fill="currentColor"/></svg>'
-      };
+      /* 2026-11-03: 검은 원 안 단색 아이콘 → 무료 상담 신청 메뉴와 같은 투톤 일러스트 아이콘 */
+      var FICO = { sumok: LI.tree, napgol: LI.hall, maejang: LI.tomb };
       var FNAME = { sumok: '수목장', napgol: '봉안당', maejang: '공원묘지' };
       fb.innerHTML = ['sumok', 'napgol', 'maejang'].map(function (k) {
         var list = facilities(k).filter(function (f) { return (f.photos || []).length; }).sort(function (x, y) { return (y.type === k) - (x.type === k); }).slice(0, 8);
@@ -567,13 +564,14 @@
     var regions = (S.regions || []).slice().concat(['상관없음']);
     var preR = qs('region'), preW = qs('when');
     var opt = function (v, l, sel) { return '<option value="' + esc(v) + '"' + (sel ? ' selected' : '') + '>' + esc(l) + '</option>'; };
+    /* 2026-11-03 고객 요청: 입력 순서 = 상담 분야 → 희망 지역 → 이름 → 연락처 → 추가 문의 */
     el.innerHTML = '<form id="form" class="cf" novalidate>' +
-      '<div class="cf-field"><label for="f-name">이름 <em>(필수)</em></label><input id="f-name" autocomplete="name" placeholder="이름을 입력해 주십시오" value="' + esc(qs('name')) + '"></div>' +
-      '<div class="cf-field"><label for="f-phone">연락처 <em>(필수)</em></label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" value="' + esc(qs('phone')) + '"></div>' +
       '<div class="cf-field"><label for="f-type">상담 분야 <em>(필수)</em></label><div class="cf-sel"><select id="f-type">' + opt('', '선택해 주십시오', !type) + TYPES.map(function (t) { return opt(t[0], t[1], t[0] === type); }).join('') + '</select></div>' +
       '<div class="notice" id="cremNote" hidden><b>화장장 예약은 보건복지부 e하늘 장사정보시스템에서만 할 수 있습니다.</b> 배웅이 예약 방법과 가능한 일정을 함께 확인해 드리고, 화장 이후 모실 곳까지 이어서 안내해 드립니다. <a href="' + EHANEUL + '" target="_blank" rel="noopener">e하늘 바로가기</a></div>' +
       (fac ? '<div class="notice"><b>' + esc(fac.name) + '</b> 시설 문의로 접수됩니다.</div>' : '') + '</div>' +
       '<div class="cf-field"><label for="f-region">희망 지역 <span>(선택)</span></label><div class="cf-sel"><select id="f-region">' + opt('', '선택해 주십시오', !preR) + regions.map(function (r) { return opt(r, r, r === preR); }).join('') + '</select></div></div>' +
+      '<div class="cf-field"><label for="f-name">이름 <em>(필수)</em></label><input id="f-name" autocomplete="name" placeholder="이름을 입력해 주십시오" value="' + esc(qs('name')) + '"></div>' +
+      '<div class="cf-field"><label for="f-phone">연락처 <em>(필수)</em></label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" value="' + esc(qs('phone')) + '"></div>' +
       '<div class="cf-field"><label for="f-memo">추가 문의 <span>(선택)</span></label><textarea id="f-memo" placeholder="모실 인원, 예산, 원하시는 조건 등을 적어 주십시오">' + esc(qs('memo')) + '</textarea></div>' +
       '<label class="cf-agree"><input type="checkbox" id="f-agree"><span>개인정보 수집·이용에 동의합니다 <em>(필수)</em><small>상담을 위해 이름·연락처·문의 내용을 수집하며, 상담 완료 후 1년간 보관 후 파기합니다. <a href="' + ROOT + 'privacy.html" target="_blank">자세히 보기</a></small></span></label>' +
       '<button class="btn btn-primary btn-block cf-submit" type="submit">상담 신청하기</button>' +
