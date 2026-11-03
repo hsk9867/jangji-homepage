@@ -38,7 +38,6 @@
     var head = '<header class="header"><div class="in">' +
       '<a class="logo" href="index.html" aria-label="배웅 홈"><img src="img/logo-h.png" alt="배웅"></a>' +
       '<nav class="gnb" aria-label="주 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + (n[2] ? '<span class="n">' + n[2] + '</span>' : '') + '</a>'; }).join('') + '</nav>' +
-      '<div class="pills"><a class="pill cta" href="contact.html">' + ICON.form + '상담 신청</a></div>' +
       '<button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div>' +
       '<nav class="subnav" aria-label="빠른 메뉴">' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + '</a>'; }).join('') + '</nav></header>' +
       '<div class="drawer" id="drawer"><div class="panel"><button class="close" id="drawerClose" aria-label="닫기">×</button><img src="img/logo-h.png" alt="배웅" style="height:30px;width:auto;margin-bottom:14px">' +
@@ -60,7 +59,6 @@
       '<a href="http://baewoong.co.kr" target="_blank" rel="noopener" aria-label="기존 홈페이지"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a15 15 0 0 0-1.3-5.4A8 8 0 0 1 18.9 11zM12 4c.9 1.3 1.6 3.4 1.9 7h-3.8c.3-3.6 1-5.7 1.9-7zM5.1 13h3a15 15 0 0 0 1.3 5.4A8 8 0 0 1 5.1 13zm3-2h-3a8 8 0 0 1 4.3-5.4A15 15 0 0 0 8.1 11zM12 20c-.9-1.3-1.6-3.4-1.9-7h3.8c-.3 3.6-1 5.7-1.9 7zm2.6-1.6a15 15 0 0 0 1.3-5.4h3a8 8 0 0 1-4.3 5.4z"/></svg></a></div></div></footer>';
     var fab = '<div class="fabs">' +
       (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
-      '<a class="fab tel" href="' + tel(S.phone) + '" aria-label="전화 상담">' + ICON.phone + '전화</a>' +
       '<a class="fab support" href="contact.html?type=support" aria-label="장례지원금 상담 신청">장례<br>지원금</a>' +
       '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
     document.body.insertAdjacentHTML('afterbegin', head);
@@ -71,6 +69,7 @@
     document.body.insertAdjacentHTML('beforeend', '<nav class="tabbar" aria-label="하단 메뉴">' +
       '<a href="index.html"' + (cur === 'index.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M5.5 10.4 12 4.8l6.5 5.6V20h-4.3v-5.3H9.8V20H5.5z"/><path d="M3 11.8 12 4l9 7.8"/></svg>홈</a>' +
       '<a href="search.html?type=sumok"' + (cur === 'search.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="f" x="3.5" y="3.5" width="11.5" height="11.5" rx="2.2"/><rect class="f" x="9" y="9" width="11.5" height="11.5" rx="2.2"/></svg>장지 비교</a>' +
+      '<a class="call" href="' + tel(S.phone) + '" aria-label="전화 상담 ' + esc(S.phone) + '"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></span>전화 상담</a>' +
       '<a href="contact.html"' + (cur === 'contact.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M12 4c-4.8 0-8.6 3-8.6 6.8 0 2.2 1.3 4.2 3.4 5.5L6 20.5l4.3-2.2c.6.1 1.1.1 1.7.1 4.8 0 8.6-3 8.6-6.8S16.8 4 12 4z"/><path d="M8.5 11h7M8.5 14h4"/></svg>상담 신청</a>' +
       '<button type="button" id="tabMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>메뉴</button></nav>');
     document.getElementById('tabMenu').onclick = function () { document.getElementById('drawer').classList.add('open'); };
@@ -169,13 +168,13 @@
     sec.querySelectorAll('.arr[data-dir]').forEach(function (b) { b.onclick = function () { wrap.scrollBy({ left: (b.dataset.dir === 'prev' ? -1 : 1) * Math.round(wrap.clientWidth * .8), behavior: 'smooth' }); }; });
   }
   function home() {
-    /* 첫 접속 인트로(전체 화면 CSS 효과): 문구가 단어별로 떠오른 뒤 로고로 바뀌고 사라진다. 세션당 1회, ?intro=1 로 다시 보기 */
+    /* 첫 접속 인트로(전체 화면 CSS 효과): 문구 두 줄만 차례로 떠오른 뒤 사라진다(로고 없음, 약 3초). 세션당 1회, ?intro=1 로 다시 보기 */
     var seen = false; try { seen = !!sessionStorage.getItem('bw_intro'); } catch (e) {}
     if ((!seen && !/intro=0/.test(location.search)) || /intro=1/.test(location.search)) {
-      document.body.insertAdjacentHTML('afterbegin', '<div class="bw-intro" aria-hidden="true"><div class="in"><p class="t"><span class="l1">모실 곳을 정하는 일,</span><span class="l2">배웅이 함께 걷습니다.</span></p><img class="lg" src="img/logo-intro.jpg" alt=""></div></div>');
+      document.body.insertAdjacentHTML('afterbegin', '<div class="bw-intro" aria-hidden="true"><div class="in"><p class="t"><span class="l1">모실 곳을 정하는 일,</span><span class="l2">배웅이 함께 걷습니다.</span></p></div></div>');
       try { sessionStorage.setItem('bw_intro', '1'); } catch (e) {}
       if (/introhold/.test(location.search)) document.querySelector('.bw-intro').classList.add('hold');
-      else setTimeout(function () { var el = document.querySelector('.bw-intro'); if (el) el.remove(); }, 6400);
+      else setTimeout(function () { var el = document.querySelector('.bw-intro'); if (el) el.remove(); }, 3300);
     }
 
     /* 슬라이드 */
@@ -625,7 +624,7 @@
       '<p class="comment">' + esc(f.comment) + '</p>' +
       '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
       '<table>' + [['유형', (f.types || [f.type]).map(function (k) { return typeOf(k).name; }).join(' · ')], ['지역', f.area], ['주소', f.address], ['운영', f.operator], ['종교', f.religion], ['사용료', f.price ? '<b class="pmin">' + esc(f.price) + '</b>' : '상담 시 안내']].filter(function (r) { return r[1]; }).map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</td></tr>'; }).join('') + '</table>' +
-      ((f.priceItems || []).length > 1 || ((f.priceItems || [])[0] || {}).label !== '기본' ? '<div class="ptable"><h3>가격 정보</h3><ul>' + (f.priceItems || []).map(function (x) { return '<li><span>' + esc(x.label) + '</span><b>' + esc(x.price) + '</b></li>'; }).join('') + '</ul><p>안치 위치·층·조건에 따라 달라질 수 있어 상담 때 최신 가격으로 다시 확인해 드립니다.</p></div>' : '') +
+      ((f.priceItems || []).length > 1 || ((f.priceItems || [])[0] || {}).label !== '기본' ? '<details class="ptable"><summary><h3>가격 정보 <small>' + (f.priceItems || []).length + '건</small></h3><span class="more">더보기 <i aria-hidden="true">›</i></span></summary><ul>' + (f.priceItems || []).map(function (x) { return '<li><span>' + esc(x.label) + '</span><b>' + esc(x.price) + '</b></li>'; }).join('') + '</ul><p>안치 위치·층·조건에 따라 달라질 수 있어 상담 때 최신 가격으로 다시 확인해 드립니다.</p></details>' : '') +
       '<div class="maps"><button type="button" class="share" id="fshare">' + ICON.share + '가족에게 공유하기</button>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
       (f.lat && f.lng ? '<section class="floc" aria-label="위치 정보"><h3>위치 정보</h3><p class="addr">' + esc(f.address || '') + '</p><div id="fmap" class="fmap"></div><a class="more" href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도에서 크게 보기</a></section>' : '') +
       '<div class="acts"><a class="btn btn-primary btn-block" href="contact.html?type=' + esc(f.type) + '&facility=' + esc(f.id) + '">' + ICON.form + '이 시설로 상담 신청</a><a class="btn btn-line btn-block" href="' + tel(S.phone) + '">' + ICON.phone + '전화로 바로 묻기 ' + esc(S.phone) + '</a></div>' +
@@ -710,11 +709,9 @@
       draw(live.concat(samples));
     });
     function draw(list) {
-      var cnt = {}; list.forEach(function (r) { (r.keywords || []).forEach(function (k) { cnt[k] = (cnt[k] || 0) + 1; }); });
-      var top = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 3);
-      var max = top.length ? cnt[top[0]] : 1;
+      /* 2026-11-03 고객 요청: '이런 점이 좋았어요' 키워드 집계 막대는 삭제, 리뷰 카드만 보여준다 */
       box.innerHTML = '<div class="frev-hd"><h2>고객 리뷰 <b>' + list.length + '</b></h2><button type="button" class="frev-btn" id="frevWrite">리뷰 쓰기</button></div>' +
-        (list.length ? (top.length ? '<div class="frev-top"><small>이런 점이 좋았어요</small>' + top.map(function (k) { return '<div class="bar"><i style="width:' + Math.round(cnt[k] / max * 100) + '%"></i><span>“' + esc(k) + '”</span><b>' + cnt[k] + '</b></div>'; }).join('') + '</div>' : '') +
+        (list.length ?
           '<div class="frev-wrap"><div class="frev-track">' + list.map(function (r, i) {
             var ph = (r.photos || [])[0];
             return '<button type="button" class="frc" data-i="' + i + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' + ((r.photos || []).length > 1 ? '<em>+' + (r.photos.length - 1) + '</em>' : '') : '') +
