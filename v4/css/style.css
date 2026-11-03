@@ -742,3 +742,31 @@ a.msg.msg2 .mt em { margin-top: 8px; font-size: 13px; font-weight: 500; color: #
 a.msg.msg2 .ill { bottom: 4px; }
 @media (max-width: 760px) { a.msg.msg2 .mt { padding: 20px 92px 20px 20px; } a.msg.msg2 .mt strong { font-size: 16.5px; } a.msg.msg2 .ill { right: 14px; width: 78px; } }
 @media (max-width: 370px) { a.msg.msg2 .mt strong { font-size: 15.5px; } }
+
+/* 2026-11-03 답사 시설: 유형별 추천 블록 */
+#facBlocks { display: grid; gap: 34px; margin-top: 22px; }
+.fblk-hd { display: flex; align-items: center; gap: 9px; }
+.fblk-hd .ico { width: 30px; height: 30px; border-radius: 50%; background: #2B2B2B; color: #fff; display: grid; place-items: center; flex: none; }
+.fblk-hd .ico svg { width: 16px; height: 16px; }
+.fblk-hd h3 { font-size: 19px; font-weight: 700; letter-spacing: -.02em; color: var(--text); }
+.fblk-hd .more { margin-left: auto; font-size: 13px; color: var(--text-2); text-decoration: none; }
+.fslide { position: relative; margin: 14px -20px 0; }
+.fscroll { display: flex; gap: 12px; overflow-x: auto; padding: 0 20px 4px; scroll-snap-type: x mandatory; scroll-padding: 0 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+.fscroll::-webkit-scrollbar { display: none; }
+.fscroll.drag { scroll-snap-type: none; cursor: grabbing; }
+.fcard { flex: 0 0 68%; max-width: 300px; scroll-snap-align: start; text-decoration: none; color: inherit; display: block; }
+.fcard .ph { position: relative; display: block; aspect-ratio: 4 / 3.3; border-radius: 12px; overflow: hidden; background: var(--gray); }
+.fcard .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+.fcard:hover .ph img { transform: scale(1.04); }
+.fcard .cnt { position: absolute; right: 8px; bottom: 8px; background: rgba(0, 0, 0, .55); color: #fff; font-size: 11.5px; font-weight: 500; padding: 3px 8px; border-radius: 6px; }
+.fcard .nmr { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.fcard .nmr b { flex: 1; min-width: 0; font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fcard .nmr em { flex: none; font-style: normal; font-size: 11.5px; font-weight: 600; color: var(--text-2); border: 1px solid var(--line-2); border-radius: 5px; padding: 2px 6px; }
+.fcard .ar { display: block; margin-top: 3px; font-size: 12.5px; color: var(--muted); }
+.fslide .fa { position: absolute; top: calc((min(68vw, 300px) * 3.3 / 4) / 2 - 15px); width: 30px; height: 30px; border-radius: 50%; border: 0; background: #fff; color: var(--text); font-size: 18px; line-height: 1; box-shadow: 0 2px 8px rgba(0, 0, 0, .18); display: grid; place-items: center; z-index: 2; cursor: pointer; }
+.fslide .fa.prev { left: 10px; }
+.fslide .fa.next { right: 10px; }
+@media (max-width: 760px) { .fslide { margin: 14px -16px 0; } .fscroll { padding: 0 16px 4px; scroll-padding: 0 16px; } }
+@media (min-width: 1000px) { .fslide { margin: 14px -28px 0; } .fscroll { padding: 0 28px 4px; scroll-padding: 0 28px; } .fcard { flex-basis: 260px; } .fslide .fa { top: calc(260px * 3.3 / 4 / 2 - 15px); } }
+@media (min-width: 1500px) { .fslide { margin: 14px -36px 0; } .fscroll { padding: 0 36px 4px; scroll-padding: 0 36px; } }
+@media (min-width: 761px) and (max-width: 999px) { .fslide .fa { top: calc(300px * 3.3 / 4 / 2 - 15px); } }

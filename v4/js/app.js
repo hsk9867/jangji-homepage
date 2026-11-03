@@ -295,20 +295,31 @@
     var gg = document.getElementById('guideGrid');
     if (gg) gg.innerHTML = STEPS4.map(function (g, i) { return '<a class="gd" href="' + (GUIDE_LINKS[i] || 'contact.html') + '"><div><span class="st">0' + (i + 1) + '</span><b>' + esc(g.t) + '</b><p>' + esc(g.d) + '</p></div><span class="ic" aria-hidden="true">' + (GUIDE_ICONS[i] || LI.phone) + '</span></a>'; }).join('');
 
-    /* 답사 시설: 유형 태그 + 행 */
-    var ft = document.getElementById('facTags'), fl = document.getElementById('facList');
-    if (ft) {
-      var fkeys = ['sumok', 'napgol', 'maejang'];
-      var fshort = { sumok: '수목장', napgol: '봉안당', maejang: '공원묘지' }, femo = { sumok: '🌳', napgol: '🏛️', maejang: '⛰️' };
-      ft.innerHTML = fkeys.map(function (k, i) { return '<button type="button" class="tag' + (i === 0 ? ' on' : '') + '" data-k="' + k + '">' + fshort[k] + ' <span class="emo" aria-hidden="true">' + femo[k] + '</span></button>'; }).join('');
-      var drawF = function (k) {
-        fl.innerHTML = facilities(k).slice(0, 4).map(function (f) {
-          var ph = (f.photos || [])[0];
-          return '<a class="frow" href="facility.html?id=' + esc(f.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span></span>') + '<div><div class="nm">' + esc(f.name) + '</div><div class="ar">' + esc(f.area) + (f.featured ? ' · 배웅 추천' : '') + '</div>' + kwChips(kwOf(f), 2) + '</div></a>';
-        }).join('');
+    /* 답사 시설: 유형별 추천 블록(아이콘 제목 + 더 보기 + 사진 카드 가로 슬라이드) */
+    var fb = document.getElementById('facBlocks');
+    if (fb) {
+      var FICO = {
+        sumok: '<svg viewBox="0 0 24 24"><path d="M12 3c-3.3 0-6 2.5-6 5.6 0 1.2.4 2.3 1.1 3.2C6.4 12.6 6 13.6 6 14.6 6 17 8.2 19 11 19v2h2v-2c2.8 0 5-2 5-4.4 0-1-.4-2-1.1-2.8.7-.9 1.1-2 1.1-3.2C18 5.5 15.3 3 12 3z" fill="currentColor"/></svg>',
+        napgol: '<svg viewBox="0 0 24 24"><path d="M12 3 3 8v2h18V8zM5 11h2v7H5zm4 0h2v7H9zm4 0h2v7h-2zm4 0h2v7h-2zM3 19h18v2H3z" fill="currentColor"/></svg>',
+        maejang: '<svg viewBox="0 0 24 24"><path d="M2 19c3-6 6-9 10-9s7 3 10 9z" fill="currentColor"/><path d="M8 9a4 4 0 0 1 8 0z" fill="currentColor"/></svg>'
       };
-      drawF('sumok');
-      ft.querySelectorAll('.tag').forEach(function (b) { b.onclick = function () { ft.querySelectorAll('.tag').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); drawF(b.dataset.k); }; });
+      var FNAME = { sumok: '수목장', napgol: '봉안당', maejang: '공원묘지' };
+      fb.innerHTML = ['sumok', 'napgol', 'maejang'].map(function (k) {
+        var list = facilities(k).filter(function (f) { return (f.photos || []).length; }).sort(function (x, y) { return (y.type === k) - (x.type === k); }).slice(0, 8);
+        if (!list.length) return '';
+        return '<div class="fblk" data-k="' + k + '"><div class="fblk-hd"><span class="ico" aria-hidden="true">' + FICO[k] + '</span><h3>' + FNAME[k] + ' 추천</h3><a class="more" href="search.html?type=' + k + '">더 보기 ›</a></div>' +
+          '<div class="fslide"><div class="fscroll">' + list.map(function (f) {
+            var ph = f.photos || [];
+            return '<a class="fcard" href="facility.html?id=' + esc(f.id) + '"><span class="ph"><img src="' + img(ph[0]) + '" alt="" loading="lazy">' + (ph.length > 1 ? '<span class="cnt">사진 ' + ph.length + '</span>' : '') + '</span><span class="nmr"><b>' + esc(f.name) + '</b><em>' + FNAME[k] + '</em></span><span class="ar">' + esc(f.area) + '</span></a>';
+          }).join('') + '</div><button type="button" class="fa prev" aria-label="이전 ' + FNAME[k] + '">‹</button><button type="button" class="fa next" aria-label="다음 ' + FNAME[k] + '">›</button></div></div>';
+      }).join('');
+      fb.querySelectorAll('.fslide').forEach(function (w) {
+        var sc = w.querySelector('.fscroll'), c = sc.querySelector('.fcard');
+        var by = function (d) { sc.scrollBy({ left: d * ((c ? c.offsetWidth : 260) + 12), behavior: 'smooth' }); };
+        w.querySelector('.prev').onclick = function () { by(-1); };
+        w.querySelector('.next').onclick = function () { by(1); };
+        dragScroll(sc);
+      });
     }
 
     /* 자주 하는 질문 */

@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="css/style.css?v=20261103b">
-<script src="../js/blog-content.js?v=20261103b"></script>
+<link rel="stylesheet" href="css/style.css?v=20261103c">
+<script src="../js/blog-content.js?v=20261103c"></script>
 <script src="../js/defaults.js"></script>
 </head>
 <body data-page="home">
@@ -70,26 +70,11 @@
     <ul id="statList"></ul>
   </section>
 
-  <!-- 서비스 이용안내 -->
-  <section class="sec gray" id="guide" aria-labelledby="guide-title">
-    <div class="sec-title"><h2 id="guide-title">서비스 이용안내</h2></div>
-    <p class="lead">상담부터 안치까지 이렇게 진행됩니다</p>
-    <div class="ggrid" id="guideGrid"></div>
-  </section>
-
   <!-- 답사 시설 -->
   <section class="sec" id="facilities" aria-labelledby="fac-title">
     <div class="sec-title"><h2 id="fac-title">직접 답사한 장지 시설</h2><a class="arr" href="../facilities.html" aria-label="답사 시설 전체 보기">›</a></div>
     <p class="lead">배웅 상담팀이 직접 다녀와 진입로·주차·관리 상태까지 확인한 경기도 시설만 모았습니다</p>
-    <div class="tags" id="facTags"></div>
-    <div class="flist" id="facList"></div>
-  </section>
-
-  <!-- 상담사 -->
-  <section class="sec gray" id="counselors" aria-labelledby="cn-title">
-    <div class="sec-title"><h2 id="cn-title">배웅 상담사 소개</h2><div class="nav"><button type="button" class="arr" data-dir="prev" aria-label="이전 상담사">‹</button><button type="button" class="arr" data-dir="next" aria-label="다음 상담사">›</button></div></div>
-    <p class="lead">장례 절차부터 장지 선택까지, 가족 곁에서 함께 걷는 사람들입니다. 상담사를 지정해 문의하실 수도 있습니다.</p>
-    <div class="rv-wrap" id="cnWrap"><div class="rv-track" id="cnTrack"></div></div>
+    <div id="facBlocks"></div>
   </section>
 
   <!-- 자주 하는 질문 -->
@@ -113,6 +98,6 @@
   </section>
 
 </main>
-<script src="js/app.js?v=20261103b"></script>
+<script src="js/app.js?v=20261103c"></script>
 </body>
 </html>
