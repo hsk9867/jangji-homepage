@@ -702,3 +702,32 @@ a.msg:hover .tx { background: #F2EDE1; }
 .leaflet-container { font-family: inherit; font-size: 13px; }
 .leaflet-popup-content { margin: 10px 14px; line-height: 1.45; }
 .leaflet-popup-content b { color: var(--accent); font-weight: 800; }
+
+/* 2026-11-03 카드뉴스: 왼쪽·아래 그라데이션 + 작은 설명 + 큰 제목 */
+.slide::after { background: linear-gradient(90deg, rgba(10, 16, 12, .62) 0%, rgba(10, 16, 12, .28) 48%, rgba(10, 16, 12, 0) 75%), linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, .55) 100%); }
+.slide .chip { background: rgba(20, 24, 20, .45); color: #fff; border: 1px solid rgba(255, 255, 255, .75); backdrop-filter: blur(2px); font-weight: 600; }
+.slide .tx { right: auto; max-width: 86%; font-weight: 700; letter-spacing: -.01em; text-shadow: 0 2px 12px rgba(0, 0, 0, .45); }
+.slide .tx small { display: block; margin-bottom: 12px; font-size: 13.5px; font-weight: 500; line-height: 1.55; color: rgba(255, 255, 255, .92); letter-spacing: 0; }
+@media (min-width: 761px) { .slide .tx small { font-size: 16px; margin-bottom: 14px; } }
+
+/* 2026-11-03 문구 띠: 라벨 + 제목 + 상담 버튼 + 인물 그림 */
+a.msg.msg2 { display: block; }
+a.msg.msg2 .mt, a.msg.msg2 .ill { position: relative; }
+a.msg.msg2 { position: relative; }
+a.msg.msg2::before { content: ''; position: absolute; inset: 22px 20px 0; background: #F7F1E6; border-radius: var(--r); }
+a.msg.msg2 .mt { display: grid; gap: 8px; justify-items: start; padding: 24px 120px 24px 22px; z-index: 1; }
+a.msg.msg2 .mt small { font-size: 13px; font-weight: 600; color: #6F6656; }
+a.msg.msg2 .mt strong { font-size: 19px; font-weight: 700; line-height: 1.5; color: #2B2B28; letter-spacing: -.01em; }
+a.msg.msg2 .mt em { margin-top: 6px; font-style: normal; font-size: 14px; font-weight: 600; color: #6B5A3E; background: #fff; border: 1px solid #D9C9AA; border-radius: 999px; padding: 7px 14px; }
+a.msg.msg2 .mt em i { font-style: normal; margin-left: 2px; }
+a.msg.msg2 .ill { position: absolute; z-index: 1; right: 30px; bottom: 6px; width: 92px; }
+a.msg.msg2 .ill svg { display: block; width: 100%; height: auto; }
+a.msg.msg2:hover::before { background: #F2EADB; }
+@media (max-width: 760px) { a.msg.msg2::before { inset: 16px 16px 0; } a.msg.msg2 .mt { padding: 22px 104px 22px 20px; } a.msg.msg2 .mt strong { font-size: 18px; } a.msg.msg2 .ill { right: 24px; width: 80px; } }
+@media (min-width: 1000px) { a.msg.msg2::before { left: 28px; right: 28px; } a.msg.msg2 .mt { padding: 28px 150px 28px 30px; } a.msg.msg2 .mt strong { font-size: 22px; } a.msg.msg2 .ill { right: 52px; width: 104px; } }
+@media (min-width: 1500px) { a.msg.msg2::before { left: 36px; right: 36px; } }
+
+/* 2026-11-03 후기 카드 사진 + 유형 태그 */
+.rv .ph { position: relative; aspect-ratio: 16 / 10; overflow: hidden; flex: none; }
+.rv .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.rv .ph .rtag { position: absolute; left: 10px; bottom: 10px; background: rgba(255, 255, 255, .94); color: var(--text); font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 6px; }

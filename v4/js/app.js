@@ -180,13 +180,13 @@
 
     /* 슬라이드 */
     var SL = [
-      { img: 'img/slide-sumok.jpg', chip: '수목장 분양 안내', tx: '직접 답사한 수목장만<br>분양 조건을 직접 비교해 드립니다', href: 'search.html?type=sumok' },
-      { img: 'img/fac/haneulmun-2.jpg', chip: '화장장 예약 안내', tx: '화장장 예약이 처음이시라면<br>희망 지역만 알려주십시오', href: 'crematorium.html' },
+      { img: 'img/card-sumok.jpg', chip: '수목장 분양 안내', sub: '수목장·봉안당·공원묘지부터 파묘·이장까지,<br>가족의 뜻에 맞게 안내합니다.', tx: '모실 곳을 정하는 일,<br>처음부터<br>함께 걷겠습니다.', href: 'search.html?type=sumok' },
+      { img: 'img/card-napgol.jpg', chip: '봉안당 분양 안내', sub: '직접 답사한 봉안당의 위치·시설·관리 조건을<br>한눈에 비교해 드립니다.', tx: '자주 찾아뵐 수 있는 곳,<br>꼼꼼히 살펴<br>안내하겠습니다.', href: 'search.html?type=napgol' },
       { img: 'img/fac/bundanghome-1.jpg', chip: '주말 무료 동행 답사', tx: '주말에도 상담사가<br>현장에 동행합니다', href: 'contact.html' }
     ];
     var sl = document.getElementById('slider'), dots = document.getElementById('dots'), cur = 0, timer;
     if (sl) {
-      sl.innerHTML = SL.map(function (s, i) { return '<a class="slide' + (i === 0 ? ' on' : '') + '" href="' + s.href + '"><img src="' + img(s.img) + '" alt=""><span class="chip">' + s.chip + '</span><span class="tx">' + s.tx + '</span></a>'; }).join('');
+      sl.innerHTML = SL.map(function (s, i) { return '<a class="slide' + (i === 0 ? ' on' : '') + '" href="' + s.href + '"><img src="' + img(s.img) + '" alt=""><span class="chip">' + s.chip + '</span><span class="tx">' + (s.sub ? '<small>' + s.sub + '</small>' : '') + s.tx + '</span></a>'; }).join('');
       dots.innerHTML = SL.map(function (s, i) { return '<button type="button" aria-label="슬라이드 ' + (i + 1) + '"' + (i === 0 ? ' class="on"' : '') + '></button>'; }).join('');
       var go = function (i) { cur = (i + SL.length) % SL.length; sl.querySelectorAll('.slide').forEach(function (e, j) { e.classList.toggle('on', j === cur); }); dots.querySelectorAll('button').forEach(function (b, j) { b.classList.toggle('on', j === cur); }); };
       dots.querySelectorAll('button').forEach(function (b, i) { b.onclick = function () { go(i); clearInterval(timer); timer = setInterval(function () { go(cur + 1); }, 5000); }; });
@@ -229,7 +229,7 @@
       var stars = function (n) { var s = ''; for (var i = 0; i < 5; i++) s += '<i' + (i < n ? ' class="on"' : '') + '>★</i>'; return '<span class="st" aria-label="별점 ' + n + '점">' + s + '</span>'; };
       var tname = function (t) { return (REV_TABS.filter(function (x) { return x[0] === t; })[0] || ['', typeOf(t).name])[1]; };
       var rcard = function (x, full) {
-        return '<article class="rv" data-id="' + esc(x.id) + '"' + (full ? '' : ' tabindex="0" role="button"') + '><div class="bd">' + stars(x.rating || 5) + '<p' + (full ? ' class="full"' : '') + '>' + esc(x.text) + '</p><span class="who"><b>' + esc(x.name) + '</b><span>' + esc(tname(x.type)) + ' · ' + esc(x.region) + ' · ' + esc(x.date) + '</span></span>' + (x.sample ? '<span class="smp">예시</span>' : '') + '</div></article>';
+        return '<article class="rv" data-id="' + esc(x.id) + '"' + (full ? '' : ' tabindex="0" role="button"') + '>' + (x.img ? '<div class="ph"><img src="' + esc(img(x.img)) + '" alt="" loading="lazy"><span class="rtag">' + esc(tname(x.type)) + ' 상담</span></div>' : '') + '<div class="bd">' + stars(x.rating || 5) + '<p' + (full ? ' class="full"' : '') + '>' + esc(x.text) + '</p><span class="who"><b>' + esc(x.name) + '</b><span>' + esc(tname(x.type)) + ' · ' + esc(x.region) + ' · ' + esc(x.date) + '</span></span>' + (x.sample ? '<span class="smp">예시</span>' : '') + '</div></article>';
       };
       var drawR = function (k) {
         var list = revs.filter(function (r) { return !k || r.type === k; });
