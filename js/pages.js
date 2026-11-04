@@ -36,13 +36,14 @@
   function head(h2, sub, more, pill) {
     return '<div class="sec-head"><div class="tx">' + (pill ? '<span class="pill">' + esc(pill) + '</span>' : '') + '<h2>' + h2 + '</h2>' + (sub ? '<p>' + esc(sub) + '</p>' : '') + '</div>' + (more || '') + '</div>';
   }
+  /* 메인 서비스 선택 카드: [키, 작은 설명, 이름, 링크, 사진] */
   var QUICK = [
-    ['sumok', LI.tree, '수목장', 'search.html?type=sumok'],
-    ['napgol', LI.hall, '봉안당', 'search.html?type=napgol'],
-    ['maejang', LI.tomb, '매장묘', 'search.html?type=maejang'],
-    ['ijang', LI.ijang, '파묘/이장', 'ijang.html'],
-    ['cremation', LI.calendar, '화장장 예약', 'crematorium.html'],
-    ['support', LI.support, '장례지원금', 'contact.html?type=support']
+    ['sumok', '자연 속에서 모시는', '수목장', 'search.html?type=sumok', 'img/quick/sumok.jpg'],
+    ['napgol', '실내에서 편안하게', '봉안당', 'search.html?type=napgol', 'img/quick/napgol.jpg'],
+    ['maejang', '전통 방식 그대로', '매장묘', 'search.html?type=maejang', 'img/quick/maejang.jpg'],
+    ['ijang', '오래된 묘를 옮기는', '파묘·이장', 'ijang.html', 'img/quick/ijang.jpg'],
+    ['cremation', 'e하늘 예약 대행', '화장장 예약', 'crematorium.html', 'img/quick/cremation.jpg'],
+    ['support', '놓치기 쉬운 혜택', '장례지원금', 'contact.html?type=support', 'img/quick/support.jpg']
   ];
   var STATS = [
     { n: 100, suffix: '+', unit: '곳', label: '상담 가능 장지', img: 'img/fac/eden-2.jpg' },
@@ -83,19 +84,11 @@
       /* 2. 문구 띠 (라벨 + 제목 + 상담 신청 + 고객 제공 '길을 걷는 두 사람' 그림) */
       '<a class="msg2" href="contact.html" aria-label="배웅 상담 신청으로 이동"><span class="mt"><small>장지 안심 동행 서비스 · 배웅</small><strong>직접 살펴본 장지,<br>가족의 마음에 맞게 안내합니다.</strong><em>배웅 상담 신청 <i aria-hidden="true">→</i></em></span><span class="ill" aria-hidden="true"><img src="img/msg-walk.jpg" alt=""></span></a>' +
 
-      /* 3. 6개 바로가기 */
+      /* 3. 서비스 선택 카드 (2열, 글 + 사진) */
       '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '원하시는 서비스를 고르시면 바로 이어집니다.') +
-        '<nav class="igrid" aria-label="서비스 바로가기">' + QUICK.map(function (q) { return '<a href="' + q[3] + '"><span class="ico">' + q[1] + '</span><span>' + q[2] + '</span></a>'; }).join('') + '</nav>' +
-        '<a class="svc-link" href="services.html">어떤 서비스인지 먼저 보기 · 서비스 안내 ›</a></div></section>' +
-
-      /* 4. 상황 선택 */
-      '<section class="sec sec-gray"><div class="wrap">' + head('지금 어떤 상황이신가요?', '가족의 상황에 맞는 방법으로 함께 하겠습니다.', '', '장지 상담') +
-        '<div class="situ">' +
-          '<a class="card-h" href="' + U.telHref(s.phone) + '"><div class="top"><span class="emo">🔔</span><span><strong>지금 알아보기</strong><small>지금 바로 모실 곳을 찾아야 합니다.</small></span><span class="arr">›</span></div>' +
-            '<div class="hash"><span>#바로 전화 연결</span><span>#가까운 위치</span><span>#빠른 안치</span><span>#당일 답사</span></div></a>' +
-          '<a class="card-h" href="search.html"><div class="top"><span class="emo">📋</span><span><strong>미리 준비하기</strong><small>여유 있게 비교하고 답사하고 싶습니다.</small></span><span class="arr">›</span></div>' +
-            '<div class="hash"><span>#시설 비교</span><span>#주말 동행 답사</span><span>#계약 조건 확인</span><span>#장례지원금</span></div></a>' +
-        '</div></div></section>' +
+        '<nav class="qgrid" aria-label="서비스 바로가기">' + QUICK.map(function (q) {
+          return '<a href="' + q[3] + '"><span class="tx"><small>' + esc(q[1]) + '</small><strong>' + esc(q[2]) + '</strong></span><span class="ph"><img src="' + q[4] + '" alt="" loading="lazy"></span></a>';
+        }).join('') + '</nav></div></section>' +
 
       /* 5. 고객 후기 (data/testimonials.json) */
       '<section class="sec" id="reviews"><div class="wrap">' + head('배웅 동행 상담 후기', '상담과 동행 답사를 함께한 가족의 이야기입니다.', '<a class="more" href="reviews.html">전체 보기 ›</a>') +
