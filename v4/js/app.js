@@ -66,13 +66,13 @@
     if (col) col.insertAdjacentHTML('beforeend', foot);
     document.body.insertAdjacentHTML('beforeend', fab);
     var cur = here();
-    /* 2026-11-06 고객 시안 아이콘: 초록 면 아이콘(홈·장지 비교·상담 신청), 메뉴는 검정 선 */
+    /* 2026-11-06 고객 요청: 기본은 선 아이콘, 마우스를 올리거나 터치하면(현재 페이지도) 속이 채워진다. 메뉴는 선 3개 */
     document.body.insertAdjacentHTML('beforeend', '<nav class="tabbar" aria-label="하단 메뉴">' +
-      '<a href="index.html"' + (cur === 'index.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 11.2h2.7V20.5h5.3v-5.6h3v5.6h5.3v-9.3h2.7z"/></svg>홈</a>' +
-      '<a href="search.html?type=sumok"' + (cur === 'search.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="o" x="7.5" y="2.8" width="12.5" height="14" rx="2"/><rect class="w2" x="3.2" y="7.2" width="12.5" height="14" rx="2"/><rect x="4" y="8" width="11" height="12.5" rx="1.6"/><path class="w" d="M6.8 12.3h5.4M6.8 15.6h5.4"/></svg>장지 비교</a>' +
+      '<a href="index.html"' + (cur === 'index.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path class="sh" fill-rule="evenodd" d="M12 3.2 2.8 11.3h2.6v9.2h13.2v-9.2h2.6zM10 20.5v-5.4h4v5.4z"/></svg>홈</a>' +
+      '<a href="search.html?type=sumok"' + (cur === 'search.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="sh" x="7.5" y="2.8" width="12" height="13.5" rx="2"/><rect class="gap" x="3.8" y="7.6" width="12" height="13.5" rx="2"/><rect class="sh" x="3.8" y="7.6" width="12" height="13.5" rx="2"/><path class="ln" d="M6.8 12.2h6M6.8 15.6h6"/></svg>장지 비교</a>' +
       '<a class="call" href="' + tel(S.phone) + '" aria-label="전화 상담 ' + esc(S.phone) + '"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></span>전화 상담</a>' +
-      '<a href="contact.html"' + (cur === 'contact.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.5h15a2.5 2.5 0 0 1 2.5 2.5v9a2.5 2.5 0 0 1-2.5 2.5H10l-4.6 3.6v-3.6h-.9A2.5 2.5 0 0 1 2 15V6a2.5 2.5 0 0 1 2.5-2.5z"/><path class="w" d="M7 8.3h10M7 12h6.5"/></svg>상담 신청</a>' +
-      '<button type="button" id="tabMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"/></svg>메뉴</button></nav>');
+      '<a href="contact.html"' + (cur === 'contact.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path class="sh" d="M4.5 3.5h15a2.5 2.5 0 0 1 2.5 2.5v8.5a2.5 2.5 0 0 1-2.5 2.5H10l-4.3 3.6V17h-1.2A2.5 2.5 0 0 1 2 14.5V6a2.5 2.5 0 0 1 2.5-2.5z"/><path class="ln" d="M7.2 8.2h9.6M7.2 11.8h6"/></svg>상담 신청</a>' +
+      '<button type="button" id="tabMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="ln" d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"/></svg>메뉴</button></nav>');
     document.getElementById('tabMenu').onclick = function () { document.getElementById('drawer').classList.add('open'); };
     var dr = document.getElementById('drawer');
     document.getElementById('burger').onclick = function () { dr.classList.add('open'); };
