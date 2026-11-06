@@ -85,7 +85,7 @@
       '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '원하시는 서비스를 고르시면 바로 이어집니다.') +
         '<nav class="qgrid" aria-label="서비스 바로가기">' + QUICK.map(function (q) {
           return '<a href="' + q[3] + '"><span class="tx"><small>' + esc(q[1]) + '</small><strong>' + esc(q[2]) + '</strong></span><span class="ph"><img src="' + q[4] + '" alt="" loading="lazy"></span></a>';
-        }).join('') + '</nav></div></section></div>' +
+        }).join('') + '</nav><a class="svc-link" href="services.html">어떤 서비스인지 먼저 보기 · 서비스 안내</a></div></section></div>' +
 
       /* 5. 고객 후기 (data/testimonials.json) */
       '<section class="sec" id="reviews"><div class="wrap">' + head('배웅 동행 상담 후기', '상담과 동행 답사를 함께한 가족의 이야기입니다.', '<a class="more" href="reviews.html">전체 보기 ›</a>') +

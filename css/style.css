@@ -932,3 +932,8 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
   .drawer-in { width: 320px; padding: 24px; }
 }
 @media (min-width: 1280px) { .nav { gap: 30px; } .nav a { padding: 0; font-size: 16px; } }
+
+/* 2026-11-06 고객 요청: 버튼 6개 아래 서비스 안내 링크 (B안과 동일) */
+.svc-link { display: block; margin-top: 14px; text-align: center; font-size: 14px; font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(27, 27, 31, .35); transition: color var(--tr); }
+.svc-link:hover { color: var(--accent-d); text-decoration-color: currentColor; }
+@media (min-width: 960px) { .svc-link { margin-top: 18px; font-size: 15px; } }
