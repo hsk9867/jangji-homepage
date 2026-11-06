@@ -81,9 +81,6 @@
       /* 1. 카드 뉴스 */
       newsHtml +
 
-      /* 2. 문구 띠 (라벨 + 제목 + 상담 신청 + 고객 제공 '길을 걷는 두 사람' 그림) */
-      '<a class="msg2" href="contact.html" aria-label="배웅 상담 신청으로 이동"><span class="mt"><small>장지 안심 동행 서비스 · 배웅</small><strong>직접 살펴본 장지,<br>가족의 마음에 맞게 안내합니다.</strong><em>배웅 상담 신청 <i aria-hidden="true">→</i></em></span><span class="ill" aria-hidden="true"><img src="img/msg-walk.jpg" alt=""></span></a>' +
-
       /* 3. 서비스 선택 카드 (2열, 글 + 사진) */
       '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '원하시는 서비스를 고르시면 바로 이어집니다.') +
         '<nav class="qgrid" aria-label="서비스 바로가기">' + QUICK.map(function (q) {

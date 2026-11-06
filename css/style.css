@@ -742,3 +742,18 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .cf-agree small { display: block; margin-top: 5px; font-size: var(--fs-xs); color: var(--ink-3); line-height: var(--lh-sm); }
 .cf-submit { min-height: 58px; font-size: 18px; }
 .done-pre { text-align: left; white-space: pre-wrap; font: inherit; font-size: var(--fs-sm); line-height: 1.6; background: var(--gray); border-radius: 12px; padding: 14px 16px; margin: 0 0 18px; color: var(--ink-2); }
+
+/* 2026-11-06 고객 요청(sparkplus.co 참고): 카드 뉴스 아래 문구 띠 제거, 카드 높이를 화면에 맞춰 줄여 첫 화면에 서비스 버튼 6개가 바로 보이게 */
+.news .slide { aspect-ratio: auto; max-height: none; height: clamp(280px, calc(100vh - var(--hdH) - var(--tabH) - 380px), 460px); height: clamp(280px, calc(100svh - var(--hdH) - var(--tabH) - 380px), 460px); padding-bottom: 22px; }
+.news .slide::after { background: linear-gradient(180deg, rgba(0, 0, 0, .04) 20%, rgba(0, 0, 0, .4) 55%, rgba(0, 0, 0, .8) 100%); }
+.news h2 { margin-top: 10px; }
+.news .btn { margin-top: 14px; min-height: 42px; }
+.news-foot { position: absolute; right: var(--gut); bottom: 22px; z-index: 2; width: auto; padding: 0; gap: 8px; background: transparent; border: 0; }
+.news .dots { flex: none; }
+.news .dots button { background: rgba(255, 255, 255, .45); }
+.news .dots button.on { background: #fff; }
+.news .num { color: rgba(255, 255, 255, .9); text-shadow: 0 1px 6px rgba(0, 0, 0, .5); }
+.news .arrow { display: none; }
+@media (min-width: 600px) { .news .arrow { display: grid; background: rgba(255, 255, 255, .18); border-color: rgba(255, 255, 255, .55); color: #fff; } }
+#quick { padding-top: 22px; }
+#quick .sec-head { margin-bottom: 14px; }

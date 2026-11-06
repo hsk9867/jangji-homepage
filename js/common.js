@@ -259,7 +259,7 @@
       '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장<br>예약</a>';
     document.body.appendChild(fab);
     if (document.body.dataset.page === 'home') {
-      var fabHide = function () { var m = document.querySelector('.msg2'); var lim = m ? m.getBoundingClientRect().bottom + scrollY - innerHeight + 40 : 200; document.body.classList.toggle('fab-hide', scrollY < Math.max(lim, 80)); };
+      var fabHide = function () { var m = document.querySelector('#quick'); var lim = m ? m.getBoundingClientRect().bottom + scrollY - innerHeight + 40 : 200; document.body.classList.toggle('fab-hide', scrollY < Math.max(lim, 80)); };
       fabHide(); addEventListener('scroll', fabHide, { passive: true }); addEventListener('resize', fabHide);
     }
   }
