@@ -897,3 +897,18 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
   .hd-tel { font-size: 16px; padding: 0 12px 0 8px; gap: 4px; }
 }
 @media (min-width: 1280px) { .nav { gap: 2px; } .nav a { padding: 8px 10px; font-size: 15px; } .nav a:nth-child(9), .nav a:nth-child(10) { display: inline-block; } }
+
+/* 2026-11-06 고객 요청(PC): 카드 뉴스를 가로 전체로 키우고, 그 아래에 서비스 버튼 6개를 한 줄로 */
+@media (min-width: 960px) {
+  .top2 { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 24px; }
+  .top2 .news .slide { height: 540px; min-height: 0; padding: 0 48px 60px; }
+  .top2 .news .slide img { object-position: 50% 55%; }
+  .top2 .news .slide:nth-child(1) img { object-position: 50% 64%; }
+  .top2 .news .slide:nth-child(3) img { object-position: 50% 58%; }
+  .top2 .news h2 { font-size: 34px; line-height: 1.4; max-width: 640px; }
+  .top2 .news-foot { right: 32px; bottom: 28px; }
+  .top2 #quick { display: block; }
+  .top2 #quick .sec-head { margin-bottom: 16px; }
+  .top2 .qgrid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+  .top2 .qgrid a { height: 128px; padding: 18px 16px; }
+}
