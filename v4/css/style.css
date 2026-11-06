@@ -906,6 +906,19 @@ a.msg.msg2 .ill { top: 54px; }
   .tabbar a.call { color: #2B2B2B; }
   .tabbar a.call .ic { background: #3F8E44; border: 0; box-shadow: 0 6px 16px rgba(63, 142, 68, .35); } /* 흰 테두리 제거(2026-11-06 고객 요청) */
   .tabbar a.call:active .ic { background: #357A3A; }
+  /* 2026-11-06 고객 요청: 하단 고정 버튼 호버 효과 — 글자·아이콘이 초록으로 바뀌며 살짝 떠오르고, 전화 원은 커지며 진해진다 */
+  .tabbar a, .tabbar button { transition: color .18s, transform .18s; }
+  .tabbar svg { transition: fill .18s, stroke .18s, transform .18s; }
+  .tabbar a.call .ic { transition: background .18s, transform .18s, box-shadow .18s; }
+  @media (hover: hover) {
+    .tabbar a:hover, .tabbar button:hover { color: #3F8E44; }
+    .tabbar a:hover svg, .tabbar button:hover svg { fill: #3F8E44; transform: translateY(-2px); }
+    .tabbar a:hover svg .o { stroke: #3F8E44; }
+    .tabbar button#tabMenu:hover svg { fill: none; stroke: #3F8E44; }
+    .tabbar a.call:hover .ic { background: #357A3A; transform: translateY(-3px) scale(1.06); box-shadow: 0 10px 20px rgba(63, 142, 68, .4); }
+    .tabbar a.call:hover svg { transform: none; }
+  }
+  .tabbar a:active svg, .tabbar button:active svg { transform: scale(.9); }
 }
 /* 플로팅 버튼: 카톡(노랑 원 + 갈색 말풍선 글자), 장례지원금(황토색 원), 화장장 예약(연회색 원 + 진녹색 불꽃) */
 .fabs { gap: 10px; }
