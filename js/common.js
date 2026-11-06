@@ -204,8 +204,9 @@
 
     var hd = document.createElement('header');
     hd.className = 'hd';
-    hd.innerHTML = '<div class="wrap">' + logoHtml() + '<div class="hd-right">' +
-      '<a class="hd-tel" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '" title="전화 상담 ' + esc(s.phone) + '">' + ICON.phone + '</a>' +
+    hd.innerHTML = '<div class="wrap">' + logoHtml() + '<nav class="nav" aria-label="주요 메뉴">' + nav + '</nav><div class="hd-right">' +
+      '<a class="hd-tel" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '" title="전화 상담 ' + esc(s.phone) + '">' + ICON.phone + '<span class="hd-num">' + esc(s.phone) + '</span></a>' +
+      '<a class="hd-apply btn btn-main btn-sm" href="contact.html">상담 신청</a>' +
       '<button class="menu-btn" aria-label="메뉴 열기">' + ICON.menu + '</button></div></div>';
     shell.appendChild(hd);
     shell.appendChild(app);
