@@ -68,8 +68,8 @@
     var newsHtml = '<section class="news" aria-label="배웅 카드 뉴스"><div class="track" id="news-track">' +
       cards.map(function (c, i) {
         var ext = /^https?:/.test(c.href);
-        return '<article class="slide">' + U.img(c.image, c.t, i === 0) + '<span class="tag">' + esc(c.tag) + '</span><h2>' + esc(c.t) + '</h2>' +
-          (c.d ? '<p>' + esc(c.d) + '</p>' : '') + '<a class="btn btn-main" href="' + esc(c.href) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + (/^tel:/.test(c.href) ? I.phone : '') + esc(c.btn) + '</a></article>';
+        return '<a class="slide" href="' + esc(c.href) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + ' aria-label="' + esc(c.btn) + '">' + U.img(c.image, c.t, i === 0) + '<span class="tag">' + esc(c.tag) + '</span><h2>' + esc(c.t) + '</h2>' +
+          (c.d ? '<p>' + esc(c.d) + '</p>' : '') + '</a>';
       }).join('') + '</div>' +
       (cards.length > 1 ? '<div class="news-foot"><div class="dots" id="news-dots">' + cards.map(function (_, i) { return '<button type="button" aria-label="' + (i + 1) + '번째 카드"' + (i === 0 ? ' class="on"' : '') + '></button>'; }).join('') + '</div>' +
         '<span class="num" id="news-num">1 / ' + cards.length + '</span><button class="arrow" type="button" id="news-prev" aria-label="이전 카드">‹</button><button class="arrow" type="button" id="news-next" aria-label="다음 카드">›</button></div>' : '') +
