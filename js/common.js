@@ -190,6 +190,10 @@
   function layout() {
     var s = C.site;
     var here = location.pathname.split('/').pop() || 'index.html';
+    /* 2026-11-06 고객 요청: PC 상단 메뉴·햄버거 메뉴 구성을 B안과 동일하게 */
+    var DR = [['sumokjang.html', '수목장'], ['napgoldang.html', '봉안당'], ['maejang.html', '공원묘지'], ['ijang.html', '파묘·이장'], ['crematorium.html', '화장장 예약'], ['contact.html?type=support', '장례지원금 상담'], ['reviews.html', '상담 후기']];
+    var drLink = function (m) { return '<a href="' + m[0] + '"' + (here === m[0].split('?')[0] && (m[0].indexOf('?') < 0 || location.search === '?' + m[0].split('?')[1]) ? ' class="on"' : '') + '>' + m[1] + '</a>'; };
+    var topNav = DR.slice(0, 4).map(drLink).join('');
     var nav = MENU.map(function (m) { return '<a href="' + m[0] + '"' + (here === m[0].split('?')[0] && (m[0].indexOf('?') < 0 || location.search === '?' + m[0].split('?')[1]) ? ' class="on"' : '') + '>' + m[1] + '</a>'; }).join('');
 
     /* 앱 화면 틀: 가운데 480px 안에 상단 바 + 본문 + 푸터 */
@@ -204,7 +208,7 @@
 
     var hd = document.createElement('header');
     hd.className = 'hd';
-    hd.innerHTML = '<div class="wrap">' + logoHtml() + '<nav class="nav" aria-label="주요 메뉴">' + nav + '</nav><div class="hd-right">' +
+    hd.innerHTML = '<div class="wrap">' + logoHtml() + '<nav class="nav" aria-label="주요 메뉴">' + topNav + '</nav><div class="hd-right">' +
       /* 2026-11-06 고객 요청: 상단 바의 전화 버튼·상담 신청 버튼 삭제 */
       '<button class="menu-btn" aria-label="메뉴 열기">' + ICON.menu + '</button></div></div>';
     shell.appendChild(hd);
@@ -212,8 +216,7 @@
 
     var dr = document.createElement('div');
     dr.className = 'drawer';
-    dr.innerHTML = '<div class="drawer-in" role="dialog" aria-label="메뉴"><button class="drawer-close" aria-label="메뉴 닫기">×</button><a href="./">홈</a>' + nav +
-      '<a href="contact.html">상담 신청</a>' + (s.blogUrl ? '<a href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">배웅 블로그</a>' : '') +
+    dr.innerHTML = '<div class="drawer-in" role="dialog" aria-label="메뉴"><div class="dr-top"><img src="img/logo-h.png" alt="' + esc(s.name) + '"><button class="drawer-close" aria-label="메뉴 닫기">×</button></div>' + DR.map(drLink).join('') +
       '<div class="dr-call"><a class="btn btn-main btn-block" href="' + telHref(s.phone) + '">' + ICON.phone + '<span>전화 상담 <b>' + esc(s.phone) + '</b></span></a>' +
       (s.kakao ? '<a class="btn btn-kakao btn-block" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '<span>카카오톡 상담 <b>채널로 문의하기</b></span></a>' : '') + '</div></div>';
     document.body.appendChild(dr);

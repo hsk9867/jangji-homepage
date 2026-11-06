@@ -989,3 +989,9 @@ a.msg.msg2 .mt em { font-size: 15px; border: 0; }
 #guide .gd b { margin-top: 12px; font-size: 16.5px; color: var(--text); line-height: 1.35; }
 #guide .gd p { margin-top: 6px; font-size: 14.5px; line-height: 1.6; word-break: keep-all; }
 @media (min-width: 761px) { #guide .ggrid { grid-template-columns: repeat(4, 1fr); } #guide .gd b { font-size: 17px; } #guide .gd p { font-size: 15px; } }
+
+/* 2026-11-06 고객 요청: 문구 띠 그림이 잘리지 않게 전체가 보이도록(contain), 상단 라벨 삭제 */
+a.msg.msg2 .ill { top: 22px; bottom: 0; }
+a.msg.msg2 .ill img { object-fit: contain; object-position: 100% 100%; }
+@media (max-width: 760px) { a.msg.msg2 .ill { top: 16px; } }
+@media (min-width: 1000px) { a.msg.msg2 .ill { top: 22px; } }
