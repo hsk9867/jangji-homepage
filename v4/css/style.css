@@ -895,14 +895,15 @@ a.msg.msg2 .ill { top: 54px; }
 
 /* 2. 하단 고정 메뉴 아이콘: 고객 시안 그대로 — 초록 면 아이콘(홈·장지 비교·상담 신청), 메뉴는 검정 선 */
 @media (max-width: 760px) {
-  .tabbar a, .tabbar button, .tabbar .on { color: #3F8E44; font-weight: 700; }
-  .tabbar svg, .tabbar .on svg { fill: #3F8E44; stroke: none; }
-  .tabbar svg .o { fill: none; stroke: #3F8E44; stroke-width: 1.8; }
+  /* 2026-11-06 고객 요청: 홈·장지 비교·상담 신청 아이콘·글자를 메뉴와 같은 검정으로 통일(전화 버튼 원만 초록) */
+  .tabbar a, .tabbar button, .tabbar .on { color: #2B2B2B; font-weight: 700; }
+  .tabbar svg, .tabbar .on svg { fill: #2B2B2B; stroke: none; }
+  .tabbar svg .o { fill: none; stroke: #2B2B2B; stroke-width: 1.8; }
   .tabbar svg .w2 { fill: #fff; }
   .tabbar svg .w { fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; }
   .tabbar button#tabMenu { color: #2B2B2B; }
   .tabbar button#tabMenu svg { fill: none; stroke: #2B2B2B; stroke-width: 2; stroke-linecap: round; }
-  .tabbar a.call { color: #3F8E44; }
+  .tabbar a.call { color: #2B2B2B; }
   .tabbar a.call .ic { background: #3F8E44; border: 0; box-shadow: 0 6px 16px rgba(63, 142, 68, .35); } /* 흰 테두리 제거(2026-11-06 고객 요청) */
   .tabbar a.call:active .ic { background: #357A3A; }
 }
