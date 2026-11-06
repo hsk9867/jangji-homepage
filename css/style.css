@@ -887,13 +887,13 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 }
 @media (min-width: 1280px) { .nav { gap: 6px; } .nav a { padding: 8px 13px; font-size: 16px; } }
 
-/* PC 상단 바: 메뉴 10개가 전화번호와 겹치지 않게 — 1280px 미만에서는 슬로건·서비스 안내 숨김, 장례지원금 상담은 플로팅·메인 버튼으로 대신 */
+/* PC 상단 바: 메뉴가 전화번호·상담 버튼과 겹치지 않게 — 1280px 미만에서는 핵심 메뉴 7개만, 이상에서는 상담 후기·서비스 안내까지. 장례지원금 상담은 플로팅·메인 버튼으로 대신 */
 @media (min-width: 960px) {
   .logo small { display: none; }
   .nav { gap: 0; margin-left: 4px; }
-  .nav a { padding: 8px 8px; font-size: 14.5px; }
-  .nav a:nth-child(8) { display: none; }
-  .nav a:nth-child(10) { display: none; }
-  .hd-right { flex: none; }
+  .nav a { padding: 8px 7px; font-size: 14.5px; }
+  .nav a:nth-child(n+8) { display: none; }
+  .hd-right { flex: none; gap: 6px; }
+  .hd-tel { font-size: 16px; padding: 0 12px 0 8px; gap: 4px; }
 }
-@media (min-width: 1280px) { .nav { gap: 2px; } .nav a { padding: 8px 11px; font-size: 15px; } .nav a:nth-child(10) { display: inline-block; } }
+@media (min-width: 1280px) { .nav { gap: 2px; } .nav a { padding: 8px 10px; font-size: 15px; } .nav a:nth-child(9), .nav a:nth-child(10) { display: inline-block; } }
