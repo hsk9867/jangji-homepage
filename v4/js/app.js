@@ -58,20 +58,21 @@
       '<a href="' + ROOT + 'facilities.html" aria-label="답사 시설"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></a>' +
       '<a href="http://baewoong.co.kr" target="_blank" rel="noopener" aria-label="기존 홈페이지"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a15 15 0 0 0-1.3-5.4A8 8 0 0 1 18.9 11zM12 4c.9 1.3 1.6 3.4 1.9 7h-3.8c.3-3.6 1-5.7 1.9-7zM5.1 13h3a15 15 0 0 0 1.3 5.4A8 8 0 0 1 5.1 13zm3-2h-3a8 8 0 0 1 4.3-5.4A15 15 0 0 0 8.1 11zM12 20c-.9-1.3-1.6-3.4-1.9-7h3.8c-.3 3.6-1 5.7-1.9 7zm2.6-1.6a15 15 0 0 0 1.3-5.4h3a8 8 0 0 1-4.3 5.4z"/></svg></a></div></div></footer>';
     var fab = '<div class="fabs">' +
-      (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
+      (S.kakao ? '<a class="fab kakao" href="' + esc(S.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담"><span class="kb">카톡</span></a>' : '') +
       '<a class="fab support" href="contact.html?type=support" aria-label="장례지원금 상담 신청">장례<br>지원금</a>' +
-      '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장 예약</a></div>';
+      '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '<span>화장장<br>예약</span></a></div>';
     document.body.insertAdjacentHTML('afterbegin', head);
     var col = document.querySelector('.col');
     if (col) col.insertAdjacentHTML('beforeend', foot);
     document.body.insertAdjacentHTML('beforeend', fab);
     var cur = here();
+    /* 2026-11-06 고객 시안 아이콘: 초록 면 아이콘(홈·장지 비교·상담 신청), 메뉴는 검정 선 */
     document.body.insertAdjacentHTML('beforeend', '<nav class="tabbar" aria-label="하단 메뉴">' +
-      '<a href="index.html"' + (cur === 'index.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M5.5 10.4 12 4.8l6.5 5.6V20h-4.3v-5.3H9.8V20H5.5z"/><path d="M3 11.8 12 4l9 7.8"/></svg>홈</a>' +
-      '<a href="search.html?type=sumok"' + (cur === 'search.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="f" x="3.5" y="3.5" width="11.5" height="11.5" rx="2.2"/><rect class="f" x="9" y="9" width="11.5" height="11.5" rx="2.2"/></svg>장지 비교</a>' +
+      '<a href="index.html"' + (cur === 'index.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 11.2h2.7V20.5h5.3v-5.6h3v5.6h5.3v-9.3h2.7z"/></svg>홈</a>' +
+      '<a href="search.html?type=sumok"' + (cur === 'search.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="o" x="7.5" y="2.8" width="12.5" height="14" rx="2"/><rect class="w2" x="3.2" y="7.2" width="12.5" height="14" rx="2"/><rect x="4" y="8" width="11" height="12.5" rx="1.6"/><path class="w" d="M6.8 12.3h5.4M6.8 15.6h5.4"/></svg>장지 비교</a>' +
       '<a class="call" href="' + tel(S.phone) + '" aria-label="전화 상담 ' + esc(S.phone) + '"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></span>전화 상담</a>' +
-      '<a href="contact.html"' + (cur === 'contact.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M12 4c-4.8 0-8.6 3-8.6 6.8 0 2.2 1.3 4.2 3.4 5.5L6 20.5l4.3-2.2c.6.1 1.1.1 1.7.1 4.8 0 8.6-3 8.6-6.8S16.8 4 12 4z"/><path d="M8.5 11h7M8.5 14h4"/></svg>상담 신청</a>' +
-      '<button type="button" id="tabMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>메뉴</button></nav>');
+      '<a href="contact.html"' + (cur === 'contact.html' ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.5h15a2.5 2.5 0 0 1 2.5 2.5v9a2.5 2.5 0 0 1-2.5 2.5H10l-4.6 3.6v-3.6h-.9A2.5 2.5 0 0 1 2 15V6a2.5 2.5 0 0 1 2.5-2.5z"/><path class="w" d="M7 8.3h10M7 12h6.5"/></svg>상담 신청</a>' +
+      '<button type="button" id="tabMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"/></svg>메뉴</button></nav>');
     document.getElementById('tabMenu').onclick = function () { document.getElementById('drawer').classList.add('open'); };
     var dr = document.getElementById('drawer');
     document.getElementById('burger').onclick = function () { dr.classList.add('open'); };
@@ -178,10 +179,11 @@
     }
 
     /* 슬라이드 */
+    /* 2026-11-06 고객 수정(B안 수정_1.pdf): 고객 제작 사진(수목장 징검다리·봉안당 안치단·동행 노부부) + 사진별 문구 */
     var SL = [
-      { img: 'img/card-sumok.jpg', chip: '수목장 분양 안내', tx: '모실 곳을 정하는 일,<br>처음부터<br>함께 걷겠습니다.', href: 'search.html?type=sumok' },
-      { img: 'img/card-napgol.jpg', chip: '봉안당 분양 안내', tx: '자주 찾아뵐 수 있는 곳,<br>꼼꼼히 살펴<br>안내하겠습니다.', href: 'search.html?type=napgol' },
-      { img: 'img/fac/bundanghome-1.jpg', chip: '주말 무료 동행 답사', tx: '주말에도 상담사가<br>현장에 동행합니다', href: 'contact.html' }
+      { img: 'img/hero-sumok.jpg', chip: '수목장 분양 상담', tx: '모실 곳을 정하는 일,<br>처음부터<br>함께 걷겠습니다.', href: 'search.html?type=sumok' },
+      { img: 'img/hero-napgol.jpg', chip: '봉안당 분양 상담', tx: '소중한 분의 안식처,<br>정성을 다해 살피겠습니다.', href: 'search.html?type=napgol' },
+      { img: 'img/hero-walk.jpg', chip: '무료 동행 상담', tx: '수목장부터 납골당까지,<br>배웅이 주말에도<br>무료로 동행합니다.', href: 'contact.html' }
     ];
     var sl = document.getElementById('slider'), dots = document.getElementById('dots'), cur = 0, timer;
     if (sl) {
@@ -215,10 +217,10 @@
 
     /* 실적 띠: 보일 때 숫자가 올라간다 */
     var STATS = [
-      { n: 100, suffix: '+', unit: '곳', label: '상담 가능 장지', img: img('img/fac/eden-2.jpg') },
-      { n: 23524, suffix: '', unit: '건', label: '누적 상담 신청', img: img('img/fac/gonggam-2.jpg') },
-      { n: 21233, suffix: '', unit: '건', label: '누적 계약 체결', img: img('img/fac/haneulmun-2.jpg') },
-      { n: 98, suffix: '', unit: '%', label: '고객 만족도', img: 'img/counselor-1.jpg' }
+      { n: 50, suffix: '+', unit: '곳', label: '상담 가능 장지', img: img('img/fac/eden-2.jpg') },
+      { n: 1870, suffix: '', unit: '건', label: '누적 상담 신청', img: img('img/fac/gonggam-2.jpg') },
+      { n: 640, suffix: '', unit: '건', label: '누적 계약 체결', img: img('img/fac/haneulmun-2.jpg') },
+      { n: 97, suffix: '', unit: '%', label: '고객 만족도', img: 'img/counselor-1.jpg' }
     ];
     var stl = document.getElementById('statList');
     if (stl) {
@@ -295,7 +297,7 @@
 
     /* 서비스 이용안내 4단계 */
     var gg = document.getElementById('guideGrid');
-    if (gg) gg.innerHTML = STEPS4.map(function (g, i) { return '<a class="gd" href="' + (GUIDE_LINKS[i] || 'contact.html') + '"><div><span class="st">0' + (i + 1) + '</span><b>' + esc(g.t) + '</b><p>' + esc(g.d) + '</p></div><span class="ic" aria-hidden="true">' + (GUIDE_ICONS[i] || LI.phone) + '</span></a>'; }).join('');
+    if (gg) gg.innerHTML = STEPS4.map(function (g, i) { return '<a class="gd" href="' + (GUIDE_LINKS[i] || 'contact.html') + '"><div><span class="st">' + (i + 1) + '</span><b>' + esc(g.t) + '</b><p>' + esc(g.d) + '</p></div><span class="ic" aria-hidden="true">' + (GUIDE_ICONS[i] || LI.phone) + '</span></a>'; }).join('');
 
     /* 답사 시설: 유형별 추천 블록(아이콘 제목 + 더 보기 + 사진 카드 가로 슬라이드) */
     var fb = document.getElementById('facBlocks');

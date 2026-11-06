@@ -885,3 +885,102 @@ a.msg.msg2 .ill { top: 54px; }
 
 /* 답사 시설 카드 사진 칸: aspect-ratio 를 모르는 구형 브라우저에서도 모든 카드가 같은 4:3 높이가 되도록 padding 방식 병행 */
 .fcard .ph { aspect-ratio: auto; height: 0; padding-top: 75%; }
+
+
+/* ===== 2026-11-06 고객 수정사항 (B안 수정_1.pdf) ===== */
+/* 1. 카드뉴스: 고객 제작 사진 — 세로로 긴 화면에서도 인물·징검다리가 잘리지 않게 초점 */
+.slide:nth-child(1) img { object-position: 55% 60%; }
+.slide:nth-child(2) img { object-position: 60% 50%; }
+.slide:nth-child(3) img { object-position: 60% 45%; }
+
+/* 2. 하단 고정 메뉴 아이콘: 고객 시안 그대로 — 초록 면 아이콘(홈·장지 비교·상담 신청), 메뉴는 검정 선 */
+@media (max-width: 760px) {
+  .tabbar a, .tabbar button, .tabbar .on { color: #3F8E44; font-weight: 700; }
+  .tabbar svg, .tabbar .on svg { fill: #3F8E44; stroke: none; }
+  .tabbar svg .o { fill: none; stroke: #3F8E44; stroke-width: 1.8; }
+  .tabbar svg .w2 { fill: #fff; }
+  .tabbar svg .w { fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; }
+  .tabbar button#tabMenu { color: #2B2B2B; }
+  .tabbar button#tabMenu svg { fill: none; stroke: #2B2B2B; stroke-width: 2; stroke-linecap: round; }
+  .tabbar a.call { color: #3F8E44; }
+  .tabbar a.call .ic { background: #3F8E44; box-shadow: 0 6px 16px rgba(63, 142, 68, .35); }
+  .tabbar a.call:active .ic { background: #357A3A; }
+}
+/* 플로팅 버튼: 카톡(노랑 원 + 갈색 말풍선 글자), 장례지원금(황토색 원), 화장장 예약(연회색 원 + 진녹색 불꽃) */
+.fabs { gap: 10px; }
+.fabs .fab { width: 58px; height: 58px; border: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, .16); }
+.fabs .fab.kakao { background: #FBE300; }
+.fabs .fab.kakao .kb { position: relative; display: inline-block; background: #3C1E1E; color: #FBE300; font-size: 13px; font-weight: 800; letter-spacing: -.02em; line-height: 1; border-radius: 9px; padding: 6px 7px 5px; margin-top: -2px; }
+.fabs .fab.kakao .kb::after { content: ''; position: absolute; left: 7px; bottom: -4px; width: 9px; height: 9px; background: #3C1E1E; transform: skewX(-25deg) rotate(45deg); border-radius: 1px; }
+.fabs .fab.support { background: #C8A86F; color: #fff; font-size: 13.5px; font-weight: 700; line-height: 1.25; letter-spacing: -.02em; }
+.fabs .fab.crem { background: #E8E8E6; color: #2B2B2B; border: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, .14); font-size: 12.5px; font-weight: 700; line-height: 1.2; gap: 2px; letter-spacing: -.02em; }
+.fabs .fab.crem svg { fill: #2B3D2D; width: 19px; height: 19px; }
+@media (max-width: 760px) {
+  .fabs .fab { width: 56px; height: 56px; }
+  .fabs .fab.kakao .kb { font-size: 12.5px; }
+  .fabs .fab.support { font-size: 13px; }
+  .fabs .fab.crem { font-size: 12px; }
+}
+
+/* 3. 콘텐츠 가독성: 잘 안 보이던 테두리 선 제거(배경·그림자로 구분), 안쪽 글자 키움 — B안만 */
+.igrid { border: 0; box-shadow: 0 4px 18px rgba(37, 37, 37, .06); }
+.igrid a { font-size: 15px; }
+.rv-filter button { border: 0; font-size: 14px; height: 36px; }
+.rv-filter button small { font-size: 12px; }
+.rv { border: 0; box-shadow: 0 2px 10px rgba(0, 0, 0, .05); }
+.rv .bd { padding: 14px 16px 16px; gap: 7px; }
+.rv .st { font-size: 15px; }
+.rv p { font-size: 15px; line-height: 1.6; }
+.rv .who { font-size: 14px; }
+.rv .who b { font-size: 15px; }
+.rv .smp { border: 0; background: var(--gray); font-size: 12px; }
+.rv-all .rv { box-shadow: none; background: var(--gray); }
+.stats .lb { font-size: 14px; }
+.stats b { font-size: 22px; }
+.stats b small { font-size: 13px; }
+.stats li { border-left: 0; }
+.sec .lead, #facilities .lead { font-size: 16px; line-height: 1.65; }
+.fblk-hd h3 { font-size: 20px; }
+.fblk-hd .more { font-size: 14.5px; }
+.fcard .nmr b { font-size: 15.5px; }
+.fcard .nmr em { border: 0; background: var(--gray); font-size: 12.5px; padding: 3px 7px; }
+.fcard .ar { font-size: 14px; }
+.xcard { border: 0; }
+.xcard b { font-size: 18px; }
+.xcard p { font-size: 15.5px; line-height: 1.65; }
+.xcard .lk { font-size: 15.5px; }
+.xbtn { font-size: 17px; }
+.gd { border: 0; }
+#faq .faq details { border: 0; background: var(--gray); }
+#faq .faq summary { font-size: 17px; padding: 17px 0; }
+#faq .faq p { font-size: 16px; line-height: 1.7; }
+.contact-box small { font-size: 15px; }
+.contact-box b { font-size: 19px; }
+.brand-card b { font-size: 17px; }
+.brand-card small { font-size: 14px; }
+a.msg.msg2 .mt strong { font-size: 20px; }
+a.msg.msg2 .mt small { font-size: 13.5px; }
+a.msg.msg2 .mt em { font-size: 15px; border: 0; }
+@media (max-width: 760px) { a.msg.msg2 .mt strong { font-size: 19px; } }
+/* 하위 페이지 카드(장지 찾기·화장장·시설 상세)도 같은 기준 */
+.fc, .cc, .frc, .ptable, .fmap { border: 0; box-shadow: 0 2px 10px rgba(0, 0, 0, .06); }
+.fc .nm { font-size: 16px; }
+.fc .ar { font-size: 13.5px; }
+.fc .pr { font-size: 15px; }
+.fc .tg span { font-size: 12.5px; }
+.cc .hd b { font-size: 16px; }
+.cc .ad { font-size: 14px; }
+.frc .who { font-size: 13px; }
+@media (min-width: 761px) { .xcard b { font-size: 19px; } .xcard p { font-size: 16px; } .stats li { border-left: 0; } }
+
+/* 5. 서비스 이용 안내(자주 하는 질문 바로 위): 속시원 구성 — 번호 원 + 제목 + 설명, 2열 카드 */
+#guide { padding-top: 34px; padding-bottom: 34px; }
+#guide .lead { margin-top: 6px; }
+#guide .ggrid { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+#guide .gd { grid-template-columns: 1fr; gap: 0; padding: 18px 16px 17px; background: var(--white); border: 0; border-radius: 16px; box-shadow: 0 2px 10px rgba(0, 0, 0, .04); }
+#guide .gd:hover { transform: none; box-shadow: 0 6px 16px rgba(0, 0, 0, .07); }
+#guide .gd .ic { display: none; }
+#guide .gd .st { width: 28px; height: 28px; border-radius: 50%; background: #3F8E44; color: #fff; font-size: 13.5px; font-weight: 800; letter-spacing: 0; display: grid; place-items: center; }
+#guide .gd b { margin-top: 12px; font-size: 16.5px; color: var(--text); line-height: 1.35; }
+#guide .gd p { margin-top: 6px; font-size: 14.5px; line-height: 1.6; word-break: keep-all; }
+@media (min-width: 761px) { #guide .ggrid { grid-template-columns: repeat(4, 1fr); } #guide .gd b { font-size: 17px; } #guide .gd p { font-size: 15px; } }

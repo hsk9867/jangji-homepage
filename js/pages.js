@@ -46,10 +46,10 @@
     ['support', '놓치기 쉬운 혜택', '장례지원금', 'contact.html?type=support', 'img/quick/support.jpg']
   ];
   var STATS = [
-    { n: 100, suffix: '+', unit: '곳', label: '상담 가능 장지', img: 'img/fac/eden-2.jpg' },
-    { n: 23524, suffix: '', unit: '건', label: '누적 상담 신청', img: 'img/fac/gonggam-2.jpg' },
-    { n: 21233, suffix: '', unit: '건', label: '누적 계약 체결', img: 'img/fac/haneulmun-2.jpg' },
-    { n: 98, suffix: '', unit: '%', label: '고객 만족도', img: 'img/counselor-1.jpg' }
+    { n: 50, suffix: '+', unit: '곳', label: '상담 가능 장지', img: 'img/fac/eden-2.jpg' },
+    { n: 1870, suffix: '', unit: '건', label: '누적 상담 신청', img: 'img/fac/gonggam-2.jpg' },
+    { n: 640, suffix: '', unit: '건', label: '누적 계약 체결', img: 'img/fac/haneulmun-2.jpg' },
+    { n: 97, suffix: '', unit: '%', label: '고객 만족도', img: 'img/counselor-1.jpg' }
   ];
   P.home = function (el) {
     var s = C.site, D = (window.CONTENT_DEFAULT || {}).site || {}, saved = (window.SITE_CONTENT || {}).site || {};
