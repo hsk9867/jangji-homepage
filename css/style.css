@@ -762,3 +762,8 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .news { margin: 10px var(--gut) 0; border-radius: var(--radius); overflow: hidden; background: #2a2a2e; }
 .news .slide { height: clamp(280px, calc(100vh - var(--hdH) - var(--tabH) - 390px), 460px); height: clamp(280px, calc(100svh - var(--hdH) - var(--tabH) - 390px), 460px); padding-bottom: 44px; }
 .news-foot { bottom: 16px; }
+
+/* 2026-11-06 고객 요청: 카드 뉴스 글자 축소, 상단 분류 칩(수목장 분양 상담 등) 제거 */
+.news .tag { display: none; }
+.news h2 { font-size: 21px; line-height: 1.45; margin-top: 0; }
+@media (max-width: 380px) { .news h2 { font-size: 19px; } }
