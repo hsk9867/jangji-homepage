@@ -937,3 +937,9 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .svc-link { display: block; margin-top: 14px; text-align: center; font-size: 14px; font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(27, 27, 31, .35); transition: color var(--tr); }
 .svc-link:hover { color: var(--accent-d); text-decoration-color: currentColor; }
 @media (min-width: 960px) { .svc-link { margin-top: 18px; font-size: 15px; } }
+
+/* 2026-11-09 고객 요청: 메인 카드 뉴스가 첫 화면을 꽉 채우게 (상단 바 바로 아래부터 하단 고정 바 바로 위까지). 서비스 버튼 6개는 화면을 내리면 나옵니다 */
+.news .slide { max-height: none; min-height: 360px; height: calc(100vh - var(--hdH) - var(--tabH) - 22px); height: calc(100svh - var(--hdH) - var(--tabH) - env(safe-area-inset-bottom, 0px) - 22px); }
+@media (min-width: 960px) {
+  .top2 .news .slide { min-height: 480px; height: calc(100vh - var(--hdH) - 48px); }
+}
