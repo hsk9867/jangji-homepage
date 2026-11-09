@@ -511,22 +511,24 @@ window.BLOG_CONTENT = {
    "price": "140만원~",
    "tags": [
     "분당 접근성",
-    "서재형 인테리어"
+    "야외 봉안담"
    ],
-   "comment": "경기 광주 오포읍에 있는 봉안당으로, 분당권에서 차로 오가기 편합니다. 따뜻한 목재 톤의 서재형 실내와 안정적인 관리 상태로 상담 때 자주 함께 안내해 드리는 곳입니다.",
+   "comment": "경기 광주 오포읍에 있는 봉안당으로, 분당권에서 차로 오가기 편합니다. 실내 봉안실과 야외 봉안담, 소나무 정원을 함께 갖추고 있고 관리 상태가 안정적이어서 상담 때 자주 함께 안내해 드리는 곳입니다.",
    "photos": [
     "img/fac/bundanghue-1.jpg",
     "img/fac/bundanghue-2.jpg",
     "img/fac/bundanghue-3.jpg",
     "img/fac/bundanghue-4.jpg",
     "img/fac/bundanghue-5.jpg",
-    "img/fac/bundanghue-6.jpg"
+    "img/fac/bundanghue-6.jpg",
+    "img/fac/bundanghue-7.jpg",
+    "img/fac/bundanghue-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224412999053",
    "featured": true,
    "visible": true,
    "keywords": [
-    "서재처럼 아늑해요",
+    "야외 봉안담이 있어요",
     "분당에서 가까워요",
     "관리가 잘 돼요"
    ],
