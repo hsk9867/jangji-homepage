@@ -943,3 +943,9 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 @media (min-width: 960px) {
   .top2 .news .slide { min-height: 480px; height: calc(100vh - var(--hdH) - 48px); }
 }
+
+/* 2026-11-09 고객 요청 2: 모바일은 카드 뉴스 둘레 여백 · 모서리 라운딩 없이 화면 끝까지 꽉 채움. PC(960px 이상)는 그대로(본문 폭 · 둥근 모서리 · 첫 화면 높이) */
+.news { margin: 0; border-radius: 0; }
+.news .slide { height: calc(100vh - var(--hdH) - var(--tabH) - 1px); height: calc(100svh - var(--hdH) - var(--tabH) - env(safe-area-inset-bottom, 0px) - 1px); }
+.news-foot { bottom: 20px; }
+@media (min-width: 960px) { .top2 .news { border-radius: var(--radius); } }
