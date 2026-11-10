@@ -106,7 +106,7 @@
           return '<a class="pcard card-h' + (i === 0 ? ' hot' : '') + '" href="' + t.path + '"><span class="ic">' + typeIcon[k] + '</span>' +
             '<div class="tx"><div class="nm">' + esc(U.SHORT[k]) + (i === 0 ? '<span class="h">인기</span>' : '') + '</div><span class="d">' + esc(t.short) + '</span></div>' +
             '<div class="pr"><small>' + esc(t.priceTag || '') + '</small><em>' + esc(t.price) + '</em></div><span class="arr">›</span></a>';
-        }).join('') + '</div><p class="price-note">블로그 답사 자료 기준 평균이며, 실제 비용은 시설·위치·관리비에 따라 달라집니다.</p></div></section>' +
+        }).join('') + '</div></div></section>' +
 
       /* 10. 유형별 추천 시설 */
       '<section class="sec sec-gray" id="facilities"><div class="wrap">' + head('직접 답사한 장지 시설', '', '<a class="more" href="facilities.html">전체 보기 ›</a>') +
@@ -124,7 +124,7 @@
         '<div class="xbtns"><a class="btn btn-main" href="contact.html">무료 상담 신청하기</a><a class="btn btn-line" href="contact.html?type=support">장례지원금 상담 신청</a></div></div></section>' +
 
       /* 12. 장례정보 */
-      ((C.articles || []).length ? '<section class="sec sec-gray"><div class="wrap">' + head('배웅이 알려드리는 장례정보', '장지 선택과 계약 전에 알아두면 좋은 내용입니다.', s.blogUrl ? '<a class="more" href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">블로그 ›</a>' : '') +
+      ((C.articles || []).length ? '<section class="sec sec-gray"><div class="wrap">' + head('배웅이 알려드리는 장례정보', '', s.blogUrl ? '<a class="more" href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">블로그 ›</a>' : '') +
         U.rail(C.articles.map(U.artCard).join(''), 'wide') + '</div></section>' : '') +
 
       /* 13. FAQ */
