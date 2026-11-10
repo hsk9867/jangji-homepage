@@ -92,15 +92,7 @@
         '<div class="chips" id="rvFilter" role="tablist" aria-label="후기 종류"></div><div id="rvRail"><div class="empty">후기를 불러오는 중입니다…</div></div>' +
         '<a class="btn btn-line btn-block mt16" href="reviews.html">상담 후기 전체 보기</a></div></section>' +
 
-      /* 6. 서비스 이용 안내 */
-      '<section class="sec sec-gray"><div class="wrap">' + head('서비스 이용 안내', '') + '<ol class="flow">' +
-        (s.steps || []).map(function (st, i) { return '<li><span class="no">' + (i + 1) + '</span><div class="tx"><strong>' + esc(st.t) + '</strong><span>' + esc(st.d) + '</span></div><span class="ic">' + ([LI.phone, LI.compare, LI.walk, LI.contract][i] || LI.phone) + '</span></li>'; }).join('') +
-      '</ol></div></section>' +
-
-      /* 7. 약속 */
-      '<section class="sec"><div class="wrap">' + head('후회 없는 선택을 위해,\n직접 보고 함께 걷습니다', '', '', '배웅의 약속') +
-        '<div class="why">' + (s.why || []).map(function (w) { return '<div class="it"><span class="dot-ic">' + I.check + '</span><div class="tx"><b>' + esc(w.t) + '</b><span>' + esc(w.d) + '</span></div></div>'; }).join('') + '</div>' +
-      '</div></section>' +
+      /* 6~7. 서비스 이용 안내 · 배웅의 약속 섹션은 2026-11-10 고객 요청으로 메인에서 제외 (services.html 에 이용 안내 유지) */
 
       /* 8. 주요 현황 (숫자 카운트업) */
       '<section class="sec sec-gray stats" id="stats" aria-label="배웅 주요 현황"><div class="wrap">' + head('배웅 주요 현황', '') + '<ul id="statList">' +
@@ -361,7 +353,7 @@
       { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'contact.html?type=support', btn: '장례지원금 상담 신청' },
       { k: 'ijang', ic: LI.ijang, eyebrow: '파묘 · 이장', h: '묘를 옮겨야 할 때, 절차는 배웅이 맡습니다', p: T.ijang.desc, who: '기존 묘를 정리하거나 다른 곳으로 모셔야 하는 가족', cost: T.ijang.priceTag + ' ' + T.ijang.price + ' · ' + T.ijang.priceNote, do_: '개장 신고 대행, 길일 협의, 파묘·유골 수습, 화장과 새 장지 안치까지 진행', steps: stepT(T.ijang.steps), href: 'ijang.html', btn: '파묘·이장 안내 보기' }
     ];
-    el.innerHTML = '<div class="wrap"><div class="plain-head"><div class="crumb"><a href="./">홈</a> › 서비스 안내</div><h1>처음이셔도 괜찮습니다.\n어떤 서비스인지 먼저 살펴보십시오</h1><p>배웅이 하는 일 여섯 가지를 한 자리에 정리했습니다. 상담과 동행 답사는 모두 무료입니다.</p></div>' +
+    el.innerHTML = '<div class="wrap"><div class="plain-head"><div class="crumb"><a href="./">홈</a> › 서비스 안내</div><h1>처음이셔도 괜찮습니다.\n어떤 서비스인지 먼저 살펴보십시오</h1></div>' +
       '<nav class="chips svc-tabs" aria-label="서비스 바로가기">' + SV.map(function (x) { return '<a class="chip" href="#sv-' + x.k + '">' + x.eyebrow + '</a>'; }).join('') + '</nav></div>' +
       SV.map(function (x, i) {
         return '<section class="sec svc' + (i % 2 ? ' sec-gray' : '') + '" id="sv-' + x.k + '"><div class="wrap"><div class="svc-head"><span class="em" aria-hidden="true">' + x.ic + '</span><div><span class="eyebrow">' + esc(x.eyebrow) + '</span><h2>' + esc(x.h) + '</h2></div></div>' +
