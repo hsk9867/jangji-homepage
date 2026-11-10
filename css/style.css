@@ -962,3 +962,24 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
   .top2 .news .slide { min-height: 420px; height: calc(100vh - var(--hdH) - 262px); }
   .top2 .news h2 { font-size: 38px; }
 }
+
+/* 2026-11-10 고객 요청: 서비스 안내 — 서비스(수목장 · 봉안당 · 매장묘 · 화장장 예약 · 장례지원금 · 파묘 · 이장)마다 테두리 있는 칸(카드)으로 구분 */
+.svc, .svc.sec-gray { background: #F3F1EC; padding: 7px 0; }
+.svc:first-of-type { padding-top: 18px; }
+.svc + .sec:not(.svc) { padding-top: 32px; }
+.svc > .wrap { position: relative; overflow: hidden; margin: 0 var(--gut); padding: 22px 18px 20px 22px; background: #fff; border: 1px solid #E2DED6; border-radius: 20px; box-shadow: 0 6px 18px rgba(0, 0, 0, .05); }
+.svc > .wrap::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--accent); }
+.svc .svc-grid div, .svc.sec-gray .svc-grid div { background: var(--gray); }
+@media (min-width: 960px) { .svc > .wrap { margin: 0 auto; max-width: calc(var(--shell) - var(--gut) * 2); padding: 28px 30px 26px 34px; } .svc { padding: 9px 0; } .svc .svc-grid { grid-template-columns: 1fr; } }
+
+/* 2026-11-10 고객 요청: 메인 서비스 버튼 디자인 변경 — 크기(높이 · 2열)는 유지. 모바일: 왼쪽 원형 사진 + 글, PC: 사진 위 · 글 아래. 테두리 카드 + 오른쪽 위 화살표 */
+.qgrid a { display: flex; align-items: center; gap: 9px; padding: 9px 22px 9px 9px; background: #fff; border: 1px solid #E6E2DA; box-shadow: 0 4px 14px rgba(0, 0, 0, .05); transition: transform var(--tr), border-color var(--tr), box-shadow var(--tr); }
+.qgrid .ph { position: static; order: -1; flex: none; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06); }
+.qgrid .tx { flex: 1; min-width: 0; }
+.qgrid small { font-size: 11.5px; line-height: 1.3; }
+.qgrid strong { font-size: 16px; letter-spacing: -.02em; margin-top: 2px; white-space: nowrap; }
+.qgrid a::after { content: ""; position: absolute; right: 9px; top: 9px; width: 7px; height: 7px; border-right: 2px solid #A39C90; border-bottom: 2px solid #A39C90; transform: rotate(-45deg); }
+.qgrid a:active { transform: scale(.98); }
+@media (hover: hover) { .qgrid a:hover { background: #fff; border-color: var(--accent); box-shadow: 0 10px 24px rgba(0, 0, 0, .09); transform: translateY(-3px); } .qgrid a:hover::after { border-color: var(--accent); } }
+@media (max-width: 360px) { .qgrid a { padding: 8px 18px 8px 8px; } .qgrid .ph { width: 40px; height: 40px; } .qgrid strong { font-size: 15px; white-space: normal; } }
+@media (min-width: 600px) { .qgrid a { flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 14px 16px 13px; } .qgrid .ph { width: 46px; height: 46px; } .qgrid small { font-size: 12.5px; } .qgrid strong { font-size: 17px; } .qgrid a::after { right: 14px; top: 14px; } }
