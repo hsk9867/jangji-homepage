@@ -82,18 +82,18 @@
       '<div class="top2">' + newsHtml +
 
       /* 3. 서비스 선택 카드 (2열, 글 + 사진) */
-      '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '원하시는 서비스를 고르시면 바로 이어집니다.') +
+      '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '') +
         '<nav class="qgrid" aria-label="서비스 바로가기">' + QUICK.map(function (q) {
           return '<a href="' + q[3] + '"><span class="tx"><small>' + esc(q[1]) + '</small><strong>' + esc(q[2]) + '</strong></span><span class="ph"><img src="' + q[4] + '" alt="" loading="lazy"></span></a>';
         }).join('') + '</nav><a class="svc-link" href="services.html">어떤 서비스인지 먼저 보기 · 서비스 안내</a></div></section></div>' +
 
       /* 5. 고객 후기 (data/testimonials.json) */
-      '<section class="sec" id="reviews"><div class="wrap">' + head('배웅 동행 상담 후기', '상담과 동행 답사를 함께한 가족의 이야기입니다.', '<a class="more" href="reviews.html">전체 보기 ›</a>') +
+      '<section class="sec" id="reviews"><div class="wrap">' + head('배웅 동행 상담 후기', '', '<a class="more" href="reviews.html">전체 보기 ›</a>') +
         '<div class="chips" id="rvFilter" role="tablist" aria-label="후기 종류"></div><div id="rvRail"><div class="empty">후기를 불러오는 중입니다…</div></div>' +
         '<a class="btn btn-line btn-block mt16" href="reviews.html">상담 후기 전체 보기</a></div></section>' +
 
       /* 6. 서비스 이용 안내 */
-      '<section class="sec sec-gray"><div class="wrap">' + head('서비스 이용 안내', '상담 신청부터 안치까지 네 단계로 진행됩니다.') + '<ol class="flow">' +
+      '<section class="sec sec-gray"><div class="wrap">' + head('서비스 이용 안내', '') + '<ol class="flow">' +
         (s.steps || []).map(function (st, i) { return '<li><span class="no">' + (i + 1) + '</span><div class="tx"><strong>' + esc(st.t) + '</strong><span>' + esc(st.d) + '</span></div><span class="ic">' + ([LI.phone, LI.compare, LI.walk, LI.contract][i] || LI.phone) + '</span></li>'; }).join('') +
       '</ol></div></section>' +
 
@@ -108,7 +108,7 @@
       '</ul></div></section>' +
 
       /* 9. 장지 유형 안내 (가격) */
-      '<section class="sec" id="types"><div class="wrap">' + head('장지 유형 안내', '가족들이 가장 많이 찾는 장지 유형의 평균 가격입니다.') + '<div class="price-cards">' +
+      '<section class="sec" id="types"><div class="wrap">' + head('장지 유형 안내', '') + '<div class="price-cards">' +
         U.TYPE_KEYS.map(function (k, i) {
           var t = U.typeOf(k);
           return '<a class="pcard card-h' + (i === 0 ? ' hot' : '') + '" href="' + t.path + '"><span class="ic">' + typeIcon[k] + '</span>' +
@@ -117,7 +117,7 @@
         }).join('') + '</div><p class="price-note">블로그 답사 자료 기준 평균이며, 실제 비용은 시설·위치·관리비에 따라 달라집니다.</p></div></section>' +
 
       /* 10. 유형별 추천 시설 */
-      '<section class="sec sec-gray" id="facilities"><div class="wrap">' + head('직접 답사한 장지 시설', '배웅 상담팀이 직접 다녀와 진입로·주차·관리 상태까지 확인한 경기도 시설만 모았습니다.', '<a class="more" href="facilities.html">전체 보기 ›</a>') +
+      '<section class="sec sec-gray" id="facilities"><div class="wrap">' + head('직접 답사한 장지 시설', '', '<a class="more" href="facilities.html">전체 보기 ›</a>') +
         ['sumok', 'napgol', 'maejang'].map(function (k) {
           var l = U.visibleFacilities(k).filter(function (f) { return (f.photos || []).length; }).sort(function (x, y) { return (y.type === k) - (x.type === k) || (!!y.featured) - (!!x.featured); }).slice(0, 8);
           if (!l.length) return '';

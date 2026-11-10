@@ -953,3 +953,12 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 /* 2026-11-10 고객 요청: 카드 뉴스를 조금 줄임 (첫 화면 높이의 약 88%, PC 는 상단 바 아래 높이의 84%) */
 .news .slide { height: calc((100vh - var(--hdH) - var(--tabH)) * .88); height: calc((100svh - var(--hdH) - var(--tabH) - env(safe-area-inset-bottom, 0px)) * .88); }
 @media (min-width: 960px) { .top2 .news .slide { min-height: 440px; height: calc((100vh - var(--hdH) - 48px) * .84); } }
+
+/* 2026-11-10 고객 요청 2: 첫 화면에 카드 뉴스 + 서비스 버튼 첫 두 줄(수목장 · 봉안당 · 매장묘 · 파묘이장)이 함께 보이게 카드 높이 조정, 문구 조금 키움 */
+.news .slide { min-height: 280px; height: calc(100vh - var(--hdH) - var(--tabH) - 272px); height: calc(100svh - var(--hdH) - var(--tabH) - env(safe-area-inset-bottom, 0px) - 272px); }
+.news h2 { font-size: 24px; }
+@media (max-width: 380px) { .news h2 { font-size: 21px; } }
+@media (min-width: 960px) {
+  .top2 .news .slide { min-height: 420px; height: calc(100vh - var(--hdH) - 262px); }
+  .top2 .news h2 { font-size: 38px; }
+}
