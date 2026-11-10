@@ -358,8 +358,8 @@
       SV.map(function (x, i) {
         return '<section class="sec svc' + (i % 2 ? ' sec-gray' : '') + '" id="sv-' + x.k + '"><div class="wrap"><div class="svc-head"><span class="em" aria-hidden="true">' + x.ic + '</span><div><span class="eyebrow">' + esc(x.eyebrow) + '</span><h2>' + esc(x.h) + '</h2></div></div>' +
           '<p class="lead mt16">' + esc(x.p) + '</p>' +
-          '<div class="svc-grid"><div><b>이런 분께</b><span>' + esc(x.who) + '</span></div><div><b>비용은</b><span>' + esc(x.cost) + '</span></div><div><b>배웅이 하는 일</b><span>' + esc(x.do_) + '</span></div></div>' +
-          '<ol class="svc-steps">' + x.steps.map(function (y) { return '<li>' + esc(y) + '</li>'; }).join('') + '</ol>' +
+          '<div class="svc-grid"><div><b>이런 분께</b><span>' + esc(x.who) + '</span></div></div>' + /* '비용은' · '배웅이 하는 일' 칸은 2026-11-10 고객 요청으로 삭제 */
+          /* 단계 칩(장지 상담 신청 → 맞춤 시설 비교 → …)은 2026-11-10 고객 요청으로 삭제 */
           '<div class="btn-row mt16"><a class="btn btn-main" href="' + x.href + '">' + esc(x.btn) + '</a><a class="btn btn-line" href="contact.html?type=' + x.k + '">상담 신청</a></div></div></section>';
       }).join('') +
       '<section class="sec"><div class="wrap">' + contactBox('어떤 서비스가 맞을지 모르시겠다면', '편히 전화 주십시오. 상담하며 함께 정하겠습니다', 'unsure') + '</div></section>';
