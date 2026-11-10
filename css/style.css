@@ -949,3 +949,7 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .news .slide { height: calc(100vh - var(--hdH) - var(--tabH) - 1px); height: calc(100svh - var(--hdH) - var(--tabH) - env(safe-area-inset-bottom, 0px) - 1px); }
 .news-foot { bottom: 20px; }
 @media (min-width: 960px) { .top2 .news { border-radius: var(--radius); } }
+
+/* 2026-11-10 고객 요청: 카드 뉴스를 조금 줄임 (첫 화면 높이의 약 88%, PC 는 상단 바 아래 높이의 84%) */
+.news .slide { height: calc((100vh - var(--hdH) - var(--tabH)) * .88); height: calc((100svh - var(--hdH) - var(--tabH) - env(safe-area-inset-bottom, 0px)) * .88); }
+@media (min-width: 960px) { .top2 .news .slide { min-height: 440px; height: calc((100vh - var(--hdH) - 48px) * .84); } }
