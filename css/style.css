@@ -967,10 +967,10 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .svc, .svc.sec-gray { background: #F3F1EC; padding: 7px 0; }
 .svc:first-of-type { padding-top: 18px; }
 .svc + .sec:not(.svc) { padding-top: 32px; }
-.svc > .wrap { position: relative; overflow: hidden; margin: 0 var(--gut); padding: 22px 18px 20px 22px; background: #fff; border: 1px solid #E2DED6; border-radius: 20px; box-shadow: 0 6px 18px rgba(0, 0, 0, .05); }
-.svc > .wrap::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--accent); }
+.svc > .wrap { position: relative; overflow: hidden; margin: 0 var(--gut); padding: 22px 18px 20px; background: #fff; border: 1px solid #E2DED6; border-radius: 20px; box-shadow: 0 6px 18px rgba(0, 0, 0, .05); }
+/* 왼쪽 액센트 줄은 2026-11-10 고객 요청으로 삭제 */
 .svc .svc-grid div, .svc.sec-gray .svc-grid div { background: var(--gray); }
-@media (min-width: 960px) { .svc > .wrap { margin: 0 auto; max-width: calc(var(--shell) - var(--gut) * 2); padding: 28px 30px 26px 34px; } .svc { padding: 9px 0; } .svc .svc-grid { grid-template-columns: 1fr; } }
+@media (min-width: 960px) { .svc > .wrap { margin: 0 auto; max-width: calc(var(--shell) - var(--gut) * 2); padding: 28px 30px 26px; } .svc { padding: 9px 0; } .svc .svc-grid { grid-template-columns: 1fr; } }
 
 /* 2026-11-10 고객 요청: 메인 서비스 버튼 디자인 변경 — 크기(높이 · 2열)는 유지. 모바일: 왼쪽 원형 사진 + 글, PC: 사진 위 · 글 아래. 테두리 카드 + 오른쪽 위 화살표 */
 .qgrid a { display: flex; align-items: center; gap: 9px; padding: 9px 22px 9px 9px; background: #fff; border: 1px solid #E6E2DA; box-shadow: 0 4px 14px rgba(0, 0, 0, .05); transition: transform var(--tr), border-color var(--tr), box-shadow var(--tr); }
