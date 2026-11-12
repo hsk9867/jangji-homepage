@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = '배웅 | 장지 안심 동행 서비스';
-const VER = '20261112zc';  // 캐시 쿼리 (css·js 바꾸면 올려 주세요)
+const VER = '20261112zd';  // 캐시 쿼리 (css·js 바꾸면 올려 주세요)
 const pages = [
   ['index.html', 'home', '', SITE, '수목장·봉안당(납골당)·공원묘지 분양 상담부터 파묘·이장까지. 배웅이 직접 답사한 시설만 안내하고, 주말에도 무료로 동행 답사합니다. 070-7621-4444'],
   ['sumokjang.html', 'type', 'sumok', '수목장 | 배웅', '경기도 수목장 평균 가격과 특징, 배웅이 직접 답사한 수목장 사진과 후기.'],
@@ -33,7 +33,7 @@ for (const [file, page, type, title, desc] of pages) {
 <meta property="og:site_name" content="배웅">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${desc}">
-<meta property="og:image" content="https://hsk9867.github.io/jangji-homepage/img/og-a.jpg">
+<meta property="og:image" content="https://hsk9867.github.io/jangji-homepage/img/og-a2.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="theme-color" content="#ffffff">

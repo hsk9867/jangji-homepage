@@ -821,6 +821,12 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
   .rail > *, .rail.wide > * { flex: none; width: auto; }
   .rail.wide { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
   .rail.wide > *:nth-child(n+7) { display: none; }
+  /* 메인 후기: 격자 두 줄 대신 한 줄 3장 + 자동 넘김(common.js autoRail) */
+  .rail.auto { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 0; margin: 0; padding: 4px 0 8px; }
+  .rail.auto > *, .rail.wide.auto > *:nth-child(n+7) { display: flex; flex: 0 0 calc((100% - 48px) / 3); scroll-snap-align: start; }
+  .rail-wrap:has(.rail.auto) .rail-btn { display: block; top: 34%; }
+  .rail-wrap:has(.rail.auto) .rail-btn.prev { left: -18px; }
+  .rail-wrap:has(.rail.auto) .rail-btn.next { right: -18px; }
   .chips { overflow: visible; flex-wrap: wrap; margin: 0 0 20px; padding: 0; }
   #reviews .btn-block { max-width: 320px; margin-left: auto; margin-right: auto; }
 

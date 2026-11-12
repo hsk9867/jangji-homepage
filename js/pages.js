@@ -184,8 +184,9 @@
     loadTestimonials().then(function (revs) {
       var drawR = function (k) {
         var l = revs.filter(function (r) { return !k || r.type === k; });
-        rr.innerHTML = l.length ? U.rail(l.map(function (x) { return tCard(x, false); }).join(''), 'wide') : '<div class="empty">' + tname(k) + ' 후기는 준비 중입니다.</div>';
+        rr.innerHTML = l.length ? U.rail(l.map(function (x) { return tCard(x, false); }).join(''), 'wide auto') : '<div class="empty">' + tname(k) + ' 후기는 준비 중입니다.</div>';
         U.bindRails(rr);
+        U.autoRail(rr.querySelector('.rail'), 4000);
       };
       rf.innerHTML = REV_TABS.map(function (k, i) { var cnt = revs.filter(function (r) { return !k[0] || r.type === k[0]; }).length; return '<button type="button" class="chip' + (i === 0 ? ' on' : '') + '" data-k="' + k[0] + '">' + k[1] + (cnt ? ' <small>' + cnt + '</small>' : '') + '</button>'; }).join('');
       rf.onclick = function (e) { var b = e.target.closest('.chip'); if (!b) return; [].forEach.call(rf.children, function (c) { c.classList.toggle('on', c === b); }); drawR(b.dataset.k); };
@@ -502,7 +503,7 @@
         var desc = [f.area, f.price ? '사용료 ' + f.price : ''].filter(Boolean).join(' · ') || f.address || '배웅 장지 안내';
         window.Kakao.Share.sendDefault({
           objectType: 'feed',
-          content: { title: '[배웅] ' + f.name, description: desc, imageUrl: new URL(photo ? photo : 'img/og-a.jpg', location.href).href, link: link },
+          content: { title: '[배웅] ' + f.name, description: desc, imageUrl: new URL(photo ? photo : 'img/og-a2.jpg', location.href).href, link: link },
           buttons: [{ title: '시설 자세히 보기', link: link }]
         });
       } catch (e) { fail(); }

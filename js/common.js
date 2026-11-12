@@ -105,6 +105,51 @@
       dragScroll(r);
     });
   }
+  /* 가로 목록 자동 넘김: 한 칸씩 부드럽게(ease-in-out), 끝에 닿으면 처음으로.
+     만지거나 마우스를 올리면 멈추고, 화면 밖이거나 다른 탭이면 쉬며, '동작 줄이기' 설정이면 쓰지 않음 */
+  function autoRail(r, every) {
+    if (!r || r.dataset.auto) return; r.dataset.auto = '1';
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    every = every || 4000;
+    var hold = false, seen = true, busy = false, resumeT = 0;
+    var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+    var glide = function (to) {
+      var from = r.scrollLeft, d = to - from, t0 = performance.now(), dur = 750;
+      if (Math.abs(d) < 2) return;
+      busy = true; r.style.scrollSnapType = 'none';
+      (function step(now) {
+        var p = Math.min(1, (now - t0) / dur);
+        r.scrollLeft = from + d * ease(p);
+        if (p < 1) setTimeout(function () { step(performance.now()); }, 16); else { busy = false; r.style.scrollSnapType = ''; }
+      })(t0);
+    };
+    var next = function () {
+      var kids = [].filter.call(r.children, function (c) { return c.offsetParent !== null; });
+      if (kids.length < 2) return;
+      var base = kids[0].offsetLeft, max = r.scrollWidth - r.clientWidth;
+      if (max < 4) return;
+      if (r.scrollLeft >= max - 4) return glide(0);
+      var cur = r.scrollLeft + 4;
+      for (var i = 0; i < kids.length; i++) { var x = kids[i].offsetLeft - base; if (x > cur) return glide(Math.min(x, max)); }
+      glide(max);
+    };
+    var pause = function () { hold = true; clearTimeout(resumeT); };
+    var resume = function (ms) { clearTimeout(resumeT); resumeT = setTimeout(function () { hold = false; }, ms || 0); };
+    r.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') pause(); });
+    r.addEventListener('pointerleave', function (e) { if (e.pointerType !== 'touch') resume(); });
+    r.addEventListener('touchstart', pause, { passive: true });
+    r.addEventListener('touchend', function () { resume(5000); }, { passive: true });
+    r.addEventListener('focusin', pause);
+    r.addEventListener('focusout', function () { resume(); });
+    var wrap = r.closest('.rail-wrap');
+    if (wrap) [].forEach.call(wrap.querySelectorAll('.rail-btn'), function (b) { b.addEventListener('click', function () { pause(); resume(6000); }); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; }, { threshold: .3 }).observe(r);
+    var timer = setInterval(function () {
+      if (!r.isConnected) return clearInterval(timer);   // 탭을 바꿔 목록을 다시 그리면 예전 타이머는 스스로 정리
+      if (hold || busy || !seen || document.hidden) return;
+      next();
+    }, every);
+  }
   function faqHtml(list) {
     if (!list || !list.length) return '';
     return '<div class="faq">' + list.map(function (f) { return '<details><summary>' + esc(f.q) + '</summary><div class="a">' + esc(f.a) + '</div></details>'; }).join('') + '</div>';
@@ -287,7 +332,7 @@
   window.U = {
     ICON: ICON, LI: LI, TYPE_KEYS: TYPE_KEYS, SHORT: SHORT, EHANEUL: EHANEUL, REVIEW_KEYWORDS: REVIEW_KEYWORDS, esc: esc, nl: nl, telHref: telHref, qs: qs, typeOf: typeOf, typeImg: typeImg, bg: bg, img: img,
     facPhoto: facPhoto, revPhoto: revPhoto, facility: facility, hasType: hasType, visibleFacilities: visibleFacilities, visibleReviews: visibleReviews,
-    fmtDate: fmtDate, sampleTag: sampleTag, kwOf: kwOf, kwChips: kwChips, typeNames: typeNames, facCard: facCard, revCard: revCard, artCard: artCard, rail: rail, bindRails: bindRails,
+    fmtDate: fmtDate, sampleTag: sampleTag, kwOf: kwOf, kwChips: kwChips, typeNames: typeNames, facCard: facCard, revCard: revCard, artCard: artCard, rail: rail, bindRails: bindRails, autoRail: autoRail,
     faqHtml: faqHtml, applySection: applySection, bindApply: bindApply, sendInquiry: sendInquiry, inquiryTypeName: inquiryTypeName,
     dragScroll: dragScroll, toast: toast, modal: modal, loadScript: loadScript, getJson: getJson
   };
