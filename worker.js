@@ -106,7 +106,7 @@ function sanitizeContent(c) {
   const out = {};
   if (c.site && typeof c.site === 'object') {
     const s = c.site, o = {};
-    for (const k of ['name', 'slogan', 'phone', 'hours', 'notifyEmail', 'bizName', 'bizDesc', 'ceo', 'bizNo', 'address', 'email', 'heroEyebrow', 'heroTitle', 'heroSub', 'finalTitle', 'naverMapKey']) if (s[k] != null) o[k] = cleanStr(s[k], 400);
+    for (const k of ['name', 'slogan', 'phone', 'hours', 'notifyEmail', 'bizName', 'bizDesc', 'ceo', 'bizNo', 'address', 'email', 'heroEyebrow', 'heroTitle', 'heroSub', 'finalTitle', 'naverMapKey', 'kakaoJsKey']) if (s[k] != null) o[k] = cleanStr(s[k], 400);
     for (const k of ['logo', 'heroImage']) if (s[k] != null) o[k] = cleanPath(s[k]);
     for (const k of ['kakao', 'blogUrl', 'supportFormUrl']) if (s[k] != null) o[k] = cleanUrl(s[k]);
     for (const k of ['heroBadges', 'regions']) if (Array.isArray(s[k])) o[k] = cleanList(s[k], 30, 60);

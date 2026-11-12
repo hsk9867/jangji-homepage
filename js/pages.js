@@ -485,18 +485,46 @@
       el.querySelector('.gallery .prev').onclick = function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); };
       el.querySelector('.gallery .next').onclick = function () { track.scrollBy({ left: step(), behavior: 'smooth' }); };
     }
-    document.getElementById('fshare').onclick = function () { shareFacility(f); };
+    document.getElementById('fshare').onclick = function () { shareFacility(f); }; if (S.kakaoJsKey || window.KAKAO_JS_KEY) loadKakao(); /* 클릭 전에 미리 받아 둬야 PC 팝업이 막히지 않음 */
     facMap(f);
     facReviews(f);
   };
 
-  /* 가족에게 공유하기: 휴대폰은 공유 시트, PC 는 링크 복사 */
+
+  /* 카카오톡 공유: S.kakaoJsKey 가 있으면 SDK 를 불러 카톡 친구 선택 창을 바로 연다 */
+  function kakaoShare(f, url, photo, fail) {
+    var key = S.kakaoJsKey || window.KAKAO_JS_KEY || '';
+    if (!key) return fail();
+    var go = function () {
+      try {
+        if (!window.Kakao.isInitialized()) window.Kakao.init(key);
+        var link = { mobileWebUrl: url, webUrl: url };
+        var desc = [f.area, f.price ? '사용료 ' + f.price : ''].filter(Boolean).join(' · ') || f.address || '배웅 장지 안내';
+        window.Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: { title: '[배웅] ' + f.name, description: desc, imageUrl: new URL(photo ? photo : 'img/og.png', location.href).href, link: link },
+          buttons: [{ title: '시설 자세히 보기', link: link }]
+        });
+      } catch (e) { fail(); }
+    };
+    loadKakao(go, fail);
+  }
+  function loadKakao(ok, fail) {
+    if (window.Kakao && window.Kakao.Share) return ok && ok();
+    var sc = document.getElementById('kakao-sdk');
+    if (!sc) { sc = document.createElement('script'); sc.id = 'kakao-sdk'; sc.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js'; sc.crossOrigin = 'anonymous'; document.head.appendChild(sc); }
+    if (ok) sc.addEventListener('load', ok); if (fail) sc.addEventListener('error', fail);
+  }
+
+  /* 가족에게 공유하기: 카카오 키가 있으면 카톡 공유창, 없으면 휴대폰 공유 시트, PC 는 링크 복사 */
   function shareFacility(f) {
     var url = location.href.split('#')[0];
     var text = '[배웅] ' + f.name + (f.area ? ' · ' + f.area : '') + (f.address ? '\n' + f.address : '') + (f.price ? '\n사용료 ' + f.price : '');
     var done = function () { U.toast('링크를 복사했습니다. 가족에게 붙여 넣어 보내 주십시오.'); };
-    if (navigator.share) navigator.share({ title: f.name + ' | 배웅', text: text, url: url }).catch(function (e) { if (e && e.name !== 'AbortError') copy(); });
-    else copy();
+    kakaoShare(f, url, (f.photos || [])[0], function () {
+      if (navigator.share) navigator.share({ title: f.name + ' | 배웅', text: text, url: url }).catch(function (e) { if (e && e.name !== 'AbortError') copy(); });
+      else copy();
+    });
     function copy() { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, fallback); else fallback(); }
     function fallback() {
       var ta = document.createElement('textarea'); ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();

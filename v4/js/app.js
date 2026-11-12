@@ -632,7 +632,7 @@
       '<div class="related"><h3>함께 보는 ' + esc(t.name) + '</h3><div class="flist">' + facilities(f.type).filter(function (x) { return x.id !== f.id; }).slice(0, 4).map(function (x) { var ph = (x.photos || [])[0]; return '<a class="frow" href="facility.html?id=' + esc(x.id) + '">' + (ph ? '<img src="' + img(ph) + '" alt="" loading="lazy">' : '<span></span>') + '<div><div class="nm">' + esc(x.name) + '</div><div class="ar">' + esc(x.area) + '</div></div></a>'; }).join('') + '</div></div>');
     el.querySelectorAll('.thumbs img').forEach(function (im) { im.onclick = function () { document.getElementById('gmain').src = im.src; el.querySelectorAll('.thumbs img').forEach(function (x) { x.classList.remove('on'); }); im.classList.add('on'); }; });
     var sh = document.getElementById('fshare');
-    if (sh) sh.onclick = function () { shareFacility(f); };
+    if (sh) sh.onclick = function () { shareFacility(f); }; if (S.kakaoJsKey || window.KAKAO_JS_KEY) loadKakao(); /* 클릭 전에 미리 받아 둬야 PC 팝업이 막히지 않음 */
     facMap(f);
     facReviews(f);
   }
@@ -644,13 +644,38 @@
     t.textContent = msg; t.classList.add('on');
     clearTimeout(t._tm); t._tm = setTimeout(function () { t.classList.remove('on'); }, 2200);
   }
+  /* 카카오톡 공유: S.kakaoJsKey 가 있으면 SDK 를 불러 카톡 친구 선택 창을 바로 연다 */
+  function kakaoShare(f, url, photo, fail) {
+    var key = S.kakaoJsKey || window.KAKAO_JS_KEY || '';
+    if (!key) return fail();
+    var go = function () {
+      try {
+        if (!window.Kakao.isInitialized()) window.Kakao.init(key);
+        var link = { mobileWebUrl: url, webUrl: url };
+        var desc = [f.area, f.price ? '사용료 ' + f.price : ''].filter(Boolean).join(' · ') || f.address || '배웅 장지 안내';
+        window.Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: { title: '[배웅] ' + f.name, description: desc, imageUrl: new URL(photo ? img(photo) : 'img/og.jpg', location.href).href, link: link },
+          buttons: [{ title: '시설 자세히 보기', link: link }]
+        });
+      } catch (e) { fail(); }
+    };
+    loadKakao(go, fail);
+  }
+  function loadKakao(ok, fail) {
+    if (window.Kakao && window.Kakao.Share) return ok && ok();
+    var sc = document.getElementById('kakao-sdk');
+    if (!sc) { sc = document.createElement('script'); sc.id = 'kakao-sdk'; sc.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js'; sc.crossOrigin = 'anonymous'; document.head.appendChild(sc); }
+    if (ok) sc.addEventListener('load', ok); if (fail) sc.addEventListener('error', fail);
+  }
   function shareFacility(f) {
     var url = location.href.split('#')[0];
     var text = '[배웅] ' + f.name + (f.area ? ' · ' + f.area : '') + (f.address ? '\n' + f.address : '') + (f.price ? '\n사용료 ' + f.price : '');
     var done = function () { toast('링크를 복사했습니다. 가족에게 붙여 넣어 보내 주십시오.'); };
-    if (navigator.share) {
-      navigator.share({ title: f.name + ' | 배웅', text: text, url: url }).catch(function (e) { if (e && e.name !== 'AbortError') copy(); });
-    } else copy();
+    kakaoShare(f, url, (f.photos || [])[0], function () {
+      if (navigator.share) navigator.share({ title: f.name + ' | 배웅', text: text, url: url }).catch(function (e) { if (e && e.name !== 'AbortError') copy(); });
+      else copy();
+    });
     function copy() {
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, fallback); else fallback();
     }

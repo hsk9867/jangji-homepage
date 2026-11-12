@@ -382,6 +382,7 @@
         '<div class="row2">' + fText('한 줄 소개 (로고 옆)', s, 'slogan', '장지 안심 동행 서비스') + fText('상담 시간', s, 'hours', '연중무휴 상담') + '</div>' +
         '<div class="row2">' + fText('카카오톡 채널 주소', s, 'kakao', 'https://pf.kakao.com/...', '비워 두면 카톡 버튼이 숨겨집니다.') + fText('블로그 주소', s, 'blogUrl', 'https://blog.naver.com/...') + '</div>' +
         fText('장례지원금 신청서 주소', s, 'supportFormUrl', 'https://naver.me/...', '첫 화면 "장례지원금" 띠의 버튼이 이 주소로 연결됩니다. 비우면 띠가 숨겨집니다.') +
+        fText('카카오 JavaScript 키', s, 'kakaoJsKey', '', '카카오 디벨로퍼스 앱의 JavaScript 키입니다. 넣으면 시설 페이지 "가족에게 공유하기"가 카카오톡 친구 선택 창으로 바로 열립니다. 비우면 휴대폰 기본 공유 창이 나옵니다.') +
         fText('네이버 지도 키 (NCP Maps Client ID)', s, 'naverMapKey', '', '네이버 클라우드 플랫폼 Maps 에서 발급한 Client ID 입니다. 넣으면 시설 페이지 지도가 네이버 지도로 나오고, 비우면 OpenStreetMap 지도로 나옵니다.') +
         fText('문의 알림 받을 이메일', s, 'notifyEmail', 'example@naver.com', '홈페이지 문의가 들어오면 이 주소로 알림 메일을 보냅니다 (카페24 서버에서 동작).') + '</div>' +
       '<div class="card"><h3>로고</h3><div id="logo-host"></div><p class="help" style="margin-top:8px">정사각형 또는 육각형 마크(PNG, 배경 투명) 권장. 상호 글자 옆에 작게 나옵니다.</p></div>' +
