@@ -17,6 +17,7 @@
   var REVIEW_KEYWORDS = ['경치가 좋아요', '조용해요', '주차가 편해요', '관리가 잘 돼요', '시설이 깨끗해요', '찾아가기 쉬워요', '실내가 밝아요', '직원이 친절해요', '산책하기 좋아요', '비용이 합리적이에요', '쉴 공간이 있어요', '자주 찾아뵙기 좋아요', '상담이 꼼꼼했어요', '답사 동행이 든든했어요'];
 
   var ICON = {
+    won: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l3.5 12L12 8l4.5 10L20 6"/><path d="M3 11h18M3 14h18"/></svg>',
     phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
     form: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>',
     kakao: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.4.3.7.6.5l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>',
@@ -242,23 +243,23 @@
       '<a href="http://baewoong.co.kr" target="_blank" rel="noopener" aria-label="기존 홈페이지">' + ICON.globe + '</a></div></div></div>';
     shell.appendChild(ft);
 
-    /* 하단 탭바 (앱 메뉴): 홈 · 장지 비교 · 전화 상담(가운데) · 상담 신청 · 메뉴 */
+    /* 하단 탭바 (앱 메뉴): 홈 · 장지 비교 · 장례지원금(가운데) · 상담 신청 · 메뉴 — 2026-11-12 전화 상담과 자리 바꿈(전화는 플로팅으로) */
     var tb = document.createElement('nav');
     tb.className = 'tabbar';
     tb.setAttribute('aria-label', '빠른 메뉴');
     tb.innerHTML = '<a href="./"' + (here === 'index.html' || here === '' ? ' class="on"' : '') + '>' + ICON.home + '홈</a>' +
       '<a href="search.html"' + (here === 'search.html' ? ' class="on"' : '') + '>' + ICON.grid + '장지 비교</a>' +
-      '<a class="call" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '"><span class="c">' + ICON.phone + '</span><b>전화 상담</b></a>' +
+      '<a class="call" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><span class="c">' + ICON.won + '</span><b>장례지원금</b></a>' +
       '<a href="contact.html' + (window.CONTACT_QUERY || '') + '"' + (here === 'contact.html' ? ' class="on"' : '') + '>' + ICON.form + '상담 신청</a>' +
       '<button type="button" class="tab-menu">' + ICON.menu + '메뉴</button>';
     document.body.appendChild(tb);
     tb.querySelector('.tab-menu').onclick = openDrawer;
 
-    /* 플로팅 버튼: 카톡 · 장례지원금 · 화장장 예약 (첫 화면에서는 숨기고 스크롤 내리면 나타남) */
+    /* 플로팅 버튼: 카톡 · 전화 상담 · 화장장 예약 (첫 화면에서는 숨기고 스크롤 내리면 나타남) */
     var fab = document.createElement('div');
     fab.className = 'fabs';
     fab.innerHTML = (s.kakao ? '<a class="fab kakao" href="' + esc(s.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
-      '<a class="fab support" href="contact.html?type=support" aria-label="장례지원금 상담 신청">장례<br>지원금</a>' +
+      '<a class="fab tel" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '">' + ICON.phone + '전화<br>상담</a>' +
       '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장<br>예약</a>';
     document.body.appendChild(fab);
     if (document.body.dataset.page === 'home') {

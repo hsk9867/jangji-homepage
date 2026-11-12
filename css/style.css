@@ -983,3 +983,9 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 @media (hover: hover) { .qgrid a:hover { background: #fff; border-color: var(--accent); box-shadow: 0 10px 24px rgba(0, 0, 0, .09); transform: translateY(-3px); } .qgrid a:hover::after { border-color: var(--accent); } }
 @media (max-width: 360px) { .qgrid a { padding: 8px 18px 8px 8px; } .qgrid .ph { width: 40px; height: 40px; } .qgrid strong { font-size: 15px; white-space: normal; } }
 @media (min-width: 600px) { .qgrid a { flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 14px 16px 13px; } .qgrid .ph { width: 46px; height: 46px; } .qgrid small { font-size: 12.5px; } .qgrid strong { font-size: 17px; } .qgrid a::after { right: 14px; top: 14px; } }
+
+/* 2026-11-12 고객 요청: 카드뉴스 문구를 살짝 가운데 쪽(위·안쪽)으로 / 플로팅 장례지원금 → 전화 상담 */
+.news .slide { padding-left: calc(var(--gut) + 10px); padding-right: calc(var(--gut) + 10px); padding-bottom: 72px; }
+@media (min-width: 960px) { .top2 .news .slide { padding: 0 76px 96px; } }
+.fab.tel { background: var(--accent); color: #fff; font-size: 10px; }
+.fab.tel svg { width: 17px; height: 17px; }
