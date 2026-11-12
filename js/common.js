@@ -244,14 +244,21 @@
     shell.appendChild(ft);
 
     /* 하단 탭바 (앱 메뉴): 홈 · 장지 비교 · 장례지원금(가운데) · 상담 신청 · 메뉴 — 2026-11-12 전화 상담과 자리 바꿈(전화는 플로팅으로) */
+    /* 탭 아이콘: 시안 2(v4)와 같은 모양 — 평소엔 외곽선, 누르거나 현재 페이지면 진하게 채움(.sh 면, .ln 안쪽 선) */
+    var TI = {
+      home: '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="sh" fill-rule="evenodd" d="M12 3.2 2.8 11.3h2.6v9.2h13.2v-9.2h2.6zM10 20.5v-5.4h4v5.4z"/></svg>',
+      grid: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect class="sh" x="7.5" y="2.8" width="12" height="13.5" rx="2"/><rect class="gap" x="3.8" y="7.6" width="12" height="13.5" rx="2"/><rect class="sh" x="3.8" y="7.6" width="12" height="13.5" rx="2"/><path class="ln" d="M6.8 12.2h6M6.8 15.6h6"/></svg>',
+      form: '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="sh" d="M4.5 3.5h15a2.5 2.5 0 0 1 2.5 2.5v8.5a2.5 2.5 0 0 1-2.5 2.5H10l-4.3 3.6V17h-1.2A2.5 2.5 0 0 1 2 14.5V6a2.5 2.5 0 0 1 2.5-2.5z"/><path class="ln" d="M7.2 8.2h9.6M7.2 11.8h6"/></svg>',
+      menu: '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="ln" d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"/></svg>'
+    };
     var tb = document.createElement('nav');
     tb.className = 'tabbar';
     tb.setAttribute('aria-label', '빠른 메뉴');
-    tb.innerHTML = '<a href="./"' + (here === 'index.html' || here === '' ? ' class="on"' : '') + '>' + ICON.home + '홈</a>' +
-      '<a href="search.html"' + (here === 'search.html' ? ' class="on"' : '') + '>' + ICON.grid + '장지 비교</a>' +
+    tb.innerHTML = '<a href="./"' + (here === 'index.html' || here === '' ? ' class="on"' : '') + '>' + TI.home + '홈</a>' +
+      '<a href="search.html"' + (here === 'search.html' ? ' class="on"' : '') + '>' + TI.grid + '장지 비교</a>' +
       '<a class="call" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><span class="c txt">장례<br>지원금</span></a>' +
-      '<a href="contact.html' + (window.CONTACT_QUERY || '') + '"' + (here === 'contact.html' ? ' class="on"' : '') + '>' + ICON.form + '상담 신청</a>' +
-      '<button type="button" class="tab-menu">' + ICON.menu + '메뉴</button>';
+      '<a href="contact.html' + (window.CONTACT_QUERY || '') + '"' + (here === 'contact.html' ? ' class="on"' : '') + '>' + TI.form + '상담 신청</a>' +
+      '<button type="button" class="tab-menu">' + TI.menu + '메뉴</button>';
     document.body.appendChild(tb);
     tb.querySelector('.tab-menu').onclick = openDrawer;
 

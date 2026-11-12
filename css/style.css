@@ -1007,3 +1007,14 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
   .fabs .fab.tel { font-size: 13.5px; }
   .fabs .fab.crem { font-size: 12.5px; }
 }
+
+/* 2026-11-12 고객 요청: 하단 탭 홈·장지 비교·상담 신청·메뉴를 시안 2(v4)처럼 — 평소 회색 외곽선, 누르거나 현재 페이지면 진한 회색으로 채움 */
+.tabbar a, .tabbar .tab-menu { color: #6B6B6B; font-weight: 600; transition: color .18s; }
+.tabbar a:not(.call) svg, .tabbar .tab-menu svg { width: 25px; height: 25px; fill: none; stroke: none; transition: transform .18s; }
+.tabbar svg .sh { fill: none; stroke: #6B6B6B; stroke-width: 1.6; stroke-linejoin: round; transition: fill .18s, stroke .18s; }
+.tabbar svg .ln { fill: none; stroke: #6B6B6B; stroke-width: 1.7; stroke-linecap: round; transition: stroke .18s; }
+.tabbar svg .gap { fill: #fff; stroke: #fff; stroke-width: 4; }
+.tabbar a:hover svg .sh, .tabbar a:active svg .sh, .tabbar a.on svg .sh { fill: #4A4A4A; stroke: #4A4A4A; }
+.tabbar a:hover svg .ln, .tabbar a:active svg .ln, .tabbar a.on svg .ln { stroke: #fff; }
+.tabbar a:not(.call):hover, .tabbar a:not(.call):active, .tabbar a.on, .tabbar .tab-menu:hover, .tabbar .tab-menu:active { color: #3A3A3A; font-weight: 700; }
+.tabbar .tab-menu:hover svg .ln, .tabbar .tab-menu:active svg .ln { stroke: #3A3A3A; stroke-width: 2.2; }
