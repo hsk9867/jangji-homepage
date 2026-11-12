@@ -68,7 +68,7 @@
     var newsHtml = '<section class="news" aria-label="배웅 카드 뉴스"><div class="track" id="news-track">' +
       cards.map(function (c, i) {
         var ext = /^https?:/.test(c.href);
-        return '<a class="slide" href="' + esc(c.href) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + ' aria-label="' + esc(c.btn) + '">' + U.img(c.image, c.t, i === 0) + '<h2>' + esc(c.t) + '</h2>' +
+        return '<a class="slide" href="' + esc(c.href) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + ' aria-label="' + esc(c.btn) + '">' + U.img(c.image, c.t, i === 0) + (c.tag ? '<span class="chip">' + esc(c.tag) + '</span>' : '') + '<h2>' + esc(c.t) + '</h2>' +
           (c.d ? '<p>' + esc(c.d) + '</p>' : '') + '</a>';
       }).join('') + '</div>' +
       (cards.length > 1 ? '<div class="news-foot"><div class="dots" id="news-dots">' + cards.map(function (_, i) { return '<button type="button" aria-label="' + (i + 1) + '번째 카드"' + (i === 0 ? ' class="on"' : '') + '></button>'; }).join('') + '</div>' +

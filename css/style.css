@@ -1018,3 +1018,7 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .tabbar a:hover svg .ln, .tabbar a:active svg .ln, .tabbar a.on svg .ln { stroke: #fff; }
 .tabbar a:not(.call):hover, .tabbar a:not(.call):active, .tabbar a.on, .tabbar .tab-menu:hover, .tabbar .tab-menu:active { color: #3A3A3A; font-weight: 700; }
 .tabbar .tab-menu:hover svg .ln, .tabbar .tab-menu:active svg .ln { stroke: #3A3A3A; stroke-width: 2.2; }
+
+/* 2026-11-12 고객 요청: 카드뉴스 왼쪽 위 스티커(시안 2와 같은 모양) — 수목장 분양 상담 / 봉안당 분양 상담 / 무료 동행 상담 */
+.news .slide > .chip { position: absolute; z-index: 2; top: 16px; left: 16px; display: inline-flex; align-items: center; background: rgba(52, 52, 52, .92); color: #fff; font-size: 14px; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; padding: 8px 15px; border-radius: 999px; }
+@media (min-width: 960px) { .top2 .news .slide > .chip { top: 24px; left: 28px; font-size: 15px; padding: 9px 17px; } }

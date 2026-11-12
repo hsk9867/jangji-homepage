@@ -31,7 +31,7 @@
       cards: [
         { tag: '수목장 분양 상담', t: '모실 곳을 정하는 일,\n처음부터 함께 걷겠습니다.', d: '', btn: '수목장 찾기·비교', href: 'search.html?type=sumok', image: 'img/hero-a-sumok.jpg' },
         { tag: '봉안당 분양 상담', t: '그리운 마음이 머무는 곳,\n오래도록 따뜻한 기억으로 남도록.', d: '', btn: '봉안당 찾기·비교', href: 'search.html?type=napgol', image: 'img/hero-a-napgol.jpg' },
-        { tag: '주말 동행 상담', t: '주말에도 언제든지\n동행상담 가능합니다.', d: '', btn: '답사 예약 신청', href: 'contact.html', image: 'img/hero-a-walk.jpg' }
+        { tag: '무료 동행 상담', t: '주말에도 언제든지\n동행상담 가능합니다.', d: '', btn: '답사 예약 신청', href: 'contact.html', image: 'img/hero-a-walk.jpg' }
       ],
       finalTitle: '모실 인원과 희망 지역만 알려주세요.\n배웅이 맞는 곳을 함께 찾아드립니다.',
       why: [
