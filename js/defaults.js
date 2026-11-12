@@ -78,7 +78,7 @@
         ]
       },
       maejang: {
-        name: '매장묘·공원묘지', path: 'maejang.html', image: 'img/fac/jahayeon-6.jpg',
+        name: '매장묘·공원묘지', path: 'maejang.html', image: 'img/fac/jahayeon-1.jpg',
         short: '가족 단위로 모시는 전통 묘역',
         desc: '공원묘지에 매장묘, 가족 봉안묘, 평장, 봉안담 형태로 모시는 장지입니다. 가족 묘역을 마련해 여러 분을 함께 모실 수 있고, 벌초 등 관리는 묘원에서 대행합니다.',
         priceTag: '가족 단위', price: '1,700만원~', priceNote: '매장묘 기준이며 석물·토지·위치에 따라 달라집니다. 봉안묘·평장은 더 낮은 비용으로도 가능합니다.',
