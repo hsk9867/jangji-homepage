@@ -991,3 +991,19 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .fab.tel svg { width: 17px; height: 17px; }
 .tabbar a.call span.c.txt { font-size: 11px; font-weight: 800; line-height: 1.15; text-align: center; letter-spacing: -.02em; margin-top: -26px; }
 .tabbar a.call { justify-content: center; }
+
+/* 2026-11-12 고객 요청: 플로팅 버튼을 시안 2(v4)와 똑같이 — 카톡(노랑 원 + 갈색 말풍선 글자), 전화 상담(황토색 원, v4 장례지원금 자리 모양), 화장장 예약(연회색 원 + 진녹색 불꽃) */
+.fabs { gap: 10px; }
+.fabs .fab { width: 56px; height: 56px; border: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, .16); }
+.fabs .fab.kakao { background: #FBE300; }
+.fabs .fab.kakao .kb { position: relative; display: inline-block; background: #3C1E1E; color: #FBE300; font-size: 12.5px; font-weight: 800; letter-spacing: -.02em; line-height: 1; border-radius: 9px; padding: 6px 7px 5px; margin-top: -2px; }
+.fabs .fab.kakao .kb::after { content: ''; position: absolute; left: 7px; bottom: -4px; width: 9px; height: 9px; background: #3C1E1E; transform: skewX(-25deg) rotate(45deg); border-radius: 1px; }
+.fabs .fab.tel { background: #C8A86F; color: #fff; font-size: 13px; font-weight: 700; line-height: 1.25; letter-spacing: -.02em; }
+.fabs .fab.crem { background: #E8E8E6; color: #2B2B2B; border: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, .14); font-size: 12px; font-weight: 700; line-height: 1.2; gap: 2px; letter-spacing: -.02em; }
+.fabs .fab.crem svg { color: #2B3D2D; fill: #2B3D2D; width: 19px; height: 19px; }
+@media (min-width: 761px) {
+  .fabs .fab { width: 58px; height: 58px; }
+  .fabs .fab.kakao .kb { font-size: 13px; }
+  .fabs .fab.tel { font-size: 13.5px; }
+  .fabs .fab.crem { font-size: 12.5px; }
+}

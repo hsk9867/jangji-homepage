@@ -258,9 +258,9 @@
     /* 플로팅 버튼: 카톡 · 전화 상담 · 화장장 예약 (첫 화면에서는 숨기고 스크롤 내리면 나타남) */
     var fab = document.createElement('div');
     fab.className = 'fabs';
-    fab.innerHTML = (s.kakao ? '<a class="fab kakao" href="' + esc(s.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담">' + ICON.kakao + '카톡</a>' : '') +
-      '<a class="fab tel" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '">' + ICON.phone + '전화<br>상담</a>' +
-      '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '화장장<br>예약</a>';
+    fab.innerHTML = (s.kakao ? '<a class="fab kakao" href="' + esc(s.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담"><span class="kb">카톡</span></a>' : '') +
+      '<a class="fab tel" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '">전화<br>상담</a>' +
+      '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '<span>화장장<br>예약</span></a>';
     document.body.appendChild(fab);
     if (document.body.dataset.page === 'home') {
       var fabHide = function () { var m = document.querySelector('#quick'); var lim = m ? m.getBoundingClientRect().bottom + scrollY - innerHeight + 40 : 200; document.body.classList.toggle('fab-hide', scrollY < Math.max(lim, 80)); };
