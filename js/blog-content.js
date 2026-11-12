@@ -18,6 +18,7 @@ window.BLOG_CONTENT = {
    "comment": "남양주 수동면 무량사 인근에 있는 수목장입니다. 능선을 따라 조성된 수목 구역에서 산 전망이 넓게 트여 있고, 파묘·이장 후 새로 모실 곳을 찾는 가족이 많이 찾습니다. 서울 동북부와 구리·남양주에서 오가기 편합니다.",
    "photos": [
     "img/fac/muryang-1.jpg",
+    "img/fac/muryang-2.jpg",
     "img/fac/muryang-3.jpg",
     "img/fac/muryang-4.jpg",
     "img/fac/muryang-5.jpg",
@@ -71,6 +72,7 @@ window.BLOG_CONTENT = {
    "comment": "불광사 경내에 자리한 수목장으로, 사찰에서 직접 관리하고 운영합니다. 자연과 사찰의 차분한 분위기를 함께 느낄 수 있어 불교식 추모를 원하는 가족이 많이 찾습니다. 수원·분당·이천·안성에서 오가기 좋습니다.",
    "photos": [
     "img/fac/yangji-1.jpg",
+    "img/fac/yangji-2.jpg",
     "img/fac/yangji-3.jpg",
     "img/fac/yangji-4.jpg",
     "img/fac/yangji-5.jpg",
@@ -124,6 +126,10 @@ window.BLOG_CONTENT = {
    ],
    "comment": "김포 월곶면에 위치한 자연장지입니다. 산책로를 따라 수목이 고르게 정돈되어 있어 가족이 함께 걸으며 추모하기 좋습니다. 서울 서부·인천·김포 생활권 가족에게 알맞습니다.",
    "photos": [
+    "img/fac/cheongsol-1.jpg",
+    "img/fac/cheongsol-2.jpg",
+    "img/fac/cheongsol-3.jpg",
+    "img/fac/cheongsol-4.jpg",
     "img/fac/cheongsol-5.jpg",
     "img/fac/cheongsol-6.jpg"
    ],
@@ -167,6 +173,7 @@ window.BLOG_CONTENT = {
    "comment": "일산동구 지영로에 있는 수목장입니다. 계단식으로 정리된 수목 구역과 탁 트인 전망이 특징이며, 일산·파주·서울 서북부에서 가깝습니다. 희망하는 구성과 추가 안치 조건을 현장에서 함께 확인해 드립니다.",
    "photos": [
     "img/fac/gonggam-1.jpg",
+    "img/fac/gonggam-2.jpg",
     "img/fac/gonggam-3.jpg",
     "img/fac/gonggam-4.jpg",
     "img/fac/gonggam-5.jpg",
@@ -204,6 +211,7 @@ window.BLOG_CONTENT = {
    "comment": "'일산 메모리얼파크 자연애숲'으로도 알려진 곳입니다. 숲길을 따라 소나무 수목장 구역이 계단식으로 이어져, 산책하듯 둘러보며 자리를 고를 수 있습니다. 공감수목장과 가까워 같은 날 두 곳을 비교 답사하는 가족이 많습니다.",
    "photos": [
     "img/fac/jayeonae-1.jpg",
+    "img/fac/jayeonae-2.jpg",
     "img/fac/jayeonae-3.jpg",
     "img/fac/jayeonae-4.jpg",
     "img/fac/jayeonae-5.jpg"
@@ -252,9 +260,11 @@ window.BLOG_CONTENT = {
    "comment": "화성 팔탄면 덕천리에 자리한 사설 수목장입니다. 숲과 나무가 어우러진 분위기로 조성되어 있고, 개인목·부부목·가족목 가운데 가족 상황에 맞게 고를 수 있습니다. 수원·화성·오산에서 가깝습니다.",
    "photos": [
     "img/fac/naraewon-1.jpg",
+    "img/fac/naraewon-2.jpg",
     "img/fac/naraewon-3.jpg",
     "img/fac/naraewon-4.jpg",
-    "img/fac/naraewon-5.jpg"
+    "img/fac/naraewon-5.jpg",
+    "img/fac/naraewon-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435686400",
    "featured": true,
@@ -295,6 +305,8 @@ window.BLOG_CONTENT = {
    ],
    "comment": "재단법인 갈월사가 운영하는 수목장입니다. 사찰 부지의 차분한 분위기 덕분에 조용한 환경에서 추모하고 싶은 가족에게 잘 어울리며, 서울 근교에서 방문 계획을 세우기 편합니다.",
    "photos": [
+    "img/fac/galwolsa-1.jpg",
+    "img/fac/galwolsa-2.jpg",
     "img/fac/galwolsa-3.jpg",
     "img/fac/galwolsa-4.jpg",
     "img/fac/galwolsa-5.jpg",
@@ -353,6 +365,8 @@ window.BLOG_CONTENT = {
    "comment": "용인 처인구 원삼면에 있는 수목장입니다. 넓게 펼쳐진 수목 구역이 특징이며, 구역에 따라 계단·경사·휴식 공간 위치가 다르니 실제 고려 중인 자리를 기준으로 함께 확인해 드립니다.",
    "photos": [
     "img/fac/geumodongji-1.jpg",
+    "img/fac/geumodongji-2.jpg",
+    "img/fac/geumodongji-3.jpg",
     "img/fac/geumodongji-4.jpg",
     "img/fac/geumodongji-5.jpg",
     "img/fac/geumodongji-6.jpg"
@@ -455,7 +469,9 @@ window.BLOG_CONTENT = {
    "comment": "파주 광탄면에 위치한 실내 봉안시설입니다. 계절과 날씨에 관계없이 참배할 수 있고, 별도의 예배·추모 공간이 마련되어 있습니다. 경기 서북부와 서울 서북권 가족이 많이 비교하는 곳입니다.",
    "photos": [
     "img/fac/seohyeon-1.jpg",
+    "img/fac/seohyeon-2.jpg",
     "img/fac/seohyeon-3.jpg",
+    "img/fac/seohyeon-4.jpg",
     "img/fac/seohyeon-5.jpg",
     "img/fac/seohyeon-6.jpg"
    ],
@@ -607,7 +623,9 @@ window.BLOG_CONTENT = {
     "img/fac/thecrest-1.jpg",
     "img/fac/thecrest-2.jpg",
     "img/fac/thecrest-3.jpg",
-    "img/fac/thecrest-4.jpg"
+    "img/fac/thecrest-4.jpg",
+    "img/fac/thecrest-5.jpg",
+    "img/fac/thecrest-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224440757870",
    "featured": true,
@@ -690,6 +708,7 @@ window.BLOG_CONTENT = {
     "img/fac/honorstone-2.jpg",
     "img/fac/honorstone-3.jpg",
     "img/fac/honorstone-4.jpg",
+    "img/fac/honorstone-5.jpg",
     "img/fac/honorstone-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224431109629",
@@ -745,6 +764,7 @@ window.BLOG_CONTENT = {
    "photos": [
     "img/fac/haneulmun-1.jpg",
     "img/fac/haneulmun-2.jpg",
+    "img/fac/haneulmun-3.jpg",
     "img/fac/haneulmun-4.jpg",
     "img/fac/haneulmun-5.jpg",
     "img/fac/haneulmun-6.jpg"
@@ -783,7 +803,8 @@ window.BLOG_CONTENT = {
     "img/fac/obongjeongsa-1.jpg",
     "img/fac/obongjeongsa-2.jpg",
     "img/fac/obongjeongsa-3.jpg",
-    "img/fac/obongjeongsa-4.jpg"
+    "img/fac/obongjeongsa-4.jpg",
+    "img/fac/obongjeongsa-5.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224426403323",
    "featured": true,
@@ -829,6 +850,7 @@ window.BLOG_CONTENT = {
    ],
    "comment": "기독교 법인이 운영하는 추모시설로, 실내 납골당과 수목장을 함께 운영합니다. 분당뿐 아니라 강남에서도 비교적 가까워 성남·분당 가족이 함께 검토하는 곳입니다.",
    "photos": [
+    "img/fac/namseoul-1.jpg",
     "img/fac/namseoul-2.jpg",
     "img/fac/namseoul-3.jpg",
     "img/fac/namseoul-4.jpg",
@@ -1321,6 +1343,8 @@ window.BLOG_CONTENT = {
    ],
    "comment": "양평에 있는 공원묘원으로 잔디장, 개인목·부부목·가족목 수목장, 야외 봉안담까지 한곳에서 고를 수 있습니다. 장묘 형태별 비용과 관리비를 한 장으로 정리해 비교해 드립니다.",
    "photos": [
+    "img/fac/mugunghwa-1.jpg",
+    "img/fac/mugunghwa-2.jpg",
     "img/fac/mugunghwa-3.jpg",
     "img/fac/mugunghwa-4.jpg",
     "img/fac/mugunghwa-5.jpg",
@@ -1401,6 +1425,9 @@ window.BLOG_CONTENT = {
    ],
    "comment": "1971년 설립되어 50년 넘게 운영 중인 약 54,000평 규모의 공원묘원입니다. 서울에서 30분 남짓 거리로, 가족묘·매장묘를 찾는 가족이 많이 비교하는 곳입니다.",
    "photos": [
+    "img/fac/sinsegye-1.jpg",
+    "img/fac/sinsegye-2.jpg",
+    "img/fac/sinsegye-3.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224173996112",
    "featured": true,
@@ -1441,9 +1468,11 @@ window.BLOG_CONTENT = {
    ],
    "comment": "일산 지역의 유일한 공원묘원입니다. 전통 매장묘부터 가족 단위 봉안묘, 봉안담, 평장, 자연장까지 선택할 수 있어 가족 구성에 맞춰 비교하기 좋습니다.",
    "photos": [
+    "img/fac/jahayeon-1.jpg",
     "img/fac/jahayeon-2.jpg",
     "img/fac/jahayeon-3.jpg",
     "img/fac/jahayeon-4.jpg",
+    "img/fac/jahayeon-5.jpg",
     "img/fac/jahayeon-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224428607421",
