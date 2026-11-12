@@ -205,24 +205,23 @@ window.BLOG_CONTENT = {
    "operator": "일산 메모리얼파크",
    "price": "140만원~",
    "tags": [
-    "수목장·봉안당 함께",
+    "숲길 수목장",
     "일산 생활권"
    ],
-   "comment": "'일산 메모리얼파크 자연애숲'으로도 알려진 곳입니다. 숲길을 따라 수목장 구역이 이어지고, 실내 봉안 공간도 함께 운영합니다. 공감수목장과 가까워 같은 날 두 곳을 비교 답사하는 가족이 많습니다.",
+   "comment": "'일산 메모리얼파크 자연애숲'으로도 알려진 곳입니다. 숲길을 따라 소나무 수목장 구역이 계단식으로 이어져, 산책하듯 둘러보며 자리를 고를 수 있습니다. 공감수목장과 가까워 같은 날 두 곳을 비교 답사하는 가족이 많습니다.",
    "photos": [
     "img/fac/jayeonae-1.jpg",
     "img/fac/jayeonae-2.jpg",
     "img/fac/jayeonae-3.jpg",
     "img/fac/jayeonae-4.jpg",
-    "img/fac/jayeonae-5.jpg",
-    "img/fac/jayeonae-6.jpg"
+    "img/fac/jayeonae-5.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224426431900",
    "featured": true,
    "visible": true,
    "keywords": [
     "숲길이 좋아요",
-    "실내 봉안도 있어요",
+    "소나무가 잘 가꿔져 있어요",
     "비교 답사하기 좋아요"
    ],
    "priceItems": [
@@ -1155,11 +1154,11 @@ window.BLOG_CONTENT = {
    ],
    "comment": "파주 조리읍 통일로 인근의 봉안시설입니다. 벽제 서울시립승화원에서 가까워 화장 후 바로 모실 곳으로 함께 검토하는 가족이 많습니다. 층과 위치에 따라 금액이 달라 같은 조건끼리 비교해 드립니다.",
    "photos": [
-    "img/fac/tongillo-1.jpg",
+    "img/fac/tongillo-5.jpg",
     "img/fac/tongillo-2.jpg",
     "img/fac/tongillo-3.jpg",
     "img/fac/tongillo-4.jpg",
-    "img/fac/tongillo-5.jpg",
+    "img/fac/tongillo-1.jpg",
     "img/fac/tongillo-6.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224234646149",
