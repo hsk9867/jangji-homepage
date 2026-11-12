@@ -22,7 +22,9 @@ window.BLOG_CONTENT = {
     "img/fac/muryang-3.jpg",
     "img/fac/muryang-4.jpg",
     "img/fac/muryang-5.jpg",
-    "img/fac/muryang-6.jpg"
+    "img/fac/muryang-6.jpg",
+    "img/fac/muryang-7.jpg",
+    "img/fac/muryang-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224438264593",
    "featured": true,
@@ -76,7 +78,9 @@ window.BLOG_CONTENT = {
     "img/fac/yangji-3.jpg",
     "img/fac/yangji-4.jpg",
     "img/fac/yangji-5.jpg",
-    "img/fac/yangji-6.jpg"
+    "img/fac/yangji-6.jpg",
+    "img/fac/yangji-7.jpg",
+    "img/fac/yangji-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435057522",
    "featured": true,
@@ -131,7 +135,9 @@ window.BLOG_CONTENT = {
     "img/fac/cheongsol-3.jpg",
     "img/fac/cheongsol-4.jpg",
     "img/fac/cheongsol-5.jpg",
-    "img/fac/cheongsol-6.jpg"
+    "img/fac/cheongsol-6.jpg",
+    "img/fac/cheongsol-7.jpg",
+    "img/fac/cheongsol-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224439604912",
    "featured": true,
@@ -177,7 +183,9 @@ window.BLOG_CONTENT = {
     "img/fac/gonggam-3.jpg",
     "img/fac/gonggam-4.jpg",
     "img/fac/gonggam-5.jpg",
-    "img/fac/gonggam-6.jpg"
+    "img/fac/gonggam-6.jpg",
+    "img/fac/gonggam-7.jpg",
+    "img/fac/gonggam-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224438297505",
    "featured": true,
@@ -214,7 +222,10 @@ window.BLOG_CONTENT = {
     "img/fac/jayeonae-2.jpg",
     "img/fac/jayeonae-3.jpg",
     "img/fac/jayeonae-4.jpg",
-    "img/fac/jayeonae-5.jpg"
+    "img/fac/jayeonae-5.jpg",
+    "img/fac/jayeonae-6.jpg",
+    "img/fac/jayeonae-7.jpg",
+    "img/fac/jayeonae-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224426431900",
    "featured": true,
@@ -264,7 +275,9 @@ window.BLOG_CONTENT = {
     "img/fac/naraewon-3.jpg",
     "img/fac/naraewon-4.jpg",
     "img/fac/naraewon-5.jpg",
-    "img/fac/naraewon-6.jpg"
+    "img/fac/naraewon-6.jpg",
+    "img/fac/naraewon-7.jpg",
+    "img/fac/naraewon-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435686400",
    "featured": true,
@@ -310,7 +323,9 @@ window.BLOG_CONTENT = {
     "img/fac/galwolsa-3.jpg",
     "img/fac/galwolsa-4.jpg",
     "img/fac/galwolsa-5.jpg",
-    "img/fac/galwolsa-6.jpg"
+    "img/fac/galwolsa-6.jpg",
+    "img/fac/galwolsa-7.jpg",
+    "img/fac/galwolsa-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224428635972",
    "featured": true,
@@ -369,7 +384,9 @@ window.BLOG_CONTENT = {
     "img/fac/geumodongji-3.jpg",
     "img/fac/geumodongji-4.jpg",
     "img/fac/geumodongji-5.jpg",
-    "img/fac/geumodongji-6.jpg"
+    "img/fac/geumodongji-6.jpg",
+    "img/fac/geumodongji-7.jpg",
+    "img/fac/geumodongji-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224423941202",
    "featured": true,
@@ -414,7 +431,9 @@ window.BLOG_CONTENT = {
     "img/fac/aegibong-3.jpg",
     "img/fac/aegibong-4.jpg",
     "img/fac/aegibong-5.jpg",
-    "img/fac/aegibong-6.jpg"
+    "img/fac/aegibong-6.jpg",
+    "img/fac/aegibong-7.jpg",
+    "img/fac/aegibong-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224430604950",
    "price": "190만원~",
@@ -473,7 +492,9 @@ window.BLOG_CONTENT = {
     "img/fac/seohyeon-3.jpg",
     "img/fac/seohyeon-4.jpg",
     "img/fac/seohyeon-5.jpg",
-    "img/fac/seohyeon-6.jpg"
+    "img/fac/seohyeon-6.jpg",
+    "img/fac/seohyeon-7.jpg",
+    "img/fac/seohyeon-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224421902471",
    "featured": true,
@@ -579,7 +600,9 @@ window.BLOG_CONTENT = {
     "img/fac/haneulan-3.jpg",
     "img/fac/haneulan-4.jpg",
     "img/fac/haneulan-5.jpg",
-    "img/fac/haneulan-6.jpg"
+    "img/fac/haneulan-6.jpg",
+    "img/fac/haneulan-7.jpg",
+    "img/fac/haneulan-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435729048",
    "featured": true,
@@ -625,7 +648,9 @@ window.BLOG_CONTENT = {
     "img/fac/thecrest-3.jpg",
     "img/fac/thecrest-4.jpg",
     "img/fac/thecrest-5.jpg",
-    "img/fac/thecrest-6.jpg"
+    "img/fac/thecrest-6.jpg",
+    "img/fac/thecrest-7.jpg",
+    "img/fac/thecrest-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224440757870",
    "featured": true,
@@ -666,8 +691,7 @@ window.BLOG_CONTENT = {
     "img/fac/eden-2.jpg",
     "img/fac/eden-3.jpg",
     "img/fac/eden-4.jpg",
-    "img/fac/eden-5.jpg",
-    "img/fac/eden-6.jpg"
+    "img/fac/eden-5.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224435322086",
    "featured": true,
@@ -709,7 +733,9 @@ window.BLOG_CONTENT = {
     "img/fac/honorstone-3.jpg",
     "img/fac/honorstone-4.jpg",
     "img/fac/honorstone-5.jpg",
-    "img/fac/honorstone-6.jpg"
+    "img/fac/honorstone-6.jpg",
+    "img/fac/honorstone-7.jpg",
+    "img/fac/honorstone-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224431109629",
    "featured": true,
@@ -767,7 +793,9 @@ window.BLOG_CONTENT = {
     "img/fac/haneulmun-3.jpg",
     "img/fac/haneulmun-4.jpg",
     "img/fac/haneulmun-5.jpg",
-    "img/fac/haneulmun-6.jpg"
+    "img/fac/haneulmun-6.jpg",
+    "img/fac/haneulmun-7.jpg",
+    "img/fac/haneulmun-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224400313974",
    "featured": true,
@@ -804,7 +832,10 @@ window.BLOG_CONTENT = {
     "img/fac/obongjeongsa-2.jpg",
     "img/fac/obongjeongsa-3.jpg",
     "img/fac/obongjeongsa-4.jpg",
-    "img/fac/obongjeongsa-5.jpg"
+    "img/fac/obongjeongsa-5.jpg",
+    "img/fac/obongjeongsa-6.jpg",
+    "img/fac/obongjeongsa-7.jpg",
+    "img/fac/obongjeongsa-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224426403323",
    "featured": true,
@@ -855,7 +886,9 @@ window.BLOG_CONTENT = {
     "img/fac/namseoul-3.jpg",
     "img/fac/namseoul-4.jpg",
     "img/fac/namseoul-5.jpg",
-    "img/fac/namseoul-6.jpg"
+    "img/fac/namseoul-6.jpg",
+    "img/fac/namseoul-7.jpg",
+    "img/fac/namseoul-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224414358078",
    "featured": true,
@@ -917,7 +950,9 @@ window.BLOG_CONTENT = {
     "img/fac/bundanghome-3.jpg",
     "img/fac/bundanghome-4.jpg",
     "img/fac/bundanghome-5.jpg",
-    "img/fac/bundanghome-6.jpg"
+    "img/fac/bundanghome-6.jpg",
+    "img/fac/bundanghome-7.jpg",
+    "img/fac/bundanghome-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224359282787",
    "featured": true,
@@ -967,7 +1002,9 @@ window.BLOG_CONTENT = {
     "img/fac/doseongsa-3.jpg",
     "img/fac/doseongsa-4.jpg",
     "img/fac/doseongsa-5.jpg",
-    "img/fac/doseongsa-6.jpg"
+    "img/fac/doseongsa-6.jpg",
+    "img/fac/doseongsa-7.jpg",
+    "img/fac/doseongsa-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224438326758",
    "price": "90만원~",
@@ -1011,7 +1048,12 @@ window.BLOG_CONTENT = {
    "photos": [
     "img/fac/bongwonsa-1.jpg",
     "img/fac/bongwonsa-2.jpg",
-    "img/fac/bongwonsa-3.jpg"
+    "img/fac/bongwonsa-3.jpg",
+    "img/fac/bongwonsa-4.jpg",
+    "img/fac/bongwonsa-5.jpg",
+    "img/fac/bongwonsa-6.jpg",
+    "img/fac/bongwonsa-7.jpg",
+    "img/fac/bongwonsa-8.jpg"
    ],
    "blogUrl": "",
    "price": "1만원~",
@@ -1054,7 +1096,9 @@ window.BLOG_CONTENT = {
     "img/fac/utopia-3.jpg",
     "img/fac/utopia-4.jpg",
     "img/fac/utopia-5.jpg",
-    "img/fac/utopia-6.jpg"
+    "img/fac/utopia-6.jpg",
+    "img/fac/utopia-7.jpg",
+    "img/fac/utopia-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224383816905",
    "price": "140만원~",
@@ -1121,7 +1165,9 @@ window.BLOG_CONTENT = {
     "img/fac/jangan-3.jpg",
     "img/fac/jangan-4.jpg",
     "img/fac/jangan-5.jpg",
-    "img/fac/jangan-6.jpg"
+    "img/fac/jangan-6.jpg",
+    "img/fac/jangan-7.jpg",
+    "img/fac/jangan-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224357352928",
    "price": "190만원~",
@@ -1154,12 +1200,14 @@ window.BLOG_CONTENT = {
    ],
    "comment": "파주 조리읍 통일로 인근의 봉안시설입니다. 벽제 서울시립승화원에서 가까워 화장 후 바로 모실 곳으로 함께 검토하는 가족이 많습니다. 층과 위치에 따라 금액이 달라 같은 조건끼리 비교해 드립니다.",
    "photos": [
-    "img/fac/tongillo-5.jpg",
+    "img/fac/tongillo-1.jpg",
     "img/fac/tongillo-2.jpg",
     "img/fac/tongillo-3.jpg",
     "img/fac/tongillo-4.jpg",
-    "img/fac/tongillo-1.jpg",
-    "img/fac/tongillo-6.jpg"
+    "img/fac/tongillo-5.jpg",
+    "img/fac/tongillo-6.jpg",
+    "img/fac/tongillo-7.jpg",
+    "img/fac/tongillo-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224234646149",
    "price": "110만원~",
@@ -1201,7 +1249,9 @@ window.BLOG_CONTENT = {
     "img/fac/paradise-3.jpg",
     "img/fac/paradise-4.jpg",
     "img/fac/paradise-5.jpg",
-    "img/fac/paradise-6.jpg"
+    "img/fac/paradise-6.jpg",
+    "img/fac/paradise-7.jpg",
+    "img/fac/paradise-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224424228676",
    "price": "340만원~",
@@ -1251,7 +1301,9 @@ window.BLOG_CONTENT = {
     "img/fac/pajuchumo-3.jpg",
     "img/fac/pajuchumo-4.jpg",
     "img/fac/pajuchumo-5.jpg",
-    "img/fac/pajuchumo-6.jpg"
+    "img/fac/pajuchumo-6.jpg",
+    "img/fac/pajuchumo-7.jpg",
+    "img/fac/pajuchumo-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224254570574",
    "price": "140만원~",
@@ -1297,7 +1349,9 @@ window.BLOG_CONTENT = {
     "img/fac/pureunsol-3.jpg",
     "img/fac/pureunsol-4.jpg",
     "img/fac/pureunsol-5.jpg",
-    "img/fac/pureunsol-6.jpg"
+    "img/fac/pureunsol-6.jpg",
+    "img/fac/pureunsol-7.jpg",
+    "img/fac/pureunsol-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224391393867",
    "price": "140만원~",
@@ -1348,7 +1402,9 @@ window.BLOG_CONTENT = {
     "img/fac/mugunghwa-3.jpg",
     "img/fac/mugunghwa-4.jpg",
     "img/fac/mugunghwa-5.jpg",
-    "img/fac/mugunghwa-6.jpg"
+    "img/fac/mugunghwa-6.jpg",
+    "img/fac/mugunghwa-7.jpg",
+    "img/fac/mugunghwa-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224430584944",
    "featured": true,
@@ -1473,7 +1529,9 @@ window.BLOG_CONTENT = {
     "img/fac/jahayeon-3.jpg",
     "img/fac/jahayeon-4.jpg",
     "img/fac/jahayeon-5.jpg",
-    "img/fac/jahayeon-6.jpg"
+    "img/fac/jahayeon-6.jpg",
+    "img/fac/jahayeon-7.jpg",
+    "img/fac/jahayeon-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224428607421",
    "featured": true,
@@ -1522,7 +1580,10 @@ window.BLOG_CONTENT = {
     "img/fac/nakwon-2.jpg",
     "img/fac/nakwon-3.jpg",
     "img/fac/nakwon-4.jpg",
-    "img/fac/nakwon-5.jpg"
+    "img/fac/nakwon-5.jpg",
+    "img/fac/nakwon-6.jpg",
+    "img/fac/nakwon-7.jpg",
+    "img/fac/nakwon-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224235940313",
    "featured": true,
@@ -1591,7 +1652,9 @@ window.BLOG_CONTENT = {
     "img/fac/elysium-3.jpg",
     "img/fac/elysium-4.jpg",
     "img/fac/elysium-5.jpg",
-    "img/fac/elysium-6.jpg"
+    "img/fac/elysium-6.jpg",
+    "img/fac/elysium-7.jpg",
+    "img/fac/elysium-8.jpg"
    ],
    "blogUrl": "https://blog.naver.com/baewoong0816/224099221267",
    "price": "1,475만원~",
