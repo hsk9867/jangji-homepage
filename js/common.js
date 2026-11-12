@@ -105,50 +105,41 @@
       dragScroll(r);
     });
   }
-  /* 가로 목록 자동 넘김: 한 칸씩 부드럽게(ease-in-out), 끝에 닿으면 처음으로.
-     만지거나 마우스를 올리면 멈추고, 화면 밖이거나 다른 탭이면 쉬며, '동작 줄이기' 설정이면 쓰지 않음 */
-  function autoRail(r, every) {
+  /* 가로 목록을 끊김 없이 흐르게(마키): 카드를 한 벌 복제해 이어 붙이고, 띠 전체를 일정한 속도로 transform 이동.
+     띠 길이의 절반(원본 한 벌)만큼 가면 처음과 똑같은 모습이라 이음매 없이 반복된다.
+     마우스를 올리거나 손가락으로 누르고 있으면 멈추고, '동작 줄이기' 설정이면 원래의 가로 목록 그대로 둔다. */
+  function autoRail(r, speed) {
     if (!r || r.dataset.auto) return; r.dataset.auto = '1';
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    every = every || 4000;
-    var hold = false, seen = true, busy = false, resumeT = 0;
-    var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
-    var glide = function (to) {
-      var from = r.scrollLeft, d = to - from, t0 = performance.now(), dur = 750;
-      if (Math.abs(d) < 2) return;
-      busy = true; r.style.scrollSnapType = 'none';
-      (function step(now) {
-        var p = Math.min(1, (now - t0) / dur);
-        r.scrollLeft = from + d * ease(p);
-        if (p < 1) setTimeout(function () { step(performance.now()); }, 16); else { busy = false; r.style.scrollSnapType = ''; }
-      })(t0);
+    var items = [].slice.call(r.children);
+    if (items.length < 2) return;
+    speed = speed || 38;   // 초당 px
+    var track = document.createElement('div');
+    track.className = 'mq-track';
+    items.forEach(function (it) { track.appendChild(it); });
+    items.forEach(function (it) {
+      var c = it.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true'); c.setAttribute('tabindex', '-1');
+      track.appendChild(c);
+    });
+    r.appendChild(track);
+    r.classList.add('marquee');
+    var size = function () {
+      var pc = window.innerWidth >= 960, gap = pc ? 24 : 12, per = pc ? 3 : 1.25;
+      var w = Math.floor((r.clientWidth - (pc ? 0 : 0) - gap * (Math.ceil(per) - 1)) / per);
+      if (!pc) w = Math.min(w, 320);
+      [].forEach.call(track.children, function (c) { c.style.width = w + 'px'; c.style.marginRight = gap + 'px'; });
+      var half = (w + gap) * items.length;
+      track.style.animationDuration = (half / speed) + 's';
     };
-    var next = function () {
-      var kids = [].filter.call(r.children, function (c) { return c.offsetParent !== null; });
-      if (kids.length < 2) return;
-      var base = kids[0].offsetLeft, max = r.scrollWidth - r.clientWidth;
-      if (max < 4) return;
-      if (r.scrollLeft >= max - 4) return glide(0);
-      var cur = r.scrollLeft + 4;
-      for (var i = 0; i < kids.length; i++) { var x = kids[i].offsetLeft - base; if (x > cur) return glide(Math.min(x, max)); }
-      glide(max);
-    };
-    var pause = function () { hold = true; clearTimeout(resumeT); };
-    var resume = function (ms) { clearTimeout(resumeT); resumeT = setTimeout(function () { hold = false; }, ms || 0); };
-    r.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') pause(); });
-    r.addEventListener('pointerleave', function (e) { if (e.pointerType !== 'touch') resume(); });
-    r.addEventListener('touchstart', pause, { passive: true });
-    r.addEventListener('touchend', function () { resume(5000); }, { passive: true });
-    r.addEventListener('focusin', pause);
-    r.addEventListener('focusout', function () { resume(); });
-    var wrap = r.closest('.rail-wrap');
-    if (wrap) [].forEach.call(wrap.querySelectorAll('.rail-btn'), function (b) { b.addEventListener('click', function () { pause(); resume(6000); }); });
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; }, { threshold: .3 }).observe(r);
-    var timer = setInterval(function () {
-      if (!r.isConnected) return clearInterval(timer);   // 탭을 바꿔 목록을 다시 그리면 예전 타이머는 스스로 정리
-      if (hold || busy || !seen || document.hidden) return;
-      next();
-    }, every);
+    size();
+    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(size, 150); });
+    var hold = function () { r.classList.add('hold'); }, free = function () { r.classList.remove('hold'); };
+    var ft;
+    r.addEventListener('touchstart', function () { clearTimeout(ft); hold(); }, { passive: true });
+    r.addEventListener('touchend', function () { ft = setTimeout(free, 1200); }, { passive: true });
+    r.addEventListener('focusin', hold);
+    r.addEventListener('focusout', free);
   }
   function faqHtml(list) {
     if (!list || !list.length) return '';

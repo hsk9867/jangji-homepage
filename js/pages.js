@@ -186,7 +186,7 @@
         var l = revs.filter(function (r) { return !k || r.type === k; });
         rr.innerHTML = l.length ? U.rail(l.map(function (x) { return tCard(x, false); }).join(''), 'wide auto') : '<div class="empty">' + tname(k) + ' 후기는 준비 중입니다.</div>';
         U.bindRails(rr);
-        U.autoRail(rr.querySelector('.rail'), 4000);
+        U.autoRail(rr.querySelector('.rail'), 38);
       };
       rf.innerHTML = REV_TABS.map(function (k, i) { var cnt = revs.filter(function (r) { return !k[0] || r.type === k[0]; }).length; return '<button type="button" class="chip' + (i === 0 ? ' on' : '') + '" data-k="' + k[0] + '">' + k[1] + (cnt ? ' <small>' + cnt + '</small>' : '') + '</button>'; }).join('');
       rf.onclick = function (e) { var b = e.target.closest('.chip'); if (!b) return; [].forEach.call(rf.children, function (c) { c.classList.toggle('on', c === b); }); drawR(b.dataset.k); };

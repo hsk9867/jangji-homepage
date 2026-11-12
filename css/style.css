@@ -821,12 +821,6 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
   .rail > *, .rail.wide > * { flex: none; width: auto; }
   .rail.wide { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
   .rail.wide > *:nth-child(n+7) { display: none; }
-  /* 메인 후기: 격자 두 줄 대신 한 줄 3장 + 자동 넘김(common.js autoRail) */
-  .rail.auto { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 0; margin: 0; padding: 4px 0 8px; }
-  .rail.auto > *, .rail.wide.auto > *:nth-child(n+7) { display: flex; flex: 0 0 calc((100% - 48px) / 3); scroll-snap-align: start; }
-  .rail-wrap:has(.rail.auto) .rail-btn { display: block; top: 34%; }
-  .rail-wrap:has(.rail.auto) .rail-btn.prev { left: -18px; }
-  .rail-wrap:has(.rail.auto) .rail-btn.next { right: -18px; }
   .chips { overflow: visible; flex-wrap: wrap; margin: 0 0 20px; padding: 0; }
   #reviews .btn-block { max-width: 320px; margin-left: auto; margin-right: auto; }
 
@@ -1033,3 +1027,13 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .fabs .fab.tel { background: #5B9E63; color: #fff; }
 .fabs .fab.crem { background: #1b1b1f; color: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, .22); }
 .fabs .fab.crem svg { color: #fff; fill: #fff; }
+
+/* 메인 후기: 끊김 없이 흐르는 띠 (common.js autoRail — 카드 한 벌 복제 + transform 이동, PC·모바일 공통) */
+.rail.marquee { display: block !important; overflow: hidden !important; scroll-snap-type: none !important; }
+.rail.marquee .mq-track { display: flex; width: max-content; animation: mq-flow 40s linear infinite; will-change: transform; }
+.rail.marquee .mq-track > * { flex: none !important; display: flex !important; scroll-snap-align: none; }
+.rail.marquee.hold .mq-track { animation-play-state: paused; }
+@media (hover: hover) and (pointer: fine) { .rail.marquee:hover .mq-track { animation-play-state: paused; } }
+.rail-wrap:has(.rail.marquee) .rail-btn { display: none !important; }
+@keyframes mq-flow { to { transform: translate3d(-50%, 0, 0); } }
+@media (min-width: 960px) { .rail.marquee { margin: 0; padding: 4px 0 8px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); } }
