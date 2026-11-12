@@ -29,9 +29,9 @@
       /* 첫 화면 카드 뉴스 (슬라이드). href 'tel' 은 대표 전화로 연결됩니다. 관리자에서 제목·설명을 고칠 수 있습니다. */
       /* 2026-11-06 고객 수정(A안 수정.pdf): 고객 제공 사진 3장(수목장 징검다리·봉안당 안치단·동행 노부부) + 사진별 문구 */
       cards: [
-        { tag: '수목장 분양 상담', t: '모실 곳을 정하는 일,\n처음부터 함께 걷겠습니다.', d: '', btn: '수목장 찾기·비교', href: 'search.html?type=sumok', image: 'img/hero-a-sumok.jpg' },
+        { tag: '수목장 분양 상담', t: '모실 곳을 정하는 일,\n처음부터 함께 걷겠습니다.', d: '', btn: '수목장 찾기·비교', href: 'search.html?type=sumok', image: 'img/hero-a-sumok-2.jpg' },
         { tag: '봉안당 분양 상담', t: '그리운 마음이 머무는 곳,\n오래도록 따뜻한 기억으로 남도록.', d: '', btn: '봉안당 찾기·비교', href: 'search.html?type=napgol', image: 'img/hero-a-napgol.jpg' },
-        { tag: '무료 동행 상담', t: '주말에도 언제든지\n동행상담 가능합니다.', d: '', btn: '답사 예약 신청', href: 'contact.html', image: 'img/hero-a-walk.jpg' }
+        { tag: '무료 동행 상담', t: '주말에도 언제든지\n동행상담 가능합니다.', d: '', btn: '답사 예약 신청', href: 'contact.html', image: 'img/hero-a-walk-2.jpg' }
       ],
       finalTitle: '모실 인원과 희망 지역만 알려주세요.\n배웅이 맞는 곳을 함께 찾아드립니다.',
       why: [
