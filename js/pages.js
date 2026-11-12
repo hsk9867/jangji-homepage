@@ -47,7 +47,7 @@
   ];
   var STATS = [
     { n: 50, suffix: '+', unit: '곳', label: '상담 가능 장지', img: 'img/fac/eden-2.jpg' },
-    { n: 1870, suffix: '', unit: '건', label: '누적 상담 신청', img: 'img/fac/gonggam-2.jpg' },
+    { n: 1870, suffix: '', unit: '건', label: '누적 상담 신청', img: 'img/fac/gonggam-1.jpg' },
     { n: 640, suffix: '', unit: '건', label: '누적 계약 체결', img: 'img/fac/haneulmun-2.jpg' },
     { n: 97, suffix: '', unit: '%', label: '고객 만족도', img: 'img/counselor-1.jpg' }
   ];

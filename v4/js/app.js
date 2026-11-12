@@ -218,7 +218,7 @@
     /* 실적 띠: 보일 때 숫자가 올라간다 */
     var STATS = [
       { n: 50, suffix: '+', unit: '곳', label: '상담 가능 장지', img: img('img/fac/eden-2.jpg') },
-      { n: 1870, suffix: '', unit: '건', label: '누적 상담 신청', img: img('img/fac/gonggam-2.jpg') },
+      { n: 1870, suffix: '', unit: '건', label: '누적 상담 신청', img: img('img/fac/gonggam-1.jpg') },
       { n: 640, suffix: '', unit: '건', label: '누적 계약 체결', img: img('img/fac/haneulmun-2.jpg') },
       { n: 97, suffix: '', unit: '%', label: '고객 만족도', img: 'img/counselor-1.jpg' }
     ];
@@ -616,7 +616,7 @@
     var t = typeOf(f.type);
     document.title = f.name + ' | 배웅';
     var q = encodeURIComponent(f.address && f.address.length > 8 ? f.address : f.name);
-    var photos = (f.photos || []).map(img);
+    var photos = (f.photos || []).map(img); if (!photos.length) photos = [img({ sumok: 'img/fac/muryang-1.jpg', napgol: 'img/fac/eden-2.jpg', maejang: 'img/fac/jahayeon-6.jpg' }[f.type] || 'img/fac/muryang-1.jpg')]; /* 사진 없는 시설은 유형 대표 사진 */
     el.insertAdjacentHTML('afterbegin', '<div class="fpage"><div class="crumb"><a href="index.html">홈</a> › <a href="index.html#' + esc(f.type) + '">' + esc(t.name) + '</a> › ' + esc(f.name) + '</div>' +
       '<div class="gallery"><div class="main"><img id="gmain" src="' + photos[0] + '" alt="' + esc(f.name) + '"></div><div class="thumbs">' + photos.map(function (p, i) { return '<img src="' + p + '" alt="" class="' + (i === 0 ? 'on' : '') + '" data-i="' + i + '">'; }).join('') + '</div></div>' +
       '<div class="finfo"><div class="area">' + esc(t.name) + ' · ' + esc(f.area) + (f.featured ? ' · 배웅 추천' : '') + '</div><h1>' + esc(f.name) + '</h1>' +
