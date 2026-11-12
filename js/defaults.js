@@ -12,7 +12,7 @@
       kakao: 'https://pf.kakao.com/_mYSxon/chat',
       blogUrl: 'https://blog.naver.com/baewoong0816',
       supportFormUrl: 'https://naver.me/G28Gr3bM',
-      kakaoJsKey: '', /* 카카오 디벨로퍼스 JavaScript 키. 넣으면 '가족에게 공유하기'가 카카오톡 공유창으로 바로 열립니다. */
+      kakaoJsKey: 'a96989001d0c5b86ff507d46dab71a66', /* 카카오 디벨로퍼스 JavaScript 키. 넣으면 '가족에게 공유하기'가 카카오톡 공유창으로 바로 열립니다. */
       naverMapKey: '', /* 네이버 클라우드 Maps(Dynamic Map) 클라이언트 ID. 비우면 시설 상세 지도가 OpenStreetMap 으로 나옵니다. */
       notifyEmail: '',
       bizName: '주식회사 배웅',
