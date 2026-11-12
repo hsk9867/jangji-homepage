@@ -249,7 +249,7 @@
     tb.setAttribute('aria-label', '빠른 메뉴');
     tb.innerHTML = '<a href="./"' + (here === 'index.html' || here === '' ? ' class="on"' : '') + '>' + ICON.home + '홈</a>' +
       '<a href="search.html"' + (here === 'search.html' ? ' class="on"' : '') + '>' + ICON.grid + '장지 비교</a>' +
-      '<a class="call" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><span class="c">' + ICON.won + '</span><b>장례지원금</b></a>' +
+      '<a class="call" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><span class="c txt">장례<br>지원금</span></a>' +
       '<a href="contact.html' + (window.CONTACT_QUERY || '') + '"' + (here === 'contact.html' ? ' class="on"' : '') + '>' + ICON.form + '상담 신청</a>' +
       '<button type="button" class="tab-menu">' + ICON.menu + '메뉴</button>';
     document.body.appendChild(tb);
