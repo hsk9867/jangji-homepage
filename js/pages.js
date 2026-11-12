@@ -502,7 +502,7 @@
         var desc = [f.area, f.price ? '사용료 ' + f.price : ''].filter(Boolean).join(' · ') || f.address || '배웅 장지 안내';
         window.Kakao.Share.sendDefault({
           objectType: 'feed',
-          content: { title: '[배웅] ' + f.name, description: desc, imageUrl: new URL(photo ? photo : 'img/og.png', location.href).href, link: link },
+          content: { title: '[배웅] ' + f.name, description: desc, imageUrl: new URL(photo ? photo : 'img/og-a.jpg', location.href).href, link: link },
           buttons: [{ title: '시설 자세히 보기', link: link }]
         });
       } catch (e) { fail(); }
