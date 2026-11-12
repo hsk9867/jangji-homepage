@@ -510,7 +510,7 @@
     loadKakao(go, fail);
   }
   function loadKakao(ok, fail) {
-    if (window.Kakao && window.Kakao.Share) return ok && ok();
+    if (window.Kakao && window.Kakao.init) return ok && ok();
     var sc = document.getElementById('kakao-sdk');
     if (!sc) { sc = document.createElement('script'); sc.id = 'kakao-sdk'; sc.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js'; sc.crossOrigin = 'anonymous'; document.head.appendChild(sc); }
     if (ok) sc.addEventListener('load', ok); if (fail) sc.addEventListener('error', fail);
