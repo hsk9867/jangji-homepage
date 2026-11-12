@@ -1022,3 +1022,8 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 /* 2026-11-12 고객 요청: 카드뉴스 왼쪽 위 스티커(시안 2와 같은 모양) — 수목장 분양 상담 / 봉안당 분양 상담 / 무료 동행 상담 */
 .news .slide > .chip { position: absolute; z-index: 2; top: 16px; left: 16px; display: inline-flex; align-items: center; background: rgba(52, 52, 52, .92); color: #fff; font-size: 14px; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; padding: 8px 15px; border-radius: 999px; }
 @media (min-width: 960px) { .top2 .news .slide > .chip { top: 24px; left: 28px; font-size: 15px; padding: 9px 17px; } }
+
+/* 2026-11-12 고객 요청: 플로팅 전화 상담 = 초록(예전 화장장 버튼 색), 화장장 예약 = 블랙 */
+.fabs .fab.tel { background: #5B9E63; color: #fff; }
+.fabs .fab.crem { background: #1b1b1f; color: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, .22); }
+.fabs .fab.crem svg { color: #fff; fill: #fff; }

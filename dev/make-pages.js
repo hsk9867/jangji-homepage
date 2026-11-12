@@ -41,7 +41,7 @@ for (const [file, page, type, title, desc] of pages) {
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="css/style.css?v=${VER}">
-<script src="js/blog-content.js?v=20261112za${VER}"></script>
+<script src="js/blog-content.js?v=20261112zb${VER}"></script>
 <script src="js/defaults.js?v=${VER}"></script>
 <script>document.write('<script src="data/content.js?t=' + Date.now() + '"><${BS}/script>');</script>
 <script src="js/preview.js"></script>
