@@ -128,6 +128,7 @@ function sanitizeContent(array $c): array {
             $o['photos'] = [];
             foreach (array_slice(is_array($x['photos'] ?? null) ? $x['photos'] : [], 0, 30) as $p) { $p = cleanPath($p); if ($p !== '') $o['photos'][] = $p; }
             if (isset($x['blogUrl'])) $o['blogUrl'] = cleanUrl($x['blogUrl']);
+            if ($listKey === 'reviews' && isset($x['summary'])) $o['summary'] = cleanStr($x['summary'], 600);
             if ($listKey === 'facilities') $o['tags'] = array_values(array_filter(array_map(function ($v) { return cleanStr($v, 30); }, array_slice(is_array($x['tags'] ?? null) ? $x['tags'] : [], 0, 10)), 'strlen'));
             $o['featured'] = !empty($x['featured']);
             $o['visible'] = !isset($x['visible']) || !empty($x['visible']);
@@ -147,6 +148,20 @@ function sanitizeContent(array $c): array {
             $title = cleanStr($a['title'] ?? '', 200);
             if ($url === '' || $title === '') continue;
             $out['articles'][] = ['title' => $title, 'url' => $url, 'image' => cleanPath($a['image'] ?? ''), 'date' => cleanStr($a['date'] ?? '', 10)];
+        }
+    }
+    /* 공지사항 (2026-11-17) */
+    if (isset($c['notices']) && is_array($c['notices'])) {
+        $out['notices'] = [];
+        foreach (array_slice($c['notices'], 0, 200) as $n) {
+            if (!is_array($n)) continue;
+            $title = cleanStr($n['title'] ?? '', 120);
+            if ($title === '') continue;
+            $id = (string)($n['id'] ?? '');
+            if (!preg_match('/^[a-zA-Z0-9_-]{1,40}$/', $id)) $id = 'n-' . bin2hex(random_bytes(4));
+            $out['notices'][] = ['id' => $id, 'label' => (($n['label'] ?? '') === '공지') ? '공지' : '안내', 'title' => $title,
+                'date' => cleanStr($n['date'] ?? '', 20), 'body' => cleanStr($n['body'] ?? '', 5000),
+                'pinned' => ($n['pinned'] ?? false) === true, 'visible' => ($n['visible'] ?? true) !== false];
         }
     }
     return $out;
