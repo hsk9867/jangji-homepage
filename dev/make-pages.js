@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = '배웅 | 장지 안심 동행 서비스';
-const VER = '20261112ze';  // 캐시 쿼리 (css·js 바꾸면 올려 주세요)
+const VER = '20261117a';  // 캐시 쿼리 (css·js 바꾸면 올려 주세요)
 const pages = [
   ['index.html', 'home', '', SITE, '수목장·봉안당(납골당)·공원묘지 분양 상담부터 파묘·이장까지. 배웅이 직접 답사한 시설만 안내하고, 주말에도 무료로 동행 답사합니다. 070-7621-4444'],
   ['sumokjang.html', 'type', 'sumok', '수목장 | 배웅', '경기도 수목장 평균 가격과 특징, 배웅이 직접 답사한 수목장 사진과 후기.'],
@@ -18,6 +18,8 @@ const pages = [
   ['search.html', 'search', '', '장지 찾기·비교 | 배웅', '직접 답사한 수목장·봉안당·매장묘를 지역과 특징으로 찾고 최대 3곳까지 비교합니다.'],
   ['crematorium.html', 'crematorium', '', '화장장 예약 안내 | 배웅', '전국 화장시설을 지역별로 찾고 e하늘 장사정보시스템에서 바로 예약합니다.'],
   ['services.html', 'services', '', '서비스 안내 | 배웅', '수목장·봉안당·매장묘·파묘·화장장 예약·장례지원금. 배웅이 어떤 일을 어떻게 도와드리는지 먼저 보고 고르십시오.'],
+  ['support.html', 'support', '', '장례지원금 | 배웅', '장제급여·사망일시금·화장장려금 등 받을 수 있는 장례지원금을 배웅이 무료로 확인해 드립니다. 대상 확인부터 서류·신청 방법까지 안내합니다.'],
+  ['notice.html', 'notice', '', '공지사항 | 배웅', '배웅의 새로운 소식과 안내입니다.'],
   ['privacy.html', 'privacy', '', '개인정보 처리방침 | 배웅', '배웅 개인정보 처리방침.']
 ];
 const BS = String.fromCharCode(92);

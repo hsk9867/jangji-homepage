@@ -100,7 +100,7 @@ function cleanPath(p) { p = cleanStr(p, 200); return /^(uploads\/\d{6}\/[a-f0-9]
 function cleanUrl(u) { u = cleanStr(u, 400); return /^https:\/\/[^\s"<>]+$/.test(u) ? u : ''; }
 function cleanList(arr, n, max) { return (Array.isArray(arr) ? arr : []).slice(0, n).map(v => cleanStr(v, max)).filter(Boolean); }
 function cleanPairs(arr, n, tMax, dMax) { return (Array.isArray(arr) ? arr : []).slice(0, n).filter(r => r && typeof r === 'object').map(r => ({ t: cleanStr(r.t, tMax), d: cleanStr(r.d, dMax) })); }
-function cleanItem(x, fields, long) { const o = {}; for (const k of fields) if (x[k] != null) o[k] = cleanStr(x[k], ['body', 'comment', 'desc'].includes(k) ? long : 300); return o; }
+function cleanItem(x, fields, long) { const o = {}; for (const k of fields) if (x[k] != null) o[k] = cleanStr(x[k], ['body', 'comment', 'desc'].includes(k) ? long : k === 'summary' ? 600 : 300); return o; }
 
 function sanitizeContent(c) {
   const out = {};
@@ -111,7 +111,7 @@ function sanitizeContent(c) {
     for (const k of ['kakao', 'blogUrl', 'supportFormUrl']) if (s[k] != null) o[k] = cleanUrl(s[k]);
     for (const k of ['heroBadges', 'regions']) if (Array.isArray(s[k])) o[k] = cleanList(s[k], 30, 60);
     for (const k of ['why', 'steps']) if (Array.isArray(s[k])) o[k] = cleanPairs(s[k], 10, 80, 300);
-    if (Array.isArray(s.cards)) o.cards = s.cards.slice(0, 12).filter(x => x && typeof x === 'object').map(x => ({ tag: cleanStr(x.tag, 40), t: cleanStr(x.t, 120), d: cleanStr(x.d, 300), btn: cleanStr(x.btn, 40), href: cleanStr(x.href, 120), image: cleanPath(x.image) }));
+    if (Array.isArray(s.cards)) o.cards = s.cards.slice(0, 12).filter(x => x && typeof x === 'object').map(x => ({ tag: cleanStr(x.tag, 40), big: cleanStr(x.big, 40), t: cleanStr(x.t, 120), d: cleanStr(x.d, 300), btn: cleanStr(x.btn, 40), href: cleanStr(x.href, 120), image: cleanPath(x.image) }));
     out.site = o;
   }
   if (c.types && typeof c.types === 'object') {
@@ -126,7 +126,13 @@ function sanitizeContent(c) {
       out.types[key] = o;
     }
   }
-  const lists = { facilities: ['id', 'type', 'name', 'area', 'address', 'operator', 'price', 'comment'], reviews: ['id', 'type', 'title', 'author', 'date', 'facilityId', 'body'] };
+  /* 공지사항 (2026-11-17) */
+  if (Array.isArray(c.notices)) out.notices = c.notices.slice(0, 200).filter(n => n && typeof n === 'object').map(n => ({
+    id: /^[a-zA-Z0-9_-]{1,40}$/.test(String(n.id || '')) ? String(n.id) : 'n-' + randHex(4),
+    label: n.label === '공지' ? '공지' : '안내', title: cleanStr(n.title, 120), date: cleanStr(n.date, 20), body: cleanStr(n.body, 5000),
+    pinned: n.pinned === true, visible: n.visible !== false,
+  })).filter(n => n.title);
+  const lists = { facilities: ['id', 'type', 'name', 'area', 'address', 'operator', 'price', 'comment'], reviews: ['id', 'type', 'title', 'author', 'date', 'facilityId', 'body', 'summary'] };
   for (const [listKey, fields] of Object.entries(lists)) {
     if (!Array.isArray(c[listKey])) continue;
     out[listKey] = [];

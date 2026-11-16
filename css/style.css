@@ -1037,3 +1037,100 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 .rail-wrap:has(.rail.marquee) .rail-btn { display: none !important; }
 @keyframes mq-flow { to { transform: translate3d(-50%, 0, 0); } }
 @media (min-width: 960px) { .rail.marquee { margin: 0; padding: 4px 0 8px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); } }
+
+/* ===== 2026-11-17 고객 수정사항 (배웅 수정내용.pdf) ===== */
+/* 2. 장례지원금 상담 신청 버튼: 연한 골드 바탕으로 눈에 띄게 */
+.btn-gold { background: #F4EAD2; color: #5A4416; border-color: #DCC596; font-weight: 700; box-shadow: 0 3px 10px rgba(177, 151, 105, .18); }
+@media (hover: hover) { .btn-gold:hover { background: #EEDFBC; border-color: #CDB27A; } }
+
+/* 4. 플로팅: 전화(짙은 초록 + 전화기 아이콘) → 카톡 → 화장장 예약 */
+.fabs .fab.tel { background: #1F6B3A; color: #fff; }
+.fabs .fab.tel svg { width: 24px; height: 24px; fill: #fff; stroke: #fff; stroke-width: 1; }
+@media (min-width: 960px) { .fabs .fab.tel svg { width: 27px; height: 27px; } }
+
+/* 5. 메인 상담 후기: 손으로 밀 수 있는 가로 목록 + 안 만질 때 천천히 흐름 (common.js autoRail) */
+.rail.auto-flow { scroll-snap-type: none !important; }
+.rail.auto-flow > * { scroll-snap-align: none; }
+@media (min-width: 960px) {
+  .rail.auto-flow { display: flex !important; gap: 24px; overflow-x: auto; padding: 4px 0 10px; }
+  .rail.auto-flow > *, .rail.wide.auto-flow > * { flex: 0 0 calc((100% - 48px) / 3); display: flex !important; }
+  .rail-wrap:has(.auto-flow) .rail-btn { display: grid; place-items: center; top: 30%; }
+}
+
+/* 3·6. 상담 후기 카드: 요약 글의 핵심 부분 굵게 + 형광펜(빗금) */
+mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 112, .48) 56%, rgba(214, 186, 112, .48) 92%, transparent 92%); color: inherit; font-weight: 700; padding: 0 1px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.tc { text-decoration: none; color: inherit; }
+.tc .bd p { -webkit-line-clamp: 5; }
+
+/* 5(시설). 사진 위 배지 문구·색 섞기 */
+.fac .ph .rec.b-rec { background: #1b1b1f; }
+.fac .ph .rec.b-ok { background: #1F6B3A; }
+.fac .ph .rec.b-hot { background: #D9534A; }
+.fac .ph .rec.b-save { background: #A8813A; }
+.fac .ph .rec.b-go { background: #2F68C8; }
+
+/* 8. 장지 유형 안내: 강조(인기) 카드와 누를 때 초록 포인트 */
+.pcard.hot { border: 2px solid #2A8A47; background: #F4FAF5; box-shadow: 0 6px 18px rgba(42, 138, 71, .12); }
+.pcard.hot .nm .h { background: #2A8A47; }
+.pcard.hot .ic { background: #E1F0E4; color: #1F6B3A; }
+.pcard.hot .pr em { color: #1F6B3A; }
+.pcard:active, .pcard:focus-visible { border-color: #2A8A47; }
+@media (hover: hover) { .pcard:hover { border-color: #2A8A47; } }
+
+/* 7. 카드뉴스 A 시안: 위 가운데 라벨 + 가운데 큰 제목 + 아래 문구 */
+.news .slide.a-style { align-items: center; text-align: center; justify-content: flex-end; }
+.news .slide.a-style::after { background: linear-gradient(180deg, rgba(0, 0, 0, .28) 0%, rgba(0, 0, 0, .08) 28%, rgba(0, 0, 0, .18) 52%, rgba(0, 0, 0, .66) 100%); }
+.news .slide.a-style > .chip { left: 50%; right: auto; transform: translateX(-50%); top: 18px; white-space: nowrap; }
+.news .slide.a-style > .big { position: absolute; z-index: 1; left: 12px; right: 12px; top: 50%; transform: translateY(-62%); font-family: 'Noto Serif KR', var(--font-body), serif; font-weight: 600; font-size: clamp(38px, 12vw, 52px); line-height: 1.15; letter-spacing: .04em; color: #fff; text-shadow: 0 2px 16px rgba(0, 0, 0, .45); }
+.news .slide.a-style > h2 { font-size: 16.5px; line-height: 1.6; font-weight: 500; margin: 0 auto; max-width: 92%; }
+.news .slide.a-style > p { margin-left: auto; margin-right: auto; }
+@media (max-width: 380px) { .news .slide.a-style > .big { font-size: 34px; } .news .slide.a-style > h2 { font-size: 15px; } }
+@media (min-width: 960px) {
+  .top2 .news .slide.a-style > .chip { left: 50%; top: 26px; }
+  .top2 .news .slide.a-style > .big { font-size: 60px; }
+  .top2 .news .slide.a-style > h2 { font-size: 20px; }
+}
+
+/* 9. 공지사항 (메인 마지막 + notice.html) */
+.notice-sec { background: #F7F6F2; }
+.nt-head { position: relative; margin-bottom: 22px; }
+.nt-eye { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #3D4A63; }
+.nt-eye::before { content: ''; width: 18px; height: 1px; background: #3D4A63; }
+.nt-title { font-family: 'Noto Serif KR', serif; font-weight: 400; font-size: 40px; line-height: 1.15; letter-spacing: -.01em; margin-top: 8px; }
+.nt-head p { margin-top: 8px; color: var(--ink-2); font-size: 15px; }
+.nt-more { display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; padding: 7px 8px 7px 16px; border: 1px solid #D6D3CB; border-radius: 999px; background: #fff; font-size: 14px; font-weight: 600; color: var(--ink); }
+.nt-more i { width: 24px; height: 24px; border-radius: 50%; background: #1b1b1f; color: #fff; display: grid; place-items: center; font-style: normal; font-size: 16px; line-height: 1; }
+.nt-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid #1b1b1f; }
+.nt-list li { border-bottom: 1px solid #E2DFD7; }
+.nt-list a { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "lab arr" "tt arr" "dt arr"; gap: 6px 14px; align-items: center; padding: 18px 2px; color: inherit; }
+.nt-lab { grid-area: lab; justify-self: start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 6px; background: #E6E6EE; color: #3D4A63; line-height: 1.4; }
+.nt-lab.on { background: #1b1b1f; color: #fff; }
+.nt-list b { grid-area: tt; font-size: 16px; font-weight: 700; line-height: 1.45; }
+.nt-list time { grid-area: dt; font-size: 13px; color: var(--ink-3); }
+.nt-arr { grid-area: arr; font-style: normal; color: var(--ink-2); font-size: 18px; transition: transform .2s; }
+@media (hover: hover) { .nt-list a:hover .nt-arr { transform: translateX(4px); } .nt-list a:hover b { text-decoration: underline; text-underline-offset: 3px; } }
+.nt-view { margin-top: 18px; padding-top: 20px; border-top: 1px solid #1b1b1f; }
+.nt-view h1 { font-size: 24px; line-height: 1.4; margin-top: 10px; }
+.nt-view time { display: block; margin-top: 6px; font-size: 14px; color: var(--ink-3); }
+.nt-view .nt-body { margin-top: 20px; padding-top: 20px; border-top: 1px solid #E2DFD7; font-size: 16px; line-height: 1.8; color: var(--ink); }
+@media (min-width: 960px) { .nt-title { font-size: 52px; } .nt-more { position: absolute; right: 0; bottom: 0; margin: 0; } }
+
+/* 1. 장례지원금 페이지 (support.html) */
+.form-wrap.sp .sp-intro { padding-bottom: 26px; margin-bottom: 26px; border-bottom: 1px solid var(--line); }
+.sp-eye { display: inline-block; font-size: 13px; font-weight: 700; color: #8A6A2B; background: #F4EAD2; border-radius: 999px; padding: 5px 12px; }
+.form-wrap.sp h1 { font-size: 32px; margin-top: 12px; }
+.form-wrap.sp .lead b { color: var(--ink); }
+.sp-kinds { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+.sp-kinds li { background: #FBF6EA; border: 1px solid #EADCB9; border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
+.sp-kinds b { font-size: 16.5px; color: #4A3810; }
+.sp-kinds span { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.sp-note { margin-top: 14px; font-size: 14px; line-height: 1.6; color: var(--ink-3); }
+.sp-steps { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; counter-reset: s; }
+.sp-steps li { display: grid; grid-template-columns: 30px 1fr; gap: 2px 10px; align-items: start; }
+.sp-steps em { grid-row: span 2; width: 26px; height: 26px; border-radius: 50%; background: #1F6B3A; color: #fff; font-style: normal; font-weight: 700; font-size: 13px; display: grid; place-items: center; margin-top: 1px; }
+.sp-steps b { font-size: 15.5px; }
+.sp-steps span { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.sp-form-h { font-size: 22px; }
+.sp-faq { margin-top: 30px; }
+.sp-faq h2 { font-size: 20px; margin-bottom: 12px; }
+@media (min-width: 600px) { .sp-kinds { grid-template-columns: 1fr 1fr; } }

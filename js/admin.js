@@ -36,13 +36,13 @@
     var c = clone(D);
     c.site = Object.assign(c.site, saved.site || {});
     TYPE_KEYS.forEach(function (k) { c.types[k] = Object.assign(c.types[k], (saved.types || {})[k] || {}); });
-    ['facilities', 'reviews', 'faqs', 'articles'].forEach(function (k) { if (Array.isArray(saved[k])) c[k] = saved[k]; if (!Array.isArray(c[k])) c[k] = []; });
+    ['facilities', 'reviews', 'faqs', 'articles', 'notices'].forEach(function (k) { if (Array.isArray(saved[k])) c[k] = saved[k]; if (!Array.isArray(c[k])) c[k] = []; });
     return c;
   }
   function payload() {
     var c = state.content, types = {};
     TYPE_KEYS.forEach(function (k) { var t = clone(c.types[k]); delete t.name; delete t.path; types[k] = t; });
-    return { site: c.site, types: types, facilities: c.facilities, reviews: c.reviews, faqs: c.faqs, articles: c.articles };
+    return { site: c.site, types: types, facilities: c.facilities, reviews: c.reviews, faqs: c.faqs, articles: c.articles, notices: c.notices };
   }
   function setDirty(v) {
     state.dirty = v;
@@ -297,6 +297,7 @@
       '<div class="row2"><div class="f"><label>고객 이름 (가려서)</label><input type="text" name="author" value="' + esc(r.author) + '" placeholder="김OO"></div>' +
       '<div class="f"><label>날짜</label><input type="date" name="date" value="' + esc(r.date) + '"></div></div>' +
       '<div class="f"><label>후기 내용 *</label><textarea name="body" style="min-height:180px" placeholder="고객이 남긴 말씀이나 진행 내용을 적어 주세요">' + esc(r.body) + '</textarea></div>' +
+      '<div class="f"><label>카드 요약 (첫 화면 후기 카드에 보이는 글)</label><textarea name="summary" style="min-height:90px" placeholder="2~3문장. 강조할 부분은 **이렇게** 감싸면 굵게 + 형광펜으로 보입니다.">' + esc(r.summary || '') + '</textarea><small>비우면 기본 요약(또는 후기 내용 앞부분)이 보입니다. 답사의 핵심 포인트를 **별표 두 개**로 감싸 주세요.</small></div>' +
       '<div class="f"><label>블로그 원문 주소 (선택)</label><input type="url" name="blogUrl" value="' + esc(r.blogUrl || '') + '" placeholder="https://blog.naver.com/baewoong0816/..."></div>' +
       '<div class="f"><label>사진</label><div id="ph-host"></div><small>사진이 없으면 진행 시설의 대표 사진이 쓰입니다.</small></div>' +
       '<label class="chk"><input type="checkbox" name="featured"' + (r.featured ? ' checked' : '') + '>첫 화면에 보이기</label>' +
@@ -309,7 +310,7 @@
       ok: function (close) {
         var p = document.querySelector('.panel');
         r.type = val(p, 'type'); r.facilityId = val(p, 'facilityId'); r.title = val(p, 'title'); r.author = val(p, 'author');
-        r.date = val(p, 'date'); r.body = val(p, 'body'); r.blogUrl = val(p, 'blogUrl'); r.featured = val(p, 'featured'); r.visible = val(p, 'visible');
+        r.date = val(p, 'date'); r.body = val(p, 'body'); r.summary = val(p, 'summary'); r.blogUrl = val(p, 'blogUrl'); r.featured = val(p, 'featured'); r.visible = val(p, 'visible');
         if (!r.title || !r.body) { toast('제목과 내용을 입력해 주세요.', true); return; }
         delete r.sample;
         var prev = clone(c.reviews);
@@ -320,6 +321,49 @@
         var prev = clone(c.reviews);
         c.reviews.splice(c.reviews.indexOf(orig), 1);
         save().then(function (ok) { if (ok) { close(); renderReviews(); } else c.reviews = prev; });
+      } : null
+    });
+  }
+
+  /* ---------- 탭: 공지사항 (2026-11-17) ---------- */
+  function renderNotices() {
+    var c = state.content;
+    var list = c.notices.slice().sort(function (a, b) { return (!!b.pinned - !!a.pinned) || String(b.date).localeCompare(String(a.date)); });
+    view.innerHTML = '<h2>공지사항</h2><p class="help">홈페이지 맨 아래와 공지사항 페이지에 보입니다. "맨 위 고정"을 켜면 날짜와 관계없이 맨 위에 나옵니다. 메인에는 최근 3개까지 보입니다.</p>' +
+      '<div class="bar"><span style="flex:1"></span><button class="btn pri" id="nt-add">＋ 공지 작성</button></div>' +
+      '<div class="list">' + (list.length ? list.map(function (n) {
+        return '<div class="item"><div class="tx"><b>' + esc(n.title || '(제목 없음)') + '</b><small><span class="lb">' + esc(n.label || '안내') + '</span>' + (n.pinned ? '<span class="lb star">맨 위 고정</span>' : '') + (n.visible === false ? '<span class="lb hide">숨김</span>' : '') +
+          esc(n.date || '') + '</small></div><button class="btn sm" data-edit="' + esc(n.id) + '">수정</button></div>';
+      }).join('') : '<div class="empty">등록된 공지가 없습니다. "＋ 공지 작성"을 눌러 주세요.</div>') + '</div>';
+    $('nt-add').onclick = function () { editNotice(null); };
+    view.querySelectorAll('[data-edit]').forEach(function (b) { b.onclick = function () { editNotice(b.dataset.edit); }; });
+  }
+  function editNotice(id) {
+    var c = state.content;
+    var orig = id ? c.notices.filter(function (n) { return n.id === id; })[0] : null;
+    var today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    var n = orig ? clone(orig) : { id: uid('n'), label: '안내', title: '', date: today, body: '', pinned: false, visible: true };
+    var html =
+      '<div class="row2"><div class="f"><label>구분</label><select name="label">' + ['공지', '안내'].map(function (x) { return '<option' + (x === n.label ? ' selected' : '') + '>' + x + '</option>'; }).join('') + '</select></div>' +
+      '<div class="f"><label>날짜</label><input type="date" name="date" value="' + esc(n.date) + '"></div></div>' +
+      '<div class="f"><label>제목 *</label><input type="text" name="title" maxlength="80" value="' + esc(n.title) + '" placeholder="예: 추석 연휴 상담 안내"></div>' +
+      '<div class="f"><label>내용</label><textarea name="body" style="min-height:200px" placeholder="줄을 바꾸면 그대로 줄이 바뀌어 보입니다.">' + esc(n.body) + '</textarea></div>' +
+      '<label class="chk"><input type="checkbox" name="pinned"' + (n.pinned ? ' checked' : '') + '>맨 위 고정</label>' +
+      '<label class="chk"><input type="checkbox" name="visible"' + (n.visible !== false ? ' checked' : '') + '>홈페이지에 공개</label>';
+    openPanel(orig ? '공지 수정' : '공지 작성', html, function () {}, {
+      okLabel: '저장하고 사이트에 반영',
+      ok: function (close) {
+        var p = document.querySelector('.panel');
+        n.label = val(p, 'label'); n.date = val(p, 'date'); n.title = val(p, 'title'); n.body = val(p, 'body'); n.pinned = val(p, 'pinned'); n.visible = val(p, 'visible');
+        if (!n.title) { toast('제목을 입력해 주세요.', true); return; }
+        var prev = clone(c.notices);
+        if (orig) c.notices[c.notices.indexOf(orig)] = n; else c.notices.unshift(n);
+        save().then(function (ok) { if (ok) { close(); renderNotices(); } else c.notices = prev; });
+      },
+      del: orig ? function (close) {
+        var prev = clone(c.notices);
+        c.notices.splice(c.notices.indexOf(orig), 1);
+        save().then(function (ok) { if (ok) { close(); renderNotices(); } else c.notices = prev; });
       } : null
     });
   }
@@ -477,7 +521,7 @@
   }
 
   /* ---------- 화면 전환 ---------- */
-  var RENDER = { inbox: renderInbox, facilities: renderFacilities, facreviews: renderFacReviews, reviews: renderReviews, types: renderTypes, site: renderSite, settings: renderSettings };
+  var RENDER = { inbox: renderInbox, facilities: renderFacilities, facreviews: renderFacReviews, reviews: renderReviews, notices: renderNotices, types: renderTypes, site: renderSite, settings: renderSettings };
   function go(tab) {
     state.tab = tab;
     document.querySelectorAll('#tabs button').forEach(function (b) { b.classList.toggle('on', b.dataset.tab === tab); });

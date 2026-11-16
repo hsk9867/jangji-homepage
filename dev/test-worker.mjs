@@ -144,4 +144,11 @@ console.log('done');
   const before = env.UPLOADS._m.size; r = await call('review_update', { id: rid, delete: true }); ok('delete review + photo', r.ok && env.UPLOADS._m.size === before - 1, [before, env.UPLOADS._m.size]);
   r = await call('save', { content: { facilities: [{ id: 'aa', type: 'napgol', name: 'A', keywords: ['경치가 좋아요', '조용해요'], types: ['napgol', 'sumok', 'xx'], religion: '불교' }] } });
   ok('save keeps keywords/types/religion', r.ok && r.content.facilities[0].keywords.length === 2 && r.content.facilities[0].types.join() === 'napgol,sumok' && r.content.facilities[0].religion === '불교', r.content && r.content.facilities);
+  r = await call('save', { content: {
+    notices: [{ id: 'n1', label: '공지', title: '새 공지 <b>', date: '2026-11-17', body: '내용\n둘째 줄', pinned: true }, { id: 'bad id!', label: '아무거나', title: '두 번째' }, { title: '' }],
+    reviews: [{ id: 'r1', type: 'sumok', title: 't', body: 'b', summary: '핵심은 **진입로**입니다.' }],
+    site: { cards: [{ tag: '수목장 분양 상담', big: '수목장', t: '문구' }] },
+  } });
+  ok('save keeps notices (label/pinned/visible, empty title dropped)', r.ok && r.content.notices.length === 2 && r.content.notices[0].pinned === true && r.content.notices[0].visible === true && r.content.notices[1].label === '안내' && /^n-/.test(r.content.notices[1].id), r.content && r.content.notices);
+  ok('save keeps review summary and card big title', r.ok && r.content.reviews[0].summary === '핵심은 **진입로**입니다.' && r.content.site.cards[0].big === '수목장', r.content && [r.content.reviews, r.content.site]);
 }

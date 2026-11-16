@@ -7,7 +7,7 @@
   C.site = Object.assign({}, D.site, S.site || {});
   C.types = {};
   Object.keys(D.types).forEach(function (k) { C.types[k] = Object.assign({}, D.types[k], (S.types || {})[k] || {}); });
-  ['facilities', 'reviews', 'articles', 'faqs'].forEach(function (k) { C[k] = Array.isArray(S[k]) ? S[k] : (D[k] || []); });
+  ['facilities', 'reviews', 'articles', 'faqs', 'notices'].forEach(function (k) { C[k] = Array.isArray(S[k]) ? S[k] : (D[k] || []); });
   window.C = C;
 
   var TYPE_KEYS = ['sumok', 'napgol', 'maejang', 'ijang'];
@@ -78,9 +78,22 @@
   function kwChips(list, n) { list = list || []; return list.length ? '<div class="kw">' + list.slice(0, n || 3).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>' : ''; }
   function typeNames(f) { return (f.types && f.types.length ? f.types : [f.type]).map(function (k) { return SHORT[k] || ''; }).filter(Boolean).join(' · '); }
 
+  /* 시설 사진 위 배지 (2026-11-17 고객 요청: 전부 '배웅 추천'이면 기계적이니 문구·색을 섞기).
+     시설 자료에 맞는 배지 후보만 고른 뒤, 시설 id 로 그중 하나를 정한다(새로고침해도 같은 배지).
+     실속 시설 = 같은 유형에서 최저가가 낮은 편, 교통 편의 = 키워드에 가까움·주차·접근성, 인기 시설 = 상담 후기가 있는 곳 */
+  var BADGES = { rec: '배웅 추천', ok: '배웅 검증', hot: '인기 시설', save: '실속 시설', go: '교통 편의' };
+  function priceNum(f) { var m = String(f.price || '').replace(/,/g, '').match(/\d+/); return m ? +m[0] : 0; }
+  function badgeOf(f) {
+    var c = ['rec', 'ok'], kw = (f.keywords || []).concat(f.tags || []).join(' '), p = priceNum(f);
+    if (p > 1 && (f.type === 'maejang' ? p <= 200 : p <= 140)) c.push('save', 'save');
+    if (/가까워|오가기 편|주차|접근성|IC|생활권/.test(kw)) c.push('go');
+    if ((C.reviews || []).some(function (r) { return r.facilityId === f.id && r.visible !== false; })) c.push('hot', 'hot');
+    var h = 0; String(f.id).split('').forEach(function (ch) { h = (h * 31 + ch.charCodeAt(0)) >>> 0; });
+    return c[h % c.length];
+  }
   function facCard(f) {
-    var n = (f.photos || []).length;
-    return '<a class="fac" href="facility.html?id=' + encodeURIComponent(f.id) + '"><div class="ph">' + img(facPhoto(f), f.name) + (n > 1 ? '<span class="n">사진 ' + n + '</span>' : '') + (f.featured ? '<span class="rec">배웅 추천</span>' : '') + '</div>' +
+    var n = (f.photos || []).length, b = f.featured ? badgeOf(f) : '';
+    return '<a class="fac" href="facility.html?id=' + encodeURIComponent(f.id) + '"><div class="ph">' + img(facPhoto(f), f.name) + (n > 1 ? '<span class="n">사진 ' + n + '</span>' : '') + (b ? '<span class="rec b-' + b + '">' + BADGES[b] + '</span>' : '') + '</div>' +
       '<div class="t"><h3>' + esc(f.name) + '</h3><span class="ty">' + esc(SHORT[f.type] || '') + '</span></div><div class="loc">' + esc(f.area || f.address || '') + (f.price ? ' · <b>최저 ' + esc(f.price) + '</b>' : '') + '</div>' + kwChips(kwOf(f), 2) + '</a>';
   }
   function revCard(r) {
@@ -105,41 +118,46 @@
       dragScroll(r);
     });
   }
-  /* 가로 목록을 끊김 없이 흐르게(마키): 카드를 한 벌 복제해 이어 붙이고, 띠 전체를 일정한 속도로 transform 이동.
-     띠 길이의 절반(원본 한 벌)만큼 가면 처음과 똑같은 모습이라 이음매 없이 반복된다.
-     마우스를 올리거나 손가락으로 누르고 있으면 멈추고, '동작 줄이기' 설정이면 원래의 가로 목록 그대로 둔다. */
+  /* 가로 목록 자동 흐름 (2026-11-17 고객 요청: 손으로 직접 밀어 넘길 수 있고, 안 만질 때는 천천히 흐르기).
+     실제 가로 스크롤(scrollLeft)을 조금씩 옮기는 방식이라 손가락·마우스로 그대로 밀 수 있다.
+     카드를 한 벌 복제해 이어 붙여, 원본 한 벌 길이만큼 가면 처음 위치로 되돌려 끝없이 이어진다.
+     누르거나 밀면 멈추고, 손을 뗀 뒤 2.5초 지나면 다시 흐른다. '동작 줄이기' 설정이면 흐르지 않는다. */
   function autoRail(r, speed) {
     if (!r || r.dataset.auto) return; r.dataset.auto = '1';
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var items = [].slice.call(r.children);
     if (items.length < 2) return;
-    speed = speed || 38;   // 초당 px
-    var track = document.createElement('div');
-    track.className = 'mq-track';
-    items.forEach(function (it) { track.appendChild(it); });
+    speed = speed || 20;   // 초당 px — 천천히
     items.forEach(function (it) {
       var c = it.cloneNode(true);
       c.setAttribute('aria-hidden', 'true'); c.setAttribute('tabindex', '-1');
-      track.appendChild(c);
+      r.appendChild(c);
     });
-    r.appendChild(track);
-    r.classList.add('marquee');
-    var size = function () {
-      var pc = window.innerWidth >= 960, gap = pc ? 24 : 12, per = pc ? 3 : 1.25;
-      var w = Math.floor((r.clientWidth - (pc ? 0 : 0) - gap * (Math.ceil(per) - 1)) / per);
-      if (!pc) w = Math.min(w, 320);
-      [].forEach.call(track.children, function (c) { c.style.width = w + 'px'; c.style.marginRight = gap + 'px'; });
-      var half = (w + gap) * items.length;
-      track.style.animationDuration = (half / speed) + 's';
-    };
-    size();
-    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(size, 150); });
-    var hold = function () { r.classList.add('hold'); }, free = function () { r.classList.remove('hold'); };
-    var ft;
-    r.addEventListener('touchstart', function () { clearTimeout(ft); hold(); }, { passive: true });
-    r.addEventListener('touchend', function () { ft = setTimeout(free, 1200); }, { passive: true });
-    r.addEventListener('focusin', hold);
-    r.addEventListener('focusout', free);
+    r.classList.add('auto-flow');
+    var pos = r.scrollLeft, last = 0, until = 0, held = false, prevSet = -1;
+    var half = function () { return r.children[items.length].offsetLeft - items[0].offsetLeft; };
+    var rest = function (ms) { until = performance.now() + ms; };
+    ['touchstart', 'pointerdown'].forEach(function (ev) { r.addEventListener(ev, function () { held = true; rest(2500); }, { passive: true }); });
+    ['touchend', 'touchcancel', 'pointerup', 'pointercancel'].forEach(function (ev) { r.addEventListener(ev, function () { held = false; rest(2500); }, { passive: true }); });
+    r.addEventListener('wheel', function () { rest(2500); }, { passive: true });
+    r.addEventListener('focusin', function () { held = true; });
+    r.addEventListener('focusout', function () { held = false; rest(1500); });
+    if (window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      r.addEventListener('mouseenter', function () { held = true; });
+      r.addEventListener('mouseleave', function () { held = false; rest(800); });
+    }
+    var wrap = r.closest('.rail-wrap');
+    if (wrap) [].forEach.call(wrap.querySelectorAll('.rail-btn'), function (b) { b.addEventListener('click', function () { rest(3000); }); });
+    (function tick(t) {
+      var dt = last ? Math.min(64, t - last) : 16; last = t;
+      if (prevSet >= 0 && Math.abs(r.scrollLeft - prevSet) > 2) pos = r.scrollLeft;   // 사람이 밀었음 → 그 자리부터
+      if (!held && t > until && !document.hidden) pos += speed * dt / 1000;
+      var h = half();
+      if (h > 0) { if (pos >= h) pos -= h; else if (pos < 0) pos += h; }
+      if (Math.abs(pos - r.scrollLeft) >= 0.5) r.scrollLeft = pos;
+      prevSet = r.scrollLeft;
+      requestAnimationFrame(tick);
+    })(performance.now());
   }
   function faqHtml(list) {
     if (!list || !list.length) return '';
@@ -210,7 +228,7 @@
   }
 
   /* ---------- 레이아웃 ---------- */
-  var MENU = [['sumokjang.html', '수목장'], ['napgoldang.html', '봉안당'], ['maejang.html', '공원묘지'], ['ijang.html', '파묘·이장'], ['search.html', '장지 찾기·비교'], ['facilities.html', '답사 시설'], ['crematorium.html', '화장장 예약'], ['contact.html?type=support', '장례지원금 상담'], ['reviews.html', '상담 후기'], ['services.html', '서비스 안내']];
+  var MENU = [['sumokjang.html', '수목장'], ['napgoldang.html', '봉안당'], ['maejang.html', '공원묘지'], ['ijang.html', '파묘·이장'], ['search.html', '장지 찾기·비교'], ['facilities.html', '답사 시설'], ['crematorium.html', '화장장 예약'], ['support.html', '장례지원금'], ['reviews.html', '상담 후기'], ['services.html', '서비스 안내'], ['notice.html', '공지사항']];
   /* 첫 화면 인트로: 문구 두 줄만 차례로 떠오른 뒤 사라짐(약 3.3초). 세션당 1회, ?intro=1 다시 보기, ?intro=0 생략, ?introhold 멈춤 */
   document.addEventListener('DOMContentLoaded', function () { if (document.body.dataset.page === 'home') {
     var seen = false; try { seen = !!sessionStorage.getItem('bw_intro'); } catch (e) {}
@@ -228,7 +246,7 @@
     var s = C.site;
     var here = location.pathname.split('/').pop() || 'index.html';
     /* 2026-11-06 고객 요청: PC 상단 메뉴·햄버거 메뉴 구성을 B안과 동일하게 */
-    var DR = [['sumokjang.html', '수목장'], ['napgoldang.html', '봉안당'], ['maejang.html', '공원묘지'], ['ijang.html', '파묘·이장'], ['crematorium.html', '화장장 예약'], ['contact.html?type=support', '장례지원금 상담'], ['reviews.html', '상담 후기']];
+    var DR = [['sumokjang.html', '수목장'], ['napgoldang.html', '봉안당'], ['maejang.html', '공원묘지'], ['ijang.html', '파묘·이장'], ['crematorium.html', '화장장 예약'], ['support.html', '장례지원금'], ['reviews.html', '상담 후기'], ['notice.html', '공지사항']];
     var drLink = function (m) { return '<a href="' + m[0] + '"' + (here === m[0].split('?')[0] && (m[0].indexOf('?') < 0 || location.search === '?' + m[0].split('?')[1]) ? ' class="on"' : '') + '>' + m[1] + '</a>'; };
     var topNav = DR.slice(0, 4).map(drLink).join('');
     var nav = MENU.map(function (m) { return '<a href="' + m[0] + '"' + (here === m[0].split('?')[0] && (m[0].indexOf('?') < 0 || location.search === '?' + m[0].split('?')[1]) ? ' class="on"' : '') + '>' + m[1] + '</a>'; }).join('');
@@ -292,7 +310,7 @@
     tb.setAttribute('aria-label', '빠른 메뉴');
     tb.innerHTML = '<a href="./"' + (here === 'index.html' || here === '' ? ' class="on"' : '') + '>' + TI.home + '홈</a>' +
       '<a href="search.html"' + (here === 'search.html' ? ' class="on"' : '') + '>' + TI.grid + '장지 비교</a>' +
-      '<a class="call" href="contact.html?type=support" aria-label="장례지원금 상담 신청"><span class="c txt">장례<br>지원금</span></a>' +
+      '<a class="call' + (here === 'support.html' ? ' on' : '') + '" href="support.html" aria-label="장례지원금 안내·신청"><span class="c txt">장례<br>지원금</span></a>' +
       '<a href="contact.html' + (window.CONTACT_QUERY || '') + '"' + (here === 'contact.html' ? ' class="on"' : '') + '>' + TI.form + '상담 신청</a>' +
       '<button type="button" class="tab-menu">' + TI.menu + '메뉴</button>';
     document.body.appendChild(tb);
@@ -301,8 +319,9 @@
     /* 플로팅 버튼: 카톡 · 전화 상담 · 화장장 예약 (첫 화면에서는 숨기고 스크롤 내리면 나타남) */
     var fab = document.createElement('div');
     fab.className = 'fabs';
-    fab.innerHTML = (s.kakao ? '<a class="fab kakao" href="' + esc(s.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담"><span class="kb">카톡</span></a>' : '') +
-      '<a class="fab tel" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '">전화<br>상담</a>' +
+    /* 2026-11-17 고객 요청: 순서 전화 → 카톡 → 화장장 예약, 전화는 짙은 초록 + 전화기 아이콘 */
+    fab.innerHTML = '<a class="fab tel" href="' + telHref(s.phone) + '" aria-label="전화 상담 ' + esc(s.phone) + '">' + ICON.phone + '</a>' +
+      (s.kakao ? '<a class="fab kakao" href="' + esc(s.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 상담"><span class="kb">카톡</span></a>' : '') +
       '<a class="fab crem" href="crematorium.html" aria-label="화장장 예약 안내">' + ICON.flame + '<span>화장장<br>예약</span></a>';
     document.body.appendChild(fab);
     if (document.body.dataset.page === 'home') {
