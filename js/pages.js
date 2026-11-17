@@ -129,7 +129,7 @@
       '<div class="top2">' + newsHtml +
 
       /* 3. 서비스 선택 카드 (2열, 글 + 사진) */
-      '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '원하시는 장지를 누르시면 바로 상담을 신청하실 수 있습니다.') +
+      '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '') +
         '<nav class="qgrid" aria-label="서비스 바로가기">' + QUICK.map(function (q) {
           return '<a href="' + q[3] + '"><span class="tx"><small>' + esc(q[1]) + '</small><strong>' + esc(q[2]) + '</strong></span><span class="ph"><img src="' + q[4] + '" alt="" loading="lazy"></span></a>';
         }).join('') + '</nav><a class="svc-link" href="services.html">어떤 서비스인지 먼저 보기 · 서비스 안내</a></div></section></div>' +
