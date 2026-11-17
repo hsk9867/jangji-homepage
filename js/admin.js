@@ -438,7 +438,7 @@
       '<div class="card"><h3>첫 화면 자주 묻는 질문</h3><div class="pairs" id="gfaqs"></div><button class="btn sm" id="gfaq-add">＋ 질문 추가</button></div>' +
       '<div class="card"><h3>장례정보 (블로그 글 링크)</h3><p class="help">첫 화면 "배웅이 알려드리는 장례정보"에 나오는 글입니다. 블로그 글 주소와 제목을 넣으세요.</p><div class="pairs" id="arts"></div><button class="btn sm" id="art-add">＋ 글 추가</button></div>' +
       '<div class="card"><h3>상담 지역</h3>' + fArea('지역 목록', s, 'regions', '한 줄에 하나씩. 상담 신청서의 지역 선택지에 쓰입니다.', 'lines', 120) + '</div>' +
-      '<div class="card"><h3>사업자 정보 (맨 아래 표시)</h3><div class="row2">' + fText('사업자명', s, 'bizName') + fText('업종 소개', s, 'bizDesc') + '</div><div class="row2">' + fText('대표자', s, 'ceo') + fText('사업자등록번호', s, 'bizNo') + '</div><div class="row2">' + fText('주소', s, 'address') + fText('이메일', s, 'email') + '</div></div>';
+      '<div class="card"><h3>사업자 정보 (맨 아래 표시)</h3><div class="row2">' + fText('사업자명', s, 'bizName') + fText('업종 소개', s, 'bizDesc') + '</div><div class="row2">' + fText('대표자', s, 'ceo') + fText('사업자등록번호', s, 'bizNo') + '</div><div class="row2">' + fText('통신판매업 신고번호', s, 'mailOrderNo', '예: 2026-고양덕양구-0000') + fText('주소', s, 'address') + '</div><div class="row2">' + fText('이메일', s, 'email') + '</div></div>';
     bindFields(view, s, { name: function (v) { $('top-name').textContent = v + ' 관리자'; } });
     photoEditor($('hero-host'), hero, function () { s.heroImage = hero[0] || ''; setDirty(true); }, true);
     photoEditor($('logo-host'), logo, function () { s.logo = logo[0] || ''; setDirty(true); }, 'logo');

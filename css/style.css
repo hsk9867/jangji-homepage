@@ -1134,3 +1134,25 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 .sp-faq { margin-top: 30px; }
 .sp-faq h2 { font-size: 20px; margin-bottom: 12px; }
 @media (min-width: 600px) { .sp-kinds { grid-template-columns: 1fr 1fr; } }
+
+/* ===== 2026-11-17 고객 수정 33 ===== */
+/* 1. 카드뉴스: 큰 제목은 반투명·가는 글씨로 사진에 스며들게, 사진 높이를 줄여 '무료 상담 신청'이 첫 화면에 더 보이게 */
+.news .slide.a-style > .big { font-weight: 500; font-size: clamp(30px, 9.5vw, 42px); letter-spacing: .08em; color: rgba(255, 255, 255, .62); text-shadow: 0 1px 10px rgba(0, 0, 0, .18); }
+.news .slide.a-style::after { background: linear-gradient(180deg, rgba(0, 0, 0, .2) 0%, rgba(0, 0, 0, .04) 30%, rgba(0, 0, 0, .1) 55%, rgba(0, 0, 0, .58) 100%); }
+.news .slide.a-style > h2 { font-size: 15.5px; }
+@media (max-width: 380px) { .news .slide.a-style > .big { font-size: 28px; } }
+.news .slide { min-height: 250px; height: calc(100vh - var(--hdH) - var(--tabH) - 330px); height: calc(100svh - var(--hdH) - var(--tabH) - env(safe-area-inset-bottom, 0px) - 330px); max-height: 470px; }
+@media (min-width: 960px) {
+  .top2 .news .slide { min-height: 400px; height: calc(100vh - var(--hdH) - 300px); max-height: 560px; }
+  .top2 .news .slide.a-style > .big { font-size: 48px; }
+  .top2 .news .slide.a-style > h2 { font-size: 18px; }
+}
+/* 무료 상담 신청 제목 강조 */
+#quick .sec-head h2 { font-size: 22px; font-weight: 800; }
+#quick .sec-head h2::before { content: ""; width: 5px; height: 20px; border-radius: 3px; background: #1F6B3A; }
+#quick .sec-head p { margin-top: 4px; }
+/* 2. 장례지원금: 설명 → 신청 폼 → 지원금 종류 */
+.form-wrap.sp .sp-intro { padding-bottom: 0; margin-bottom: 22px; border-bottom: 0; }
+.form-wrap.sp .sp-info { margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--line); }
+.sp-info .sp-form-h { margin: 0; }
+.sp-first { padding-top: 22px; border-top: 1px solid var(--line); }

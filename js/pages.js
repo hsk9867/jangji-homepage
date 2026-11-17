@@ -53,8 +53,7 @@
       .sort(function (a, b) { return (!!b.pinned - !!a.pinned) || String(b.date).localeCompare(String(a.date)); });
   }
   function noticeHead(more) {
-    return '<div class="nt-head"><span class="nt-eye">NOTICE</span><h2 class="nt-title">Notice</h2><p>배웅의 새로운 소식과 안내입니다.</p>' +
-      (more ? '<a class="nt-more" href="notice.html">공지사항 <i aria-hidden="true">+</i></a>' : '') + '</div>';
+    return head('공지사항', '배웅의 새로운 소식과 안내입니다.', more ? '<a class="more" href="notice.html">전체 보기 ›</a>' : '');
   }
   function noticeList(list) {
     return '<ul class="nt-list">' + list.map(function (n) {
@@ -130,7 +129,7 @@
       '<div class="top2">' + newsHtml +
 
       /* 3. 서비스 선택 카드 (2열, 글 + 사진) */
-      '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '') +
+      '<section class="sec" id="quick"><div class="wrap">' + head('무료 상담 신청', '원하시는 장지를 누르시면 바로 상담을 신청하실 수 있습니다.') +
         '<nav class="qgrid" aria-label="서비스 바로가기">' + QUICK.map(function (q) {
           return '<a href="' + q[3] + '"><span class="tx"><small>' + esc(q[1]) + '</small><strong>' + esc(q[2]) + '</strong></span><span class="ph"><img src="' + q[4] + '" alt="" loading="lazy"></span></a>';
         }).join('') + '</nav><a class="svc-link" href="services.html">어떤 서비스인지 먼저 보기 · 서비스 안내</a></div></section></div>' +
@@ -387,7 +386,7 @@
       priceTag: '대표 지원금', price: '장제급여 80만원 등', priceNote: '기초생활수급자 장제급여, 지자체 화장장려금, 국가유공자 장례 지원 등 자격에 따라 다릅니다.',
       desc: '장례 뒤에 신청할 수 있는 지원금은 종류가 많고 지자체마다 금액과 조건이 달라, 알지 못한 채 지나치는 가족이 많습니다. 배웅은 상담 과정에서 받으실 수 있는 지원금을 함께 확인하고 신청 서류를 안내해 드립니다.',
       steps: [{ t: '대상 확인', d: '고인과 신청인의 자격(수급 여부, 거주지, 유공자 등)을 확인합니다.' }, { t: '지원금 종류 안내', d: '장제급여, 화장장려금, 자연장 장려금 등 받으실 수 있는 항목을 정리해 드립니다.' }, { t: '서류 준비', d: '사망진단서, 화장증명서, 가족관계증명서 등 필요한 서류를 안내합니다.' }, { t: '신청 방법 안내', d: '주민센터·복지로 신청 절차를 단계별로 안내해 드립니다.' }],
-      faqs: [{ q: '누구나 받을 수 있습니까?', a: '지원금마다 대상이 다릅니다. 기초생활수급자 장제급여처럼 자격이 필요한 것도 있고, 화장장려금처럼 거주 지역 조건만 충족하면 되는 것도 있습니다.' }, { q: '신청 기간이 정해져 있습니까?', a: '대부분 사망일 또는 화장일로부터 일정 기간 안에 신청해야 합니다. 상담 시 기한부터 확인해 드립니다.' }]
+      faqs: [{ q: '누구나 받을 수 있습니까?', a: '지원금마다 대상이 다릅니다. 기초생활수급자 장제급여처럼 자격이 필요한 것도 있고, 화장장려금처럼 거주 지역 조건만 충족하면 되는 것도 있습니다.' }, { q: '신청 기간이 정해져 있습니까?', a: '대부분 사망일 또는 화장일로부터 일정 기간 안에 신청해야 합니다. 상담 시 기한부터 확인해 드립니다.' }, { q: '장례를 이미 치렀는데 지금 신청해도 됩니까?', a: '네, 신청 기한 안이라면 장례를 마친 뒤에도 받으실 수 있습니다. 지원금마다 기한이 달라 이미 늦었다고 생각하셨던 항목도 받으실 수 있는 경우가 있으니 먼저 상담해 주십시오.' }, { q: '어떤 서류를 준비해야 합니까?', a: '보통 사망진단서(또는 시체검안서), 가족관계증명서, 신청인 신분증과 통장 사본이 필요하고, 화장장려금은 화장증명서가 추가로 필요합니다. 지원금마다 다르므로 상담 때 필요한 서류를 목록으로 정리해 드립니다.' }]
     }
   };
 
@@ -401,7 +400,7 @@
       { k: 'napgol', ic: LI.hall, eyebrow: '봉안당(납골당)', h: '날씨와 상관없이 찾아뵙는 실내 봉안시설', p: T.napgol.desc, who: '자주 찾아뵙고 싶은 가족, 도심에서 가까운 곳을 원하는 분', cost: T.napgol.priceTag + ' ' + T.napgol.price + ' · ' + T.napgol.priceNote, do_: '단 위치·관리비·이용 기간을 서면으로 비교하고, 동행 답사와 계약 대행을 맡습니다', steps: stepT(), href: 'search.html?type=napgol', btn: '봉안당 찾기·비교' },
       { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘', h: '가족이 함께 모이는 전통 묘역', p: T.maejang.desc, who: '가족 묘역을 원하시는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · ' + T.maejang.priceNote, do_: '직접 답사한 공원묘지 비교, 동행 답사, 계약 대행', steps: stepT(), href: 'search.html?type=maejang', btn: '매장묘 찾기·비교' },
       { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, e하늘 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: 'e하늘에서 가능한 일정을 확인하고 필요한 서류를 안내하며, 화장 이후 모실 곳까지 이어서 상담합니다', steps: stepT(EXTRA.cremation.steps), href: 'crematorium.html', btn: '전국 화장시설 찾기' },
-      { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'contact.html?type=support', btn: '장례지원금 상담 신청' },
+      { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'support.html', btn: '장례지원금 상담 신청' },
       { k: 'ijang', ic: LI.ijang, eyebrow: '파묘 · 이장', h: '묘를 옮겨야 할 때, 절차는 배웅이 맡습니다', p: T.ijang.desc, who: '기존 묘를 정리하거나 다른 곳으로 모셔야 하는 가족', cost: T.ijang.priceTag + ' ' + T.ijang.price + ' · ' + T.ijang.priceNote, do_: '개장 신고 대행, 길일 협의, 파묘·유골 수습, 화장과 새 장지 안치까지 진행', steps: stepT(T.ijang.steps), href: 'ijang.html', btn: '파묘·이장 안내 보기' }
     ];
     el.innerHTML = '<div class="wrap"><div class="plain-head"><div class="crumb"><a href="./">홈</a> › 서비스 안내</div><h1>처음이셔도 괜찮습니다.\n어떤 서비스인지 먼저 살펴보십시오</h1></div>' +
@@ -762,8 +761,10 @@
   ];
   function supportIntro() {
     return '<div class="sp-intro"><span class="sp-eye">놓치기 쉬운 장례 혜택</span><h1>장례지원금</h1>' +
-      '<p class="lead">장례지원금은 가족을 떠나보낸 뒤 나라와 지자체, 공적 보험에서 <b>장례 비용의 일부를 지원받는 제도</b>입니다. 대상과 금액이 저마다 다르고 <b>직접 신청해야만 받을 수 있어</b> 모르고 지나치는 가족이 많습니다.</p>' +
-      '<ul class="sp-kinds">' + SUPPORT_KINDS.map(function (k) { return '<li><b>' + esc(k[0]) + '</b><span>' + esc(k[1]) + '</span></li>'; }).join('') + '</ul>' +
+      '<p class="lead">장례지원금은 가족을 떠나보낸 뒤 나라와 지자체, 공적 보험에서 <b>장례 비용의 일부를 지원받는 제도</b>입니다. 대상과 금액이 저마다 다르고 <b>직접 신청해야만 받을 수 있어</b> 모르고 지나치는 가족이 많습니다.</p></div>';
+  }
+  function supportInfo() {
+    return '<div class="sp-intro sp-info"><h2 class="sp-form-h">받으실 수 있는 지원금</h2><ul class="sp-kinds">' + SUPPORT_KINDS.map(function (k) { return '<li><b>' + esc(k[0]) + '</b><span>' + esc(k[1]) + '</span></li>'; }).join('') + '</ul>' +
       '<p class="sp-note">지원 여부와 금액은 고인과 신청인의 조건, 심사 결과에 따라 달라집니다. 배웅이 받으실 수 있는 항목과 신청 기한, 필요한 서류부터 정리해 드립니다.</p>' +
       '<ol class="sp-steps">' + EXTRA.support.steps.map(function (x, i) { return '<li><em>' + (i + 1) + '</em><b>' + esc(x.t) + '</b><span>' + esc(x.d) + '</span></li>'; }).join('') + '</ol></div>';
   }
@@ -778,7 +779,7 @@
     var regions = (s.regions || []).slice().concat(['상관없음']);
     var preR = U.qs('region');
     var opt = function (v, l, sel) { return '<option value="' + esc(v) + '"' + (sel ? ' selected' : '') + '>' + esc(l) + '</option>'; };
-    el.innerHTML = '<div class="form-wrap' + (sup ? ' sp' : '') + '">' + (sup ? supportIntro() + '<h2 class="sp-form-h" id="apply-form">장례지원금 상담 신청</h2><p class="lead mt8">이름과 연락처만 남겨 주시면 받으실 수 있는 지원금부터 확인해 연락드리겠습니다. 상담은 무료입니다.</p>'
+    el.innerHTML = '<div class="form-wrap' + (sup ? ' sp' : '') + '">' + (sup ? supportIntro() + '<h2 class="sp-form-h sp-first" id="apply-form">장례지원금 상담 신청</h2><p class="lead mt8">이름과 연락처만 남겨 주시면 받으실 수 있는 지원금부터 확인해 연락드리겠습니다. 상담은 무료입니다.</p>'
       : '<h1>상담 신청</h1><p class="lead mt8">이름과 연락처, 상담 분야만 남겨 주시면 됩니다. 상담과 동행 답사는 모두 무료이며, 접수 후 상담팀이 순서대로 연락드리겠습니다.</p>') +
       '<form id="cform" class="cf mt24" novalidate>' +
       '<div class="field"' + (sup ? ' style="display:none"' : '') + '><label for="f-type">상담 분야 <em>(필수)</em></label><select id="f-type">' + opt('', '선택해 주십시오', !type) + TYPES.map(function (t) { return opt(t[0], t[1], t[0] === type); }).join('') + '</select>' +
@@ -791,6 +792,7 @@
       '<label class="agree cf-agree"><input type="checkbox" id="f-agree"><span><b>개인정보 수집·이용에 동의합니다 <em>(필수)</em></b><small>상담을 위해 이름·연락처·문의 내용을 수집하며, 상담 완료 후 1년간 보관 후 파기합니다. <a href="privacy.html" target="_blank">자세히 보기</a></small></span></label>' +
       '<button class="btn btn-main btn-block cf-submit" type="submit">' + I.check + (sup ? '장례지원금 상담 신청하기' : '상담 신청하기') + '</button><div class="err" id="err"></div>' +
       '<p class="price-note" style="text-align:center">접수 후 상담팀이 순서대로 연락드리겠습니다.</p></form>' +
+      (sup ? supportInfo() : '') +
       (sup ? '<div class="sp-faq"><h2>자주 하는 질문</h2>' + U.faqHtml(EXTRA.support.faqs) + '</div>' : '') +
       '<div class="call-box"><small>바로 상담을 원하시면</small><a class="tel" href="' + U.telHref(s.phone) + '">' + esc(s.phone) + '</a><small>' + esc(s.hours) + '</small>' + (s.kakao ? '<a class="btn btn-kakao btn-block mt16" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + I.kakao + '카카오톡 상담</a>' : '') + '</div></div>';
     var form = document.getElementById('cform'), typeSel = form.querySelector('#f-type');

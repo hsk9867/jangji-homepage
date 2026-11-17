@@ -94,7 +94,7 @@ function sanitizeContent(array $c): array {
     $out = [];
     if (isset($c['site']) && is_array($c['site'])) {
         $s = $c['site']; $o = [];
-        foreach (['name','slogan','phone','hours','notifyEmail','bizName','bizDesc','ceo','bizNo','address','email','heroEyebrow','heroTitle','heroSub','finalTitle'] as $k) if (isset($s[$k])) $o[$k] = cleanStr($s[$k], 400);
+        foreach (['name','slogan','phone','hours','notifyEmail','bizName','bizDesc','ceo','bizNo','mailOrderNo','address','email','heroEyebrow','heroTitle','heroSub','finalTitle'] as $k) if (isset($s[$k])) $o[$k] = cleanStr($s[$k], 400);
         foreach (['logo','heroImage'] as $k) if (isset($s[$k])) $o[$k] = cleanPath($s[$k]);
         foreach (['kakao','blogUrl','supportFormUrl'] as $k) if (isset($s[$k])) $o[$k] = cleanUrl($s[$k]);
         foreach (['heroBadges','regions'] as $k) if (isset($s[$k]) && is_array($s[$k])) $o[$k] = array_values(array_filter(array_map(function ($v) { return cleanStr($v, 60); }, array_slice($s[$k], 0, 30)), 'strlen'));

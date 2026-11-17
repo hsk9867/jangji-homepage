@@ -282,10 +282,10 @@
     /* 푸터 (v4 구성): 이용약관|개인정보처리방침, 회사 정보, 저작권, 고객문의 박스, 로고 + 채널 아이콘 */
     var ft = document.createElement('footer');
     ft.className = 'ft';
-    var info = [['사업자등록번호', s.bizNo], ['주소', s.address], ['메일', s.email]].filter(function (x) { return x[1]; });
+    var info = [['통신판매업 신고', s.mailOrderNo], ['주소', s.address], ['메일', s.email]].filter(function (x) { return x[1]; });
     ft.innerHTML = '<div class="wrap">' +
       '<div class="flinks"><a href="privacy.html">이용약관</a><span>|</span><a href="privacy.html"><b>개인정보처리방침</b></a></div>' +
-      '<div class="finfo"><div class="co"><b>' + esc(s.bizName || s.name) + '</b>' + (s.ceo ? ' <span>대표 : ' + esc(s.ceo) + '</span>' : '') + '</div>' +
+      '<div class="finfo"><div class="co"><b>' + esc(s.bizName || s.name) + '</b>' + (s.ceo ? ' <span>대표 : ' + esc(s.ceo) + '</span>' : '') + (s.bizNo ? ' <span>사업자등록번호 : ' + esc(s.bizNo) + '</span>' : '') + '</div>' +
       info.map(function (x) { return '<div>' + x[0] + ' : ' + esc(x[1]) + '</div>'; }).join('') +
       (s.bizDesc ? '<div>' + esc(s.bizDesc) + '</div>' : '') + '<div>상담 ' + esc(s.hours) + '</div></div>' +
       '<div class="fcopy">© ' + new Date().getFullYear() + '. ' + esc(s.bizName || s.name) + ' All rights reserved.</div>' +
