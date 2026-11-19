@@ -99,13 +99,16 @@
         return '<div class="p" style="' + bg(p) + '">' + (i === 0 && !single ? '<span class="first">대표</span>' : '') +
           '<div class="ctl">' + (single ? '<span></span>' : '<button type="button" data-l="' + i + '" aria-label="앞으로">◀</button>') +
           '<button type="button" data-x="' + i + '" aria-label="삭제">삭제</button>' + (single ? '' : '<button type="button" data-r="' + i + '" aria-label="뒤로">▶</button>') + '</div></div>';
-      }).join('') + ((single && arr.length) ? '' : '<label class="add">＋ 사진 추가<span style="font-size:12px;font-weight:400">' + (single ? '1장' : '여러 장 선택 가능') + '</span><input type="file" accept="image/*"' + (single ? '' : ' multiple') + '></label>') + '</div><div class="prog"></div>';
+      }).join('') + ((single && arr.length)
+        /* 1장짜리 칸에 이미 사진이 있으면 '삭제' 를 먼저 누르지 않아도 바로 바꿀 수 있게 */
+        ? '<label class="add swap">↻ 사진 바꾸기<input type="file" accept="image/*"></label>'
+        : '<label class="add">＋ 사진 추가<span style="font-size:12px;font-weight:400">' + (single ? '1장' : '여러 장 선택 가능') + '</span><input type="file" accept="image/*"' + (single ? '' : ' multiple') + '></label>') + '</div><div class="prog"></div>';
       var inp = host.querySelector('input[type=file]');
       if (inp) inp.onchange = function () {
         if (!inp.files.length) return;
         var prog = host.querySelector('.prog');
         uploadFiles(inp.files, { onProgress: function (n, t) { prog.textContent = '사진 올리는 중… (' + n + '/' + t + ')'; }, keepPng: single === 'logo', max: single === 'logo' ? 600 : 1600 })
-          .then(function (paths) { paths.forEach(function (p) { arr.push(p); }); onChange(); draw(); })
+          .then(function (paths) { if (single) arr.length = 0; paths.forEach(function (p) { arr.push(p); }); onChange(); draw(); toast(single ? '사진을 바꿨습니다. 아래 저장을 눌러야 반영됩니다.' : '사진을 올렸습니다. 저장을 눌러야 반영됩니다.'); })
           .catch(function (e) { prog.textContent = ''; toast(e.message, true); onChange(); draw(); });
       };
       host.querySelectorAll('[data-x]').forEach(function (b) { b.onclick = function () { arr.splice(+b.dataset.x, 1); onChange(); draw(); }; });
