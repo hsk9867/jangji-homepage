@@ -60,8 +60,10 @@
   function img(src, alt, eager) { return '<img src="' + esc(src) + '" alt="' + esc(alt || '') + '"' + (eager ? '' : ' loading="lazy"') + ' decoding="async">'; }
   function facility(id) { return id ? C.facilities.filter(function (f) { return f.id === id; })[0] : null; }
   function facPhoto(f) { return (f.photos && f.photos[0]) || typeImg(f.type); }
+  /* 2026-11-19 고객 수정 55: 블로그 이미지(img/rev/)는 쓰지 않고, 관리자가 올린 사진 → 시설 사진 → 유형 기본 사진 순 */
+  function realPhotos(r) { return (r.photos || []).filter(function (p) { return !/^img\/rev\//.test(p); }); }
   function revPhoto(r) {
-    if (r.photos && r.photos[0]) return r.photos[0];
+    var own = realPhotos(r); if (own[0]) return own[0];
     var f = facility(r.facilityId); return f ? facPhoto(f) : typeImg(r.type);
   }
   /* 복수 유형(types) 시설도 각 유형 목록에 함께 나옵니다 */
@@ -104,7 +106,8 @@
       '<h3>' + esc(r.title) + '</h3><p class="ex">' + esc(r.body) + '</p></div></a>';
   }
   function artCard(a) {
-    return '<a class="art" href="' + esc(a.url) + '" target="_blank" rel="noopener"><div class="ph">' + (a.image ? img(a.image, a.title) : '') + '</div>' +
+    var im = a.image ? (/^https:/.test(a.image) ? '<img src="' + esc(a.image) + '" alt="' + esc(a.title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : img(a.image, a.title)) : '';
+    return '<a class="art" href="' + esc(a.url) + '" target="_blank" rel="noopener"><div class="ph">' + im + '</div>' +
       '<span class="lab">장례정보</span><h3>' + esc(a.title) + '</h3><small>' + fmtDate(a.date) + '</small></a>';
   }
   function rail(items, cls) {
@@ -137,10 +140,16 @@
     var pos = r.scrollLeft, last = 0, until = 0, held = false, prevSet = -1;
     var half = function () { return r.children[items.length].offsetLeft - items[0].offsetLeft; };
     var rest = function (ms) { until = performance.now() + ms; };
-    ['touchstart', 'pointerdown'].forEach(function (ev) { r.addEventListener(ev, function () { held = true; rest(2500); }, { passive: true }); });
-    ['touchend', 'touchcancel', 'pointerup', 'pointercancel'].forEach(function (ev) { r.addEventListener(ev, function () { held = false; rest(2500); }, { passive: true }); });
+    /* 2026-11-19 고객 수정 55: 화면을 내리다 카드를 살짝 건드리면 멈춘 채로 다시 안 흐르던 문제.
+       ① 터치로 생긴 포커스(focusin)는 멈춤 사유에서 뺌(키보드 탭 이동일 때만 멈춤)
+       ② 손을 뗀 이벤트를 목록 밖에서 받거나 못 받아도 풀리도록 window 에서도 받고, 6초 넘게 눌린 상태면 자동 해제 */
+    var heldAt = 0;
+    var press = function () { held = true; heldAt = performance.now(); rest(2500); };
+    var release = function () { if (!held) return; held = false; rest(2500); };
+    ['touchstart', 'pointerdown'].forEach(function (ev) { r.addEventListener(ev, press, { passive: true }); });
+    ['touchend', 'touchcancel', 'pointerup', 'pointercancel'].forEach(function (ev) { window.addEventListener(ev, release, { passive: true }); });
     r.addEventListener('wheel', function () { rest(2500); }, { passive: true });
-    r.addEventListener('focusin', function () { held = true; });
+    r.addEventListener('focusin', function (e) { var fv = false; try { fv = e.target.matches(':focus-visible'); } catch (x) {} if (fv) { held = true; heldAt = performance.now(); } });
     r.addEventListener('focusout', function () { held = false; rest(1500); });
     if (window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches) {
       r.addEventListener('mouseenter', function () { held = true; });
@@ -150,6 +159,7 @@
     if (wrap) [].forEach.call(wrap.querySelectorAll('.rail-btn'), function (b) { b.addEventListener('click', function () { rest(3000); }); });
     (function tick(t) {
       var dt = last ? Math.min(64, t - last) : 16; last = t;
+      if (held && t - heldAt > 6000) held = false;   // 손 뗀 이벤트를 놓쳤을 때 안전장치
       if (prevSet >= 0 && Math.abs(r.scrollLeft - prevSet) > 2) pos = r.scrollLeft;   // 사람이 밀었음 → 그 자리부터
       if (!held && t > until && !document.hidden) pos += speed * dt / 1000;
       var h = half();
@@ -311,10 +321,19 @@
     tb.innerHTML = '<a href="./"' + (here === 'index.html' || here === '' ? ' class="on"' : '') + '>' + TI.home + '홈</a>' +
       '<a href="search.html"' + (here === 'search.html' ? ' class="on"' : '') + '>' + TI.grid + '장지 비교</a>' +
       '<a class="call' + (here === 'support.html' ? ' on' : '') + '" href="support.html" aria-label="장례지원금 안내·신청"><span class="c txt">장례<br>지원금</span></a>' +
-      '<a href="contact.html' + (window.CONTACT_QUERY || '') + '"' + (here === 'contact.html' ? ' class="on"' : '') + '>' + TI.form + '상담 신청</a>' +
+      '<button type="button" class="tab-menu tab-consult' + (here === 'contact.html' ? ' on' : '') + '">' + TI.form + '상담 신청</button>' +
       '<button type="button" class="tab-menu">' + TI.menu + '메뉴</button>';
     document.body.appendChild(tb);
-    tb.querySelector('.tab-menu').onclick = openDrawer;
+    tb.querySelector('.tab-menu:not(.tab-consult)').onclick = openDrawer;
+    /* 2026-11-19 고객 수정 55: 상담 신청을 누르면 바로 신청서로 가지 않고 방법을 고르게 */
+    tb.querySelector('.tab-consult').onclick = function () {
+      var m = modal('<h3 class="cs-title">상담 신청</h3><p class="cs-sub">편하신 방법을 골라 주십시오.</p><div class="cs-list">' +
+        '<a class="cs-btn cs-form" href="contact.html' + (window.CONTACT_QUERY || '') + '">' + TI.form + '상담신청서 작성</a>' +
+        '<a class="cs-btn cs-tel" href="' + telHref(s.phone) + '">' + ICON.phone + '전화 상담 <small>' + esc(s.phone) + '</small></a>' +
+        (s.kakao ? '<a class="cs-btn cs-kakao" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div>');
+      m.el.classList.add('cs-sheet');
+      [].forEach.call(m.el.querySelectorAll('.cs-btn'), function (a) { a.addEventListener('click', function () { setTimeout(m.close, 50); }); });
+    };
 
     /* 플로팅 버튼: 카톡 · 전화 상담 · 화장장 예약 (첫 화면에서는 숨기고 스크롤 내리면 나타남) */
     var fab = document.createElement('div');
@@ -341,7 +360,7 @@
 
   window.U = {
     ICON: ICON, LI: LI, TYPE_KEYS: TYPE_KEYS, SHORT: SHORT, EHANEUL: EHANEUL, REVIEW_KEYWORDS: REVIEW_KEYWORDS, esc: esc, nl: nl, telHref: telHref, qs: qs, typeOf: typeOf, typeImg: typeImg, bg: bg, img: img,
-    facPhoto: facPhoto, revPhoto: revPhoto, facility: facility, hasType: hasType, visibleFacilities: visibleFacilities, visibleReviews: visibleReviews,
+    facPhoto: facPhoto, revPhoto: revPhoto, realPhotos: realPhotos, facility: facility, hasType: hasType, visibleFacilities: visibleFacilities, visibleReviews: visibleReviews,
     fmtDate: fmtDate, sampleTag: sampleTag, kwOf: kwOf, kwChips: kwChips, typeNames: typeNames, facCard: facCard, revCard: revCard, artCard: artCard, rail: rail, bindRails: bindRails, autoRail: autoRail,
     faqHtml: faqHtml, applySection: applySection, bindApply: bindApply, sendInquiry: sendInquiry, inquiryTypeName: inquiryTypeName,
     dragScroll: dragScroll, toast: toast, modal: modal, loadScript: loadScript, getJson: getJson

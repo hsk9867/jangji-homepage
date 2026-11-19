@@ -33,6 +33,16 @@ async function api(req, res, action) {
   const auth = readJson(AUTH, null);
   const b = req.method === 'POST' ? await body(req) : {};
   switch (action) {
+    case 'blog': {   /* admin/api.php 의 블로그 RSS 최신 글 흉내 (캐시 없음) */
+      const xml = await fetch('https://rss.blog.naver.com/baewoong0816.xml').then((r) => r.text()).catch(() => '');
+      const cd = (s) => s.replace(/^\s*<!\[CDATA\[([\s\S]*)\]\]>\s*$/, '$1').trim();
+      const tag = (it, t) => { const m = it.match(new RegExp('<' + t + '>([\\s\\S]*?)</' + t + '>')); return m ? cd(m[1]) : ''; };
+      const posts = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, 12).map((m) => {
+        const it = m[1], im = tag(it, 'description').match(/<img[^>]+src="(https:\/\/[^"]+)"/);
+        return { title: tag(it, 'title'), url: (tag(it, 'guid') || tag(it, 'link')).replace(/\?.*$/, ''), image: im ? im[1].replace(/\?type=[^&"]*/, '?type=w3') : '', date: new Date(tag(it, 'pubDate')).toISOString().slice(0, 10), category: tag(it, 'category') };
+      });
+      return send({ ok: !!posts.length, posts });
+    }
     case 'status': return send({ ok: true, server: true, dev: true, hasPassword: !!auth, loggedIn: logged, writable: true, uploadsWritable: true });
     case 'setup':
       if (auth) return fail('already_set');

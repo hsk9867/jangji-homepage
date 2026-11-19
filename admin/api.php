@@ -175,7 +175,47 @@ if ($method !== 'GET' && $method !== 'POST') fail('bad_request');
 $hasPw  = is_file($authFile);
 $logged = !empty($_SESSION['jangji_admin']);
 
+/* 네이버 블로그 RSS → 장례정보 카드 (2026-11-19 고객 수정 55: 최신 글 자동 연동) */
+function fetchUrl(string $url): string {
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true, CURLOPT_TIMEOUT => 6, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; baewoong-site)']);
+        $r = curl_exec($ch); curl_close($ch);
+        return is_string($r) ? $r : '';
+    }
+    $r = @file_get_contents($url, false, stream_context_create(['http' => ['timeout' => 6, 'header' => "User-Agent: Mozilla/5.0 (compatible; baewoong-site)\r\n"]]));
+    return is_string($r) ? $r : '';
+}
+function blogPosts(string $blogId): array {
+    $xml = fetchUrl('https://rss.blog.naver.com/' . rawurlencode($blogId) . '.xml');
+    if ($xml === '' || !preg_match_all('#<item>(.*?)</item>#s', $xml, $m)) return [];
+    $cd = function (string $s): string { return trim(html_entity_decode(preg_replace('#^\s*<!\[CDATA\[(.*)\]\]>\s*$#s', '$1', $s), ENT_QUOTES, 'UTF-8')); };
+    $tag = function (string $it, string $t) use ($cd): string { return preg_match('#<' . $t . '>(.*?)</' . $t . '>#s', $it, $x) ? $cd($x[1]) : ''; };
+    $out = [];
+    foreach (array_slice($m[1], 0, 12) as $it) {
+        $title = cleanStr($tag($it, 'title'), 200);
+        $url = preg_replace('#\?.*$#', '', $tag($it, 'guid') ?: $tag($it, 'link'));
+        if ($title === '' || !preg_match('#^https://blog\.naver\.com/[A-Za-z0-9_-]+/\d+$#', $url)) continue;
+        $ts = strtotime($tag($it, 'pubDate'));
+        $img = preg_match('#<img[^>]+src="(https://[^"]+)"#', $tag($it, 'description'), $x) ? preg_replace('#\?type=[^&"]*#', '?type=w3', $x[1]) : '';
+        if ($img !== '' && !preg_match('#^https://[a-z0-9.-]+\.(pstatic\.net|naver\.net)/#', $img)) $img = '';
+        $out[] = ['title' => $title, 'url' => $url, 'image' => $img, 'date' => $ts ? date('Y-m-d', $ts) : '', 'category' => cleanStr($tag($it, 'category'), 40)];
+    }
+    return $out;
+}
+
 switch ($action) {
+    case 'blog':
+        $cache = $storeDir . '/blog-rss.json';
+        $old = readList($cache);
+        if ($old && is_file($cache) && time() - filemtime($cache) < 3600) out(['ok' => true, 'posts' => $old, 'cached' => true]);
+        $cfg = siteConfig($jsonFile);
+        $blogId = preg_match('#blog\.naver\.com/([A-Za-z0-9_-]+)#', (string)($cfg['site']['blogUrl'] ?? ''), $bm) ? $bm[1] : 'baewoong0816';
+        $posts = blogPosts($blogId);
+        if ($posts) { ensureStore($storeDir); writeList($cache, $posts); out(['ok' => true, 'posts' => $posts]); }
+        if ($old) { @touch($cache, time() - 3000); out(['ok' => true, 'posts' => $old, 'stale' => true]); }
+        out(['ok' => false, 'posts' => []]);
+
     case 'status':
         $writable = is_writable(dirname($jsFile)) && (!is_file($jsFile) || is_writable($jsFile));
         out(['ok' => true, 'server' => true, 'hasPassword' => $hasPw, 'loggedIn' => $logged, 'writable' => $writable, 'uploadsWritable' => is_dir($uploadDir) && is_writable($uploadDir), 'php' => PHP_VERSION]);

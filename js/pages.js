@@ -44,7 +44,7 @@
   function loadTestimonials() { return Promise.resolve(U.visibleReviews().filter(function (r) { return !r.sample; })); }
   function contactBox(small, big, ctaType) {
     return '<div class="contact-box"><div class="av"><img src="img/logo-mark.png" alt=""></div><small>' + esc(small) + '</small><b>' + esc(big) + '</b>' +
-      '<div class="acts">' + (S.kakao ? '<a class="btn btn-white" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '<a class="btn btn-white" href="' + U.telHref(S.phone) + '">전화문의</a><a class="btn btn-main" href="contact.html' + (ctaType ? '?type=' + ctaType : '') + '">상담 신청</a></div></div>';
+      '<div class="acts">' + (S.kakao ? '<a class="btn btn-ck" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '<a class="btn btn-ct" href="' + U.telHref(S.phone) + '">전화문의</a><a class="btn btn-main" href="contact.html' + (ctaType ? '?type=' + ctaType : '') + '">상담 신청</a></div></div>';
   }
 
   /* ---------- 공지사항 (C.notices — 관리자 '공지사항' 탭) ---------- */
@@ -171,8 +171,8 @@
         '<div class="xbtns"><a class="btn btn-main" href="contact.html">무료 상담 신청하기</a><a class="btn btn-gold" href="support.html">장례지원금 상담 신청</a></div></div></section>' +
 
       /* 12. 장례정보 */
-      ((C.articles || []).length ? '<section class="sec sec-gray"><div class="wrap">' + head('배웅이 알려드리는 장례정보', '', s.blogUrl ? '<a class="more" href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">블로그 ›</a>' : '') +
-        U.rail(C.articles.map(U.artCard).join(''), 'wide') + '</div></section>' : '') +
+      '<section class="sec sec-gray" id="artSec"' + ((C.articles || []).length ? '' : ' hidden') + '><div class="wrap">' + head('배웅이 알려드리는 장례정보', '', s.blogUrl ? '<a class="more" href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener">블로그 ›</a>' : '') +
+        '<div id="artRail">' + U.rail((C.articles || []).map(U.artCard).join(''), 'wide') + '</div></div></section>' +
 
       /* 13. FAQ */
       '<section class="sec" id="faq"><div class="wrap">' + head('자주 하는 질문', '상담 때 가족들이 가장 많이 물어보시는 내용입니다.') + U.faqHtml(C.faqs) + '</div></section>' +
@@ -228,6 +228,16 @@
       stl.querySelectorAll('.num').forEach(function (e) { e.textContent = '0'; });
       io.observe(stl);
     }
+
+    /* 장례정보: 블로그 RSS 최신 글(서버가 1시간마다 새로 받음)로 바꾸고, 모바일에서는 천천히 자동으로 흐름 (2026-11-19 고객 수정 55) */
+    var artRail = document.getElementById('artRail');
+    var artAuto = function () { U.bindRails(artRail); U.autoRail(artRail.querySelector('.rail'), 20); };
+    if (/\.github\.io$/.test(location.hostname)) artAuto();
+    else U.getJson('admin/api.php?action=blog').then(function (d) {
+      var posts = (d && d.ok && d.posts) || [];
+      if (posts.length >= 3) { artRail.innerHTML = U.rail(posts.slice(0, 9).map(U.artCard).join(''), 'wide'); document.getElementById('artSec').hidden = false; }
+      artAuto();
+    });
 
     /* 고객 후기: 유형 탭 + 가로 카드, 카드를 누르면 전문 */
     var rf = document.getElementById('rvFilter'), rr = document.getElementById('rvRail');
@@ -741,7 +751,7 @@
       '<h1>' + esc(r.title) + '</h1><div class="who">' + esc(r.author || '고객') + ' · ' + U.fmtDate(r.date) + '</div>' +
       '<div class="body">' + esc(r.body) + '</div>' +
       (r.blogUrl ? '<a class="blog-link" href="' + esc(r.blogUrl) + '" target="_blank" rel="noopener"><span><b>N 블로그</b> 이 이야기 전체 보기</span><span>›</span></a>' : '') +
-      ((r.photos || []).length ? '<div class="photos">' + r.photos.map(function (p) { return U.img(p, r.title + ' 사진'); }).join('') + '</div>' : '') +
+      (function () { var f2 = U.facility(r.facilityId), ps = U.realPhotos(r); if (!ps.length && f2) ps = (f2.photos || []).slice(0, 3); return ps.length ? '<div class="photos">' + ps.map(function (p) { return U.img(p, r.title + ' 사진'); }).join('') + '</div>' : ''; })() +
       (f && f.visible !== false ? '<a class="linked" href="facility.html?id=' + encodeURIComponent(f.id) + '">' + U.img(U.facPhoto(f), f.name) + '<span><small>진행 시설</small><strong>' + esc(f.name) + '</strong></span><span style="margin-left:auto;color:#767676">›</span></a>' : '') +
       '</div></div><div style="height:48px"></div>' + U.applySection('같은 고민이 있으시다면\n편하게 전화 주십시오.', r.type);
   };

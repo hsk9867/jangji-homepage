@@ -1156,3 +1156,39 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 .form-wrap.sp .sp-info { margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--line); }
 .sp-info .sp-form-h { margin: 0; }
 .sp-first { padding-top: 22px; border-top: 1px solid var(--line); }
+
+/* ── 2026-11-19 고객 수정 55 ── */
+/* 자동 흐름 목록: 스냅이 조금씩 움직이는 스크롤을 되돌려 멈춰 보이던 문제 */
+.rail.auto-flow { scroll-snap-type: none; }
+/* 연락 박스 버튼 색 구분: 카톡(연노랑) · 전화(초록) · 상담 신청(베이지 골드) */
+.contact-box .btn-ck { background: #ECEB87; border-color: #ECEB87; color: #2b2a10; }
+.contact-box .btn-ct { background: #6FAE85; border-color: #6FAE85; color: #fff; }
+.contact-box .btn-main { background: #C4AD88; border-color: #C4AD88; color: #fff; }
+.contact-box .btn-ck:hover { background: #e2e070; border-color: #e2e070; color: #2b2a10; }
+.contact-box .btn-ct:hover { background: #5f9d75; border-color: #5f9d75; color: #fff; }
+.contact-box .btn-main:hover { background: #b59c74; border-color: #b59c74; color: #fff; }
+/* 탭바 상담 신청 선택 창 (모바일은 아래에서 올라오는 시트) */
+.tabbar .tab-consult { cursor: pointer; }
+.tabbar .tab-consult:hover svg .sh, .tabbar .tab-consult:active svg .sh, .tabbar .tab-consult.on svg .sh { fill: #4A4A4A; stroke: #4A4A4A; }
+.tabbar .tab-consult:hover svg .ln, .tabbar .tab-consult:active svg .ln, .tabbar .tab-consult.on svg .ln { stroke: #fff; stroke-width: 1.7; }
+.tabbar .tab-consult.on { color: #3A3A3A; font-weight: 700; }
+.modal.cs-sheet .box { padding: 22px 18px 18px; }
+.cs-title { font-size: 18px; font-weight: 800; margin: 0 0 4px; }
+.cs-sub { font-size: 14px; color: var(--ink-3); margin: 0 0 16px; }
+.cs-list { display: flex; flex-direction: column; gap: 10px; }
+.cs-btn { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 54px; border-radius: 12px; font-size: 16px; font-weight: 700; text-decoration: none; border: 1px solid transparent; }
+.cs-btn svg { width: 19px; height: 19px; flex: none; }
+.cs-btn small { font-weight: 500; font-size: 13px; opacity: .85; }
+.cs-form { background: #fff; color: var(--ink); border-color: var(--line); }
+.cs-form svg { fill: none; }
+.cs-form svg .sh, .cs-form svg .ln { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.cs-tel { background: #6FAE85; color: #fff; }
+.cs-tel svg { fill: currentColor; }
+.cs-kakao { background: #FEE500; color: #191919; }
+.cs-kakao svg { fill: currentColor; }
+@media (max-width: 959px) {
+  .modal.cs-sheet { align-items: flex-end; padding: 0; }
+  .modal.cs-sheet .box { width: 100%; max-width: none; border-radius: 18px 18px 0 0; padding-bottom: calc(18px + env(safe-area-inset-bottom)); }
+}
+.contact-box .acts { flex-wrap: nowrap; gap: 6px; }
+.contact-box .acts .btn { min-width: 0; padding: 0 6px; font-size: 14.5px; white-space: nowrap; }
