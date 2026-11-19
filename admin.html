@@ -81,6 +81,15 @@ h2 { font-size: 20px; margin: 0 0 4px; }
 .pairs .pair input, .pairs .pair textarea { padding: 9px 10px; border: 1.5px solid var(--line); border-radius: 8px; width: 100%; background: #fff; }
 .pairs .pair textarea { min-height: 64px; }
 .pairs .pair .x { justify-self: end; }
+/* 장례정보 썸네일 (2026-11-19) */
+.pairs .pair.bt { grid-template-columns: 104px 130px 1fr; align-items: start; gap: 12px; }
+.pairs .pair.bt b { font-size: 14px; line-height: 1.45; }
+.bt-cur { text-align: center; }
+.bt-cur img { width: 104px; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; display: block; background: #ddd; }
+.bt-cur img.off { opacity: .35; }
+.bt-cur small { font-size: 11px; color: var(--ink2); }
+@media (max-width: 640px) { .pairs .pair.bt { grid-template-columns: 90px 110px; } .pairs .pair.bt > div:last-child { grid-column: 1 / -1; } .bt-cur img { width: 90px; } }
+.art-th .photos, .bt-th .photos { grid-template-columns: 1fr; max-width: 130px; }
 /* 저장 바 */
 .savebar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #fff; border-top: 1px solid var(--line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); }
 .savebar .in { max-width: 980px; margin: 0 auto; display: flex; gap: 8px; align-items: center; }
@@ -139,6 +148,6 @@ h2 { font-size: 20px; margin: 0 0 4px; }
 <script src="js/blog-content.js"></script>
 <script src="js/defaults.js"></script>
 <script>document.write('<script src="data/content.js?t=' + Date.now() + '"><\/script>');</script>
-<script src="js/admin.js"></script>
+<script src="js/admin.js?v=20261119c"></script>
 </body>
 </html>

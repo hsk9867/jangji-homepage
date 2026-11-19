@@ -142,7 +142,7 @@ function sanitizeContent(array $c): array {
     }
     if (isset($c['articles']) && is_array($c['articles'])) {
         $out['articles'] = [];
-        foreach (array_slice($c['articles'], 0, 30) as $a) {
+        foreach (array_slice($c['articles'], 0, 100) as $a) {
             if (!is_array($a)) continue;
             $url = cleanUrl($a['url'] ?? '');
             $title = cleanStr($a['title'] ?? '', 200);

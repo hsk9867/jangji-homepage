@@ -436,7 +436,8 @@
         fArea('배웅의 약속', s, 'why', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 110) +
         fArea('맨 아래 상담 문구', s, 'finalTitle', '', '', 60) + '</div>' +
       '<div class="card"><h3>첫 화면 자주 묻는 질문</h3><div class="pairs" id="gfaqs"></div><button class="btn sm" id="gfaq-add">＋ 질문 추가</button></div>' +
-      '<div class="card"><h3>장례정보 (블로그 글 링크)</h3><p class="help">첫 화면 "배웅이 알려드리는 장례정보"에 나오는 글입니다. 블로그 글 주소와 제목을 넣으세요.</p><div class="pairs" id="arts"></div><button class="btn sm" id="art-add">＋ 글 추가</button></div>' +
+      '<div class="card"><h3>장례정보 · 블로그 최신 글 썸네일</h3><p class="help">첫 화면 "배웅이 알려드리는 장례정보"에는 네이버 블로그 최신 글이 자동으로 나옵니다(1시간마다 갱신). 블로그 대표 사진 대신 다른 사진을 쓰려면 글마다 <b>썸네일 사진을 첨부</b>하고 저장하세요. 가로 사진(4:3) 권장.</p><div id="blog-thumbs"><p class="help">블로그 글을 불러오는 중…</p></div></div>' +
+      '<div class="card"><h3>직접 추가한 글</h3><p class="help">블로그 글을 불러오지 못할 때 대신 보여 줄 글입니다. 위에서 썸네일을 첨부한 글도 여기에 함께 저장됩니다.</p><div class="pairs" id="arts"></div><button class="btn sm" id="art-add">＋ 글 추가</button></div>' +
       '<div class="card"><h3>상담 지역</h3>' + fArea('지역 목록', s, 'regions', '한 줄에 하나씩. 상담 신청서의 지역 선택지에 쓰입니다.', 'lines', 120) + '</div>' +
       '<div class="card"><h3>사업자 정보 (맨 아래 표시)</h3><div class="row2">' + fText('사업자명', s, 'bizName') + fText('업종 소개', s, 'bizDesc') + '</div><div class="row2">' + fText('대표자', s, 'ceo') + fText('사업자등록번호', s, 'bizNo') + '</div><div class="row2">' + fText('통신판매업 신고번호', s, 'mailOrderNo', '예: 2026-고양덕양구-0000') + fText('주소', s, 'address') + '</div><div class="row2">' + fText('이메일', s, 'email') + '</div></div>';
     bindFields(view, s, { name: function (v) { $('top-name').textContent = v + ' 관리자'; } });
@@ -450,10 +451,42 @@
     }
     function drawArts() {
       var host = $('arts');
-      host.innerHTML = c.articles.map(function (a, i) { return '<div class="pair"><input data-i="' + i + '" data-f="title" value="' + esc(a.title) + '" placeholder="글 제목"><input data-i="' + i + '" data-f="url" value="' + esc(a.url) + '" placeholder="https://blog.naver.com/..."><input data-i="' + i + '" data-f="date" type="date" value="' + esc(a.date || '') + '"><button class="btn sm del x" data-rm="' + i + '">삭제</button></div>'; }).join('') || '<p class="help">등록된 글이 없습니다.</p>';
+      host.innerHTML = c.articles.map(function (a, i) { return '<div class="pair"><div class="art-th" data-th="' + i + '"></div><input data-i="' + i + '" data-f="title" value="' + esc(a.title) + '" placeholder="글 제목"><input data-i="' + i + '" data-f="url" value="' + esc(a.url) + '" placeholder="https://blog.naver.com/..."><input data-i="' + i + '" data-f="date" type="date" value="' + esc(a.date || '') + '"><button class="btn sm del x" data-rm="' + i + '">삭제</button></div>'; }).join('') || '<p class="help">등록된 글이 없습니다.</p>';
       host.querySelectorAll('[data-f]').forEach(function (el) { el.oninput = function () { c.articles[+el.dataset.i][el.dataset.f] = el.value; setDirty(true); }; });
-      host.querySelectorAll('[data-rm]').forEach(function (b) { b.onclick = function () { c.articles.splice(+b.dataset.rm, 1); setDirty(true); drawArts(); }; });
+      host.querySelectorAll('[data-rm]').forEach(function (b) { b.onclick = function () { c.articles.splice(+b.dataset.rm, 1); setDirty(true); drawArts(); drawBlog(); }; });
+      host.querySelectorAll('[data-th]').forEach(function (h) {
+        var a = c.articles[+h.dataset.th], arr = a.image ? [a.image] : [];
+        photoEditor(h, arr, function () { a.image = arr[0] || ''; setDirty(true); drawBlog(); }, true);
+      });
     }
+    /* 블로그 최신 글마다 썸네일 첨부 (2026-11-19 요청) — 첨부한 사진은 articles 에 글 주소와 함께 저장되고,
+       첫 화면은 블로그 글 번호가 같은 항목의 사진을 블로그 대표 사진 대신 씁니다 */
+    var blogPosts = null;
+    var postNo = function (u) { var m = String(u || '').match(/(\d{9,})/); return m ? m[1] : ''; };
+    var artOf = function (p) { var n = postNo(p.url); return n ? c.articles.filter(function (a) { return postNo(a.url) === n; })[0] : null; };
+    function drawBlog() {
+      var host = $('blog-thumbs');
+      if (!host || !blogPosts) return;
+      if (!blogPosts.length) { host.innerHTML = '<p class="help">블로그 글을 불러오지 못했습니다. 카페24 서버에서만 동작합니다.</p>'; return; }
+      host.innerHTML = '<div class="pairs">' + blogPosts.slice(0, 9).map(function (p, i) {
+        var a = artOf(p);
+        /* 블로그 사진은 Referer 가 붙으면 네이버가 막으므로 img + no-referrer 로 표시 */
+        return '<div class="pair bt"><div class="bt-cur">' + (p.image ? '<img src="' + esc(p.image) + '" alt="" referrerpolicy="no-referrer" loading="lazy"' + (a && a.image ? ' class="off"' : '') + '>' : '') + '<small>블로그 사진</small></div>' +
+          '<div class="bt-th" data-bt="' + i + '"></div><div><b>' + esc(p.title) + '</b><br><small class="help">' + esc(p.date) + ' · ' + (a && a.image ? '<b style="color:var(--g)">첨부한 썸네일 사용 중</b>' : '블로그 사진 사용 중') + ' · <a href="' + esc(p.url) + '" target="_blank" rel="noopener">글 보기</a></small></div></div>';
+      }).join('') + '</div>';
+      host.querySelectorAll('[data-bt]').forEach(function (h) {
+        var p = blogPosts[+h.dataset.bt], a = artOf(p), arr = a && a.image ? [a.image] : [];
+        photoEditor(h, arr, function () {
+          var cur = artOf(p);
+          if (arr[0]) { if (!cur) { cur = { title: p.title, url: p.url, image: '', date: p.date }; c.articles.unshift(cur); } cur.image = arr[0]; }
+          else if (cur) cur.image = '';
+          setDirty(true); drawArts(); drawBlog();
+        }, true);
+      });
+    }
+    fetch('admin/api.php?action=blog', { credentials: 'same-origin' }).then(function (r) { return r.json(); })
+      .then(function (d) { blogPosts = (d && d.ok && d.posts) || []; drawBlog(); })
+      .catch(function () { blogPosts = []; drawBlog(); });
     drawFaqs(); drawArts();
     $('gfaq-add').onclick = function () { c.faqs.push({ q: '', a: '' }); setDirty(true); drawFaqs(); };
     $('art-add').onclick = function () { c.articles.unshift({ title: '', url: '', image: '', date: '' }); setDirty(true); drawArts(); };

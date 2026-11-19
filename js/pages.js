@@ -235,6 +235,10 @@
     if (/\.github\.io$/.test(location.hostname)) artAuto();
     else U.getJson('admin/api.php?action=blog').then(function (d) {
       var posts = (d && d.ok && d.posts) || [];
+      /* 관리자에서 글마다 첨부한 썸네일이 있으면 블로그 대표 사진 대신 사용 (블로그 글 번호로 맞춤) */
+      var no = function (u) { var m = String(u || '').match(/(\d{9,})/); return m ? m[1] : ''; };
+      var own = {}; (C.articles || []).forEach(function (a) { if (a.image && no(a.url)) own[no(a.url)] = a.image; });
+      posts = posts.map(function (p) { var im = own[no(p.url)]; return im ? { title: p.title, url: p.url, date: p.date, image: im } : p; });
       if (posts.length >= 3) { artRail.innerHTML = U.rail(posts.slice(0, 9).map(U.artCard).join(''), 'wide'); document.getElementById('artSec').hidden = false; }
       artAuto();
     });
