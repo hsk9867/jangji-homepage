@@ -436,7 +436,7 @@
         fArea('배웅의 약속', s, 'why', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 110) +
         fArea('맨 아래 상담 문구', s, 'finalTitle', '', '', 60) + '</div>' +
       '<div class="card"><h3>첫 화면 자주 묻는 질문</h3><div class="pairs" id="gfaqs"></div><button class="btn sm" id="gfaq-add">＋ 질문 추가</button></div>' +
-      '<div class="card"><h3>장례정보 · 직접 추가한 글</h3><p class="help">첫 화면 "배웅이 알려드리는 장례정보"에는 네이버 블로그 최신 글이 자동으로 나옵니다. 블로그 대표 사진 대신 다른 사진을 쓰려면 여기에 <b>같은 블로그 글 주소</b>로 글을 추가하고 썸네일 사진을 첨부하세요(가로 4:3 권장). 블로그 글을 불러오지 못할 때는 이 목록이 대신 나옵니다.</p><div class="pairs" id="arts"></div><button class="btn sm" id="art-add">＋ 글 추가</button></div>' +
+      '<div class="card"><h3>장례정보 · 직접 추가한 글</h3><p class="help">첫 화면 "배웅이 알려드리는 장례정보"에는 여기 등록한 글만 이 순서대로 나옵니다. 글마다 제목·블로그 주소·날짜를 넣고 썸네일 사진을 첨부하세요(가로 4:3 권장). 글이 하나도 없으면 첫 화면에서 장례정보 칸이 숨겨집니다.</p><div class="pairs" id="arts"></div><button class="btn sm" id="art-add">＋ 글 추가</button></div>' +
       '<div class="card"><h3>상담 지역</h3>' + fArea('지역 목록', s, 'regions', '한 줄에 하나씩. 상담 신청서의 지역 선택지에 쓰입니다.', 'lines', 120) + '</div>' +
       '<div class="card"><h3>사업자 정보 (맨 아래 표시)</h3><div class="row2">' + fText('사업자명', s, 'bizName') + fText('업종 소개', s, 'bizDesc') + '</div><div class="row2">' + fText('대표자', s, 'ceo') + fText('사업자등록번호', s, 'bizNo') + '</div><div class="row2">' + fText('통신판매업 신고번호', s, 'mailOrderNo', '예: 2026-고양덕양구-0000') + fText('주소', s, 'address') + '</div><div class="row2">' + fText('이메일', s, 'email') + '</div></div>';
     bindFields(view, s, { name: function (v) { $('top-name').textContent = v + ' 관리자'; } });

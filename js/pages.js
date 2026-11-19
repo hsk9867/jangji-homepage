@@ -229,19 +229,9 @@
       io.observe(stl);
     }
 
-    /* 장례정보: 블로그 RSS 최신 글(서버가 1시간마다 새로 받음)로 바꾸고, 모바일에서는 천천히 자동으로 흐름 (2026-11-19 고객 수정 55) */
+    /* 장례정보: 관리자 "장례정보 · 직접 추가한 글"만 표시 (2026-11-19 요청 — 블로그 RSS 자동 연동·기본 글 사용 안 함), 모바일은 천천히 자동으로 흐름 */
     var artRail = document.getElementById('artRail');
-    var artAuto = function () { U.bindRails(artRail); U.autoRail(artRail.querySelector('.rail'), 20); };
-    if (/\.github\.io$/.test(location.hostname)) artAuto();
-    else U.getJson('admin/api.php?action=blog').then(function (d) {
-      var posts = (d && d.ok && d.posts) || [];
-      /* 관리자에서 글마다 첨부한 썸네일이 있으면 블로그 대표 사진 대신 사용 (블로그 글 번호로 맞춤) */
-      var no = function (u) { var m = String(u || '').match(/(\d{9,})/); return m ? m[1] : ''; };
-      var own = {}; (C.articles || []).forEach(function (a) { if (a.image && no(a.url)) own[no(a.url)] = a.image; });
-      posts = posts.map(function (p) { var im = own[no(p.url)]; return im ? { title: p.title, url: p.url, date: p.date, image: im } : p; });
-      if (posts.length >= 3) { artRail.innerHTML = U.rail(posts.slice(0, 9).map(U.artCard).join(''), 'wide'); document.getElementById('artSec').hidden = false; }
-      artAuto();
-    });
+    if ((C.articles || []).length) { U.bindRails(artRail); U.autoRail(artRail.querySelector('.rail'), 20); }
 
     /* 고객 후기: 유형 탭 + 가로 카드, 카드를 누르면 전문 */
     var rf = document.getElementById('rvFilter'), rr = document.getElementById('rvRail');

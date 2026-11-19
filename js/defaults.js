@@ -135,6 +135,6 @@
 
     facilities: B.facilities,
     reviews: B.reviews,
-    articles: B.articles
+    articles: []   /* 장례정보는 관리자에서 추가한 글만 (블로그 기본 글 안 씀) */
   };
 })();
