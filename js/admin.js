@@ -21,8 +21,10 @@
   function pairsToLines(a) { return (a || []).map(function (p) { return p.d ? p.t + ' | ' + p.d : p.t; }).join('\n'); }
 
   function api(action, data) {
+    /* POST 는 multipart('json' 필드)로 보냄 — 카페24 가 128KB 넘는 JSON 본문을 502 로 막기 때문 (콘텐츠 저장이 커지면 걸림) */
+    var fd; if (data !== undefined) { fd = new FormData(); fd.append('json', JSON.stringify(data)); }
     var opt = data === undefined ? { credentials: 'same-origin' } :
-      { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'JANGJI' }, body: JSON.stringify(data) };
+      { method: 'POST', credentials: 'same-origin', headers: { 'X-Requested-With': 'JANGJI' }, body: fd };
     return fetch('admin/api.php?action=' + action, opt).then(function (r) {
       return r.text().then(function (t) {
         try { return JSON.parse(t); } catch (e) { throw new Error('서버 응답 오류 (PHP가 동작하지 않는 곳일 수 있습니다)'); }
@@ -86,7 +88,15 @@
       if (i >= list.length) return Promise.resolve(done);
       var f = list[i++];
       if (opts.onProgress) opts.onProgress(i, list.length);
-      return resize(f, opts.max || 1600, opts.keepPng).then(function (data) { return api('upload', { data: data }); })
+      /* 카페24 가 128KB 넘는 JSON 요청을 막아서 사진은 파일(FormData)로 보냄 */
+      return resize(f, opts.max || 1600, opts.keepPng).then(function (data) {
+        var mt = data.match(/^data:([^;]+);base64,(.*)$/), bs = atob(mt[2]), u8 = new Uint8Array(bs.length);
+        for (var k = 0; k < bs.length; k++) u8[k] = bs.charCodeAt(k);
+        var fd = new FormData(); fd.append('file', new Blob([u8], { type: mt[1] }), 'photo.' + (mt[1] === 'image/png' ? 'png' : 'jpg'));
+        return fetch('admin/api.php?action=upload', { method: 'POST', credentials: 'same-origin', headers: { 'X-Requested-With': 'JANGJI' }, body: fd })
+          .then(function (r) { return r.text(); })
+          .then(function (t) { try { return JSON.parse(t); } catch (e) { throw new Error('사진 업로드 실패: 서버 응답 오류'); } });
+      })
         .then(function (r) { if (!r.ok) throw new Error(r.message || r.error); done.push(r.path); return next(); });
     }
     return next();

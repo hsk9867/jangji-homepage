@@ -34,7 +34,17 @@ function rawBody(int $max): string {
     if ($raw === false || strlen($raw) > $max) fail('too_large', '요청이 너무 큽니다.');
     return $raw;
 }
-function body(int $max = 4194304): array { $j = json_decode(rawBody($max), true); return is_array($j) ? $j : []; }
+function body(int $max = 4194304): array {
+    /* 관리자는 카페24 의 128KB JSON 본문 차단을 피하려고 multipart 의 'json' 필드로 보냄 */
+    if (isset($_POST['json'])) {
+        $raw = (string)$_POST['json'];
+        if (strlen($raw) > $max) fail('too_large', '요청이 너무 큽니다.');
+    } else {
+        $raw = rawBody($max);
+    }
+    $j = json_decode($raw, true);
+    return is_array($j) ? $j : [];
+}
 function cleanStr($v, int $max = 300): string { return mb_substr(trim((string)preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/u', '', (string)$v)), 0, $max); }
 function writeAtomic(string $path, string $content): bool {
     $dir = dirname($path);
@@ -333,10 +343,17 @@ switch ($action) {
     case 'upload':
         if ($method !== 'POST') fail('bad_request');
         if (!$logged) fail('auth');
-        $b = body(12 * 1024 * 1024);
-        $data = (string)($b['data'] ?? '');
-        if (!preg_match('#^data:image/(jpeg|png|webp);base64,([A-Za-z0-9+/=]+)$#', $data, $m)) fail('bad_image', 'JPG, PNG, WebP 사진만 올릴 수 있습니다.');
-        $bin = base64_decode($m[2], true);
+        /* 카페24 는 128KB 넘는 JSON 본문을 502 로 막으므로 관리자는 파일(multipart, 필드 'file')로 보냄.
+           예전 방식(JSON data URL)도 작은 사진은 그대로 받음 */
+        if (!empty($_FILES['file']) && is_uploaded_file($_FILES['file']['tmp_name'] ?? '')) {
+            if (($_FILES['file']['size'] ?? 0) > 8 * 1024 * 1024) fail('bad_image', '사진이 너무 큽니다.');
+            $bin = (string)file_get_contents($_FILES['file']['tmp_name']);
+        } else {
+            $b = body(12 * 1024 * 1024);
+            $data = (string)($b['data'] ?? '');
+            if (!preg_match('#^data:image/(jpeg|png|webp);base64,([A-Za-z0-9+/=]+)$#', $data, $m)) fail('bad_image', 'JPG, PNG, WebP 사진만 올릴 수 있습니다.');
+            $bin = base64_decode($m[2], true);
+        }
         if ($bin === false || strlen($bin) > 8 * 1024 * 1024) fail('bad_image', '사진이 너무 큽니다.');
         $info = @getimagesizefromstring($bin);
         $mimeExt = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
