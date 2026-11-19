@@ -1054,6 +1054,7 @@ table.cmp .t { display: inline-block; font-size: 11px; background: var(--gray); 
 @media (min-width: 960px) {
   .rail.auto-flow { display: flex !important; gap: 24px; overflow-x: auto; padding: 4px 0 10px; }
   .rail.auto-flow > *, .rail.wide.auto-flow > * { flex: 0 0 calc((100% - 48px) / 3); display: flex !important; }
+  .rail.auto-flow > .art { display: block !important; }   /* 장례정보 카드는 사진 위·글 아래 (flex 로 바뀌어 가로로 늘어지던 문제) */
   .rail-wrap:has(.auto-flow) .rail-btn { display: grid; place-items: center; top: 30%; }
 }
 
