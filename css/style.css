@@ -1199,3 +1199,8 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 /* 후기 상세 해시태그 */
 .rtags { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 6px; }
 .rtags span { display: inline-flex; align-items: center; height: 32px; padding: 0 13px; border-radius: 999px; background: #F3F3F1; color: #3d3d42; font-size: 14px; font-weight: 600; white-space: nowrap; }
+
+/* 연락 박스 안내 문구 (2026-11-23) */
+.contact-box .cb-note { margin-top: 10px; font-size: 14.5px; line-height: 1.6; color: rgba(255, 255, 255, .78); }
+#contact .wrap > .contact-box { grid-column: 1 / -1; }
+.apply-box .pill + .tel { display: flex; margin-top: 12px; }

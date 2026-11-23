@@ -201,9 +201,9 @@
   function getJson(u) { return fetch(u).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }); }
 
   /* 하단 상담 신청 (간단 폼) */
-  function applySection(title, presetType) {
+  function applySection(title, presetType, noTitle) {
     var s = C.site;
-    return '<section class="sec apply" id="apply"><div class="wrap apply-box"><div class="sec-head" style="margin:0"><div class="tx"><span class="pill">상담 신청</span><h2>' + esc(title || s.finalTitle) + '</h2>' +
+    return '<section class="sec apply" id="apply"><div class="wrap apply-box"><div class="sec-head" style="margin:0"><div class="tx"><span class="pill">상담 신청</span>' + (noTitle ? '' : '<h2>' + esc(title || s.finalTitle) + '</h2>') +
       '<a class="tel" href="' + telHref(s.phone) + '">' + ICON.phone + esc(s.phone) + '</a><small>' + esc(s.hours) + '</small>' +
       (s.kakao ? '<a class="btn btn-kakao btn-block mt16" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div></div>' +
       '<form class="quick-form" id="quick-form" novalidate><div class="f-row">' +

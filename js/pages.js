@@ -68,8 +68,8 @@
       '<div class="bd"><p>' + hl(revSummary(r)) + '</p><span class="who"><b>' + esc(f ? f.name : (r.author || '배웅 상담팀')) + '</b><span>' + esc(tname(r.type)) + (f && f.area ? ' · ' + esc(f.area) : '') + ' · ' + U.fmtDate(r.date) + '</span></span></div></a>';
   }
   function loadTestimonials() { return Promise.resolve(U.visibleReviews().filter(function (r) { return !r.sample; })); }
-  function contactBox(small, big, ctaType) {
-    return '<div class="contact-box"><div class="av"><img src="img/logo-mark.png" alt=""></div><small>' + esc(small) + '</small><b>' + esc(big) + '</b>' +
+  function contactBox(small, big, ctaType, note) {
+    return '<div class="contact-box"><div class="av"><img src="img/logo-mark.png" alt=""></div><small>' + esc(small) + '</small><b>' + esc(big) + '</b>' + (note ? '<p class="cb-note">' + esc(note) + '</p>' : '') +
       '<div class="acts">' + (S.kakao ? '<a class="btn btn-ck" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '<a class="btn btn-ct" href="' + U.telHref(S.phone) + '">전화문의</a><a class="btn btn-main" href="contact.html' + (ctaType ? '?type=' + ctaType : '') + '">상담 신청</a></div></div>';
   }
 
@@ -204,11 +204,11 @@
       '<section class="sec" id="faq"><div class="wrap">' + head('자주 하는 질문', '상담 때 가족들이 가장 많이 물어보시는 내용입니다.') + U.faqHtml(C.faqs) + '</div></section>' +
 
       /* 14. 연락 + 블로그 */
-      '<section class="sec sec-gray" id="contact"><div class="wrap">' + contactBox('급하신 장지 문의는', '연중무휴, 언제든 편히 연락 주십시오', '') +
-        (s.blogUrl ? '<a class="brand-card card-h" href="' + esc(s.blogUrl) + '" target="_blank" rel="noopener"><div><b>주식회사 배웅은<br>어떤 곳인지 궁금하시다면</b><small>블로그에서 동행 기록 보기 ›</small></div><span class="nblog" aria-hidden="true">' + I.nblog + '<small>blog</small></span></a>' : '') + '</div></section>' +
+      '<section class="sec sec-gray" id="contact"><div class="wrap">' + contactBox('급하신 장지 문의는', '연중무휴, 언제든 편히 연락 주십시오', '', '모실 인원과 희망 지역을 알려주시면 배웅이 맞는 곳을 함께 찾아드립니다.') +
+        '</div></section>' +
 
       /* 15. 상담 신청 */
-      U.applySection() +
+      U.applySection('', '', true) +   /* 위 연락 박스와 문구가 겹쳐 제목은 뺌 (2026-11-23) */
 
       /* 16. 공지사항 (2026-11-17 고객 요청: 마지막 부분) */
       (visibleNotices().length ? '<section class="sec notice-sec" id="notice"><div class="wrap">' + noticeHead(true) + noticeList(visibleNotices().slice(0, 3)) + '</div></section>' : '');
