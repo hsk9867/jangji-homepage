@@ -488,36 +488,35 @@
     setTitle(t.name);
     window.CONTACT_QUERY = '?type=ijang';
     var revs = U.visibleReviews('ijang').slice(0, 6);
+    /* 2026-11-23 고객 요청: 글이 너무 많아 간결하게 줄임 (설명은 한 문장씩) */
     var TERMS = [
-      ['파묘(破墓)', '기존 묘를 열고 유해를 수습하는 일입니다. 이장 절차의 첫 번째 단계입니다.'],
-      ['이장(移葬)', '수습한 유해를 새로운 장소에 다시 모시는 일입니다. 파묘와 반드시 함께 진행됩니다.'],
-      ['개장(改葬)', '「장사 등에 관한 법률」상의 용어로, 파묘·이장 전 과정을 뜻합니다. 관할 관청의 허가가 반드시 필요합니다.']
+      ['파묘(破墓)', '묘를 열고 유해를 수습하는 일'],
+      ['이장(移葬)', '수습한 유해를 새 자리에 모시는 일'],
+      ['개장(改葬)', '파묘·이장 전 과정을 뜻하는 법률 용어']
     ];
     var STEPS = [
-      ['가족 협의', '방향 결정과 역할 분담', '이장 사유를 공유하고 새 안장지의 방향(봉안당·자연장·봉안묘 등)을 함께 정합니다. 서류 준비, 현장 동행, 화장장 예약 담당을 나누어 두면 이후 혼선이 줄어듭니다.'],
-      ['새 안장지 선정', '파묘 이전에 계약 완료', '새 안장지 계약을 파묘 전에 반드시 마쳐야 합니다. 계약 없이 파묘를 먼저 하면 유해를 임시 보관해야 하는 상황이 생깁니다. 관리 구조, 접근성, 운영 주체, 비용 조건을 함께 확인합니다.'],
-      ['개장 신고', '허가증 없이 작업 불가', '현재 묘가 있는 시·군·구청에 신고하고 허가증을 받습니다. 필요 서류: 개장 신고서, 신청인 신분증, 토지 소유자 동의서(사유지), 가족관계증명서, 묘지 위치 약도 또는 지번. 처리 기간은 보통 3~7일이며, 개장허가증을 받은 뒤에만 파묘를 시작할 수 있습니다.'],
-      ['파묘 업체 선정', '견적 항목 분리 확인', '사업자등록증과 장례지도사 자격 보유 여부를 먼저 확인합니다. 견적서는 파묘 작업비, 운반비, 화장비, 기타 비용이 분리된 형태로 받고, 두 곳 이상을 비교하는 것이 기준이 됩니다.'],
-      ['파묘 당일', '개토제와 유해 수습', '개토제(開土祭)로 시작합니다. 간단한 제물(과일·포·술)을 차리고 후손이 인사를 올린 뒤 작업합니다. 화장하는 경우 관할 화장장에 2~5일 전 사전 예약이 필요하며, 당일 예약은 대부분 어렵습니다.'],
-      ['재안장', '새 안장지에 모시는 절차', '새 묘지에 안장하는 경우 취토(取土)와 성분(成墳)으로 마무리합니다. 봉안당·수목장으로 모시는 경우 각 시설의 안장 절차에 따릅니다.'],
-      ['이장 고유', '마무리 제례', '새 자리에 모신 뒤 이장 고유(告由)를 올리고 후손이 인사를 드리며 전체 절차를 마칩니다.']
+      ['가족 협의', '', '이장 사유와 새로 모실 방식을 함께 정합니다.'],
+      ['새 안장지 계약', '', '파묘 전에 새로 모실 곳의 계약을 마칩니다.'],
+      ['개장 신고', '', '묘가 있는 시·군·구청에 신고하고 허가증을 받습니다. (보통 3~7일)'],
+      ['업체 선정', '', '작업비·운반비·화장비가 나뉜 견적을 두 곳 이상 비교합니다.'],
+      ['파묘 당일', '', '개토제를 올린 뒤 유해를 수습합니다. 화장장은 2~5일 전에 예약합니다.'],
+      ['재안장', '', '새 안장지의 절차에 따라 모십니다.'],
+      ['마무리 제례', '', '새 자리에서 인사를 드리며 마칩니다.']
     ];
-    var CHECKS = ['가족 협의 — 방향 결정과 역할 분담까지 완료', '새 안장지 계약 — 파묘 이전에 완료', '개장 신고서 제출과 허가증 수령 — 허가증 없이 작업 불가', '이장 업체 계약과 날짜 확정 — 견적 항목 분리 확인', '화장장 사전 예약 — 화장의 경우 최소 2~5일 전', '개토제 준비물 — 제물, 향, 초 사전 확인', '가족 일정 공유 — 당일 참석 인원 사전 조율'];
+    var CHECKS = ['가족 협의 완료', '새 안장지 계약 (파묘 전)', '개장 허가증 수령', '업체 계약·날짜 확정', '화장장 예약 (2~5일 전)', '개토제 준비물', '당일 참석 인원 공유'];
     el.innerHTML =
       '<section class="sub-hero" style="' + U.bg(U.typeImg('ijang')) + '"><div class="wrap"><div class="crumb">장지 안내</div><h1>조상님을\n새 자리로 정중하게</h1><p>개장 신고부터 화장장 예약, 봉안까지 함께합니다</p><a class="btn btn-line mt16" href="contact.html?type=ijang">이장·개장 상담 신청</a></div></section>' +
-      '<section class="sec"><div class="wrap"><div class="intro-grid"><div><span class="pill">파묘·이장이란?</span><p class="lead">' + nl(t.desc) + '</p>' +
-        '<p class="lead mt16">묘지 수용, 사용 기한 만료, 거주지 이전 등 사유는 달라도 "어디서부터 시작해야 할지 모르겠다"는 말씀이 가장 많습니다. 파묘·이장은 가족 협의, 새 안장지 계약, 개장 신고, 업체 선정의 순서가 맞아야 하는 일이며, 순서가 어긋나면 처음부터 다시 준비해야 합니다.</p>' +
+      '<section class="sec"><div class="wrap"><div class="intro-grid"><div><span class="pill">파묘·이장이란?</span><p class="lead">묘를 열어 유골을 수습하고 새 장지로 옮겨 모시는 일입니다. 배웅이 개장 신고부터 안치까지 전 과정을 대행합니다.</p>' +
         '<div class="pc mt24"><div><h3>이런 경우 상담받으십시오</h3><ul>' + list(t.reasons) + '</ul></div></div></div>' +
-        '<div class="price-box"><span class="tg">' + esc(t.priceTag || '') + '</span><span class="lb">비용 안내</span><span class="v">' + esc(t.price) + '</span><small>' + esc(t.priceNote) + '</small>' +
+        '<div class="price-box"><span class="tg">' + esc(t.priceTag || '') + '</span><span class="lb">비용 안내</span><span class="v">' + esc(t.price) + '</span><small>분묘 수와 장비 진입 여부에 따라 달라집니다.</small>' +
         '<a class="btn btn-main btn-block mt16" href="' + U.telHref(C.site.phone) + '">' + I.phone + '현장 확인 요청하기</a></div></div></div></section>' +
-      '<section class="sec sec-gray"><div class="wrap">' + head('파묘·이장·개장,\n개념부터 정확히') + '<div class="why">' + TERMS.map(function (x) { return '<div class="it"><div class="tx"><b>' + x[0] + '</b><span>' + x[1] + '</span></div></div>'; }).join('') + '</div>' +
-        '<p class="price-note">개장은 반드시 관할 시·군·구청에 신고하고 허가증을 받은 뒤에 진행할 수 있습니다. 허가 전에 작업을 진행하면 법적 문제가 생길 수 있습니다.</p></div></section>' +
-      '<section class="sec"><div class="wrap">' + head('이장 시기 선택 기준') + '<p class="lead">전통적으로 이장은 음력 길일을 택합니다. 음력 3월(봄)이 가장 선호되고, 음력 10월(가을)이 그다음입니다. 삼복, 기일, 명절 전후는 피하는 시기로 꼽히며, 지관이나 풍수사에게 날을 따로 받는 경우도 있습니다.</p><p class="lead mt16">다만 시기는 가족 협의 일정, 새 안장지 계약 완료 여부, 개장 허가 처리 기간을 함께 고려해 정해야 합니다. 전통 기준과 행정 일정을 함께 맞추는 것이 실무 기준이며, 시기 확정은 이장 준비의 가장 마지막 단계입니다.</p></div></section>' +
-      '<section class="sec sec-gray"><div class="wrap">' + head('파묘·이장 7단계 절차', '', '', '진행 절차') + '<ol class="steps-v">' +
-        STEPS.map(function (st) { return '<li><div><strong>' + esc(st[0]) + ' <small>' + esc(st[1]) + '</small></strong><span>' + esc(st[2]) + '</span></div></li>'; }).join('') + '</ol></div></section>' +
-      '<section class="sec"><div class="wrap">' + head('파묘·이장 전 확인 체크포인트', '준비하시는 분들이 실제로 가장 많이 빠뜨리는 항목입니다. 일곱 가지가 모두 정리된 뒤에 파묘 날짜를 확정하는 것이 기준입니다.') + '<ul class="ij-check">' + CHECKS.map(function (c) { return '<li><span class="dot-ic">' + I.check + '</span><span>' + esc(c) + '</span></li>'; }).join('') + '</ul></div></section>' +
-      '<section class="sec sec-gray"><div class="wrap">' + head('기준을 먼저 정리하고\n시작하십시오') + '<p class="lead">파묘·이장은 가족 협의 → 새 안장지 선정 → 개장 신고 → 업체 계약 → 파묘 당일 → 재안장 → 마무리 제례의 순서로 진행됩니다. 빠뜨리기 쉬운 것은 새 안장지 계약의 선행, 개장 허가증 수령, 화장장 사전 예약입니다. 순서가 어긋나면 일정이 지연되거나 유해를 임시 보관해야 하는 문제가 생깁니다.</p>' +
-        '<div class="mt24">' + contactBox('이장 일정을 잡기 전에', '파묘·이장 절차 전반을 함께 정리해 드립니다', 'ijang') + '</div></div></section>' +
+      '<section class="sec sec-gray"><div class="wrap">' + head('파묘·이장·개장') + '<div class="why">' + TERMS.map(function (x) { return '<div class="it"><div class="tx"><b>' + x[0] + '</b><span>' + x[1] + '</span></div></div>'; }).join('') + '</div>' +
+        '<p class="price-note">개장은 관할 시·군·구청의 허가증을 받은 뒤에만 진행할 수 있습니다.</p></div></section>' +
+      '<section class="sec"><div class="wrap">' + head('이장 시기') + '<p class="lead">전통적으로 음력 3월과 10월을 많이 택합니다. 실제 날짜는 가족 일정과 개장 허가 기간에 맞춰 마지막에 정합니다.</p></div></section>' +
+      '<section class="sec sec-gray"><div class="wrap">' + head('파묘·이장 7단계', '', '', '진행 절차') + '<ol class="steps-v">' +
+        STEPS.map(function (st) { return '<li><div><strong>' + esc(st[0]) + '</strong><span>' + esc(st[2]) + '</span></div></li>'; }).join('') + '</ol></div></section>' +
+      '<section class="sec"><div class="wrap">' + head('파묘 전 체크포인트') + '<ul class="ij-check">' + CHECKS.map(function (c) { return '<li><span class="dot-ic">' + I.check + '</span><span>' + esc(c) + '</span></li>'; }).join('') + '</ul></div></section>' +
+      '<section class="sec sec-gray"><div class="wrap">' + contactBox('이장 일정을 잡기 전에', '절차 전반을 함께 정리해 드립니다', 'ijang') + '</div></section>' +
       (revs.length ? '<section class="sec"><div class="wrap">' + head('파묘·이장 상담 이야기', '', '<a class="more" href="reviews.html?type=ijang">더 보기 ›</a>') + U.rail(revs.map(U.revCard).join(''), 'wide') + '</div></section>' : '') +
       ((t.faqs || []).length ? '<section class="sec sec-gray"><div class="wrap">' + head('자주 하는 질문') + U.faqHtml(t.faqs) + '</div></section>' : '') +
       U.applySection('묘 이전이 고민되시면\n현장 확인부터 무료로 받아보십시오.', 'ijang');
