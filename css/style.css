@@ -1193,3 +1193,9 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 }
 .contact-box .acts { flex-wrap: nowrap; gap: 6px; }
 .contact-box .acts .btn { min-width: 0; padding: 0 6px; font-size: 14.5px; white-space: nowrap; }
+
+/* 메인 카드뉴스 가운데 큰 문구 진하게 (2026-11-23) */
+.news .slide.a-style > .big { font-weight: 700; color: rgba(255, 255, 255, .96); text-shadow: 0 2px 14px rgba(0, 0, 0, .42); }
+/* 후기 상세 해시태그 */
+.rtags { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 6px; }
+.rtags span { display: inline-flex; align-items: center; height: 32px; padding: 0 13px; border-radius: 999px; background: #F3F3F1; color: #3d3d42; font-size: 14px; font-weight: 600; white-space: nowrap; }

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = '배웅 | 장지 안심 동행 서비스';
-const VER = '20261119f';  // 캐시 쿼리 (css·js 바꾸면 올려 주세요)
+const VER = '20261123a';  // 캐시 쿼리 (css·js 바꾸면 올려 주세요)
 const pages = [
   ['index.html', 'home', '', SITE, '수목장·봉안당(납골당)·공원묘지 분양 상담부터 파묘·이장까지. 배웅이 직접 답사한 시설만 안내하고, 주말에도 무료로 동행 답사합니다. 070-7621-4444'],
   ['sumokjang.html', 'type', 'sumok', '수목장 | 배웅', '경기도 수목장 평균 가격과 특징, 배웅이 직접 답사한 수목장 사진과 후기.'],
@@ -43,7 +43,7 @@ for (const [file, page, type, title, desc] of pages) {
 <link rel="apple-touch-icon" href="img/logo-mark.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT@2/fonts/variable/woff2/SUIT-Variable.css">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/style.css?v=${VER}">
 <script src="js/blog-content.js?v=${VER}"></script>
 <script src="js/defaults.js?v=${VER}"></script>

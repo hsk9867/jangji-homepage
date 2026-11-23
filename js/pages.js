@@ -29,6 +29,32 @@
     b224438264593: '파묘·이장을 앞두고 새 장지를 찾는 가족을 위해 남양주 무량수목장을 살펴봤습니다. 이장은 **가족이 충분히 이야기를 나눈 뒤** 결정하시고, **어디에 모실지**를 함께 보는 일이 중요합니다.',
     b224247837400: '이장 유골은 새로 화장한 유골과 안치 조건이 다를 수 있습니다. 그래서 수목장 계약 전에 **이장 유골 수용 여부부터** 확인하는 것이 순서이며, **용기 재질 기준**도 시설마다 다릅니다.'
   };
+  /* 후기 상세 본문: 5줄 이내로 정리한 글 + 해시태그 (2026-11-23 고객 요청).
+     글마다 [정리한 글, 태그들]. 여기에 없는 후기(관리자에서 새로 추가한 글)는 본문 앞 두 문장 + 시설 키워드로 대신합니다. */
+  var REV_BRIEF = {
+    b224431109629: ['무릎이 좋지 않으신 어머님이 아버님을 자주 뵈러 가고 싶어 하셨습니다. 그래서 풍경이나 가격보다 이동 여건을 먼저 여쭙고, 주차가 편하고 쉴 공간이 있는 용인 납골당을 함께 살폈습니다.', ['주차가 편해요', '쉴 공간이 있어요', '어르신도 편해요']],
+    b224423919482: ['사진만으로는 결정할 수 없다는 가족을 위해 나래원수목장에 직접 다녀왔습니다. 발안IC 인근이라 오산·평택·수원에서도 찾기 좋고, 진입 경로와 동선까지 확인했습니다.', ['IC에서 가까워요', '경기 남부에서 가까워요', '직접 답사했어요']],
+    b224397789066: ['일산 자하연은 매장묘부터 봉안묘·평장묘·자연장까지 한곳에서 비교할 수 있는 공원묘원입니다. 공원 전체가 완만한 경사이고, 구역마다 정원처럼 차분했습니다.', ['경사가 완만해요', '정원 같아요', '안치 방식이 다양해요']],
+    b224395482038: ['신앙 예식이 가능한 납골당을 찾는 성남·분당 가족을 위해 남서울가족공원을 답사했습니다. 봉안당과 수목장·잔디장을 함께 갖췄고 기독교식 추모예배도 준비할 수 있습니다.', ['추모예배가 가능해요', '신앙을 존중해요', '안치 방식이 다양해요']],
+    b224383776090: ['가까운 곳이면 된다고 생각하셨지만, 비교할수록 분위기와 관리 상태가 마음에 걸리셨습니다. 양주 하늘안추모공원을 직접 둘러본 뒤에야 판단 기준이 생기셨습니다.', ['직접 둘러봤어요', '찾아가기 편해요', '미리 준비해요']],
+    b224411743930: ['배웅은 직접 현장을 방문해 확인한 내용으로 상담합니다. 양평 갈월사는 수목장과 봉안시설을 함께 비교할 수 있어, 자연장을 고려하는 가족께 안내해 드립니다.', ['자연 속에 모셔요', '사찰이 운영해요', '봉안당과 비교할 수 있어요']],
+    b224373334065: ['사찰 수목장이라고 불교 신자만 선택하는 곳은 아닙니다. 용인 불광사 양지수목장을 직접 답사해 접근성과 수목 상태, 묘역 관리, 이동 동선까지 확인했습니다.', ['분위기가 차분해요', '종교와 상관없어요', '자연과 가까워요']],
+    b224370709163: ['아버님을 급히 모셔야 했던 형제분들은 나무 아래 모시기를 원하셨습니다. 용인·수원에서 멀지 않고 조경 관리가 잘 된 금오동지를 그 자리에서 안내해 드렸습니다.', ['조경이 잘 관리돼요', '용인·수원에서 가까워요', '나무 아래 모셔요']],
+    b224363967758: ['서울과 가깝고 관리가 잘 되는 파주 납골당을 찾는 분이 많습니다. 서현추모공원은 재단법인이 오래 관리해 온 곳으로, 명봉산 자락이라 조용했습니다.', ['관리가 잘 돼요', '서울에서 가까워요', '조용해요']],
+    b224359282787: ['“도서관처럼 생긴 봉안당” 분당홈을 직접 방문했습니다. 안치 공간이 책장처럼 꾸며져 있고 조명이 따뜻하며, 전용 열쇠로 유품함을 열어 볼 수 있습니다.', ['서재 같은 분위기예요', '조명이 따뜻해요', '유품함을 열어 볼 수 있어요']],
+    b224438264593: ['파묘·이장을 앞두고 새 장지를 찾는 가족을 위한 이야기입니다. 벌초와 봉분 관리 부담을 덜 수 있고, 무량수목장은 계절 풍경 속에서 추모할 수 있는 곳입니다.', ['관리 부담이 줄어요', '계절 풍경이 좋아요', '이장 후 모실 수 있어요']],
+    b224247837400: ['이장 유골은 새로 화장한 유골과 안치 조건이 다를 수 있습니다. 수목장 계약 전에 이장 유골을 받는지, 용기 재질 기준이 있는지부터 확인하시기를 권합니다.', ['계약 전에 확인해요', '안치 조건을 먼저 봐요', '기준부터 정리해요']]
+  };
+  function revBrief(r) {
+    if (REV_BRIEF[r.id]) return REV_BRIEF[r.id][0];
+    var ss = String(r.body || '').replace(/\s+/g, ' ').trim().match(/[^.!?。]+[.!?。]+/g) || [String(r.body || '')];
+    return ss.slice(0, 2).map(function (x) { return x.trim(); }).join(' ');
+  }
+  function revTags(r) {
+    var t = (Array.isArray(r.tags) && r.tags.length) ? r.tags : (REV_BRIEF[r.id] ? REV_BRIEF[r.id][1] : []);
+    if (!t.length) { var f = U.facility(r.facilityId); if (f) t = (f.keywords && f.keywords.length ? f.keywords : (f.tags || [])); }
+    return t.length ? '<div class="rtags">' + t.slice(0, 5).map(function (x) { return '<span>#' + esc(x) + '</span>'; }).join('') + '</div>' : '';
+  }
   function hl(s) { return esc(s).replace(/\*\*([\s\S]+?)\*\*/g, '<mark class="hl">$1</mark>'); }
   function revSummary(r) {
     if (r.summary) return r.summary;
@@ -242,7 +268,7 @@
         U.bindRails(rr);
         U.autoRail(rr.querySelector('.rail'), 20);
       };
-      rf.innerHTML = REV_TABS.map(function (k, i) { var cnt = revs.filter(function (r) { return !k[0] || r.type === k[0]; }).length; return '<button type="button" class="chip' + (i === 0 ? ' on' : '') + '" data-k="' + k[0] + '">' + k[1] + (cnt ? ' <small>' + cnt + '</small>' : '') + '</button>'; }).join('');
+      rf.innerHTML = REV_TABS.map(function (k, i) { var cnt = revs.filter(function (r) { return !k[0] || r.type === k[0]; }).length; return '<button type="button" class="chip' + (i === 0 ? ' on' : '') + '" data-k="' + k[0] + '">' + k[1] + '</button>'; }).join('');
       rf.onclick = function (e) { var b = e.target.closest('.chip'); if (!b) return; [].forEach.call(rf.children, function (c) { c.classList.toggle('on', c === b); }); drawR(b.dataset.k); };
       drawR('');
     }).catch(function () { rr.innerHTML = '<div class="empty">후기를 불러오지 못했습니다.</div>'; });
@@ -426,7 +452,7 @@
     window.CONTACT_QUERY = '?type=cremation';
     var x = EXTRA.cremation;
     el.innerHTML = '<div class="wrap"><div class="plain-head"><div class="crumb"><a href="./">홈</a> › 화장장 예약 안내</div><div class="svc-head"><span class="em" aria-hidden="true">' + LI.calendar + '</span><div><h1>화장장 예약 안내</h1></div></div><p>' + esc(x.short) + '</p></div>' +
-      '<div class="ehaneul"><b>화장 예약은 e하늘 장사정보시스템에서</b><p>전국 화장시설 예약은 보건복지부 e하늘에서만 접수합니다. 희망 일정이 빠르게 마감되니 아래에서 가까운 시설을 확인하신 뒤 바로 예약하십시오. 처음이시면 배웅이 함께 확인해 드립니다.</p><div class="btn-row mt16"><a class="btn btn-main" href="' + U.EHANEUL + 'funeral" target="_blank" rel="noopener">e하늘 화장 예약 바로가기</a><a class="btn btn-line" href="' + U.telHref(S.phone) + '">배웅에 전화로 묻기</a></div></div></div>' +
+      '<div class="ehaneul"><b>화장 예약은 e하늘 장사정보시스템에서</b><p>전국 화장시설 예약은 보건복지부 e하늘에서만 접수합니다. 희망 일정이 빠르게 마감되니 아래에서 가까운 시설을 먼저 확인해 두십시오. 처음이시면 배웅이 함께 확인해 드립니다.</p><div class="btn-row mt16"><a class="btn btn-main" href="' + U.telHref(S.phone) + '">배웅에 전화로 묻기</a></div></div></div>' +
       '<section class="sec sec-gray" id="cremList"><div class="wrap">' + head('전국 화장시설 찾기', '', '<small class="more" id="cremSrc"></small>') +
       '<div class="filt"><div class="field"><select id="cSido"><option value="">시·도 전체</option></select></div><div class="field" style="flex:1.2"><input type="search" id="cQ" placeholder="시설명·시군구로 찾기"></div></div>' +
       '<div class="cnt-line"><b id="cCnt"></b></div><div class="cgrid" id="cgrid"><div class="empty">자료를 불러오는 중입니다…</div></div></div></section>' +
@@ -448,7 +474,7 @@
       data = d.items || [];
       var sidos = []; data.forEach(function (r) { if (sidos.indexOf(r.sido) < 0) sidos.push(r.sido); });
       sido.innerHTML = '<option value="">시·도 전체</option>' + sidos.map(function (s0) { return '<option value="' + esc(s0) + '">' + esc(s0) + '</option>'; }).join('');
-      document.getElementById('cremSrc').textContent = '출처: 보건복지부 화장시설 현황' + (d.asOf ? ' (' + d.asOf + ' 기준)' : '');
+      document.getElementById('cremSrc').textContent = d.asOf ? d.asOf + ' 기준' : '';
       sido.onchange = draw; q.oninput = draw; draw();
     }).catch(function () {
       grid.innerHTML = '<div class="empty">전국 화장시설 목록은 준비 중입니다. 지역을 알려주시면 배웅이 가까운 화장시설과 예약 가능 일정을 바로 확인해 드립니다.</div>';
@@ -743,7 +769,7 @@
     el.innerHTML = '<div class="wrap" style="padding-top:24px"><div class="article"><a class="back-link" href="reviews.html">‹ 후기 목록</a>' +
       '<div class="d-tags mt16"><span class="ty">' + esc(U.SHORT[r.type]) + ' 상담</span>' + U.sampleTag(r) + '</div>' +
       '<h1>' + esc(r.title) + '</h1><div class="who">' + esc(r.author || '고객') + ' · ' + U.fmtDate(r.date) + '</div>' +
-      '<div class="body">' + esc(r.body) + '</div>' +
+      '<div class="body">' + esc(revBrief(r)) + '</div>' + revTags(r) +
       (r.blogUrl ? '<a class="blog-link" href="' + esc(r.blogUrl) + '" target="_blank" rel="noopener"><span><b>N 블로그</b> 이 이야기 전체 보기</span><span>›</span></a>' : '') +
       (function () { var f2 = U.facility(r.facilityId), ps = U.realPhotos(r); if (!ps.length && f2) ps = (f2.photos || []).slice(0, 3); return ps.length ? '<div class="photos">' + ps.map(function (p) { return U.img(p, r.title + ' 사진'); }).join('') + '</div>' : ''; })() +
       (f && f.visible !== false ? '<a class="linked" href="facility.html?id=' + encodeURIComponent(f.id) + '">' + U.img(U.facPhoto(f), f.name) + '<span><small>진행 시설</small><strong>' + esc(f.name) + '</strong></span><span style="margin-left:auto;color:#767676">›</span></a>' : '') +
