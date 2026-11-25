@@ -463,7 +463,7 @@
       document.getElementById('cCnt').textContent = '총 ' + l.length + '곳' + (sv ? ' · ' + sv : '');
       grid.innerHTML = l.length ? l.map(function (r) {
         return '<article class="cc"><div class="hd"><b>' + esc(r.name) + '</b><span class="pub">' + esc(r.pub || '') + (r.furnace ? ' · 화장로 ' + esc(r.furnace) + '기' : '') + '</span></div><div class="ar">' + esc(r.sido) + ' ' + esc(r.sigungu) + '</div><div class="ad">' + esc(r.addr) + '</div>' +
-          '<div class="acts"><a class="btn btn-main btn-sm" href="contact.html?type=cremation&memo=' + encodeURIComponent(r.name + ' 화장장 예약 문의') + '">상담하기</a></div></article>';
+          '<div class="acts"><a class="btn btn-gold btn-sm" href="contact.html?type=cremation&memo=' + encodeURIComponent(r.name + ' 화장장 예약 문의') + '">상담하기</a></div></article>';
       }).join('') : '<div class="empty">조건에 맞는 화장시설이 없습니다.</div>';
     }
     fetch('data/crematoriums.json?t=' + Math.floor(Date.now() / 3600000)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
@@ -764,7 +764,7 @@
     el.innerHTML = '<div class="wrap" style="padding-top:24px"><div class="article"><a class="back-link" href="reviews.html">‹ 후기 목록</a>' +
       '<div class="d-tags mt16"><span class="ty">' + esc(U.SHORT[r.type]) + ' 상담</span>' + U.sampleTag(r) + '</div>' +
       '<h1>' + esc(r.title) + '</h1><div class="who">' + esc(r.author || '고객') + ' · ' + U.fmtDate(r.date) + '</div>' +
-      '<div class="body">' + esc(revBrief(r)) + '</div>' + revTags(r) +
+      '<div class="body">' + esc(revBrief(r)) + '</div>' + revTags(r) +
       (function () { var f2 = U.facility(r.facilityId), ps = U.realPhotos(r); if (!ps.length && f2) ps = (f2.photos || []).slice(0, 3); return ps.length ? '<div class="photos">' + ps.map(function (p) { return U.img(p, r.title + ' 사진'); }).join('') + '</div>' : ''; })() +
       (f && f.visible !== false ? '<a class="linked" href="facility.html?id=' + encodeURIComponent(f.id) + '">' + U.img(U.facPhoto(f), f.name) + '<span><small>진행 시설</small><strong>' + esc(f.name) + '</strong></span><span style="margin-left:auto;color:#767676">›</span></a>' : '') +
       '</div></div><div style="height:48px"></div>' + U.applySection('같은 고민이 있으시다면\n편하게 전화 주십시오.', r.type);
