@@ -329,7 +329,7 @@
   };
 
   /* ---------- 장지 찾기·비교 (수목장·봉안당·매장묘) ---------- */
-  function areaKey(a) { return String(a || '').replace(/^경기\s*/, '').replace(/\(.*\)$/, '').trim(); }
+  function areaKey(a) { a = String(a || '').replace(/\(.*\)$/, '').trim(); return /^경기/.test(a) ? a.replace(/^경기도?\s*/, '').split(' ')[0].replace(/(..)[시군]$/, '$1') : a; }   /* '경기도 고양시 일산'·'경기 고양(일산)' → 고양 */
   P.search = function (el) {
     var k = U.qs('type'); if (!C.types[k] || !SEARCH_TYPES.some(function (t) { return t[0] === k; })) k = 'sumok';
     var t = U.typeOf(k), all = U.visibleFacilities(k);

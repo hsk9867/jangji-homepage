@@ -7,7 +7,7 @@ const F = [
   { id: 'yangji', type: 'sumok', name: '용인 양지수목장 (불광사)', keys: ['양지수목장', '불광사'] },
   { id: 'cheongsol', type: 'sumok', name: '김포 청솔수목장', keys: ['청솔수목장', '청솔 수목장'] },
   { id: 'gonggam', type: 'sumok', name: '일산 공감수목장', keys: ['공감수목장', '공감 수목장'] },
-  { id: 'jayeonae', type: 'sumok', name: '자연애숲수목장', keys: ['자연애숲', '자연애수목장', '자연애 수목장'] },
+  { id: 'jayeonae', type: 'sumok', name: '일산 자연애숲수목장', keys: ['자연애숲', '자연애수목장', '자연애 수목장'] },
   { id: 'naraewon', type: 'sumok', name: '화성 나래원수목장', keys: ['나래원'] },
   { id: 'galwolsa', type: 'sumok', name: '양평 갈월사수목장', keys: ['갈월사'] },
   { id: 'geumodongji', type: 'sumok', name: '용인 금오동지수목장', keys: ['금오동지'] },
