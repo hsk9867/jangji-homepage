@@ -140,6 +140,23 @@ function sanitizeContent(array $c): array {
             if (isset($x['blogUrl'])) $o['blogUrl'] = cleanUrl($x['blogUrl']);
             if ($listKey === 'reviews' && isset($x['summary'])) $o['summary'] = cleanStr($x['summary'], 600);
             if ($listKey === 'facilities') $o['tags'] = array_values(array_filter(array_map(function ($v) { return cleanStr($v, 30); }, array_slice(is_array($x['tags'] ?? null) ? $x['tags'] : [], 0, 10)), 'strlen'));
+            /* 시설 부가 정보 (2026-11-25: 저장할 때 사라지던 항목 — worker.js 와 같은 규칙) */
+            if ($listKey === 'facilities') {
+                $o['keywords'] = array_values(array_filter(array_map(function ($v) { return cleanStr($v, 24); }, array_slice(is_array($x['keywords'] ?? null) ? $x['keywords'] : [], 0, 6)), 'strlen'));
+                if (is_array($x['types'] ?? null)) $o['types'] = array_slice(array_values(array_intersect(['sumok','napgol','maejang','ijang'], $x['types'])), 0, 4);
+                if (isset($x['religion'])) $o['religion'] = cleanStr($x['religion'], 40);
+                $lat = is_numeric($x['lat'] ?? null) ? (float)$x['lat'] : 0.0;
+                $lng = is_numeric($x['lng'] ?? null) ? (float)$x['lng'] : 0.0;
+                if ($lat >= 33 && $lat <= 39 && $lng >= 124 && $lng <= 132) { $o['lat'] = round($lat, 7); $o['lng'] = round($lng, 7); }
+                if (is_array($x['priceItems'] ?? null)) {
+                    $o['priceItems'] = [];
+                    foreach (array_slice($x['priceItems'], 0, 20) as $pi) {
+                        if (!is_array($pi)) continue;
+                        $pl = cleanStr($pi['label'] ?? '', 40); $pp = cleanStr($pi['price'] ?? '', 30);
+                        if ($pl !== '' && $pp !== '') $o['priceItems'][] = ['label' => $pl, 'price' => $pp];
+                    }
+                }
+            }
             $o['featured'] = !empty($x['featured']);
             $o['visible'] = !isset($x['visible']) || !empty($x['visible']);
             if (!empty($x['sample'])) $o['sample'] = true;
