@@ -70,7 +70,7 @@
   function loadTestimonials() { return Promise.resolve(U.visibleReviews().filter(function (r) { return !r.sample; })); }
   function contactBox(small, big, ctaType) {
     return '<div class="contact-box"><div class="av"><img src="img/logo-mark.png" alt=""></div><small>' + esc(small) + '</small><b>' + esc(big) + '</b>' +
-      '<div class="acts">' + (S.kakao ? '<a class="btn btn-ck" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '<a class="btn btn-ct" href="' + U.telHref(S.phone) + '">전화문의</a><a class="btn btn-main" href="contact.html' + (ctaType ? '?type=' + ctaType : '') + '">상담 신청</a></div></div>';
+      '<a class="tel" href="' + U.telHref(S.phone) + '">' + I.phone + esc(S.phone) + '</a><div class="acts"><a class="btn btn-main" href="contact.html' + (ctaType ? '?type=' + ctaType : '') + '">상담 신청</a></div></div>';
   }
 
   /* ---------- 공지사항 (C.notices — 관리자 '공지사항' 탭) ---------- */
@@ -205,8 +205,7 @@
       /* 14. 연락 박스 + 상담 신청 폼 (2026-11-25 요청: 전화·카톡이 겹치던 두 칸을 하나로) */
       U.applySection('', '', '<div class="contact-box" id="contact"><div class="av"><img src="img/logo-mark.png" alt=""></div><small>급하신 장지 문의는</small><b>연중무휴, 언제든 편히 연락 주십시오</b>' +
         '<a class="tel" href="' + U.telHref(s.phone) + '">' + I.phone + esc(s.phone) + '</a>' +
-        '<p class="cb-note">모실 인원과 희망 지역을 알려주시면 배웅이 맞는 곳을 함께 찾아드립니다.</p>' +
-        '<div class="acts">' + (s.kakao ? '<a class="btn btn-ck" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '<a class="btn btn-ct" href="' + U.telHref(s.phone) + '">전화문의</a></div></div>') +
+        '<p class="cb-note">모실 인원과 희망 지역을 알려주시면 배웅이 맞는 곳을 함께 찾아드립니다.</p></div>') +
 
       /* 16. 공지사항 (2026-11-17 고객 요청: 마지막 부분) */
       (visibleNotices().length ? '<section class="sec notice-sec" id="notice"><div class="wrap">' + noticeHead(true) + noticeList(visibleNotices().slice(0, 3)) + '</div></section>' : '');
@@ -463,7 +462,7 @@
       document.getElementById('cCnt').textContent = '총 ' + l.length + '곳' + (sv ? ' · ' + sv : '');
       grid.innerHTML = l.length ? l.map(function (r) {
         return '<article class="cc"><div class="hd"><b>' + esc(r.name) + '</b><span class="pub">' + esc(r.pub || '') + (r.furnace ? ' · 화장로 ' + esc(r.furnace) + '기' : '') + '</span></div><div class="ar">' + esc(r.sido) + ' ' + esc(r.sigungu) + '</div><div class="ad">' + esc(r.addr) + '</div>' +
-          '<div class="acts"><a class="btn btn-gold btn-sm" href="contact.html?type=cremation&memo=' + encodeURIComponent(r.name + ' 화장장 예약 문의') + '">상담하기</a></div></article>';
+          '<div class="acts"><a class="btn btn-gold btn-sm" href="' + U.telHref(S.phone) + '">상담하기</a></div></article>';
       }).join('') : '<div class="empty">조건에 맞는 화장시설이 없습니다.</div>';
     }
     fetch('data/crematoriums.json?t=' + Math.floor(Date.now() / 3600000)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
