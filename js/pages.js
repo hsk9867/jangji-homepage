@@ -1,5 +1,5 @@
 /* 페이지별 화면. body data-page 값으로 골라 실행합니다.
-   2026-11-03 시안 4(v4) 확정 내용 반영: 문구 띠, 6개 바로가기, 고객 후기, 주요 현황, 파묘·이장/e하늘 카드,
+   2026-11-03 시안 4(v4) 확정 내용 반영: 문구 띠, 6개 바로가기, 고객 후기, 주요 현황, 파묘·이장/화장장 카드,
    장지 찾기·비교(search), 화장장 예약(crematorium), 서비스 안내(services), 시설 상세(키워드·가격표·공유·지도·고객 리뷰), 한 페이지 상담 신청 */
 (function () {
   var U = window.U, C = window.C, I = U.ICON, LI = U.LI, esc = U.esc, nl = U.nl;
@@ -114,7 +114,7 @@
     ['napgol', '실내에서 편안하게', '봉안당', 'search.html?type=napgol', 'img/quick/napgol.jpg'],
     ['maejang', '전통 방식 그대로', '매장묘', 'search.html?type=maejang', 'img/quick/maejang.jpg'],
     ['ijang', '오래된 묘를 옮기는', '파묘·이장', 'ijang.html', 'img/quick/ijang.jpg'],
-    ['cremation', 'e하늘 예약 대행', '화장장 예약', 'crematorium.html', 'img/quick/cremation.jpg'],
+    ['cremation', '일정 확인부터 함께', '화장장 예약', 'crematorium.html', 'img/quick/cremation.jpg'],
     ['support', '놓치기 쉬운 혜택', '장례지원금', 'support.html', 'img/quick/support.jpg']
   ];
   var STATS = [
@@ -403,10 +403,10 @@
   /* ---------- 서비스 안내 보조 데이터 (화장장 예약·장례지원금) ---------- */
   var EXTRA = {
     cremation: {
-      name: '화장장 예약 안내', short: '화장장 예약은 보건복지부 e하늘 장사정보시스템에서만 할 수 있습니다. 배웅이 예약 방법과 가능한 일정을 함께 확인해 드립니다.',
+      name: '화장장 예약 안내', short: '배웅이 화장장 예약 방법과 가능한 일정을 함께 확인해 드립니다.',
       priceTag: '화장 비용', price: '지역 주민 무료~수십만원', priceNote: '화장장마다 관내·관외 요금이 다릅니다. 거주지 기준으로 함께 확인해 드립니다.',
-      desc: '임종 후 화장장 예약은 가장 먼저, 그리고 가장 서둘러야 하는 일입니다. 원하는 날짜와 시간대는 빠르게 마감되므로, 희망 지역과 일정만 알려주시면 배웅이 e하늘에서 가능한 일정을 바로 확인해 드립니다.',
-      steps: [{ t: '희망 지역·일정 전달', d: '거주지, 장례식장, 발인 예정일을 알려주십시오.' }, { t: 'e하늘 가능 일정 확인', d: '관내·관외 화장장의 빈 시간대를 함께 확인합니다.' }, { t: '예약과 서류 안내', d: '사망진단서 등 필요한 서류와 예약 방법을 안내해 드립니다.' }, { t: '화장 후 모실 곳까지', d: '수목장·봉안당 등 화장 이후 장지까지 이어서 상담합니다.' }],
+      desc: '임종 후 화장장 예약은 가장 먼저, 그리고 가장 서둘러야 하는 일입니다. 원하는 날짜와 시간대는 빠르게 마감되므로, 희망 지역과 일정만 알려주시면 배웅이 가능한 일정을 바로 확인해 드립니다.',
+      steps: [{ t: '희망 지역·일정 전달', d: '거주지, 장례식장, 발인 예정일을 알려주십시오.' }, { t: '가능 일정 확인', d: '관내·관외 화장장의 빈 시간대를 함께 확인합니다.' }, { t: '예약과 서류 안내', d: '사망진단서 등 필요한 서류와 예약 방법을 안내해 드립니다.' }, { t: '화장 후 모실 곳까지', d: '수목장·봉안당 등 화장 이후 장지까지 이어서 상담합니다.' }],
       faqs: [{ q: '배웅이 대신 예약해 드릴 수 있습니까?', a: '예약은 유족 명의로만 가능하므로, 배웅이 방법과 일정을 곁에서 함께 확인해 드립니다. 처음이시더라도 10분 정도면 마칠 수 있습니다.' }, { q: '원하는 날짜가 없으면 어떻게 됩니까?', a: '인근 다른 화장장의 일정을 바로 확인하고, 발인 일정 조정이 필요하면 장례식장과 조율하는 방법까지 안내해 드립니다.' }]
     },
     support: {
@@ -427,7 +427,7 @@
       { k: 'sumok', ic: LI.tree, eyebrow: '수목장', h: '나무 아래, 자연으로 모시는 수목장', p: T.sumok.desc, who: '자연 속에 모시고 싶고 관리 부담을 줄이고 싶은 가족', cost: T.sumok.priceTag + ' ' + T.sumok.price + ' · ' + T.sumok.priceNote, do_: '직접 답사한 수목장 가운데 조건에 맞는 곳을 비교하고, 주말 동행 답사와 계약 대행까지 맡습니다', steps: stepT(), href: 'search.html?type=sumok', btn: '수목장 찾기·비교' },
       { k: 'napgol', ic: LI.hall, eyebrow: '봉안당(납골당)', h: '날씨와 상관없이 찾아뵙는 실내 봉안시설', p: T.napgol.desc, who: '자주 찾아뵙고 싶은 가족, 도심에서 가까운 곳을 원하는 분', cost: T.napgol.priceTag + ' ' + T.napgol.price + ' · ' + T.napgol.priceNote, do_: '단 위치·관리비·이용 기간을 서면으로 비교하고, 동행 답사와 계약 대행을 맡습니다', steps: stepT(), href: 'search.html?type=napgol', btn: '봉안당 찾기·비교' },
       { k: 'maejang', ic: LI.tomb, eyebrow: '매장묘', h: '가족이 함께 모이는 전통 묘역', p: T.maejang.desc, who: '가족 묘역을 원하시는 분', cost: T.maejang.priceTag + ' ' + T.maejang.price + ' · ' + T.maejang.priceNote, do_: '직접 답사한 공원묘지 비교, 동행 답사, 계약 대행', steps: stepT(), href: 'search.html?type=maejang', btn: '매장묘 찾기·비교' },
-      { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, e하늘 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: 'e하늘에서 가능한 일정을 확인하고 필요한 서류를 안내하며, 화장 이후 모실 곳까지 이어서 상담합니다', steps: stepT(EXTRA.cremation.steps), href: 'crematorium.html', btn: '전국 화장시설 찾기' },
+      { k: 'cremation', ic: LI.calendar, eyebrow: '화장장 예약', h: '임종 후 가장 먼저 잡아야 하는 화장 일정', p: EXTRA.cremation.desc, who: '임종 직후 화장 일정을 빨리 잡아야 하는 가족, 화장장 예약이 처음인 분', cost: EXTRA.cremation.priceTag + ' ' + EXTRA.cremation.price + ' · ' + EXTRA.cremation.priceNote, do_: '가능한 일정을 확인하고 필요한 서류를 안내하며, 화장 이후 모실 곳까지 이어서 상담합니다', steps: stepT(EXTRA.cremation.steps), href: 'crematorium.html', btn: '전국 화장시설 찾기' },
       { k: 'support', ic: LI.support, eyebrow: '장례지원금', h: '놓치기 쉬운 장례 지원금, 함께 확인해 드립니다', p: EXTRA.support.desc, who: '장제급여·화장장려금 등을 받을 수 있는지 궁금한 가족', cost: EXTRA.support.priceTag + ' ' + EXTRA.support.price + ' · ' + EXTRA.support.priceNote, do_: '대상 여부를 확인하고 지원금 종류를 정리해 서류와 신청 방법을 안내합니다', steps: stepT(EXTRA.support.steps), href: 'support.html', btn: '장례지원금 상담 신청' },
       { k: 'ijang', ic: LI.ijang, eyebrow: '파묘 · 이장', h: '묘를 옮겨야 할 때, 절차는 배웅이 맡습니다', p: T.ijang.desc, who: '기존 묘를 정리하거나 다른 곳으로 모셔야 하는 가족', cost: T.ijang.priceTag + ' ' + T.ijang.price + ' · ' + T.ijang.priceNote, do_: '개장 신고 대행, 길일 협의, 파묘·유골 수습, 화장과 새 장지 안치까지 진행', steps: stepT(T.ijang.steps), href: 'ijang.html', btn: '파묘·이장 안내 보기' }
     ];
@@ -444,7 +444,7 @@
     if (location.hash) { var tg = document.querySelector(location.hash); if (tg) setTimeout(function () { tg.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50); }
   };
 
-  /* ---------- 화장장 예약 안내: 전국 화장시설 검색 + e하늘 예약 연결 ---------- */
+  /* ---------- 화장장 예약 안내: 전국 화장시설 검색 + 상담하기 ---------- */
   P.crematorium = function (el) {
     setTitle('화장장 예약 안내');
     window.CONTACT_QUERY = '?type=cremation';
@@ -807,7 +807,7 @@
       : '<h1>상담 신청</h1><p class="lead mt8">이름과 연락처, 상담 분야만 남겨 주시면 됩니다. 상담과 동행 답사는 모두 무료이며, 접수 후 상담팀이 순서대로 연락드리겠습니다.</p>') +
       '<form id="cform" class="cf mt24" novalidate>' +
       '<div class="field"' + (sup ? ' style="display:none"' : '') + '><label for="f-type">상담 분야 <em>(필수)</em></label><select id="f-type">' + opt('', '선택해 주십시오', !type) + TYPES.map(function (t) { return opt(t[0], t[1], t[0] === type); }).join('') + '</select>' +
-      '<div class="notice-box" id="cremNote" hidden><b>화장장 예약은 보건복지부 e하늘 장사정보시스템에서만 할 수 있습니다.</b> 배웅이 예약 방법과 가능한 일정을 함께 확인해 드리고, 화장 이후 모실 곳까지 이어서 안내해 드립니다. <a href="' + U.EHANEUL + '" target="_blank" rel="noopener">e하늘 바로가기</a></div>' +
+      '<div class="notice-box" id="cremNote" hidden>배웅이 화장장 예약 방법과 가능한 일정을 함께 확인해 드리고, 화장 이후 모실 곳까지 이어서 안내해 드립니다.</div>' +
       (fac ? '<div class="notice-box"><b>' + esc(fac.name) + '</b> 시설 문의로 접수됩니다.</div>' : '') + '</div>' +
       '<div class="field"><label for="f-region">희망 지역 <span>(선택)</span></label><select id="f-region">' + opt('', '선택해 주십시오', !preR) + regions.map(function (r) { return opt(r, r, r === preR); }).join('') + '</select></div>' +
       '<div class="field"><label for="f-name">이름 <em>(필수)</em></label><input id="f-name" autocomplete="name" placeholder="이름을 입력해 주십시오" value="' + esc(U.qs('name')) + '"></div>' +
