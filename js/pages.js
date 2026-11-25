@@ -541,7 +541,7 @@
         U.kwChips(U.kwOf(f), 6) +
         '<dl class="info mt16">' + rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</dd></div>'; }).join('') + '</dl>' +
         (pi.length > 1 || (pi[0] || {}).label !== '기본' && pi.length ? '<details class="ptable"><summary><h3>가격 정보 <small>' + pi.length + '건</small></h3><span class="more">더보기 <i aria-hidden="true">›</i></span></summary><ul>' + pi.map(function (x) { return '<li><span>' + esc(x.label) + '</span><b>' + esc(x.price) + '</b></li>'; }).join('') + '</ul><p>안치 위치·층·조건에 따라 달라질 수 있어 상담 때 최신 가격으로 다시 확인해 드립니다.</p></details>' : '') +
-        '<div class="map-links"><button type="button" class="share" id="fshare">' + I.share + '가족에게 공유하기</button>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
+        '<div class="map-links"><button type="button" class="share" id="fshare">' + I.share + '가족에게 공유하기</button><a class="ask" href="contact.html' + window.CONTACT_QUERY + '">' + I.form + '시설 문의하기</a>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
         (f.comment ? '<div class="comment"><strong>배웅 답사 메모</strong>' + esc(f.comment) + '</div>' : '') +
         (f.lat && f.lng ? '<section class="floc" aria-label="위치 정보"><h3>위치 정보</h3><p class="addr">' + esc(f.address || '') + '</p><div id="fmap" class="fmap"></div><a class="more" href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도에서 크게 보기</a></section>' : '') +
         '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
@@ -560,7 +560,7 @@
       el.querySelector('.gallery .prev').onclick = function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); };
       el.querySelector('.gallery .next').onclick = function () { track.scrollBy({ left: step(), behavior: 'smooth' }); };
     }
-    document.getElementById('fshare').onclick = function () { shareFacility(f); }; if (S.kakaoJsKey || window.KAKAO_JS_KEY) loadKakao(); /* 클릭 전에 미리 받아 둬야 PC 팝업이 막히지 않음 */
+    document.getElementById('fshare').onclick = function () { shareFacility(f); }; if (S.kakaoJsKey || window.KAKAO_JS_KEY) { loadKakao(); checkKakao(); } /* 클릭 전에 미리 받아 둬야 PC 팝업이 막히지 않음 */
     facMap(f);
     facReviews(f);
   };
@@ -569,7 +569,7 @@
   /* 카카오톡 공유: S.kakaoJsKey 가 있으면 SDK 를 불러 카톡 친구 선택 창을 바로 연다 */
   function kakaoShare(f, url, photo, fail) {
     var key = S.kakaoJsKey || window.KAKAO_JS_KEY || '';
-    if (!key) return fail();
+    if (!key || kakaoOk === false) return fail();
     var go = function () {
       try {
         if (!window.Kakao.isInitialized()) window.Kakao.init(key);
@@ -583,6 +583,15 @@
       } catch (e) { fail(); }
     };
     loadKakao(go, fail);
+  }
+  /* 카카오 앱에 이 사이트 도메인이 등록돼 있지 않으면 공유창이 오류 화면으로 열리므로 미리 확인해 두고, 안 되면 공유 시트·링크 복사로 대신한다 */
+  var kakaoOk = null;
+  function checkKakao() {
+    if (!window.fetch) return;
+    var link = { web_url: location.href, mobile_web_url: location.href };
+    fetch('https://kapi.kakao.com/v2/api/kakaolink/talk/template/default?link_ver=4.0&template_object=' + encodeURIComponent(JSON.stringify({ object_type: 'text', text: '배웅', link: link })), {
+      headers: { Authorization: 'KakaoAK ' + (S.kakaoJsKey || window.KAKAO_JS_KEY), KA: 'sdk/2.7.2 os/javascript sdk_type/javascript lang/ko-KR device/Web origin/' + encodeURIComponent(location.origin) }
+    }).then(function (r) { kakaoOk = r.status !== 401 && r.status !== 403; }, function () {});
   }
   function loadKakao(ok, fail) {
     if (window.Kakao && window.Kakao.init) return ok && ok();
