@@ -1202,5 +1202,10 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 
 /* 연락 박스 안내 문구 (2026-11-23) */
 .contact-box .cb-note { margin-top: 10px; font-size: 14.5px; line-height: 1.6; color: rgba(255, 255, 255, .78); }
-#contact .wrap > .contact-box { grid-column: 1 / -1; }
-.apply-box .pill + .tel { display: flex; margin-top: 12px; }
+
+/* 메인 연락 박스 + 상담 신청 폼을 한 칸으로 (2026-11-25) */
+.apply-box .contact-box { scroll-margin-top: 90px; }
+.apply-box .contact-box .tel { display: flex; color: #fff; margin-top: 12px; }
+.apply-box .contact-box .tel svg { color: #fff; }
+.apply-box .contact-box small { margin-top: 0; color: rgba(255, 255, 255, .75); }
+@media (min-width: 960px) { .apply-box .contact-box { padding: 34px 32px 30px; } }

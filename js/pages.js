@@ -68,8 +68,8 @@
       '<div class="bd"><p>' + hl(revSummary(r)) + '</p><span class="who"><b>' + esc(f ? f.name : (r.author || '배웅 상담팀')) + '</b><span>' + esc(tname(r.type)) + (f && f.area ? ' · ' + esc(f.area) : '') + ' · ' + U.fmtDate(r.date) + '</span></span></div></a>';
   }
   function loadTestimonials() { return Promise.resolve(U.visibleReviews().filter(function (r) { return !r.sample; })); }
-  function contactBox(small, big, ctaType, note) {
-    return '<div class="contact-box"><div class="av"><img src="img/logo-mark.png" alt=""></div><small>' + esc(small) + '</small><b>' + esc(big) + '</b>' + (note ? '<p class="cb-note">' + esc(note) + '</p>' : '') +
+  function contactBox(small, big, ctaType) {
+    return '<div class="contact-box"><div class="av"><img src="img/logo-mark.png" alt=""></div><small>' + esc(small) + '</small><b>' + esc(big) + '</b>' +
       '<div class="acts">' + (S.kakao ? '<a class="btn btn-ck" href="' + esc(S.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '<a class="btn btn-ct" href="' + U.telHref(S.phone) + '">전화문의</a><a class="btn btn-main" href="contact.html' + (ctaType ? '?type=' + ctaType : '') + '">상담 신청</a></div></div>';
   }
 
@@ -203,12 +203,11 @@
       /* 13. FAQ */
       '<section class="sec" id="faq"><div class="wrap">' + head('자주 하는 질문', '상담 때 가족들이 가장 많이 물어보시는 내용입니다.') + U.faqHtml(C.faqs) + '</div></section>' +
 
-      /* 14. 연락 + 블로그 */
-      '<section class="sec sec-gray" id="contact"><div class="wrap">' + contactBox('급하신 장지 문의는', '연중무휴, 언제든 편히 연락 주십시오', '', '모실 인원과 희망 지역을 알려주시면 배웅이 맞는 곳을 함께 찾아드립니다.') +
-        '</div></section>' +
-
-      /* 15. 상담 신청 */
-      U.applySection('', '', true) +   /* 위 연락 박스와 문구가 겹쳐 제목은 뺌 (2026-11-23) */
+      /* 14. 연락 박스 + 상담 신청 폼 (2026-11-25 요청: 전화·카톡이 겹치던 두 칸을 하나로) */
+      U.applySection('', '', '<div class="contact-box" id="contact"><div class="av"><img src="img/logo-mark.png" alt=""></div><small>급하신 장지 문의는</small><b>연중무휴, 언제든 편히 연락 주십시오</b>' +
+        '<a class="tel" href="' + U.telHref(s.phone) + '">' + I.phone + esc(s.phone) + '</a>' +
+        '<p class="cb-note">모실 인원과 희망 지역을 알려주시면 배웅이 맞는 곳을 함께 찾아드립니다.</p>' +
+        '<div class="acts">' + (s.kakao ? '<a class="btn btn-ck" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">카톡문의</a>' : '') + '<a class="btn btn-ct" href="' + U.telHref(s.phone) + '">전화문의</a></div></div>') +
 
       /* 16. 공지사항 (2026-11-17 고객 요청: 마지막 부분) */
       (visibleNotices().length ? '<section class="sec notice-sec" id="notice"><div class="wrap">' + noticeHead(true) + noticeList(visibleNotices().slice(0, 3)) + '</div></section>' : '');

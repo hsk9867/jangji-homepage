@@ -201,11 +201,11 @@
   function getJson(u) { return fetch(u).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }); }
 
   /* 하단 상담 신청 (간단 폼) */
-  function applySection(title, presetType, noTitle) {
+  function applySection(title, presetType, headHtml) {   /* headHtml: 왼쪽(위) 안내 대신 넣을 내용 — 메인은 연락 박스 */
     var s = C.site;
-    return '<section class="sec apply" id="apply"><div class="wrap apply-box"><div class="sec-head" style="margin:0"><div class="tx"><span class="pill">상담 신청</span>' + (noTitle ? '' : '<h2>' + esc(title || s.finalTitle) + '</h2>') +
+    return '<section class="sec apply" id="apply"><div class="wrap apply-box">' + (headHtml || ('<div class="sec-head" style="margin:0"><div class="tx"><span class="pill">상담 신청</span><h2>' + esc(title || s.finalTitle) + '</h2>' +
       '<a class="tel" href="' + telHref(s.phone) + '">' + ICON.phone + esc(s.phone) + '</a><small>' + esc(s.hours) + '</small>' +
-      (s.kakao ? '<a class="btn btn-kakao btn-block mt16" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div></div>' +
+      (s.kakao ? '<a class="btn btn-kakao btn-block mt16" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div></div>')) +
       '<form class="quick-form" id="quick-form" novalidate><div class="f-row">' +
       '<div class="field"><label for="qf-name">이름 <em>*</em></label><input id="qf-name" autocomplete="name" placeholder="이름을 입력해 주십시오"></div>' +
       '<div class="field"><label for="qf-phone">연락처 <em>*</em></label><input id="qf-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"></div></div>' +
