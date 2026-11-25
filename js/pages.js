@@ -189,11 +189,10 @@
           return '<div class="type-block">' + head('<span class="dot-ic">' + typeIcon[k] + '</span>' + esc(U.SHORT[k]) + ' 추천', '', '<a class="more" href="search.html?type=' + k + '">더 보기 ›</a>') + U.rail(l.map(U.facCard).join('')) + '</div>';
         }).join('') + '</div></section>' +
 
-      /* 11. 파묘·이장 / e하늘 화장장 예약 / 장례지원금 */
+      /* 11. 파묘·이장 / 화장장 예약 / 장례지원금 */
       '<section class="sec" id="extra" aria-label="파묘·이장과 화장장 예약, 장례지원금 안내"><div class="wrap"><div class="xcards">' +
         '<a class="xcard card-h" href="ijang.html"><b>파묘·이장도 함께합니다.</b><p>개장 신고부터 파묘, 화장과 새 장지 안치까지,<br>복잡한 절차를 순서대로 안내해 드립니다.</p><span class="lk">파묘·이장 상담하기 <i aria-hidden="true">→</i></span></a>' +
-        '<div class="xcard"><b>e하늘 동행 화장장 예약</b><p>화장장 예약은 e하늘 장사정보시스템에서만 할 수 있습니다.<br>가능한 일정 확인부터 예약 방법까지 함께 도와드립니다.</p>' +
-          '<a class="lk" href="crematorium.html">화장장 예약 안내 <i aria-hidden="true">→</i></a><a class="lk" href="' + U.EHANEUL + '" target="_blank" rel="noopener">e하늘 장사정보시스템 · 화장장 예약 <i aria-hidden="true">↗</i></a></div></div>' +
+        '<a class="xcard card-h" href="crematorium.html"><b>화장장 예약도 함께합니다.</b><p>가능한 일정 확인부터 예약 방법까지<br>함께 도와드립니다.</p><span class="lk">화장장 예약 안내 <i aria-hidden="true">→</i></span></a></div>' +
         '<div class="xbtns"><a class="btn btn-main" href="contact.html">무료 상담 신청하기</a><a class="btn btn-gold" href="support.html">장례지원금 상담 신청</a></div></div></section>' +
 
       /* 12. 장례정보 */
@@ -450,8 +449,7 @@
     setTitle('화장장 예약 안내');
     window.CONTACT_QUERY = '?type=cremation';
     var x = EXTRA.cremation;
-    el.innerHTML = '<div class="wrap"><div class="plain-head"><div class="crumb"><a href="./">홈</a> › 화장장 예약 안내</div><div class="svc-head"><span class="em" aria-hidden="true">' + LI.calendar + '</span><div><h1>화장장 예약 안내</h1></div></div><p>' + esc(x.short) + '</p></div>' +
-      '<div class="ehaneul"><b>화장 예약은 e하늘 장사정보시스템에서</b><p>전국 화장시설 예약은 보건복지부 e하늘에서만 접수합니다. 희망 일정이 빠르게 마감되니 아래에서 가까운 시설을 먼저 확인해 두십시오. 처음이시면 배웅이 함께 확인해 드립니다.</p><div class="btn-row mt16"><a class="btn btn-main" href="' + U.telHref(S.phone) + '">배웅에 전화로 묻기</a></div></div></div>' +
+    el.innerHTML = '<div class="wrap"><div class="plain-head"><div class="crumb"><a href="./">홈</a> › 화장장 예약 안내</div><div class="svc-head"><span class="em" aria-hidden="true">' + LI.calendar + '</span><div><h1>화장장 예약 안내</h1></div></div></div></div>' +
       '<section class="sec sec-gray" id="cremList"><div class="wrap">' + head('전국 화장시설 찾기', '', '<small class="more" id="cremSrc"></small>') +
       '<div class="filt"><div class="field"><select id="cSido"><option value="">시·도 전체</option></select></div><div class="field" style="flex:1.2"><input type="search" id="cQ" placeholder="시설명·시군구로 찾기"></div></div>' +
       '<div class="cnt-line"><b id="cCnt"></b></div><div class="cgrid" id="cgrid"><div class="empty">자료를 불러오는 중입니다…</div></div></div></section>' +
@@ -464,9 +462,8 @@
       var l = data.filter(function (r) { return (!sv || r.sido === sv) && (!kw || (r.name + ' ' + r.sigungu + ' ' + r.addr).indexOf(kw) >= 0); });
       document.getElementById('cCnt').textContent = '총 ' + l.length + '곳' + (sv ? ' · ' + sv : '');
       grid.innerHTML = l.length ? l.map(function (r) {
-        var mq = encodeURIComponent(r.name);
         return '<article class="cc"><div class="hd"><b>' + esc(r.name) + '</b><span class="pub">' + esc(r.pub || '') + (r.furnace ? ' · 화장로 ' + esc(r.furnace) + '기' : '') + '</span></div><div class="ar">' + esc(r.sido) + ' ' + esc(r.sigungu) + '</div><div class="ad">' + esc(r.addr) + '</div>' +
-          '<div class="acts">' + (r.tel ? '<a class="btn btn-line btn-sm" href="' + U.telHref(r.tel) + '">' + I.phone + esc(r.tel) + '</a>' : '') + '<a class="btn btn-line btn-sm place" href="https://map.naver.com/p/search/' + mq + '" target="_blank" rel="noopener"><i>N</i>네이버 플레이스</a></div></article>';
+          '<div class="acts"><a class="btn btn-main btn-sm" href="contact.html?type=cremation&memo=' + encodeURIComponent(r.name + ' 화장장 예약 문의') + '">상담하기</a></div></article>';
       }).join('') : '<div class="empty">조건에 맞는 화장시설이 없습니다.</div>';
     }
     fetch('data/crematoriums.json?t=' + Math.floor(Date.now() / 3600000)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
