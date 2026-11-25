@@ -540,7 +540,7 @@
         U.kwChips(U.kwOf(f), 6) +
         '<dl class="info mt16">' + rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</dd></div>'; }).join('') + '</dl>' +
         (pi.length > 1 || (pi[0] || {}).label !== '기본' && pi.length ? '<details class="ptable"><summary><h3>가격 정보 <small>' + pi.length + '건</small></h3><span class="more">더보기 <i aria-hidden="true">›</i></span></summary><ul>' + pi.map(function (x) { return '<li><span>' + esc(x.label) + '</span><b>' + esc(x.price) + '</b></li>'; }).join('') + '</ul><p>안치 위치·층·조건에 따라 달라질 수 있어 상담 때 최신 가격으로 다시 확인해 드립니다.</p></details>' : '') +
-        '<div class="map-links"><button type="button" class="share" id="fshare">' + I.share + '가족에게 공유하기</button><a class="ask" href="contact.html' + window.CONTACT_QUERY + '">' + I.form + '시설 문의하기</a>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
+        '<div class="map-links"><a class="ask" href="contact.html' + window.CONTACT_QUERY + '">' + I.form + '시설 문의하기</a><button type="button" class="share" id="fshare">' + I.share + '가족에게 공유하기</button>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
         (f.comment ? '<div class="comment"><strong>배웅 답사 메모</strong>' + esc(f.comment) + '</div>' : '') +
         (f.lat && f.lng ? '<section class="floc" aria-label="위치 정보"><h3>위치 정보</h3><p class="addr">' + esc(f.address || '') + '</p><div id="fmap" class="fmap"></div><a class="more" href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도에서 크게 보기</a></section>' : '') +
         '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
