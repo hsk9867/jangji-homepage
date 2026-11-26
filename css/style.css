@@ -1264,3 +1264,8 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 .qf-type { min-height: 60px; padding: 10px 16px 10px 12px; gap: 10px; }
 .qf-type b { font-size: 15.5px; }
 .comment + .rv-pts { margin-top: 16px; }
+
+/* 2026-11-26 관리자 글 꾸미기 표시 */
+.rt-b { font-weight: 700; }
+.rt-u { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+.rt-dk { color: #111; font-weight: 600; }

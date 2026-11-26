@@ -597,4 +597,37 @@
     $('lg-help').innerHTML = esc(e.message) + '<br>관리자 기능은 PHP가 되는 카페24 서버나, 로컬 개발 서버(node dev/server.js)에서 동작합니다.';
     $('lg-btn').classList.add('hidden'); $('lg-pw').parentNode.classList.add('hidden');
   });
+
+  /* 2026-11-26 글 꾸미기 버튼: 글자를 드래그로 고른 뒤 누르면 **굵게** · __밑줄__ · ==진하게== 표시로 감쌈 (홈페이지에서는 표시 없이 꾸며져 보임) */
+  (function () {
+    var MARK = { b: '**', u: '__', d: '==' };
+    function bar(ta) {
+      if (ta.dataset.rt || ta.name === 'priceItems' || ta.dataset.noRich) return;
+      ta.dataset.rt = '1';
+      var d = document.createElement('div');
+      d.className = 'rt-bar';
+      d.innerHTML = '<button type="button" data-m="b" title="굵게"><b>B</b> 굵게</button><button type="button" data-m="u" title="밑줄"><u>U</u> 밑줄</button>' +
+        '<button type="button" data-m="d" title="진한 글씨"><span class="dk">가</span> 진하게</button><button type="button" data-m="x" title="고른 부분의 꾸미기 지우기">지우기</button>' +
+        '<span class="rt-tip">글자를 드래그로 고른 뒤 누르세요</span>';
+      ta.parentNode.insertBefore(d, ta);
+      d.addEventListener('mousedown', function (e) { if (e.target.closest('button')) e.preventDefault(); });
+      d.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        var st = ta.selectionStart, en = ta.selectionEnd, v = ta.value, sel = v.slice(st, en), out;
+        if (b.dataset.m === 'x') { out = sel.replace(/\*\*|__|==/g, ''); }
+        else {
+          if (st === en) { toast('꾸밀 글자를 먼저 드래그로 골라 주세요.'); return; }
+          var m = MARK[b.dataset.m], lead = sel.match(/^\s*/)[0], trail = sel.match(/\s*$/)[0], core = sel.slice(lead.length, sel.length - trail.length);
+          out = (core.slice(0, m.length) === m && core.slice(-m.length) === m && core.length > m.length * 2) ? lead + core.slice(m.length, -m.length) + trail : lead + m + core + m + trail;
+        }
+        ta.focus();
+        ta.setRangeText(out, st, en, 'select');
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+        ta.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+    function scan() { document.querySelectorAll('textarea').forEach(bar); }
+    new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
+    scan();
+  })();
 })();

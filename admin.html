@@ -10,6 +10,11 @@
 <style>
 :root { --g: #2f5d50; --gd: #22463c; --gs: #e6eee9; --bg: #f3f1ec; --line: #ddd6ca; --ink: #1f2a26; --ink2: #5a6560; --red: #b3261e; --warm: #a8652e; }
 * { box-sizing: border-box; }
+.rt-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 6px; }
+.rt-bar button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 5px 10px; font-size: 13px; cursor: pointer; color: var(--ink); }
+.rt-bar button:hover { background: var(--gs); }
+.rt-bar .dk { font-weight: 800; color: #000; }
+.rt-bar .rt-tip { font-size: 12px; color: var(--ink2); }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: "SUIT Variable", "SUIT", "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif; font-size: 16px; line-height: 1.55; word-break: keep-all; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
@@ -149,6 +154,6 @@ h2 { font-size: 20px; margin: 0 0 4px; }
 <script src="js/blog-content.js"></script>
 <script src="js/defaults.js"></script>
 <script>document.write('<script src="data/content.js?t=' + Date.now() + '"><\/script>');</script>
-<script src="js/admin.js?v=20261126l"></script>
+<script src="js/admin.js?v=20261126m"></script>
 </body>
 </html>

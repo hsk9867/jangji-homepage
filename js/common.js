@@ -51,7 +51,13 @@
   };
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-  function nl(s) { return esc(s).replace(/\n/g, '<br>'); }
+  /* 2026-11-26 관리자 글 꾸미기: **굵게** · __밑줄__ · ==진하게(검정 글씨)== (관리자 입력칸 위 버튼이 이 표시를 넣음) */
+  function rich(s) {
+    return esc(s).replace(/\*\*([\s\S]+?)\*\*/g, '<b class="rt-b">$1</b>').replace(/__([\s\S]+?)__/g, '<u class="rt-u">$1</u>')
+      .replace(/==([\s\S]+?)==/g, '<span class="rt-dk">$1</span>').replace(/\n/g, '<br>');
+  }
+  function plain(s) { return String(s == null ? '' : s).replace(/\*\*|__|==/g, ''); }   /* 카드 미리보기·요약용: 꾸미기 표시만 뺌 */
+  function nl(s) { return rich(s); }
   function telHref(p) { return 'tel:' + String(p || '').replace(/[^0-9+]/g, ''); }
   function qs(name) { return new URLSearchParams(location.search).get(name) || ''; }
   function typeOf(k) { return C.types[k] || { name: '' }; }
@@ -103,7 +109,7 @@
     return '<a class="rev card-h" href="review.html?id=' + encodeURIComponent(r.id) + '"><div class="ph">' + img(revPhoto(r), r.title) + '</div>' +
       '<div class="bd"><span class="lab">' + esc(SHORT[r.type] || '') + ' 상담</span>' + sampleTag(r) +
       '<div class="who">' + esc(r.author || '고객') + (f ? ' · ' + esc(f.name) : '') + ' · ' + fmtDate(r.date) + '</div>' +
-      '<h3>' + esc(r.title) + '</h3><p class="ex">' + esc(r.body) + '</p></div></a>';
+      '<h3>' + esc(r.title) + '</h3><p class="ex">' + esc(plain(r.body)) + '</p></div></a>';
   }
   function artCard(a) {
     var im = a.image ? (/^https:/.test(a.image) ? '<img src="' + esc(a.image) + '" alt="' + esc(a.title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : img(a.image, a.title)) : '';
@@ -171,7 +177,7 @@
   }
   function faqHtml(list) {
     if (!list || !list.length) return '';
-    return '<div class="faq">' + list.map(function (f) { return '<details><summary>' + esc(f.q) + '</summary><div class="a">' + esc(f.a) + '</div></details>'; }).join('') + '</div>';
+    return '<div class="faq">' + list.map(function (f) { return '<details><summary>' + esc(f.q) + '</summary><div class="a">' + rich(f.a) + '</div></details>'; }).join('') + '</div>';
   }
   /* 마우스로 가로 목록을 끌어서 넘기기 (터치 기기는 기본 스크롤) */
   function dragScroll(wrap) {
@@ -366,7 +372,7 @@
   }
 
   window.U = {
-    ICON: ICON, LI: LI, TYPE_KEYS: TYPE_KEYS, SHORT: SHORT, EHANEUL: EHANEUL, REVIEW_KEYWORDS: REVIEW_KEYWORDS, esc: esc, nl: nl, telHref: telHref, qs: qs, typeOf: typeOf, typeImg: typeImg, bg: bg, img: img,
+    ICON: ICON, LI: LI, TYPE_KEYS: TYPE_KEYS, SHORT: SHORT, EHANEUL: EHANEUL, REVIEW_KEYWORDS: REVIEW_KEYWORDS, esc: esc, nl: nl, rich: rich, plain: plain, telHref: telHref, qs: qs, typeOf: typeOf, typeImg: typeImg, bg: bg, img: img,
     facPhoto: facPhoto, revPhoto: revPhoto, realPhotos: realPhotos, facility: facility, hasType: hasType, visibleFacilities: visibleFacilities, visibleReviews: visibleReviews,
     fmtDate: fmtDate, sampleTag: sampleTag, kwOf: kwOf, kwChips: kwChips, typeNames: typeNames, facCard: facCard, revCard: revCard, artCard: artCard, rail: rail, bindRails: bindRails, autoRail: autoRail,
     faqHtml: faqHtml, applySection: applySection, bindApply: bindApply, sendInquiry: sendInquiry, inquiryTypeName: inquiryTypeName,

@@ -84,7 +84,7 @@
   }
   function revBrief(r) {
     if (REV_BRIEF[r.id]) return REV_BRIEF[r.id][0];
-    var ss = String(r.body || '').replace(/\s+/g, ' ').trim().match(/[^.!?。]+[.!?。]+/g) || [String(r.body || '')];
+    var ss = U.plain(r.body).replace(/\s+/g, ' ').trim().match(/[^.!?。]+[.!?。]+/g) || [String(r.body || '')];
     return ss.slice(0, 2).map(function (x) { return x.trim(); }).join(' ');
   }
   function revTags(r) {
@@ -92,11 +92,11 @@
     if (!t.length) { var f = U.facility(r.facilityId); if (f) t = (f.keywords && f.keywords.length ? f.keywords : (f.tags || [])); }
     return t.length ? '<div class="rtags">' + t.slice(0, 5).map(function (x) { return '<span>#' + esc(x) + '</span>'; }).join('') + '</div>' : '';
   }
-  function hl(s) { return esc(s).replace(/\*\*([\s\S]+?)\*\*/g, '<mark class="hl">$1</mark>'); }
+  function hl(s) { return esc(s).replace(/\*\*([\s\S]+?)\*\*/g, '<mark class="hl">$1</mark>').replace(/__([\s\S]+?)__/g, '<u class="rt-u">$1</u>').replace(/==([\s\S]+?)==/g, '<span class="rt-dk">$1</span>'); }
   function revSummary(r) {
     if (r.summary) return r.summary;
     if (REV_SUM[r.id]) return REV_SUM[r.id];
-    var b = String(r.body || '').replace(/\s+/g, ' ').trim();
+    var b = U.plain(r.body).replace(/\s+/g, ' ').trim();
     return b.length > 150 ? b.slice(0, 150).replace(/\s\S*$/, '') + '…' : b;
   }
   function tCard(r) {
@@ -132,7 +132,7 @@
       setTitle(n.title);
       el.innerHTML = '<section class="sec notice-sec"><div class="wrap"><a class="back-link" href="notice.html">‹ 공지사항 목록</a>' +
         '<article class="nt-view"><span class="nt-lab' + (n.label === '공지' ? ' on' : '') + '">' + esc(n.label || '안내') + '</span><h1>' + esc(n.title) + '</h1><time>' + esc(String(n.date || '').replace(/-/g, '.')) + '</time>' +
-        '<div class="nt-body">' + esc(n.body || '').replace(/\n/g, '<br>') + '</div></article>' +
+        '<div class="nt-body">' + U.rich(n.body) + '</div></article>' +
         '<a class="btn btn-line btn-block mt24" href="notice.html">목록으로</a></div></section>';
       return;
     }
@@ -578,7 +578,7 @@
         '<dl class="info mt16">' + rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</dd></div>'; }).join('') + '</dl>' +
         (pi.length > 1 || (pi[0] || {}).label !== '기본' && pi.length ? '<details class="ptable"><summary><h3>가격 정보 <small>' + pi.length + '건</small></h3><span class="more">더보기 <i aria-hidden="true">›</i></span></summary><ul>' + pi.map(function (x) { return '<li><span>' + esc(x.label) + '</span><b>' + esc(x.price) + '</b></li>'; }).join('') + '</ul><p>안치 위치·층·조건에 따라 달라질 수 있어 상담 때 최신 가격으로 다시 확인해 드립니다.</p></details>' : '') +
         '<div class="map-links"><a class="ask" href="contact.html' + window.CONTACT_QUERY + '">' + I.form + '시설 문의하기</a><button type="button" class="share" id="fshare">' + I.share + '가족에게 공유하기</button>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
-        (f.comment ? '<div class="comment"><strong>배웅 답사 메모</strong>' + esc(f.comment) + '</div>' : '') + facPoints(f) +
+        (f.comment ? '<div class="comment"><strong>배웅 답사 메모</strong>' + U.rich(f.comment) + '</div>' : '') + facPoints(f) +
         (f.lat && f.lng ? '<section class="floc" aria-label="위치 정보"><h3>위치 정보</h3><p class="addr">' + esc(f.address || '') + '</p><div id="fmap" class="fmap"></div><a class="more" href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도에서 크게 보기</a></section>' : '') +
         '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
         (revs.length ? '<div class="sec-head" style="margin-top:36px"><div class="tx"><h2>이 시설 상담·답사 이야기</h2></div></div><div class="rev-grid">' + revs.map(U.revCard).join('') + '</div>' + revs.map(function (r) { return revPoints(r, revs.length > 1 ? r.title : ''); }).join('') : '') +
@@ -809,7 +809,7 @@
     el.innerHTML = '<div class="wrap" style="padding-top:24px"><div class="article"><a class="back-link" href="reviews.html">‹ 후기 목록</a>' +
       '<div class="d-tags mt16"><span class="ty">' + esc(U.SHORT[r.type]) + ' 상담</span>' + U.sampleTag(r) + '</div>' +
       '<h1>' + esc(r.title) + '</h1><div class="who">' + esc(r.author || '고객') + ' · ' + U.fmtDate(r.date) + '</div>' +
-      '<div class="body">' + esc(revBrief(r)) + '</div>' + revTags(r) + revPoints(r) +
+      '<div class="body">' + (/\*\*|__|==/.test(r.body || '') ? U.rich(r.body) : esc(revBrief(r))) + '</div>' + revTags(r) + revPoints(r) +
       (function () { var f2 = U.facility(r.facilityId), ps = U.realPhotos(r); if (!ps.length && f2) ps = (f2.photos || []).slice(0, 3); return ps.length ? '<div class="photos">' + ps.map(function (p) { return U.img(p, r.title + ' 사진'); }).join('') + '</div>' : ''; })() +
       (f && f.visible !== false ? '<a class="linked" href="facility.html?id=' + encodeURIComponent(f.id) + '">' + U.img(U.facPhoto(f), f.name) + '<span><small>진행 시설</small><strong>' + esc(f.name) + '</strong></span><span style="margin-left:auto;color:#767676">›</span></a>' : '') +
       '</div></div><div style="height:48px"></div>' + U.applySection('같은 고민이 있으시다면\n편하게 전화 주십시오.', r.type);
