@@ -336,8 +336,8 @@
     tb.querySelector('.tab-consult').onclick = function () {
       var m = modal('<h3 class="cs-title">상담 신청</h3><p class="cs-sub">편하신 방법을 골라 주십시오.</p><div class="cs-list">' +
         '<a class="cs-btn cs-tel" href="' + telHref(s.phone) + '">' + ICON.phone + '전화 상담</a>' +
-        (s.kakao ? '<a class="cs-btn cs-kakao" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') +
-        '<a class="cs-btn cs-form" href="contact.html' + (window.CONTACT_QUERY || '') + '">' + TI.form + '상담신청서 작성</a></div>');
+        '<a class="cs-btn cs-form" href="contact.html' + (window.CONTACT_QUERY || '') + '">' + TI.form + '상담신청서 작성</a>' +
+        (s.kakao ? '<a class="cs-btn cs-kakao" href="' + esc(s.kakao) + '" target="_blank" rel="noopener">' + ICON.kakao + '카카오톡 상담</a>' : '') + '</div>');
       m.el.classList.add('cs-sheet');
       [].forEach.call(m.el.querySelectorAll('.cs-btn'), function (a) { a.addEventListener('click', function () { setTimeout(m.close, 50); }); });
     };
