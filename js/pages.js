@@ -392,7 +392,7 @@
     }
     function card(f) {
       var ph = (f.photos || [])[0], on = picked.indexOf(f.id) >= 0;
-      return '<article class="fc' + (on ? ' on' : '') + '" data-id="' + esc(f.id) + '"><a class="ph" href="facility.html?id=' + esc(f.id) + '">' + (ph ? U.img(ph, f.name) : '') + (f.featured ? '<span class="bdg">배웅 추천</span>' : '') + '</a>' +
+      return '<article class="fc' + (on ? ' on' : '') + '" data-id="' + esc(f.id) + '"><a class="ph" href="facility.html?id=' + esc(f.id) + '">' + (ph ? U.img(ph, f.name) : '') + ((f.tags || []).indexOf('신축') >= 0 ? '<span class="bdg new">신축</span>' : f.featured ? '<span class="bdg">배웅 추천</span>' : '') + '</a>' +
         '<div class="bd"><a class="nm" href="facility.html?id=' + esc(f.id) + '">' + esc(f.name) + '</a><div class="ar">' + esc(f.area) + (f.operator ? ' · ' + esc(f.operator) : '') + '</div>' +
         '<div class="pr">' + (f.price ? '<small>최저</small> ' + esc(f.price) : '상담 시 안내') + '</div>' + U.kwChips(U.kwOf(f), 3) +
         '<div class="acts"><button type="button" class="btn btn-line btn-sm cmp">' + (on ? '비교함에서 빼기' : '비교 담기') + '</button><a class="btn btn-main btn-sm" href="contact.html?type=' + esc(k) + '&facility=' + esc(f.id) + '">상담 신청</a></div></div></article>';
@@ -567,7 +567,7 @@
       '<div class="gallery"><div class="track" id="track">' + photos.map(function (p, i) { return U.img(p, f.name + ' 사진 ' + (i + 1), i < 2); }).join('') + '</div>' +
         (photos.length > 1 ? '<button class="nav-b prev" aria-label="이전 사진">‹</button><button class="nav-b next" aria-label="다음 사진">›</button><span class="num" id="num">1 / ' + photos.length + '</span>' : '') + '</div>' +
       '<section class="sec" style="padding-top:24px"><div class="wrap"><div class="detail-grid"><div>' +
-        '<div class="d-tags"><a class="ty" href="' + t.path + '">' + esc(U.SHORT[f.type]) + '</a>' + (f.types || []).filter(function (k) { return k !== f.type; }).map(function (k) { return '<a class="ty" href="' + U.typeOf(k).path + '">' + esc(U.SHORT[k]) + '</a>'; }).join('') + (f.featured ? '<span class="rec">배웅 추천</span>' : '') + U.sampleTag(f) + '</div>' +
+        '<div class="d-tags"><a class="ty" href="' + t.path + '">' + esc(U.SHORT[f.type]) + '</a>' + (f.types || []).filter(function (k) { return k !== f.type; }).map(function (k) { return '<a class="ty" href="' + U.typeOf(k).path + '">' + esc(U.SHORT[k]) + '</a>'; }).join('') + ((f.tags || []).indexOf('신축') >= 0 ? '<span class="rec new">신축</span>' : '') + (f.featured ? '<span class="rec">배웅 추천</span>' : '') + U.sampleTag(f) + '</div>' +
         '<h1 class="d-title">' + esc(f.name) + '</h1>' +
         U.kwChips(U.kwOf(f), 6) +
         '<dl class="info mt16">' + rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</dd></div>'; }).join('') + '</dl>' +

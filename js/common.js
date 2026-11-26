@@ -83,7 +83,7 @@
   /* 시설 사진 위 배지 (2026-11-17 고객 요청: 전부 '배웅 추천'이면 기계적이니 문구·색을 섞기).
      시설 자료에 맞는 배지 후보만 고른 뒤, 시설 id 로 그중 하나를 정한다(새로고침해도 같은 배지).
      실속 시설 = 같은 유형에서 최저가가 낮은 편, 교통 편의 = 키워드에 가까움·주차·접근성, 인기 시설 = 상담 후기가 있는 곳 */
-  var BADGES = { rec: '배웅 추천', ok: '배웅 검증', hot: '인기 시설', save: '실속 시설', go: '교통 편의' };
+  var BADGES = { rec: '배웅 추천', ok: '배웅 검증', hot: '인기 시설', save: '실속 시설', go: '교통 편의', 'new': '신축' };
   function priceNum(f) { var m = String(f.price || '').replace(/,/g, '').match(/\d+/); return m ? +m[0] : 0; }
   function badgeOf(f) {
     var c = ['rec', 'ok'], kw = (f.keywords || []).concat(f.tags || []).join(' '), p = priceNum(f);
@@ -94,7 +94,7 @@
     return c[h % c.length];
   }
   function facCard(f) {
-    var n = (f.photos || []).length, b = f.featured ? badgeOf(f) : '';
+    var n = (f.photos || []).length, b = (f.tags || []).indexOf('신축') >= 0 ? 'new' : f.featured ? badgeOf(f) : '';  /* 2026-11-26: 태그에 '신축'이 있으면 신축 배지 */
     return '<a class="fac" href="facility.html?id=' + encodeURIComponent(f.id) + '"><div class="ph">' + img(facPhoto(f), f.name) + (n > 1 ? '<span class="n">사진 ' + n + '</span>' : '') + (b ? '<span class="rec b-' + b + '">' + BADGES[b] + '</span>' : '') + '</div>' +
       '<div class="t"><h3>' + esc(f.name) + '</h3><span class="ty">' + esc(SHORT[f.type] || '') + '</span></div><div class="loc">' + esc(f.area || f.address || '') + (f.price ? ' · <b>최저 ' + esc(f.price) + '</b>' : '') + '</div>' + kwChips(kwOf(f), 2) + '</a>';
   }

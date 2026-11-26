@@ -472,6 +472,67 @@ window.BLOG_CONTENT = {
    ]
   },
   {
+   "id": "byeolbit",
+   "type": "napgol",
+   "name": "부산 별빛추모원",
+   "area": "부산 사상",
+   "address": "부산광역시 사상구 학감대로39번안길 59 (학장동)",
+   "operator": "사설",
+   "price": "200만원~",
+   "comment": "부산 사상구 학장동에 새로 문을 연 봉안당으로, 부산 시내 최초 봉안당을 내세웁니다. 낙동강이 내려다보이는 전망과 숲에 둘러싸인 조용한 환경이 특징이며, 사상역에서 10분, 부산 영락공원·김해 화장장에서 약 30분 거리입니다. 사용 기한 제한 없이(영구) 모실 수 있고 가족 간 승계와 양도도 가능합니다.",
+   "photos": [
+    "img/fac/byeolbit-1.jpg",
+    "img/fac/byeolbit-2.jpg",
+    "img/fac/byeolbit-3.jpg",
+    "img/fac/byeolbit-4.jpg",
+    "img/fac/byeolbit-5.jpg",
+    "img/fac/byeolbit-6.jpg"
+   ],
+   "blogUrl": "",
+   "tags": [
+    "신축",
+    "낙동강 전망",
+    "부산 시내"
+   ],
+   "keywords": [],
+   "priceItems": [
+    {
+     "label": "스페셜(1층) 측면 1위",
+     "price": "200만원~"
+    },
+    {
+     "label": "스페셜(1층) 정면 1위",
+     "price": "250만원~"
+    },
+    {
+     "label": "스페셜(1층) 1~2위",
+     "price": "400만원~"
+    },
+    {
+     "label": "VIP(2층) 기본형",
+     "price": "500만원~"
+    },
+    {
+     "label": "VIP(2층) 확장형",
+     "price": "1,000만원~"
+    },
+    {
+     "label": "VVIP(3층) 기본형",
+     "price": "900만원~"
+    },
+    {
+     "label": "VVIP(3층) 확장형",
+     "price": "1,800만원~"
+    },
+    {
+     "label": "관리비",
+     "price": "1년 3만원 (영구 100만원)"
+    }
+   ],
+   "featured": true,
+   "visible": true
+  },
+  {
    "id": "seohyeon",
    "type": "napgol",
    "name": "파주 서현추모공원",

@@ -1237,3 +1237,6 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 .steps-row li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 13px; }
 .steps-row strong { font-size: 14px; font-weight: 600; line-height: 1.35; word-break: keep-all; }
 @media (min-width: 960px) { .steps-row { gap: 16px; } .steps-row li { flex-direction: row; justify-content: center; padding: 18px; gap: 12px; } .steps-row strong { font-size: var(--fs-h3); } }
+/* 2026-11-26 신축 배지 (시설 태그에 '신축') */
+.fac .ph .rec.b-new, .fc .bdg.new { background: #C2410C; }
+.d-tags .rec.new { background: #FFF1E8; color: #C2410C; border-color: #F6C9AE; }
