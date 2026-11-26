@@ -481,11 +481,11 @@
     window.CONTACT_QUERY = '?type=cremation';
     var x = EXTRA.cremation;
     el.innerHTML = '<div class="wrap"><div class="plain-head"><div class="crumb"><a href="./">홈</a> › 화장장 예약 안내</div><div class="svc-head"><span class="em" aria-hidden="true">' + LI.calendar + '</span><div><h1>화장장 예약 안내</h1></div></div></div></div>' +
+      '<section class="sec"><div class="wrap">' + head('진행 순서') + '<ol class="steps-v steps-2x2">' + x.steps.map(function (st) { return '<li><div><strong>' + esc(st.t) + '</strong><span>' + esc(st.d) + '</span></div></li>'; }).join('') + '</ol></div></section>' +
       '<section class="sec sec-gray" id="cremList"><div class="wrap">' + head('전국 화장시설 찾기', '', '<small class="more" id="cremSrc"></small>') +
       '<div class="filt"><div class="field"><select id="cSido"><option value="">시·도 전체</option></select></div><div class="field" style="flex:1.2"><input type="search" id="cQ" placeholder="시설명·시군구로 찾기"></div></div>' +
       '<div class="cnt-line"><b id="cCnt"></b></div><div class="cgrid" id="cgrid"><div class="empty">자료를 불러오는 중입니다…</div></div></div></section>' +
-      '<section class="sec"><div class="wrap">' + head('진행 순서') + '<ol class="steps-v">' + x.steps.map(function (st) { return '<li><div><strong>' + esc(st.t) + '</strong><span>' + esc(st.d) + '</span></div></li>'; }).join('') + '</ol></div></section>' +
-      '<section class="sec sec-gray"><div class="wrap">' + head('자주 하는 질문') + U.faqHtml(x.faqs) + '</div></section>' +
+      '<section class="sec"><div class="wrap">' + head('자주 하는 질문') + U.faqHtml(x.faqs) + '</div></section>' +
       '<section class="sec"><div class="wrap">' + contactBox('화장 일정부터 모실 곳까지', '연중무휴, 언제든 편히 연락 주십시오', 'cremation') + '</div></section>';
     var data = [], sido = document.getElementById('cSido'), q = document.getElementById('cQ'), grid = document.getElementById('cgrid');
     function draw() {
