@@ -1240,3 +1240,19 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 /* 2026-11-26 신축 배지 (시설 태그에 '신축') */
 .fac .ph .rec.b-new, .fc .bdg.new { background: #C2410C; }
 .d-tags .rec.new { background: #FFF1E8; color: #C2410C; border-color: #F6C9AE; }
+/* 2026-11-26 상담 신청 폼: 상담 분야 2×2 타일 (여러 개 선택) */
+.quick-form .lbl { display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+.quick-form .lbl small { font-size: 13px; font-weight: 500; color: var(--ink-3); }
+.quick-form .lbl em { color: #C2410C; font-style: normal; }
+.qf-types { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.qf-type { position: relative; display: flex; align-items: center; gap: 10px; min-height: 60px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 12px; background: #FAFAF8; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: border-color var(--tr), background var(--tr); }
+.qf-type input { position: absolute; opacity: 0; pointer-events: none; }
+.qf-type .ic { flex: none; width: 38px; height: 38px; border-radius: 10px; background: #fff; display: grid; place-items: center; }
+.qf-type .ic svg { width: 30px; height: 30px; }
+.qf-type b { font-size: 15.5px; font-weight: 700; color: var(--ink); }
+.qf-type .ck { margin-left: auto; flex: none; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #CFCFCB; background: #fff; }
+.qf-type:has(input:checked) { border-color: #1b1b1f; background: #fff; }
+.qf-type.on { border-color: #1b1b1f; background: #fff; }
+.qf-type input:checked ~ .ck { border-color: #1b1b1f; background: #1b1b1f url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+.qf-type input:focus-visible ~ .ck { outline: 2px solid #1F6B3A; outline-offset: 2px; }
+.quick-form .field .lbl small, .quick-form .field .lbl em { display: inline; margin: 0; }

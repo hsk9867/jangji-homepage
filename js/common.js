@@ -201,6 +201,7 @@
   function getJson(u) { return fetch(u).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }); }
 
   /* 하단 상담 신청 (간단 폼) */
+  var QF_TYPES = [['sumok', '수목장', 'tree'], ['napgol', '봉안당', 'hall'], ['maejang', '매장묘', 'tomb'], ['ijang', '파묘/이장', 'ijang']];
   function applySection(title, presetType, headHtml) {   /* headHtml: 왼쪽(위) 안내 대신 넣을 내용 — 메인은 연락 박스 */
     var s = C.site;
     return '<section class="sec apply" id="apply"><div class="wrap apply-box">' + (headHtml || ('<div class="sec-head" style="margin:0"><div class="tx"><span class="pill">상담 신청</span><h2>' + esc(title || s.finalTitle) + '</h2>' +
@@ -209,7 +210,10 @@
       '<form class="quick-form" id="quick-form" novalidate><div class="f-row">' +
       '<div class="field"><label for="qf-name">이름 <em>*</em></label><input id="qf-name" autocomplete="name" placeholder="이름을 입력해 주십시오"></div>' +
       '<div class="field"><label for="qf-phone">연락처 <em>*</em></label><input id="qf-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"></div></div>' +
-      '<div class="field"><label for="qf-type">상담 분야</label><select id="qf-type">' + TYPE_KEYS.map(function (k) { return '<option value="' + k + '"' + (k === presetType ? ' selected' : '') + '>' + esc(typeOf(k).name) + '</option>'; }).join('') + '<option value="cremation"' + (presetType === 'cremation' ? ' selected' : '') + '>화장장 예약 안내</option><option value="support"' + (presetType === 'support' ? ' selected' : '') + '>장례지원금 문의</option><option value="unsure">아직 정하지 못했습니다</option></select></div>' +
+      /* 2026-11-26 고객 요청: 상담 분야를 선택 상자 대신 2×2 타일로, 여러 개 선택 가능 */
+      '<div class="field"><span class="lbl">상담 분야 <small>(여러 개 선택 가능)</small> <em>*</em></span><div class="qf-types" role="group" aria-label="상담 분야">' + QF_TYPES.map(function (t) {
+        return '<label class="qf-type"><input type="checkbox" name="qf-type" value="' + t[0] + '"' + (t[0] === presetType ? ' checked' : '') + '><span class="ic">' + LI[t[2]] + '</span><b>' + esc(t[1]) + '</b><i class="ck" aria-hidden="true"></i></label>';
+      }).join('') + '</div></div>' +
       '<div class="field"><label for="qf-memo">추가 문의 (선택)</label><textarea id="qf-memo" placeholder="모실 인원, 희망 지역, 예산 등을 적어 주십시오"></textarea></div>' +
       '<label class="agree"><input type="checkbox" id="qf-agree"><span>상담을 위한 개인정보(이름, 연락처, 문의 내용) 수집·이용에 동의합니다. <a href="privacy.html" target="_blank">자세히</a></span></label>' +
       '<button class="btn btn-main btn-block" type="submit">무료 상담 신청하기</button><div class="err" id="qf-err"></div></form></div></section>';
@@ -220,12 +224,15 @@
     f.onsubmit = function (e) {
       e.preventDefault();
       var name = f.querySelector('#qf-name').value.trim(), phone = f.querySelector('#qf-phone').value.trim(), err = f.querySelector('#qf-err');
-      var tk = f.querySelector('#qf-type').value;
+      var picked = [].filter.call(f.querySelectorAll('input[name="qf-type"]'), function (c) { return c.checked; }).map(function (c) {
+        return QF_TYPES.filter(function (t) { return t[0] === c.value; })[0][1];
+      });
       if (!name) { err.textContent = '이름을 입력해 주십시오.'; return; }
       if (phone.replace(/[^0-9]/g, '').length < 9) { err.textContent = '연락 가능한 번호를 정확히 입력해 주십시오.'; return; }
+      if (!picked.length) { err.textContent = '상담 분야를 하나 이상 골라 주십시오.'; return; }
       if (!f.querySelector('#qf-agree').checked) { err.textContent = '개인정보 수집·이용에 동의해 주십시오.'; return; }
       var btn = f.querySelector('button'); btn.disabled = true; btn.textContent = '보내는 중…'; err.textContent = '';
-      var rec = { type: inquiryTypeName(tk), region: '', when: '', name: name, phone: phone, memo: f.querySelector('#qf-memo').value.trim(), facility: '', page: location.pathname };
+      var rec = { type: picked.join(', '), region: '', when: '', name: name, phone: phone, memo: f.querySelector('#qf-memo').value.trim(), facility: '', page: location.pathname };
       sendInquiry(rec).then(function (res) {
         if (!res || !res.ok) throw new Error((res && res.message) || '접수 실패');
         f.innerHTML = '<div class="ok-msg"><b>상담 신청이 접수되었습니다.</b><br>' + esc(name) + '님, 상담팀이 확인 후 ' + esc(phone) + ' 으로 연락드리겠습니다.' +
