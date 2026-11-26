@@ -212,7 +212,7 @@
       '<div class="field"><label for="qf-phone">연락처 <em>*</em></label><input id="qf-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"></div></div>' +
       /* 2026-11-26 고객 요청: 상담 분야를 선택 상자 대신 2×2 타일로, 여러 개 선택 가능 */
       '<div class="field"><span class="lbl">상담 분야 <small>(여러 개 선택 가능)</small> <em>*</em></span><div class="qf-types" role="group" aria-label="상담 분야">' + QF_TYPES.map(function (t) {
-        return '<label class="qf-type"><input type="checkbox" name="qf-type" value="' + t[0] + '"' + (t[0] === presetType ? ' checked' : '') + '><span class="ic">' + LI[t[2]] + '</span><b>' + esc(t[1]) + '</b><i class="ck" aria-hidden="true"></i></label>';
+        return '<label class="qf-type"><input type="checkbox" name="qf-type" value="' + t[0] + '"' + (t[0] === presetType ? ' checked' : '') + '><b>' + esc(t[1]) + '</b><i class="ck" aria-hidden="true"></i></label>';
       }).join('') + '</div></div>' +
       '<div class="field"><label for="qf-memo">추가 문의 (선택)</label><textarea id="qf-memo" placeholder="모실 인원, 희망 지역, 예산 등을 적어 주십시오"></textarea></div>' +
       '<label class="agree"><input type="checkbox" id="qf-agree"><span>상담을 위한 개인정보(이름, 연락처, 문의 내용) 수집·이용에 동의합니다. <a href="privacy.html" target="_blank">자세히</a></span></label>' +

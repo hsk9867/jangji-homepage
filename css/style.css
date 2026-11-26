@@ -1256,3 +1256,7 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 .qf-type input:checked ~ .ck { border-color: #1b1b1f; background: #1b1b1f url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat; }
 .qf-type input:focus-visible ~ .ck { outline: 2px solid #1F6B3A; outline-offset: 2px; }
 .quick-form .field .lbl small, .quick-form .field .lbl em { display: inline; margin: 0; }
+/* 2026-11-26 상담 분야 타일: 아이콘 빼고 문구만, 체크 원을 안쪽으로 */
+.qf-type { min-height: 54px; padding: 12px 16px 12px 18px; gap: 12px; }
+.qf-type b { font-size: 16px; }
+.qf-type .ck { width: 22px; height: 22px; margin-right: 2px; }
