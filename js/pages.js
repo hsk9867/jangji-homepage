@@ -70,9 +70,14 @@
     b224438264593: [['대한불교조계종 무량사와 함께하는 곳이라 사찰의 차분한 분위기에서 추모할 수 있습니다', '마석역에서 버스로 갈 수 있고, 차로는 화도IC에서 15분입니다'],
       ['불교 사찰수목장이라 불교 의례가 편한 가족에게 더 맞습니다', '방문은 사전 예약을 하셔야 편합니다', '파묘 날짜를 잡기 전에 새 장지의 안치 방식·비용을 먼저 확인하세요']]
   };
-  function revPoints(r, head) {
-    var p = REV_POINTS[r.id];
-    if (!p) return '';
+  /* 답사 이야기가 없는 시설은 시설 id 로 직접 (2026-11-26, 시설 공식 홈페이지 내용 기준) */
+  var FAC_POINTS = {
+    byeolbit: [['부산 시내에 있어 사상역에서 10분, 주례역·서대신역에서 5분 거리입니다', '부산 영락공원·김해 화장장에서 약 30분이라 화장 후 바로 모시기 좋습니다', '낙동강이 내려다보이는 전망과 숲에 둘러싸인 조용한 환경입니다', '사용 기한 제한이 없고(영구) 가족 간 승계·양도가 가능합니다'],
+      ['층(스페셜·VIP·VVIP)과 단 높이, 정면·측면에 따라 200만원대부터 3,000만원까지 차이가 큽니다', '관리비가 따로 있습니다(1년 3만원, 영구 100만원, 추후 인상 가능)', '대중교통은 버스에서 내려 15분 정도 걸어야 합니다', '시설이 넓어 방문 전 예약하고 담당자 안내를 받으셔야 합니다']]
+  };
+  function facPoints(f) { return FAC_POINTS[f.id] ? pointsHtml(FAC_POINTS[f.id], '장점과 주의할 점') : ''; }
+  function revPoints(r, head) { return REV_POINTS[r.id] ? pointsHtml(REV_POINTS[r.id], head) : ''; }
+  function pointsHtml(p, head) {
     var li = function (a) { return '<ul>' + a.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
     return '<div class="rv-pts">' + (head ? '<h3>' + esc(head) + '</h3>' : '') +
       '<div class="pro"><h4>장점</h4>' + li(p[0]) + '</div><div class="con"><h4>주의할 점</h4>' + li(p[1]) + '</div></div>';
@@ -573,7 +578,7 @@
         '<dl class="info mt16">' + rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + (r[0] === '사용료' ? r[1] : esc(r[1])) + '</dd></div>'; }).join('') + '</dl>' +
         (pi.length > 1 || (pi[0] || {}).label !== '기본' && pi.length ? '<details class="ptable"><summary><h3>가격 정보 <small>' + pi.length + '건</small></h3><span class="more">더보기 <i aria-hidden="true">›</i></span></summary><ul>' + pi.map(function (x) { return '<li><span>' + esc(x.label) + '</span><b>' + esc(x.price) + '</b></li>'; }).join('') + '</ul><p>안치 위치·층·조건에 따라 달라질 수 있어 상담 때 최신 가격으로 다시 확인해 드립니다.</p></details>' : '') +
         '<div class="map-links"><a class="ask" href="contact.html' + window.CONTACT_QUERY + '">' + I.form + '시설 문의하기</a><button type="button" class="share" id="fshare">' + I.share + '가족에게 공유하기</button>' + (f.blogUrl ? '<a href="' + esc(f.blogUrl) + '" target="_blank" rel="noopener">답사 후기</a>' : '') + '</div>' +
-        (f.comment ? '<div class="comment"><strong>배웅 답사 메모</strong>' + esc(f.comment) + '</div>' : '') +
+        (f.comment ? '<div class="comment"><strong>배웅 답사 메모</strong>' + esc(f.comment) + '</div>' : '') + facPoints(f) +
         (f.lat && f.lng ? '<section class="floc" aria-label="위치 정보"><h3>위치 정보</h3><p class="addr">' + esc(f.address || '') + '</p><div id="fmap" class="fmap"></div><a class="more" href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도에서 크게 보기</a></section>' : '') +
         '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
         (revs.length ? '<div class="sec-head" style="margin-top:36px"><div class="tx"><h2>이 시설 상담·답사 이야기</h2></div></div><div class="rev-grid">' + revs.map(U.revCard).join('') + '</div>' + revs.map(function (r) { return revPoints(r, revs.length > 1 ? r.title : ''); }).join('') : '') +
