@@ -1187,7 +1187,7 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 .cs-form { background: #fff; color: var(--ink); border-color: var(--line); }
 .cs-form svg { fill: none; }
 .cs-form svg .sh, .cs-form svg .ln { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.cs-tel { background: #6FAE85; color: #fff; }
+.cs-tel { background: #1B1B1F; color: #fff; }
 .cs-tel svg { fill: currentColor; }
 .cs-kakao { background: #FEE500; color: #191919; }
 .cs-kakao svg { fill: currentColor; }
@@ -1214,3 +1214,20 @@ mark.hl { background: linear-gradient(180deg, transparent 56%, rgba(214, 186, 11
 .apply-box .contact-box small { margin-top: 0; color: rgba(255, 255, 255, .75); }
 @media (min-width: 960px) { .apply-box .contact-box { padding: 34px 32px 30px; } }
 @media (min-width: 960px) { .contact-box .acts .btn { max-width: 320px; } }
+
+/* ── 2026-11-26 상담·답사 이야기 장점·주의할 점 ── */
+.rv-pts { margin-top: 16px; display: grid; gap: 12px; }
+.rv-pts h3 { font-size: 16px; margin: 0; }
+.rv-pts .pro, .rv-pts .con { border-radius: 14px; padding: 14px 16px; }
+.rv-pts .pro { background: #EEF6F0; border: 1px solid #CFE5D6; }
+.rv-pts .con { background: #FBF6EA; border: 1px solid #EADCB9; }
+.rv-pts h4 { margin: 0 0 8px; font-size: 15.5px; }
+.rv-pts .pro h4 { color: #1F6B3A; }
+.rv-pts .con h4 { color: #8A6A2B; }
+.rv-pts ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.rv-pts li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.rv-pts li::before { content: ""; position: absolute; left: 2px; top: .7em; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .45; }
+.rv-pts .pro li::before { background: #1F6B3A; opacity: .8; }
+.rv-pts .con li::before { background: #B08A3E; opacity: .9; }
+.article .rv-pts { margin: 18px 0 6px; }
+@media (min-width: 720px) { .rv-pts { grid-template-columns: 1fr 1fr; } .rv-pts h3 { grid-column: 1 / -1; } }

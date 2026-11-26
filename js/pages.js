@@ -45,6 +45,38 @@
     b224438264593: ['파묘·이장을 앞두고 새 장지를 찾는 가족을 위한 이야기입니다. 벌초와 봉분 관리 부담을 덜 수 있고, 무량수목장은 계절 풍경 속에서 추모할 수 있는 곳입니다.', ['관리 부담이 줄어요', '계절 풍경이 좋아요', '이장 후 모실 수 있어요']],
     b224247837400: ['이장 유골은 새로 화장한 유골과 안치 조건이 다를 수 있습니다. 수목장 계약 전에 이장 유골을 받는지, 용기 재질 기준이 있는지부터 확인하시기를 권합니다.', ['계약 전에 확인해요', '안치 조건을 먼저 봐요', '기준부터 정리해요']]
   };
+  /* 상담·답사 이야기별 장점·주의할 점 (2026-11-26, 배웅 블로그 답사 글 원문에서 뽑음) */
+  var REV_POINTS = {
+    b224431109629: [['2,000대 규모 주차장과 셔틀버스가 있습니다', '매점·유족대기실·장애인 편의시설이 갖춰져 있습니다', '용인IC·에버랜드에서 차로 10분, 강남에서 50분 거리입니다'],
+      ['실(복도)·일반실·고급실·특실에 따라 300만원대부터 2,000만원대까지 차이가 큽니다', '이용 기간·관리비 같은 세부 조건은 상담 때 자료로 꼭 확인하세요', '한 곳만 보지 말고 같은 기준으로 다른 곳과 비교해 보세요']],
+    b224423919482: [['발안IC 인근이라 화성은 물론 오산·평택·수원에서도 찾기 좋습니다', '매일 오전 10시~오후 5시 운영합니다'],
+      ['지도상 거리와 실제 이동 부담은 다를 수 있어, 자주 찾아뵐 가족의 집에서 출발하는 동선을 확인하세요', '처음 비용 외에 별도 관리비·계약 기간·승계 조건을 확인하세요', '추후 가족을 함께 모실 계획이면 안치 가능 인원을 미리 확인하세요']],
+    b224397789066: [['매장묘·봉안묘·봉안담·평장묘·자연장을 한곳에서 비교할 수 있습니다', '공원 전체가 완만한 경사이고, 묘역 가까이까지 차로 들어갈 수 있습니다', '1974년부터 재단법인이 운영해 왔고, 사리현IC에서 차로 10분 이내입니다'],
+      ['모든 구역이 평탄하거나 무장애는 아니어서, 계약할 자리까지 직접 걸어 보셔야 합니다', '같은 장법이라도 묘역의 방향·조망·위치에 따라 비용이 달라집니다', '명절·주말에는 주변 도로가 혼잡할 수 있습니다']],
+    b224395482038: [['봉안당·수목장·잔디장·매장을 함께 갖춰 한곳에서 비교할 수 있습니다', '기독교식 추모예배와 안치 절차를 준비할 수 있고, 종교와 상관없이 이용할 수 있습니다', '성남·분당·용인·수원 등 경기 남부에서 함께 비교할 만한 위치입니다'],
+      ['안치 방식·위치·개인단/부부단에 따라 비용이 달라집니다', '분양 가능한 자리와 관리 조건이 바뀔 수 있어 상담 시점에 다시 확인하세요', '주차장에서 추모 공간까지의 거리와 경사를 직접 살펴보세요']],
+    b224383776090: [['천주교 전용관처럼 종교에 따라 모실 수 있는 공간이 있습니다', '조명이 밝고 실내가 정돈되어 무겁지 않은 분위기입니다', '주요 도로에서 진입이 쉬워 서울 북부·의정부·동두천에서 찾아가기 좋습니다'],
+      ['채광 좋은 저층이나 접근이 편한 구역은 문의가 몰려 자리가 빨리 줄어듭니다', '분양가와 관리비 구조를 미리 비교해 두세요', '한 곳만 보지 말고 두세 곳은 직접 둘러보고 정하세요']],
+    b224411743930: [['수목장과 봉안시설을 함께 둘러보며 비교할 수 있습니다'],
+      ['야외라서 주차장에서 수목장 구역까지의 거리·산책로·쉴 곳, 비 올 때 이용 여부를 확인하세요', '나무 위치·크기·안치 인원·관리비·사용 기간에 따라 실제 비용이 달라지니 포함 항목을 확인하세요', '나중에 가족을 함께 모실 계획이면 추가 안치 조건을 물어보세요']],
+    b224373334065: [['사찰과 숲이 어우러진 차분한 분위기에서 추모할 수 있습니다', '불교 신자가 아니어도 선택할 수 있습니다', '서울 남부·경기 남부 생활권에서 함께 살펴보기 좋습니다'],
+      ['시설별 이용 조건(종교 관련 포함)은 미리 확인하세요', '개인목·부부목·가족목 가능 여부와 관리비·계약 조건을 확인하세요', '계절마다 분위기가 달라 여유 있는 시간에 둘러보시는 게 좋습니다']],
+    b224370709163: [['진입로가 단순하고 표지판이 잘 되어 있으며 주차 공간이 넉넉합니다', '원래 숲처럼 자연스럽게 조성되어 있고 꾸준히 관리되고 있습니다', '근처에 쉬어 갈 공간과 화장실이 있습니다'],
+      ['주말·공휴일엔 방문객이 많아, 조용히 둘러보시려면 평일 오전이 좋습니다', '개별목·공동목·부부목에 따라 비용과 관리비가 달라 추가 비용 여부까지 확인하세요']],
+    b224363967758: [['서울 서북권과 고양·파주·의정부에서 가깝고, 버스·지하철로도 갈 수 있습니다', '기독교·천주교 전용 추모 공간이 따로 있습니다', '유족대기실·휴게공간·장애인 편의시설·매점과 넉넉한 주차장이 있습니다'],
+      ['안치 위치·단수·잔여 자리에 따라 비용이 달라 예전 인터넷 가격은 맞지 않을 수 있습니다', '관리비·계약 기간·연장 여부를 함께 확인하세요']],
+    b224359282787: [['서재·도서관처럼 꾸며진 따뜻한 실내이고, 도자기형 안치실도 있습니다', '유골함과 유품함이 분리되어 있고 전용 열쇠로 유품을 꺼내 볼 수 있습니다', '성남IC·야탑역에서 가깝고 강남에서 30분 안팎이며, 카페형 휴게공간이 있습니다'],
+      ['형태·위치·층수에 따라 500만원대부터 1,000만원대까지 차이가 납니다', '분양 시기와 남은 자리에 따라 비용이 바뀌니 상담 때 확인하세요']],
+    b224438264593: [['대한불교조계종 무량사와 함께하는 곳이라 사찰의 차분한 분위기에서 추모할 수 있습니다', '마석역에서 버스로 갈 수 있고, 차로는 화도IC에서 15분입니다'],
+      ['불교 사찰수목장이라 불교 의례가 편한 가족에게 더 맞습니다', '방문은 사전 예약을 하셔야 편합니다', '파묘 날짜를 잡기 전에 새 장지의 안치 방식·비용을 먼저 확인하세요']]
+  };
+  function revPoints(r, head) {
+    var p = REV_POINTS[r.id];
+    if (!p) return '';
+    var li = function (a) { return '<ul>' + a.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
+    return '<div class="rv-pts">' + (head ? '<h3>' + esc(head) + '</h3>' : '') +
+      '<div class="pro"><h4>장점</h4>' + li(p[0]) + '</div><div class="con"><h4>주의할 점</h4>' + li(p[1]) + '</div></div>';
+  }
   function revBrief(r) {
     if (REV_BRIEF[r.id]) return REV_BRIEF[r.id][0];
     var ss = String(r.body || '').replace(/\s+/g, ' ').trim().match(/[^.!?。]+[.!?。]+/g) || [String(r.body || '')];
@@ -544,7 +576,7 @@
         (f.comment ? '<div class="comment"><strong>배웅 답사 메모</strong>' + esc(f.comment) + '</div>' : '') +
         (f.lat && f.lng ? '<section class="floc" aria-label="위치 정보"><h3>위치 정보</h3><p class="addr">' + esc(f.address || '') + '</p><div id="fmap" class="fmap"></div><a class="more" href="https://map.naver.com/p/search/' + q + '" target="_blank" rel="noopener">네이버 지도에서 크게 보기</a></section>' : '') +
         '<section class="frev" id="frev" aria-label="고객 리뷰"></section>' +
-        (revs.length ? '<div class="sec-head" style="margin-top:36px"><div class="tx"><h2>이 시설 상담·답사 이야기</h2></div></div><div class="rev-grid">' + revs.map(U.revCard).join('') + '</div>' : '') +
+        (revs.length ? '<div class="sec-head" style="margin-top:36px"><div class="tx"><h2>이 시설 상담·답사 이야기</h2></div></div><div class="rev-grid">' + revs.map(U.revCard).join('') + '</div>' + revs.map(function (r) { return revPoints(r, revs.length > 1 ? r.title : ''); }).join('') : '') +
       '</div><div><div class="side-cta"><h3>이 시설, 상담받아 보십시오</h3><p>현재 선택할 수 있는 자리와 정확한 비용, 동행 답사 일정을 안내해 드립니다. 주말 답사도 무료입니다.</p>' +
         '<a class="btn btn-main btn-block" href="contact.html' + window.CONTACT_QUERY + '">' + I.form + '이 시설로 상담 신청</a>' +
         '<a class="btn btn-line btn-block" href="' + U.telHref(C.site.phone) + '">' + I.phone + '전화로 바로 묻기 ' + esc(C.site.phone) + '</a>' +
@@ -772,7 +804,7 @@
     el.innerHTML = '<div class="wrap" style="padding-top:24px"><div class="article"><a class="back-link" href="reviews.html">‹ 후기 목록</a>' +
       '<div class="d-tags mt16"><span class="ty">' + esc(U.SHORT[r.type]) + ' 상담</span>' + U.sampleTag(r) + '</div>' +
       '<h1>' + esc(r.title) + '</h1><div class="who">' + esc(r.author || '고객') + ' · ' + U.fmtDate(r.date) + '</div>' +
-      '<div class="body">' + esc(revBrief(r)) + '</div>' + revTags(r) +
+      '<div class="body">' + esc(revBrief(r)) + '</div>' + revTags(r) + revPoints(r) +
       (function () { var f2 = U.facility(r.facilityId), ps = U.realPhotos(r); if (!ps.length && f2) ps = (f2.photos || []).slice(0, 3); return ps.length ? '<div class="photos">' + ps.map(function (p) { return U.img(p, r.title + ' 사진'); }).join('') + '</div>' : ''; })() +
       (f && f.visible !== false ? '<a class="linked" href="facility.html?id=' + encodeURIComponent(f.id) + '">' + U.img(U.facPhoto(f), f.name) + '<span><small>진행 시설</small><strong>' + esc(f.name) + '</strong></span><span style="margin-left:auto;color:#767676">›</span></a>' : '') +
       '</div></div><div style="height:48px"></div>' + U.applySection('같은 고민이 있으시다면\n편하게 전화 주십시오.', r.type);
@@ -811,7 +843,7 @@
     var regions = (s.regions || []).slice().concat(['상관없음']);
     var preR = U.qs('region');
     var opt = function (v, l, sel) { return '<option value="' + esc(v) + '"' + (sel ? ' selected' : '') + '>' + esc(l) + '</option>'; };
-    el.innerHTML = '<div class="form-wrap' + (sup ? ' sp' : '') + '">' + (sup ? supportIntro() + '<h2 class="sp-form-h sp-first" id="apply-form">장례지원금 상담 신청</h2><p class="lead mt8">이름과 연락처만 남겨 주시면 받으실 수 있는 지원금부터 확인해 연락드리겠습니다. 상담은 무료입니다.</p>'
+    el.innerHTML = '<div class="form-wrap' + (sup ? ' sp' : '') + '">' + (sup ? supportIntro()
       : '<h1>상담 신청</h1><p class="lead mt8">이름과 연락처, 상담 분야만 남겨 주시면 됩니다. 상담과 동행 답사는 모두 무료이며, 접수 후 상담팀이 순서대로 연락드리겠습니다.</p>') +
       '<form id="cform" class="cf mt24" novalidate>' +
       '<div class="field"' + (sup ? ' style="display:none"' : '') + '><label for="f-type">상담 분야 <em>(필수)</em></label><select id="f-type">' + opt('', '선택해 주십시오', !type) + TYPES.map(function (t) { return opt(t[0], t[1], t[0] === type); }).join('') + '</select>' +

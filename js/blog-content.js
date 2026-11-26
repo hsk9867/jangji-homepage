@@ -15,7 +15,7 @@ window.BLOG_CONTENT = {
     "사찰 인근",
     "파묘·이장 후 안치"
    ],
-   "comment": "남양주 수동면 무량사 인근에 있는 수목장입니다. 능선을 따라 조성된 수목 구역에서 산 전망이 넓게 트여 있고, 파묘·이장 후 새로 모실 곳을 찾는 가족이 많이 찾습니다. 서울 동북부와 구리·남양주에서 오가기 편합니다.",
+   "comment": "남양주 무량수목장은 남양주시 수동면에 위치한 대한불교조계종 사찰 수목장입니다. 배산임수의 지형과 탁 트인 산 전망을 갖추고 있으며, 고즈넉한 자연 속에서 평온하게 고인을 추모할 수 있습니다. 수도권 제2순환고속도로 수동IC와 가까워 서울 동북부와 구리·남양주 등 수도권에서 접근하기 편리합니다.",
    "photos": [
     "img/fac/muryang-1.jpg",
     "img/fac/muryang-2.jpg",
@@ -781,7 +781,7 @@ window.BLOG_CONTENT = {
    "lat": 37.724672,
    "lng": 126.9094922,
    "operator": "사설",
-   "price": "1만원~",
+   "price": "180만원~",
    "tags": [
     "실내 봉안당",
     "일산·고양권"
@@ -808,7 +808,7 @@ window.BLOG_CONTENT = {
    "priceItems": [
     {
      "label": "기본",
-     "price": "1만원~"
+     "price": "180만원~"
     }
    ]
   },
@@ -1056,7 +1056,7 @@ window.BLOG_CONTENT = {
     "img/fac/bongwonsa-8.jpg"
    ],
    "blogUrl": "",
-   "price": "1만원~",
+   "price": "180만원~",
    "featured": true,
    "visible": true,
    "keywords": [
@@ -1067,7 +1067,7 @@ window.BLOG_CONTENT = {
    "priceItems": [
     {
      "label": "기본",
-     "price": "1만원~"
+     "price": "180만원~"
     }
    ]
   },
