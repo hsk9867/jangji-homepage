@@ -160,6 +160,10 @@
     { n: 640, suffix: '', unit: '건', label: '누적 계약 체결', img: 'img/fac/haneulmun-2.jpg' },
     { n: 97, suffix: '', unit: '%', label: '고객 만족도', img: 'img/counselor-1.jpg' }
   ];
+  function statList() {   /* 2026-11-26: 관리자 > 기본 정보 > 배웅 주요 현황 값이 있으면 그것을 씀 */
+    var a = (C.site.stats || []).filter(function (x) { return x && x.label; }).map(function (x) { return { label: x.label, n: Math.max(0, Math.round(Number(String(x.n).replace(/[^0-9.]/g, '')) || 0)), suffix: x.suffix || '', unit: x.unit || '', img: x.img || '' }; });
+    return a.length ? a : STATS;
+  }
   P.home = function (el) {
     var s = C.site, D = (window.CONTENT_DEFAULT || {}).site || {}, saved = (window.SITE_CONTENT || {}).site || {};
     setTitle('');
@@ -206,7 +210,7 @@
 
       /* 8. 주요 현황 (숫자 카운트업) */
       '<section class="sec sec-gray stats" id="stats" aria-label="배웅 주요 현황"><div class="wrap">' + head('배웅 주요 현황', '') + '<ul id="statList">' +
-        STATS.map(function (x) { return '<li><span class="ph">' + U.img(x.img, '') + '</span><span class="lb">' + x.label + '</span><b><span class="num" data-n="' + x.n + '">' + x.n.toLocaleString('ko-KR') + '</span>' + x.suffix + (x.unit ? '<small>' + x.unit + '</small>' : '') + '</b></li>'; }).join('') +
+        statList().map(function (x) { return '<li><span class="ph">' + (x.img ? U.img(x.img, '') : '') + '</span><span class="lb">' + esc(x.label) + '</span><b><span class="num" data-n="' + x.n + '">' + x.n.toLocaleString('ko-KR') + '</span>' + esc(x.suffix || '') + (x.unit ? '<small>' + esc(x.unit) + '</small>' : '') + '</b></li>'; }).join('') +
       '</ul></div></section>' +
 
       /* 9. 장지 유형 안내 (가격) */

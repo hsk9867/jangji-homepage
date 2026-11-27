@@ -104,11 +104,15 @@ function sanitizeContent(array $c): array {
     $out = [];
     if (isset($c['site']) && is_array($c['site'])) {
         $s = $c['site']; $o = [];
-        foreach (['name','slogan','phone','hours','notifyEmail','bizName','bizDesc','ceo','bizNo','mailOrderNo','address','email','heroEyebrow','heroTitle','heroSub','finalTitle'] as $k) if (isset($s[$k])) $o[$k] = cleanStr($s[$k], 400);
+        foreach (['name','slogan','phone','hours','notifyEmail','bizName','bizDesc','ceo','bizNo','mailOrderNo','address','email','heroEyebrow','heroTitle','heroSub','finalTitle','kakaoJsKey','naverMapKey'] as $k) if (isset($s[$k])) $o[$k] = cleanStr($s[$k], 400);
         foreach (['logo','heroImage'] as $k) if (isset($s[$k])) $o[$k] = cleanPath($s[$k]);
         foreach (['kakao','blogUrl','supportFormUrl'] as $k) if (isset($s[$k])) $o[$k] = cleanUrl($s[$k]);
         foreach (['heroBadges','regions'] as $k) if (isset($s[$k]) && is_array($s[$k])) $o[$k] = array_values(array_filter(array_map(function ($v) { return cleanStr($v, 60); }, array_slice($s[$k], 0, 30)), 'strlen'));
-        foreach (['why','steps'] as $k) if (isset($s[$k]) && is_array($s[$k])) {
+        if (isset($s['stats']) && is_array($s['stats'])) {
+            $o['stats'] = [];
+            foreach (array_slice($s['stats'], 0, 8) as $r) if (is_array($r)) $o['stats'][] = ['label' => cleanStr($r['label'] ?? '', 40), 'n' => (int)preg_replace('/[^0-9]/', '', (string)($r['n'] ?? '0')), 'suffix' => cleanStr($r['suffix'] ?? '', 4), 'unit' => cleanStr($r['unit'] ?? '', 8), 'img' => cleanPath($r['img'] ?? '')];
+        }
+        foreach (['why','steps','cards'] as $k) if (isset($s[$k]) && is_array($s[$k])) {
             $o[$k] = [];
             foreach (array_slice($s[$k], 0, 10) as $r) if (is_array($r)) $o[$k][] = ['t' => cleanStr($r['t'] ?? '', 80), 'd' => cleanStr($r['d'] ?? '', 300)];
         }

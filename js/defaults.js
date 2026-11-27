@@ -35,6 +35,13 @@
         { tag: '', big: '주말 동행 상담', t: '주말에도 언제든지\n동행상담 가능합니다.', d: '', btn: '답사 예약 신청', href: 'contact.html', image: 'img/hero-a-walk-2.jpg' }
       ],
       finalTitle: '모실 인원과 희망 지역만 알려주세요.\n배웅이 맞는 곳을 함께 찾아드립니다.',
+      /* 첫 화면 '배웅 주요 현황' (관리자 > 기본 정보에서 수정) */
+      stats: [
+        { label: '상담 가능 장지', n: 50, suffix: '+', unit: '곳', img: 'img/fac/eden-2.jpg' },
+        { label: '누적 상담 신청', n: 1870, suffix: '', unit: '건', img: 'img/fac/gonggam-2.jpg' },
+        { label: '누적 계약 체결', n: 640, suffix: '', unit: '건', img: 'img/fac/haneulmun-2.jpg' },
+        { label: '고객 만족도', n: 97, suffix: '', unit: '%', img: 'img/counselor-1.jpg' }
+      ],
       why: [
         { t: '직접 답사한 시설만', d: '배웅 상담팀이 직접 다녀와 진입로·주차·관리 상태까지 확인한 곳만 안내합니다.' },
         { t: '주말에도 무료 동행', d: '현장 답사는 사전 예약제로, 평일이 어려운 가족은 주말에도 함께 방문합니다.' },

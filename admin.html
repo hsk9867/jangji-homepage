@@ -10,6 +10,10 @@
 <style>
 :root { --g: #2f5d50; --gd: #22463c; --gs: #e6eee9; --bg: #f3f1ec; --line: #ddd6ca; --ink: #1f2a26; --ink2: #5a6560; --red: #b3261e; --warm: #a8652e; }
 * { box-sizing: border-box; }
+.stat-ed { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: start; padding: 12px 0; border-top: 1px solid var(--line); }
+.stat-ed:first-child { border-top: 0; }
+.stat-ed .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+@media (max-width: 560px) { .stat-ed { grid-template-columns: 1fr; } }
 .rt-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 6px; }
 .rt-bar button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 5px 10px; font-size: 13px; cursor: pointer; color: var(--ink); }
 .rt-bar button:hover { background: var(--gs); }
@@ -151,9 +155,9 @@ h2 { font-size: 20px; margin: 0 0 4px; }
   <div class="savebar hidden" id="savebar"><div class="in"><span class="msg" id="save-msg">변경 사항이 없습니다.</span><button class="btn" id="preview">미리보기</button><button class="btn pri" id="save">저장하기</button></div></div>
 </div>
 
-<script src="js/blog-content.js"></script>
-<script src="js/defaults.js"></script>
+<script src="js/blog-content.js?v=20261127a"></script>
+<script src="js/defaults.js?v=20261127a"></script>
 <script>document.write('<script src="data/content.js?t=' + Date.now() + '"><\/script>');</script>
-<script src="js/admin.js?v=20261126m"></script>
+<script src="js/admin.js?v=20261127a"></script>
 </body>
 </html>

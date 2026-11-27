@@ -448,6 +448,7 @@
         fArea('서비스 이용 안내 (4단계)', s, 'steps', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 120) +
         fArea('배웅의 약속', s, 'why', '한 줄에 하나씩, "제목 | 설명" 형식', 'pairs', 110) +
         fArea('맨 아래 상담 문구', s, 'finalTitle', '', '', 60) + '</div>' +
+      '<div class="card"><h3>배웅 주요 현황</h3><p class="help">첫 화면 "배웅 주요 현황"의 사진·문구·숫자입니다. 숫자는 화면에 보일 때 0부터 올라갑니다. 항목 이름을 비우면 그 칸은 숨겨집니다.</p><div id="stats"></div></div>' +
       '<div class="card"><h3>첫 화면 자주 묻는 질문</h3><div class="pairs" id="gfaqs"></div><button class="btn sm" id="gfaq-add">＋ 질문 추가</button></div>' +
       '<div class="card"><h3>장례정보 · 직접 추가한 글</h3><p class="help">첫 화면 "배웅이 알려드리는 장례정보"에는 여기 등록한 글만 이 순서대로 나옵니다. 글마다 제목·블로그 주소·날짜를 넣고 썸네일 사진을 첨부하세요(가로 4:3 권장). 글이 하나도 없으면 첫 화면에서 장례정보 칸이 숨겨집니다.</p><div class="pairs" id="arts"></div><button class="btn sm" id="art-add">＋ 글 추가</button></div>' +
       '<div class="card"><h3>상담 지역</h3>' + fArea('지역 목록', s, 'regions', '한 줄에 하나씩. 상담 신청서의 지역 선택지에 쓰입니다.', 'lines', 120) + '</div>' +
@@ -455,6 +456,22 @@
     bindFields(view, s, { name: function (v) { $('top-name').textContent = v + ' 관리자'; } });
     photoEditor($('hero-host'), hero, function () { s.heroImage = hero[0] || ''; setDirty(true); }, true);
     photoEditor($('logo-host'), logo, function () { s.logo = logo[0] || ''; setDirty(true); }, 'logo');
+    s.stats = clone(Array.isArray(s.stats) && s.stats.length ? s.stats : (D.site.stats || []));
+    (function drawStats() {
+      var host = $('stats');
+      host.innerHTML = s.stats.map(function (x, i) {
+        return '<div class="stat-ed"><div class="st-ph" data-ph="' + i + '"></div><div class="st-f">' +
+          '<div class="f"><label>항목 이름</label><input data-i="' + i + '" data-f="label" value="' + esc(x.label || '') + '" placeholder="예: 누적 상담 신청"></div>' +
+          '<div class="row3"><div class="f"><label>숫자</label><input data-i="' + i + '" data-f="n" inputmode="numeric" value="' + esc(x.n == null ? '' : x.n) + '" placeholder="1870"></div>' +
+          '<div class="f"><label>숫자 뒤 기호</label><input data-i="' + i + '" data-f="suffix" value="' + esc(x.suffix || '') + '" placeholder="예: +"></div>' +
+          '<div class="f"><label>단위</label><input data-i="' + i + '" data-f="unit" value="' + esc(x.unit || '') + '" placeholder="건 / 곳 / %"></div></div></div></div>';
+      }).join('');
+      host.querySelectorAll('[data-f]').forEach(function (el) { el.oninput = function () { var x = s.stats[+el.dataset.i]; x[el.dataset.f] = el.dataset.f === 'n' ? el.value.replace(/[^0-9]/g, '') : el.value; setDirty(true); }; });
+      host.querySelectorAll('[data-ph]').forEach(function (h) {
+        var x = s.stats[+h.dataset.ph], arr = x.img ? [x.img] : [];
+        photoEditor(h, arr, function () { x.img = arr[0] || ''; setDirty(true); }, true);
+      });
+    })();
     function drawFaqs() {
       var host = $('gfaqs');
       host.innerHTML = c.faqs.map(function (f, i) { return '<div class="pair"><input data-i="' + i + '" data-f="q" value="' + esc(f.q) + '" placeholder="질문"><textarea data-i="' + i + '" data-f="a" placeholder="답변">' + esc(f.a) + '</textarea><button class="btn sm del x" data-rm="' + i + '">삭제</button></div>'; }).join('') || '<p class="help">질문이 없습니다.</p>';
@@ -602,7 +619,7 @@
   (function () {
     var MARK = { b: '**', u: '__', d: '==' };
     function bar(ta) {
-      if (ta.dataset.rt || ta.name === 'priceItems' || ta.dataset.noRich) return;
+      if (ta.dataset.rt || ta.name === 'priceItems' || ta.dataset.noRich || ta.dataset.kind === 'lines' || ta.dataset.kind === 'pairs') return;   /* 목록·"제목 | 설명" 칸은 꾸미기 제외 */
       ta.dataset.rt = '1';
       var d = document.createElement('div');
       d.className = 'rt-bar';
